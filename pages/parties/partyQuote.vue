@@ -1,13 +1,13 @@
 <script setup>
 
-const firstName = ref("Sue");
-const surname = ref("Holder");
-const email = ref("new1@email.com")
-const phone = ref("07833089559");
-const postCode = ref("GU29 9FJ");
-const info = ref("No");
+const firstName = ref("");
+const surname = ref("");
+const email = ref("")
+const phone = ref("");
+const postCode = ref("");
+const info = ref("");
 const party = ref("Football Frenzy Party");
-const childsName = ref("Nathan Holder");
+const childsName = ref("");
 const childsBirthday = ref("2023-03-11");
 const childsAge = ref(10);
 const partyDate1 = ref("2023-03-11");
