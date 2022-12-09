@@ -14,16 +14,30 @@ module.exports = {
   'content/**/*.md',
 ],
   theme: {
-    colors: {
+    container: {
+      center: true,
+      padding: {
+        xs: '0.5rem',
+        sm: '1rem',
+        md: '1.6rem',
+        lg: '2rem'
+      }
+    },
+    extend: {
+      colors: {
       transparent: 'transparent',
       current: 'currentColor',
-      'primary': 'rgb(var(--color-primary) / <alpha-value>)',
-      'secondary': 'rgb(var(--color-secondary) / <alpha-value>)',
-      'accent': 'rgb(var(--color-accent) / <alpha-value>)',
-      'dark': 'rgb(var(--color-dark) / <alpha-value>)',
-      'light': 'rgb(var(--color-light) / <alpha-value>)',
-      'backdrop': 'rgb(var(--color-backdrop) / <alpha-value>)',
+      'primary': 'rgb(var(--color-primary) / 1)',
+      'secondary': 'rgb(var(--color-secondary) / 1)',
+      'accent': 'rgb(var(--color-accent) / 1)',
+      'dark': 'rgb(var(--color-dark) / 1)',
+      'light': 'rgb(var(--color-light) / 1)',
+      'backdrop-start': 'rgb(var(--color-backdrop) / 0.75)',
+      'backdrop-end': 'rgb(var(--color-backdrop) / 0.25)',
+      },
     },
+
+
     screens: {
       'xs': '320px', //min-width
       'sm': '480px',
