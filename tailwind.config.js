@@ -14,15 +14,33 @@ module.exports = {
   'content/**/*.md',
 ],
   theme: {
+    fontFamily: {
+      'play': ['Play-Bold','sans-serif'],
+      'mulish': ['Mulish-Semibold','sans-serif'],
+      'inter-regular': ['Inter-Regular','sans-serif'],
+      'inter-medium': ['Inter-Medium','sans-serif'],
+      'inter-bold': ['Inter-Bold','sans-serif'],
+    },
+     screens: {
+      xs: '320px', //min-width
+      sm: '480px',
+      md: '768px',
+      lg: '976px',
+      xl: '1440px',
+      '2xl':'1600px',
+      '3xl':'1920px',
+    },
     container: {
       center: true,
-      padding: {
-        xs: '0.5rem',
-        sm: '1rem',
-        md: '1.6rem',
-        lg: '2rem'
-      }
+       padding: {
+        DEFAULT: '1rem',
+        sm: '2rem',
+        lg: '4rem',
+        xl: '5rem',
+        '2xl': '6rem',
+      },
     },
+
     extend: {
       colors: {
       transparent: 'transparent',
@@ -37,23 +55,6 @@ module.exports = {
       },
     },
 
-
-    screens: {
-      'xs': '320px', //min-width
-      'sm': '480px',
-      'md': '768px',
-      'lg': '976px',
-      'xl': '1440px',
-      '2xl':'1600px',
-      '3xl':'1920px',
-    },
-    fontFamily: {
-      'play': ['Play-Bold','sans-serif'],
-      'mulish': ['Mulish-Semibold','sans-serif'],
-      'inter-regular': ['Inter-Regular','sans-serif'],
-      'inter-medium': ['Inter-Medium','sans-serif'],
-      'inter-bold': ['Inter-Bold','sans-serif'],
-    },
   },
   plugins: [
     require('@tailwindcss/typography'),
