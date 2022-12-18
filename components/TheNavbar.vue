@@ -14,32 +14,21 @@
 
       <!-- Navbar -->
       <div class="hidden lg:block">
-        <ul class="flex space-x-8 text-3xl font-mulish uppercase">
+        <ul class="flex space-x-8 text-3xl font-mulish uppercase text-secondary">
           <li>
-            <NuxtLink
-              to="/"
-              class="text-secondary active border-b-4 border-primary pb-2 hover:font-bold"
-            >
-              Home</NuxtLink
-            >
+            <NuxtLink to="/" class="pb-2 hover:font-bold"> Home </NuxtLink>
           </li>
           <li>
-            <NuxtLink to="/" class="text-secondary hover:font-bold"> Contact </NuxtLink>
+            <NuxtLink to="/clubs" class="hover:font-bold pb-2"> School Clubs </NuxtLink>
           </li>
           <li>
-            <NuxtLink to="/" class="text-secondary hover:font-bold">
-              School Clubs
-            </NuxtLink>
+            <NuxtLink to="/camps" class="hover:font-bold pb-2"> Activity Camps </NuxtLink>
           </li>
           <li>
-            <NuxtLink to="/" class="text-secondary hover:font-bold">
-              Activity Camps
-            </NuxtLink>
+            <NuxtLink to="/parties" class="hover:font-bold pb-2"> Kids Parties </NuxtLink>
           </li>
           <li>
-            <NuxtLink to="/" class="text-secondary hover:font-bold">
-              Kids Parties
-            </NuxtLink>
+            <NuxtLink to="/contact" class="hover:font-bold pb-2"> Contact </NuxtLink>
           </li>
         </ul>
       </div>
@@ -154,4 +143,9 @@ onMounted(() => {
 });
 </script>
 
-<style scoped></style>
+<style scoped>
+.router-link-active,
+.router-link-exact-active {
+  border-bottom: solid 0.3rem rgb(248 132 37);
+}
+</style>
