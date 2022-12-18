@@ -46,6 +46,7 @@ async function handleSubmit() {
   console.log('Response', res)
   quoteRef.value = res.id
   console.log('quoteRef', quoteRef.value)
+  await navigateTo('/')
 }
 
 </script>
