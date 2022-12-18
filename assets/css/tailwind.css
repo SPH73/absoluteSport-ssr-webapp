@@ -38,9 +38,31 @@
 
     font-size: 10px;
   }
+}
+
+  @layer components {
+    .btn-accent {
+      @apply bg-accent text-secondary px-3 py-2 rounded-md
+    }
+    .btn-secondary {
+      @apply bg-secondary text-accent px-3 py-2 rounded-md
+    }
+    .btn-primary {
+      @apply bg-primary text-accent px-3 py-2 rounded-md
+    }
+    .bullets {
+      @apply mt-2 text-3xl max-w-5xl leading-10 text-secondary
+    }
+    .thumb {
+      @apply list-["\1F44D"] pr-6
+    }
+
+  body {
+    @apply bg-primary;
+  }
 
 
-  main { flex-grow: 1;}
+  main { flex-grow: 1; }
   header, footer { flex-shrink:0;}
 
   h1, h2, h3, h4, h5, h6, label {
