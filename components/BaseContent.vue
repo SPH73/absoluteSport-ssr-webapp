@@ -1,7 +1,7 @@
 <script lang="ts" setup></script>
 
 <template>
-  <div class="tracking-wide">
+  <div class="tracking-wider">
     <h2 class="text-accent font-play">
       <slot name="title" />
     </h2>
