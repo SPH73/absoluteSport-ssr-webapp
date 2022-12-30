@@ -21,10 +21,10 @@ export default defineNuxtConfig({
   ],
   runtimeConfig: {
     private: {
-      atApiKey: process.env.NUXT_ENV_AT_API_KEY,
+      atApiKey: process.env.AT_API_KEY,
     },
     public: {
-      atBaseId: process.env.NUXT_ENV_AT_BASE_ID
+      atBaseId: process.env.AT_BASE_ID
     }
   }
 })
