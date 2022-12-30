@@ -3,15 +3,19 @@ const { data } = await useFetch("/api/reviews");
 </script>
 
 <template>
-  <div class="bg-secondary text-light flex flex-col text-center justify-center">
+  <div
+    class="text-light flex text-center justify-center backdrop-blur-sm backdrop-grayscale rounded-lg p-8 md:px-2"
+  >
     <ul v-for="{ id, fields } in data" :key="id">
-      <p class="text-2xl tracking-wider">{{ fields.reviewerComment }}</p>
-      <div v-for="star in fields.rating" class="text-accent text-xl">
-        <font-awesome-icon :icon="['fas', 'star']" />
-        <font-awesome-icon :icon="['fas', 'star']" />
-        <font-awesome-icon :icon="['fas', 'star']" />
-        <font-awesome-icon :icon="['fas', 'star']" />
-        <font-awesome-icon :icon="['fas', 'star']" />
+      <p class="text-2xl tracking-wider max-w-prose">
+        {{ fields.reviewerComment }}
+      </p>
+      <div>
+        <font-awesome-icon
+          v-for="star in fields.rating"
+          class="text-accent text-xl p-1"
+          :icon="['fas', 'star']"
+        />
       </div>
       <h5 class="text-xl tracking-wider">{{ fields.reviewerName }}</h5>
     </ul>

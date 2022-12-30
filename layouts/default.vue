@@ -9,7 +9,7 @@
     </main>
     <footer class="bg-dark text-light">
       <div class="container">
-        <h1>Footer</h1>
+        <h2>Footer</h2>
       </div>
     </footer>
   </div>

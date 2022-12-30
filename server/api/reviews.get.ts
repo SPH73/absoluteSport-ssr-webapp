@@ -8,11 +8,11 @@ export default defineEventHandler(async () => {
 
   const table = base('reviews')
 
-  const records = await table.select({maxRecords: 2, view: 'allReviews'}).firstPage();
+  const records = await table.select({maxRecords: 1, view: 'allReviews'}).firstPage();
   if (!records) {
     throw Error('Unable to fetch reviews')
   }
-    console.log('airtable reviews', records)
+    // console.log('airtable reviews', records)
 
     return records
 })
