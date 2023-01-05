@@ -1,6 +1,4 @@
 <script lang="ts" setup>
-import { def } from "@vue/shared";
-
 defineProps(["partyDetails"]);
 </script>
 
@@ -17,6 +15,21 @@ defineProps(["partyDetails"]);
       alt="{{img.filename}}"
       class="w-full h-50"
     />
+    <div>
+      <p>{{ party.summaryP1 }}</p>
+      <p>{{ party.summaryP2 }}</p>
+      <p>{{ party.summaryP3 }}</p>
+      <button class="btn-accent">
+        <NuxtLink
+          :to="{ name: 'parties-slug', params: { slug: party.slug } }"
+          class="flex justify-center items-center p-2 text-xl uppercase font-bold"
+        >
+          {{ party.partyName }} details &nbsp;<font-awesome-icon
+            :icon="['fas', 'arrow-right']"
+          />
+        </NuxtLink>
+      </button>
+    </div>
   </div>
 </template>
 

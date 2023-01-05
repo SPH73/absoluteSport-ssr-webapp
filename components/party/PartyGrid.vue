@@ -7,5 +7,3 @@ defineProps(["partyDetails"]);
     <PartyElement :partyDetails="partyDetails" />
   </div>
 </template>
-
-<style scoped></style>
