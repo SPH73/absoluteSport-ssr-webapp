@@ -29,7 +29,7 @@ content.value.forEach((record, index) => {
 });
 </script>
 <template>
-  <main>
+  <main class="pb-20">
     <section>
       <div>
         <div class="max-w-7xl mx-auto">
