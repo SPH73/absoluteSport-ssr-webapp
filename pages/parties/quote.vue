@@ -1,27 +1,25 @@
 <script setup>
-
-const firstName = ref("");
-const surname = ref("");
-const email = ref("")
-const phone = ref("");
-const postCode = ref("");
-const info = ref("");
+const firstName = ref("Sue");
+const surname = ref("Holder");
+const email = ref("sue@designdevelophost.co.uk");
+const phone = ref("07492727870");
+const postCode = ref("PO20 1PE");
+const info = ref("None");
 const party = ref("Football Frenzy Party");
-const childsName = ref("");
+const childsName = ref("Nathan");
 const childsBirthday = ref("2023-03-11");
 const childsAge = ref(10);
 const partyDate1 = ref("2023-03-11");
 const partyDate2 = ref("2023-03-18");
-const partyStart = ref("16:00")
-const partyLength = ref(2)
-const numChildren = ref(15)
+const partyStart = ref("16:00");
+const partyLength = ref(2);
+const numChildren = ref(15);
 const recaptcha = ref("...");
-const quoteRef = ref("")
-
+const quoteRef = ref("");
 
 async function handleSubmit() {
-  const res = await $fetch('/api/parties/partyQuote', {
-    method: 'post',
+  const res = await $fetch("/api/parties/partyQuote", {
+    method: "post",
     body: {
       firstName: firstName.value,
       status: "new",
@@ -40,64 +38,76 @@ async function handleSubmit() {
       partyStart: partyStart.value,
       partyLength: partyLength.value,
       numChildren: numChildren.value,
-      recaptcha: recaptcha.value
-    }
-  })
-  console.log('Response', res)
-  quoteRef.value = res.id
-  console.log('quoteRef', quoteRef.value)
-  await navigateTo('/')
+      recaptcha: recaptcha.value,
+    },
+  });
+  console.log("Response", res);
+  quoteRef.value = res.id;
+  console.log("quoteRef", quoteRef.value);
+  await navigateTo("/");
 }
-
 </script>
 
 <template>
-  <div>
+  <div class="container">
+    <h1>party quote form</h1>
+  </div>
+  <!-- <div class="flex gap-8 text-dark">
     <form @submit.prevent="handleSubmit">
-      <label>First Name
+      <label
+        >First Name
         <input type="text" v-model="firstName" />
       </label>
-      <label>Surname
+      <label
+        >Surname
         <input type="text" v-model="surname" />
       </label>
-      <label>Email
+      <label
+        >Email
         <input type="email" v-model="email" />
       </label>
-      <label>Phone
+      <label
+        >Phone
         <input type="phone" v-model="phone" />
       </label>
-      <label>Post Code
+      <label
+        >Post Code
         <input type="text" v-model="postCode" />
       </label>
-      <label>Childs Name
+      <label
+        >Childs Name
         <input type="text" v-model="childsName" />
       </label>
-      <label>Childs Age
+      <label
+        >Childs Age
         <input type="text" v-model="childsAge" />
       </label>
-      <label>Actual Birthday
+      <label
+        >Actual Birthday
         <input type="date" v-model="childsBirthday" />
       </label>
-      <label>Party Date 1st Choice
+      <label
+        >Party Date 1st Choice
         <input type="date" v-model="partyDate1" />
       </label>
-      <label>Party Date 2nd Choice
+      <label
+        >Party Date 2nd Choice
         <input type="date" v-model="partyDate2" />
       </label>
-      <label>Party Duration
+      <label
+        >Party Duration
         <input type="number" v-model="partyLength" />
       </label>
-      <label>Party Start Time
+      <label
+        >Party Start Time
         <input type="time" v-model="partyStart" />
       </label>
-      <label>Number of Children
+      <label
+        >Number of Children
         <input type="number" v-model="numChildren" />
       </label>
-      <label>Additonal Info?
-        <textarea type="text" v-model="info" />
-      </label><br>
+      <label>Additonal Info? <textarea type="text" v-model="info" /></label><br />
       <button type="submit">Send Me A Quote</button>
     </form>
-  </div>
+  </div> -->
 </template>
-
