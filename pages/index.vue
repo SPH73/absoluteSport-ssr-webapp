@@ -4,7 +4,7 @@ const { error, data: reviews } = await useFetch("/api/reviews");
 
 <template>
   <section
-    class="bg-blend-overlay lg:bg-fixed bg-neutral-600 bg-[url('/img/hero_1920.webp')] bg-center bg-no-repeat bg-cover w-full h-[90vh] md:h-[70vh] pt-10 pb-4"
+    class="bg-blend-overlay lg:bg-fixed bg-neutral-600 bg-[url('/img/hero_portrait_1920.webp')] md:bg-[url('/img/hero_landscape_1920.webp')] bg-center bg-no-repeat bg-cover w-full h-[90vh] md:h-[70vh] pt-10 pb-4"
   >
     <div class="max-w-7xl mx-auto">
       <div class="container relative font-play">
@@ -140,7 +140,7 @@ const { error, data: reviews } = await useFetch("/api/reviews");
   </section>
   <!-- About -->
   <section
-    class="bg-blend-overlay lg:bg-fixed bg-neutral-700 bg-[url('/img/home_about_1920.webp')] lg:bg-center sm:bg-left bg-no-repeat bg-cover w-full h-[90vh] py-10"
+    class="bg-blend-overlay lg:bg-fixed bg-neutral-700 bg-[url('/img/home_about_portrait_1920.webp')] md:bg-[url('/img/home_about_landscape_1920.webp')] h-[90vh] md:h-[70vh] bg-center bg-no-repeat bg-cover w-full py-10"
   >
     <div class="max-w-7xl mx-auto">
       <div class="container">
