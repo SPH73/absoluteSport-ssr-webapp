@@ -40,7 +40,7 @@ content.value.forEach((record, index) => {
                 At AbsoluteSport we offer 3 different Themed Birthday Parties. Our coaches
                 all ensure that the children attending the party will have an absolute
                 blast of a time. We aim to keep all parties stress free by tailoring the
-                entire process around you and your child's needs. If you having something
+                entire process around you and your child's needs. If you have something
                 more specific in mind than what you see listed here on the site, please do
                 contact us and we will be more than happy to help assist in creating the
                 ideal party for your child.
@@ -74,8 +74,8 @@ content.value.forEach((record, index) => {
               of their lives!
             </p>
             <p>
-              We supply everything needed for an unforgettable kid\'s party - all
-              equipment and game props as well as prizes for the children.
+              We supply everything needed for an unforgettable kid's party - all equipment
+              and game props as well as the prizes.
             </p>
             <ul class="bullets list-inside">
               <li class="thumb">
