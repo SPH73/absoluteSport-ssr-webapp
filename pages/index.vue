@@ -102,8 +102,8 @@ const { error, data: reviews } = await useFetch("/api/reviews");
       </BaseCard>
       <BaseCard>
         <BaseContent>
-          <template #title>During School Holidays's</template>
-          <template #sub-1>AbsoluteSport Activity Camps </template>
+          <template #title>During School Holiday's</template>
+          <template #sub-1>Activity Camps </template>
           <template #para-1
             >Why not come and see how much fun we have during the school
             holidays?</template
@@ -121,7 +121,7 @@ const { error, data: reviews } = await useFetch("/api/reviews");
       <BaseCard>
         <BaseContent>
           <template #title>All year</template>
-          <template #sub-1>AbsoluteSport Themed Parties</template>
+          <template #sub-1>Themed Parties</template>
           <template #para-1
             >Are you looking for a fun-filled birthday party for your child? Great, then
             look no further!</template
