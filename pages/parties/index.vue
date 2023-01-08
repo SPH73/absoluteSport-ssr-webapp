@@ -46,7 +46,7 @@ content.value.forEach((record, index) => {
                 ideal party for your child.
               </p>
             </div>
-            <h3>Click on a party from the options below to read a short summary</h3>
+            <!-- <h3>Click on a party from the options below to read a short summary</h3> -->
           </div>
         </div>
 
