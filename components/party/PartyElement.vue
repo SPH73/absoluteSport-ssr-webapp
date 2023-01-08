@@ -9,7 +9,7 @@ defineProps(["partyDetails"]);
     class="bg-secondary p-8 rounded border-4 border-light flex flex-col justify-between items-stretch"
   >
     <div class="self-start">
-      <h3 class="text-accent text-center">{{ party.partyName }}</h3>
+      <h3 class="text-accent text-center capitalize">{{ party.partyName }}</h3>
       <img
         v-for="img in party.image"
         :src="img.thumbnail"
@@ -17,7 +17,7 @@ defineProps(["partyDetails"]);
         class="w-full h-50 my-8"
       />
       <div class="my-8">
-        <h4 class="text-accent">{{ party.summaryP1 }}</h4>
+        <h4 class="text-accent capitalize">{{ party.summaryP1 }}</h4>
         <p>{{ party.summaryP2 }}</p>
         <p>{{ party.summaryP3 }}</p>
       </div>
@@ -37,7 +37,7 @@ defineProps(["partyDetails"]);
           :ref="party.partyRef"
           class="flex justify-center items-center p-2 text-xl uppercase font-bold"
         >
-          book &nbsp;<font-awesome-icon :icon="['fas', 'arrow-right']" />
+          get a quote &nbsp;<font-awesome-icon :icon="['fas', 'arrow-right']" />
         </NuxtLink>
       </button>
     </div>
