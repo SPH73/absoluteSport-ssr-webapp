@@ -7,7 +7,7 @@ const { error, data: reviews } = await useFetch("/api/reviews");
     class="bg-blend-overlay lg:bg-fixed bg-neutral-600 bg-[url('/img/hero_portrait_1920.webp')] md:bg-[url('/img/hero_landscape_1920.webp')] bg-center bg-no-repeat bg-cover w-full h-[90vh] md:h-[70vh] pt-10 pb-4"
   >
     <div class="max-w-7xl mx-auto">
-      <div class="container relative font-play">
+      <div class="container relative font-play py-8">
         <h1>Fun, Laughter, Games and Exercise with AbsoluteSport</h1>
         <h2>Kids learn while having fun at our clubs, camps and parties</h2>
         <!-- reviews -->
@@ -27,8 +27,9 @@ const { error, data: reviews } = await useFetch("/api/reviews");
   </section>
   <section>
     <!-- Benefits -->
-
-    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 w-full mx-auto p-8">
+    <section
+      class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 w-full mx-auto pt-8 px-8"
+    >
       <BaseBadge>
         <template #icon>
           <font-awesome-icon :icon="['fas', 'award']" />
@@ -78,7 +79,7 @@ const { error, data: reviews } = await useFetch("/api/reviews");
           sessions that encourage social interaction and team camaraderie.
         </template>
       </BaseBadge>
-    </div>
+    </section>
   </section>
   <section>
     <!-- Services -->
@@ -103,25 +104,26 @@ const { error, data: reviews } = await useFetch("/api/reviews");
       <BaseCard>
         <BaseContent>
           <template #title>During School Holiday's</template>
-          <template #sub-1>Activity Camps </template>
+          <template #sub-1>Sports & Activity Camps </template>
           <template #para-1
-            >Why not come and see how much fun we have during the school
-            holidays?</template
+            >Our holiday clubs provide children the opportunity to make new friendships
+            outside of their school or classrooms and remain mentally and physically
+            active while having a great time together.</template
           >
           <template #para-2
-            >We run Activity Camps at Sidlesham Primary School. Each day is a different
-            theme, we have Superhero, Pirates, Survival and many more themes to enjoy.
+            >Working parent's have the peace of mind that their children are engaging in
+            social and sports activities that boost their confidence and skills in a safe
+            and fun environment.
           </template>
           <template #para-3
-            >If you want to know more about our camps and how to book please follow the
-            link below to our detailed camps page.</template
+            >Come and find out how much fun we have during the school holidays!</template
           >
         </BaseContent>
       </BaseCard>
       <BaseCard>
         <BaseContent>
           <template #title>All year</template>
-          <template #sub-1>Themed Parties</template>
+          <template #sub-1>Themed Children's Parties</template>
           <template #para-1
             >Are you looking for a fun-filled birthday party for your child? Great, then
             look no further!</template
@@ -143,7 +145,7 @@ const { error, data: reviews } = await useFetch("/api/reviews");
     class="bg-blend-overlay lg:bg-fixed bg-neutral-700 bg-[url('/img/home_about_portrait_1920.webp')] md:bg-[url('/img/home_about_landscape_1920.webp')] h-[90vh] md:h-[70vh] bg-center bg-no-repeat bg-cover w-full py-10"
   >
     <div class="max-w-7xl mx-auto">
-      <div class="container">
+      <div class="container py-8">
         <BaseContent>
           <template #title
             >“FUN FOR EVERYONE” <br />
@@ -175,7 +177,7 @@ const { error, data: reviews } = await useFetch("/api/reviews");
   <section>
     <!-- contact form -->
     <div class="max-w-7xl mx-auto">
-      <div class="container">
+      <div class="container py-8">
         <BaseCard>
           <BaseContent>
             <template #title>Contact Form</template>
