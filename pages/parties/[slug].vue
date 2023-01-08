@@ -18,42 +18,62 @@ parties.value.forEach((record) => {
   };
   partyList.value.push(party);
 });
-// const selectedParty = computed((partySlug) => {
-//     return partyList.value.filter((party) => party.slug === route.params.slug);
-//   });
+const selectedParty = computed((partySlug) => {
+  return partyList.value.find((party) => party.slug === route.params.slug);
+});
 console.log("partyList***********", partyList.value);
 
-useHead({
-  // title: selectedParty.value.fields.partyName,
-  // meta: [
-  //   { name: "description", content: selectedParty.value.fields.summary },
-  //   { property: "og:description", content: selectedParty.value.fields.summary },
-  //   {
-  //     property: "og:image",
-  //     content: selectedParty.value.fields.thumbnail[0].thumbnails.large.url,
-  //   },
-  //   { name: "twitter:card", content: `summary_large_image` },
-  // ],
-});
+// useHead({
+//   title: selectedParty.value.fields.partyName,
+//   meta: [
+//     {
+//       name: "description",
+//       content: selectedParty.value.fields.metaDescription,
+//     },
+//     {
+//       property: "og:description",
+//       content: selectedParty.value.fields.metaDescription,
+//     },
+//     {
+//       property: "og:image",
+//       content: selectedParty.value.fields.thumbnail[0].thumbnails.large.url,
+//     },
+//     { name: "twitter:card", content: `summary_large_image` },
+//   ],
+// });
 </script>
 
 <template>
-  <div v-if="error">{{ error }}</div>
-  <div v-if="pending">
-    <TheSpinner />
-  </div>
-  <div v-else class="container mb-20">
-    <div v-for="party in partyList" :key="party.id">
-      <div v-if="party.slug === $route.params.slug">
-        <div>
-          <h2>{{ party.partyName }}</h2>
+  <section class="flex flex-col justify-between items-stretch container">
+    <div v-if="error">{{ error }}</div>
+    <div v-if="pending">
+      <TheSpinner />
+    </div>
+    <div v-else class="self-start mb-20">
+      <div v-for="party in partyList" :key="party.id">
+        <div v-if="party.slug === partySlug">
+          <div>
+            <h2>{{ party.partyName }}</h2>
+          </div>
+          <h3>{{ party.descriptionHeading }}</h3>
+          <p>{{ party.descriptionP1 }}</p>
+          <p v-html="party.descriptionP2"></p>
+          <p v-html="party.descriptionP3"></p>
+          <p v-html="party.descriptionP4"></p>
+          <p v-html="party.descriptionP5"></p>
         </div>
-        <h3>{{ party.descriptionHeading }}</h3>
-        <p>{{ party.descriptionP1 }}</p>
-        <p v-html="party.descriptionP2"></p>
-        <p v-html="party.descriptionP3"></p>
-        <p v-html="party.descriptionP4"></p>
-        <p v-html="party.descriptionP5"></p>
+      </div>
+      <div class="flex justify-between mt-8">
+        <button class="btn-accent">
+          <NuxtLink :to="{ name: 'parties-quote' }"
+            >Get A Quote &nbsp;<font-awesome-icon :icon="['fas', 'arrow-right']" />
+          </NuxtLink>
+        </button>
+        <button class="btn-accent">
+          <NuxtLink :to="{ name: 'parties' }"
+            >All Parties &nbsp;<font-awesome-icon :icon="['fas', 'arrow-right']" />
+          </NuxtLink>
+        </button>
       </div>
     </div>
 
@@ -72,19 +92,5 @@ useHead({
         </button>
       </div>
     </div> -->
-    <div class="flex justify-center gap-8">
-      <button class="btn-accent font-bold uppercase w-48 h-12">
-        <NuxtLink :to="{ name: 'parties-quote' }"
-          >Get A Quote &nbsp;<font-awesome-icon :icon="['fas', 'arrow-right']" />
-        </NuxtLink>
-      </button>
-      <button class="btn-accent font-bold uppercase w-48 h-12">
-        <NuxtLink :to="{ name: 'parties-quote' }"
-          >All Parties &nbsp;<font-awesome-icon :icon="['fas', 'arrow-right']" />
-        </NuxtLink>
-      </button>
-    </div>
-  </div>
+  </section>
 </template>
-
-<style scoped></style>
