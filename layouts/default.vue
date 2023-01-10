@@ -7,7 +7,7 @@
     <main class="mb-auto flex flex-col bg-primary">
       <slot />
     </main>
-    <footer class="bg-dark text-light">
+    <footer class="bg-dark text-light print:hidden">
       <div class="container">
         <h2>Footer</h2>
       </div>

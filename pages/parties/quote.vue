@@ -1,6 +1,6 @@
 <script setup>
 // fetched data
-const { data: partyList } = await useFetch("/api/parties/partyList");
+const { data: partyList, error } = await useFetch("/api/parties/partyList");
 let party = {};
 const partyOptions = ref([]);
 partyList.value.forEach((record, index) => {
@@ -14,57 +14,139 @@ partyList.value.forEach((record, index) => {
 });
 
 // form data
-const parentFirstName = ref("Sue");
-const surname = ref("Holder");
-const email = ref("sue@designdevelophost.co.uk");
-const phone = ref("07492727870");
-const postCode = ref("PO20 1PE");
-const info = ref("None");
-const childsName = ref("Nathan");
-const childsBday = ref("2023-03-11");
-const childsAge = ref(10);
-const selectedParty = ref("select");
-const partyDate1 = ref("2023-03-11");
-const partyDate2 = ref("2023-03-18");
-const partyStart = ref("16:00");
-const partyLength = ref(2);
-const numChildren = ref(15);
-const recaptcha = ref("...");
-const formIsValid = ref(true);
 const partyData = ref({});
+const parentFirstName = ref({ val: "", isValid: true });
+const surname = ref({ val: "", isValid: true });
+const email = ref({ val: "", isValid: true });
+const phone = ref({ val: "", isValid: true });
+const postCode = ref({ val: "", isValid: true });
+const info = ref(null);
+const selectedParty = ref({ val: "select", isValid: true });
+const partyDate1 = ref({ val: "", isValid: true });
+const partyDate2 = ref({ val: "", isValid: true });
+const partyStart = ref({ val: "", isValid: true });
+const partyLength = ref({ val: null, isValid: true });
+const childsName = ref({ val: "", isValid: true });
+const childsAge = ref({ val: null, isValid: true });
+const childsBday = ref(null);
+const numChildren = ref({ val: null, isValid: true });
 const quoteRef = ref("");
+const formIsValid = ref(true);
+// TODO
+// const recaptcha = ref({ val: "..." });
 
 // methods
+const validateForm = () => {
+  formIsValid.value = true;
+
+  // parent details
+  if (parentFirstName.value.val === "") {
+    parentFirstName.value.isValid = false;
+    formIsValid.value = false;
+  }
+  if (surname.value.val === "") {
+    surname.value.isValid = false;
+    formIsValid.value = false;
+  }
+  if (email.value.val === "" || !email.value.val.includes("@")) {
+    email.value.isValid = false;
+    formIsValid.value = false;
+  }
+  if (phone.value.val === "") {
+    phone.value.isValid = false;
+    formIsValid.value = false;
+  }
+  if (postCode.value.val === "") {
+    postCode.value.isValid = false;
+    formIsValid.value = false;
+  }
+  // event details
+  if (selectedParty.value.val === "select") {
+    selectedParty.value.isValid = false;
+    formIsValid.value = false;
+  }
+  if (partyDate1.value.val === null) {
+    partyDate1.value.isValid = false;
+    formIsValid.value = false;
+  }
+  if (partyDate2.value.val === null) {
+    partyDate2.value.isValid = false;
+    formIsValid.value = false;
+  }
+  if (partyStart.value.val === null) {
+    partyStart.value.isValid = false;
+    formIsValid.value = false;
+  }
+  if (partyLength.value.val === null) {
+    partyLength.value.isValid = false;
+    formIsValid.value = false;
+  }
+  // child details
+  if (childsAge.value.val === null) {
+    childsAge.value.isValid = false;
+    formIsValid.value = false;
+  }
+  if (numChildren.value.val === null) {
+    numChildren.value.isValid = false;
+    formIsValid.value = false;
+  }
+};
 async function handleSubmit() {
-  partyData = {
-    firstName: parentFirstName.value,
+  validateForm();
+  if (!formIsValid.value) {
+    return;
+  }
+  // TODO
+  // if (!recaptcha.val) {
+  //   return;
+  // }
+
+  partyData.value = {
+    firstName: parentFirstName.value.val,
     status: "new",
     enquiryType: "party",
-    surname: surname.value,
-    email: email.value,
+    surname: surname.value.val,
+    email: email.value.val,
     info: info.value,
-    phone: phone.value,
-    postCode: postCode.value,
-    childsName: childsName.value,
-    childsAge: childsAge.value,
+    phone: phone.value.val,
+    postCode: postCode.value.val,
+    childsName: childsName.value.val,
+    childsAge: childsAge.value.val,
     childsBirthday: childsBday.value,
-    party: selectedParty.value,
-    partyDate1: partyDate1.value,
-    partyDate2: partyDate2.value,
-    partyStart: partyStart.value,
-    partyLength: partyLength.value,
-    numChildren: numChildren.value,
-    recaptcha: recaptcha.value,
+    party: selectedParty.value.val,
+    partyDate1: partyDate1.value.val,
+    partyDate2: partyDate2.value.val,
+    partyStart: partyStart.value.val,
+    partyLength: partyLength.value.val,
+    numChildren: numChildren.value.val,
+    // recaptcha: recaptcha.value.val,
   };
-  console.log("partydata*********", partyData.value);
+
   const res = await $fetch("/api/parties/partyQuote", {
     method: "post",
     body: partyData.value,
   });
-  console.log("Response", res);
+  console.log("quote res*****", res.fields);
+
   quoteRef.value = res.id;
-  console.log("quoteRef", quoteRef.value);
-  navigateTo("/");
+  const router = useRouter();
+  router.replace({
+    path: "/parties/success",
+    query: {
+      name: res.fields.firstName,
+      surname: res.fields.surname,
+      phone: res.fields.phone,
+      email: res.fields.email,
+      party: res.fields.party,
+      quoteRef: res.id,
+      date1: res.fields.partyDate1,
+      date2: res.fields.partyDate2,
+      length: res.fields.partyLength,
+      start: res.fields.partyStart,
+      numChildren: res.fields.numChildren,
+      postCode: res.fields.postCode,
+    },
+  });
 }
 </script>
 
@@ -74,154 +156,140 @@ async function handleSubmit() {
       <div>
         <h1 class="text-accent capitalize">party booking enquiry</h1>
         <p class="tracking-wide">
-          We cover West Sussex and Hampshire, however we may also be able to accomodate
-          parties beyond with an additional travel charge.
+          We cover West Sussex and Hampshire, however we may also be able to
+          accomodate parties beyond with an additional travel charge.
         </p>
         <p class="tracking-wide">
-          We recommend at least 2 weeks advance booking to secure your preferred date and
-          time. If you have an urgent request please get in touch and we&#39;ll do our
-          best to grant your wish. You can also read our FAQ&#39;s for more info.
+          We recommend at least 2 weeks advance booking to secure your preferred
+          date and time. If you have an urgent request please get in touch and
+          we&#39;ll do our best to grant your wish. You can also read our
+          FAQ&#39;s for more info.
         </p>
       </div>
       <form @submit.prevent="handleSubmit">
         <h3 class="text-accent">Parent/Guardian Details</h3>
         <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-3xl w-full">
-          <div class="md:text-end">
+          <div
+            class="md:text-end"
+            :class="{ invalid: !parentFirstName.isValid }"
+          >
             <label>First Name</label>
           </div>
-          <div class="">
+          <div :class="{ invalid: !parentFirstName.isValid }">
             <input
               type="text"
-              v-model.trim.lazy="parentFirstName"
+              v-model.trim.lazy="parentFirstName.val"
               class="w-full p-2 rounded"
               autocomplete="given-name"
             />
           </div>
-          <div class="md:text-end">
+          <div class="md:text-end" :class="{ invalid: !surname.isValid }">
             <label>Surname</label>
           </div>
-          <div>
+          <div :class="{ invalid: !surname.isValid }">
             <input
               type="text"
-              v-model.trim.lazy="surname"
+              v-model.trim.lazy="surname.val"
               class="w-full p-2 rounded"
               autocomplete="family-name"
             />
           </div>
-          <div>
-            <div class="md:text-end">
-              <label>Email</label>
-            </div>
+          <div
+            class="md:text-end"
+            :class="{
+              invalid: !email.isValid,
+            }"
+          >
+            <label>Email</label>
           </div>
-          <div>
+          <div
+            :class="{
+              invalid: !email.isValid,
+            }"
+          >
             <input
               type="email"
-              v-model.trim.lazy="email"
+              v-model.trim.lazy="email.val"
               class="w-full p-2 rounded"
               placeholder="Your best email"
               autocomplete="email"
             />
           </div>
-          <div class="md:text-end">
+          <div
+            class="md:text-end"
+            :class="{
+              invalid: !phone.isValid,
+            }"
+          >
             <label>Phone</label>
           </div>
-          <div class="">
+          <div
+            :class="{
+              invalid: !phone.isValid,
+            }"
+          >
             <input
               type="phone"
-              v-model.trim.lazy="phone"
+              v-model.trim.lazy="phone.val"
               class="w-full p-2 rounded"
               placeholder="Your best contact number"
-              autocomplete="mobile"
-            />
-          </div>
-          <div class="md:text-end">
-            <label>Post Code</label>
-          </div>
-          <div>
-            <input
-              type="text"
-              v-model.trim.lazy="postCode"
-              class="w-full p-2 rounded"
-              autocomplete="postal-code"
+              autocomplete="tel"
             />
           </div>
         </div>
         <h3 class="text-accent">Child Details</h3>
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-3 w- text-3xl w-full p-2 rounded">
-          <div class="md:text-end">
-            <label>Child's Name</label>
+        <div
+          class="grid grid-cols-1 md:grid-cols-2 gap-3 w- text-3xl w-full p-2 rounded"
+        >
+          <div
+            class="md:text-end"
+            :class="{
+              invalid: !childsName.isValid,
+            }"
+          >
+            <label>Name (or School/Event)</label>
           </div>
-          <div>
+          <div
+            :class="{
+              invalid: !childsName.isValid,
+            }"
+          >
             <input
               type="text"
-              v-model.trim.lazy="childsName"
+              v-model.trim.lazy="childsName.val"
               class="w-full p-2 rounded"
             />
           </div>
-          <div class="md:text-end">
-            <label>Child's Age</label>
+          <div
+            class="md:text-end"
+            :class="{
+              invalid: !childsAge.isValid,
+            }"
+          >
+            <label>Age</label>
           </div>
-          <div>
-            <input type="text" v-model="childsAge" class="w-full p-2 rounded" />
+          <div
+            :class="{
+              invalid: !childsAge.isValid,
+            }"
+          >
+            <input
+              type="number"
+              min="4"
+              max="14"
+              v-model="childsAge.val"
+              class="w-full p-2 rounded"
+            />
           </div>
           <div class="md:text-end">
             <label>Actual Birthday</label>
           </div>
           <div>
-            <input type="date" v-model="childsBday" class="w-full p-2 rounded" />
-          </div>
-        </div>
-        <h3 class="text-accent">Event Details</h3>
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-3 w- text-3xl w-full p-2 rounded">
-          <div class="md:text-end">
-            <label>Choose your party</label>
-          </div>
-          <div>
-            <select
-              name="partyName"
-              id="partyName"
-              v-model="selectedParty"
+            <input
+              type="date"
+              v-model="childsBday"
               class="w-full p-2 rounded"
-            >
-              <option disabled value="select">Choose...</option>
-              <option
-                v-for="option in partyOptions"
-                :key="option.id"
-                :value="option.partyName"
-              >
-                {{ option.partyName }}
-              </option>
-            </select>
-          </div>
-          <div class="md:text-end">
-            <label>Party Date 1st Choice</label>
-          </div>
-          <div>
-            <input type="date" v-model="partyDate1" class="w-full p-2 rounded" />
-          </div>
-          <div class="md:text-end">
-            <label>Party Date 2nd Choice</label>
-          </div>
-          <div>
-            <input type="date" v-model="partyDate2" class="w-full p-2 rounded" />
-          </div>
-          <div class="md:text-end">
-            <label>Party Duration</label>
-          </div>
-          <div>
-            <input type="number" v-model="partyLength" class="w-full p-2 rounded" />
-          </div>
-          <div class="md:text-end">
-            <label>Party Start Time</label>
-          </div>
-          <div>
-            <input type="time" v-model="partyStart" class="w-full p-2 rounded" />
-          </div>
-          <div class="md:text-end">
-            <label>Number of Children</label>
-          </div>
-          <div>
-            <input type="number" v-model="numChildren" class="w-full p-2 rounded" />
+            />
           </div>
           <div class="md:text-end">
             <label>Additonal Info?</label>
@@ -234,18 +302,166 @@ async function handleSubmit() {
             />
           </div>
         </div>
-        <div class="md:flex md:justify-end">
-          <button
-            class="btn-accent flex justify-center items-center text-2xl capitalise font-bold px-6 py-3 my-4 w-full md:w-fit"
+        <h3 class="text-accent">Event Details</h3>
+        <div v-if="error">
+          <p>{{ error }}</p>
+        </div>
+        <div
+          class="grid grid-cols-1 md:grid-cols-2 gap-3 w- text-3xl w-full p-2 rounded"
+        >
+          <div
+            class="md:text-end"
+            :class="{
+              invalid: !selectedParty.isValid,
+            }"
           >
+            <label>Choose your party</label>
+          </div>
+          <div>
+            <select
+              name="partyName"
+              id="partyName"
+              v-model="selectedParty.val"
+              class="w-full p-2 rounded"
+            >
+              <option disabled value="select">Choose...</option>
+              <option
+                v-for="option in partyOptions"
+                :key="option.id"
+                :value="option.partyName"
+              >
+                {{ option.partyName }}
+              </option>
+            </select>
+          </div>
+
+          <div
+            class="md:text-end"
+            :class="{
+              invalid: !partyDate1.isValid,
+            }"
+          >
+            <label>Party Date 1st Choice</label>
+          </div>
+          <div>
+            <input
+              type="date"
+              v-model="partyDate1.val"
+              class="w-full p-2 rounded"
+            />
+          </div>
+          <div
+            class="md:text-end"
+            :class="{
+              invalid: !partyDate2.isValid,
+            }"
+          >
+            <label>Party Date 2nd Choice</label>
+          </div>
+          <div
+            :class="{
+              invalid: !partyDate2.isValid,
+            }"
+          >
+            <input
+              type="date"
+              v-model="partyDate2.val"
+              class="w-full p-2 rounded"
+            />
+          </div>
+          <div
+            class="md:text-end"
+            :class="{
+              invalid: !partyLength.isValid,
+            }"
+          >
+            <label>Party Duration</label>
+          </div>
+          <div
+            :class="{
+              invalid: !partyLength.isValid,
+            }"
+          >
+            <input
+              type="number"
+              step="0.5"
+              min="1"
+              max="3"
+              v-model="partyLength.val"
+              class="w-full p-2 rounded"
+            />
+          </div>
+          <div
+            class="md:text-end"
+            :class="{
+              invalid: !partyStart.isValid,
+            }"
+          >
+            <label>Party Start Time</label>
+          </div>
+          <div
+            :class="{
+              invalid: !partyStart.isValid,
+            }"
+          >
+            <input
+              type="time"
+              v-model="partyStart.val"
+              class="w-full p-2 rounded"
+            />
+          </div>
+          <div
+            class="md:text-end"
+            :class="{
+              invalid: !numChildren.isValid,
+            }"
+          >
+            <label>Number of Children</label>
+          </div>
+          <div
+            :class="{
+              invalid: !numChildren.isValid,
+            }"
+          >
+            <input
+              type="number"
+              min="1"
+              step="1"
+              v-model="numChildren.val"
+              class="w-full p-2 rounded"
+            />
+          </div>
+          <div
+            class="md:text-end"
+            :class="{
+              invalid: !postCode.isValid,
+            }"
+          >
+            <label>Post Code</label>
+          </div>
+          <div
+            :class="{
+              invalid: !postCode.isValid,
+            }"
+          >
+            <input
+              type="text"
+              v-model.trim.lazy="postCode.val"
+              class="w-full p-2 rounded"
+              autocomplete="postal-code"
+            />
+          </div>
+        </div>
+        <div class="md:flex md:justify-end">
+          <BaseButton class="btn-accent my-4 w-full md:w-fit">
             Send Me A Quote
-          </button>
+          </BaseButton>
         </div>
         <p class="error" v-if="!formIsValid">
-          One or more fields are invalid. Please correct the errors and submit again.
+          One or more fields are invalid. Please correct the errors and submit
+          again.
         </p>
       </form>
     </BaseCard>
   </div>
 </template>
-BaseCa
