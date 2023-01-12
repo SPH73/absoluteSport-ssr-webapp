@@ -1,18 +1,22 @@
 import Airtable from "airtable";
 
-
-export default defineEventHandler(async (event) => {
+export default defineEventHandler(async event => {
   const { atApiKey } = useRuntimeConfig().private;
-  const {atBaseId} = useRuntimeConfig().public;
+  const { atBaseId } = useRuntimeConfig().public;
   const base = new Airtable({ apiKey: atApiKey }).base(atBaseId);
 
-  const table = base('partiesContent')
+  const table = base("partiesContent");
 
-  const records = await table.select({view: 'Party Details', }).firstPage();
+  const records = await table
+    .select({
+      view: "Party Details",
+      filterByFormula: "NOT({featured} = 'false')",
+    })
+    .firstPage();
   if (!records) {
-    throw Error('Unable to fetch party data')
+    throw Error("Unable to fetch party data");
   }
-    // console.log('airtable party content', records)
+  // console.log('airtable party content', records)
 
-    return records
-})
+  return records;
+});
