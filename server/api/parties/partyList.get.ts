@@ -11,7 +11,6 @@ export default defineEventHandler(async event => {
   if (!records) {
     throw Error("Unable to fetch available parties");
   }
-  // console.log('airtable partyList content', records)
 
   return records;
 });
