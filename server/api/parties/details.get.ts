@@ -10,7 +10,8 @@ export default defineEventHandler(async event => {
   const records = await table
     .select({
       view: "Party Details",
-      filterByFormula: "NOT({featured} = 'false')",
+      filterByFormula: "NOT({featured} = 'true')",
+      sort: [{ field: "partyName", direction: "asc" }],
     })
     .firstPage();
   if (!records) {
