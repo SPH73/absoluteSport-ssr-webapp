@@ -1,4 +1,25 @@
-<script lang="ts" setup></script>
+<script setup>
+const { error, data: list } = await useFetch("/api/camps/campsList");
+
+const campList = ref([]);
+let camp = {};
+list.value.forEach((record, index) => {
+  camp = {
+    index: index + 1,
+    id: record.id,
+    campRef: record.fields.campRef,
+    campName: record.fields.campName,
+    campDate: record.fields.campDate,
+    locRef: record.fields.locRef,
+    spaceAvailable: record.fields.spaceAvailable,
+    status: record.fields.status,
+  };
+  campList.value.push(camp);
+});
+const currentCamps = computed(() => {
+  return campList.value.filter(camp => camp.status.includes("current"));
+});
+</script>
 
 <template>
   <div class="my-8">
@@ -11,9 +32,9 @@
             playing Survival?
           </p>
           <p>
-            Each day of our Holiday Camps has a different theme in store for the
-            children. Our days are fun-filled and exciting, helping your
-            children to spend the school break in laughter, while building new
+            Each one of our Holiday Camp days has a different theme in store for
+            the children. Our days are fun-filled and exciting, helping your
+            children to spend the school break in laughter while building new
             friendships and life-long memories.
           </p>
           <p>
@@ -28,6 +49,9 @@
             feels included in all the fun so that they build not only skills in
             sports but also socially and emotionally (self-esteem and
             confidence).
+          </p>
+          <p>
+            You'll find a full list of the camps we will run this year below.
           </p>
         </div>
       </div>
@@ -76,6 +100,127 @@
           sessions include many fun sports from football to dodgeball!
         </template>
       </BaseBadge>
+    </section>
+    <section class="max-w-7xl mx-auto">
+      <div class="container py-4">
+        <h3>
+          Why not come and see how much fun we have during the school holidays?
+        </h3>
+        <p>
+          We run our Holiday Camps at Sidlesham Primary School and Portfield
+          Academy throughout the year.
+        </p>
+
+        <div v-if="currentCamps.length" class="py-4">
+          <h3 class="font-play capitalize">Current Camps</h3>
+          <p>We are taking bookings now!</p>
+          <div>
+            <button class="btn-accent my-4 w-full md:w-fit">
+              <nuxt-link to="/camps/booking">Book Now</nuxt-link>
+            </button>
+          </div>
+          <table
+            v-for="camp in currentCamps"
+            class="table-auto border-separate border-spacing-2 border border-secondary text-light w-full text-2xl rounded-md mb-4"
+          >
+            <tr>
+              <th
+                class="uppercase p-4 bg-secondary text-left text-accent border border-secondary p-4 w-2/5"
+              >
+                Camp
+              </th>
+              <td class="bg-light text-dark border border-secondary p-4 w-3/5">
+                {{ camp.campName }}
+              </td>
+            </tr>
+            <tr>
+              <th
+                class="uppercase p-4 bg-secondary text-left text-accent border border-secondary p-4"
+              >
+                Date
+              </th>
+              <td class="bg-light text-dark border border-secondary p-4">
+                {{ camp.campDate }}
+              </td>
+            </tr>
+            <tr>
+              <th
+                class="uppercase p-4 bg-secondary text-left text-accent border border-secondary p-4 w-2/5"
+              >
+                Camp Location
+              </th>
+              <td class="bg-light text-dark border border-secondary p-4 w-3/5">
+                {{ camp.locRef }}
+              </td>
+            </tr>
+
+            <tr>
+              <th
+                class="uppercase p-4 bg-secondary text-left text-accent border border-secondary p-4"
+              >
+                Space Available
+              </th>
+              <td class="bg-light text-dark border border-secondary p-4">
+                {{ camp.spaceAvailable }}
+              </td>
+            </tr>
+          </table>
+        </div>
+        <div class="py-4">
+          <h3 class="font-play capitalize">Upcoming Camps</h3>
+          <p>
+            As we approach each holdiday we will open up for bookings. You can
+            select the weeks you wish to book while space is available and add
+            them all to a single booking and payment on our booking page.
+          </p>
+        </div>
+        <table
+          v-for="camp in campList"
+          class="table-auto border-separate border-spacing-2 border border-secondary text-light w-full text-2xl rounded-md mb-4"
+        >
+          <tr>
+            <th
+              class="uppercase p-4 bg-secondary text-left text-accent border border-secondary p-4 w-2/5"
+            >
+              Camp
+            </th>
+            <td class="bg-light text-dark border border-secondary p-4 w-3/5">
+              {{ camp.campName }}
+            </td>
+          </tr>
+          <tr>
+            <th
+              class="uppercase p-4 bg-secondary text-left text-accent border border-secondary p-4"
+            >
+              Date
+            </th>
+            <td class="bg-light text-dark border border-secondary p-4">
+              {{ camp.campDate }}
+            </td>
+          </tr>
+          <tr>
+            <th
+              class="uppercase p-4 bg-secondary text-left text-accent border border-secondary p-4 w-2/5"
+            >
+              Camp Location
+            </th>
+            <td class="bg-light text-dark border border-secondary p-4 w-3/5">
+              {{ camp.locRef }}
+            </td>
+          </tr>
+
+          <tr>
+            <th
+              class="uppercase p-4 bg-secondary text-left text-accent border border-secondary p-4"
+            >
+              Space Available
+            </th>
+            <td class="bg-light text-dark border border-secondary p-4">
+              {{ camp.spaceAvailable }}
+            </td>
+          </tr>
+        </table>
+      </div>
     </section>
   </div>
 </template>
