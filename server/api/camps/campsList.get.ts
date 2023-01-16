@@ -21,7 +21,7 @@ export default defineEventHandler(async event => {
     })
     .firstPage();
   if (!records) {
-    throw Error("Unable to fetch available parties");
+    throw Error("Unable to fetch available camps");
   }
 
   return records;
