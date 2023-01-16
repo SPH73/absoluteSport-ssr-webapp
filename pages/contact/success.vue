@@ -1,7 +1,7 @@
 <script lang="ts" setup>
 const route = useRoute();
 const data = ref(route.query);
-const quoteRef = ref(route.query.quoteRef);
+const enqRef = ref(route.query.enqRef);
 const date = new Date().toLocaleString();
 console.log("success****", data.value);
 </script>
@@ -11,8 +11,7 @@ console.log("success****", data.value);
     <div class="container py-8">
       <h2 class="font-play">Success!</h2>
       <p class="tracking-wide text-dark">
-        Thank you, we have received your party booking enquiry and will be in contact
-        soon!
+        Thank you, we have received your message and will be in contact soon!
       </p>
       <div class="pb-4">
         <h3 class="font-play capitalize">Your enquiry</h3>
@@ -21,7 +20,7 @@ console.log("success****", data.value);
         </p>
         <p class="text-dark">
           This is the reference number for your enquiry:
-          <span class="font-bold">{{ quoteRef }}</span
+          <span class="font-bold">{{ enqRef }}</span
           >. Please include it in any correspondence.
         </p>
         <div>
@@ -86,7 +85,7 @@ console.log("success****", data.value);
                 Message
               </th>
               <td class="bg-light text-dark border border-secondary p-4">
-                {{ data.info }}
+                {{ data.message }}
               </td>
             </tr>
           </table>
