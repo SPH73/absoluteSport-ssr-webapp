@@ -40,13 +40,13 @@
 
 @layer components {
   .btn-accent {
-    @apply bg-accent text-secondary;
+    @apply bg-accent text-secondary hover:bg-secondary hover:text-accent hover:border hover:border-accent;
   }
   .btn-secondary {
-    @apply bg-secondary text-accent px-3 py-2 rounded-md;
+    @apply bg-secondary text-accent px-3 py-2 rounded-md hover:bg-accent hover:text-secondary hover:border hover:border-secondary;
   }
   .btn-primary {
-    @apply bg-primary text-accent px-3 py-2 rounded-md;
+    @apply bg-primary text-accent px-3 py-2 rounded-md hover:bg-accent hover:text-primary hover:border hover:border-primary;
   }
   .bullets {
     @apply mt-2 text-3xl max-w-5xl leading-10 text-secondary;
@@ -55,30 +55,42 @@
     @apply list-["\1F44D"] pr-6;
   }
 
-  body {
-    @apply bg-primary;
+  .button-container {
+    @apply px-4;
   }
 
-  main {
-    flex-grow: 1;
+  .btn-group {
+    @apply flex justify-between;
   }
-  header,
-  footer {
-    flex-shrink: 0;
+  .btn-group > * {
+    @apply flex-auto;
   }
+}
 
-  h1,
-  h2,
-  h3,
-  h4,
-  h5,
-  h6,
-  label,
-  button {
-    font-variant-caps: small-caps;
-    font-weight: 700;
-    vetical-align: middle;
-  }
+body {
+  @apply bg-primary;
+}
+
+main {
+  flex-grow: 1;
+}
+header,
+footer {
+  flex-shrink: 0;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+label,
+button {
+  font-variant-caps: small-caps;
+  font-weight: 400;
+  vertical-align: middle;
+  text-transform: capitalize;
 }
 
 h1 {
@@ -114,11 +126,10 @@ label {
   font-size: 1.4rem;
   line-height: 1.75rem;
   word-wrap: break-word;
-  text-transform: capitalize;
 }
 
 button {
-  @apply px-8 py-4 flex justify-center items-center capitalize rounded-md font-play text-3xl;
+  @apply px-8 py-4 flex justify-center items-center capitalize rounded-md font-play text-3xl cursor-pointer;
 }
 h1,
 h2,
@@ -126,7 +137,25 @@ h3,
 h4,
 h5,
 h6,
-p,
 label {
   @apply text-light;
+}
+
+p {
+  @apply font-inter-regular text-xl text-light leading-8 tracking-[0.1em];
+}
+
+input:checked + div {
+  @apply border-blue-500;
+}
+input:checked + div svg {
+  @apply block;
+}
+.invalid label {
+  @apply text-red-500;
+}
+.invalid input,
+.invalid textarea,
+.invalid select {
+  @apply border border-solid border-red-500;
 }
