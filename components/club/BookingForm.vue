@@ -174,10 +174,11 @@ const createBookingRef = club => {
   bookingRef.value = `${paymentRef.value}-${club}`;
 };
 
-const clubsBooked = computed(() => {
-  return JSON.stringify(checkedClubs.value.val);
-});
+// const clubsBooked = computed(() => {
+//   return JSON.stringify(checkedClubs.value.val);
+// });
 
+// Form submission
 async function handleSubmitClubBooking() {
   validateForm();
   if (!formIsValid.value) {
@@ -193,9 +194,12 @@ async function handleSubmitClubBooking() {
     parentName: enteredParentName.value.val,
     contactNumber: enteredPhone.value.val,
     email: enteredEmail.value.val,
-    clubsBooked: clubsBooked.value,
+    clubsBooked: JSON.stringify(checkedClubs.value.val),
     clubsQty: checkedClubs.value.val.length,
     amountDue: cost.value,
+    school: selectedSchool.value.val,
+    yearGroup: enteredYearGroup.value.val,
+    medicalConds: enteredMedical.value.val,
   };
 
   console.log("club payment", clubPayment.value);
@@ -248,13 +252,32 @@ async function handleSubmitClubBooking() {
       // console.log(bookingSummary.value);
     }
   }
+
+  const router = useRouter();
+  router.replace({
+    path: "/clubs/success",
+    query: {
+      name: enteredParentName.value.val,
+      childName: enteredChildFirstName.value.val,
+      surname: enteredSurname.value.val,
+      phone: enteredPhone.value.val,
+      email: enteredEmail.value.val,
+      paymentRef: paymentRef.value,
+      school: selectedSchool.value.val,
+      yearGroup: enteredYearGroup.value.val,
+      medicalConds: enteredMedical.value.val,
+      clubsBooked: JSON.stringify(checkedClubs.value.val),
+      clubsQty: checkedClubs.value.val.length,
+      amountDue: cost.value,
+    },
+  });
 }
 </script>
 
 <template>
   <BaseCard>
     <div id="text">
-      <h2 class="text-accent">School Clubs Booking Form</h2>
+      <h2 class="text-accent font-play">School Clubs Booking Form</h2>
       <p>
         We currently run school clubs at Sidlesham Primary School, West
         Witterings Primary School and Portfield Academy in West Sussex.

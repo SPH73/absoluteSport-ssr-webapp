@@ -46,7 +46,7 @@
     @apply bg-secondary text-accent px-3 py-2 rounded-md hover:bg-accent hover:text-secondary hover:border hover:border-secondary;
   }
   .btn-primary {
-    @apply bg-primary text-accent px-3 py-2 rounded-md hover:bg-accent hover:text-primary hover:border hover:border-primary;
+    @apply bg-light border border-light text-primary px-3 py-2 rounded-md hover:bg-primary hover:text-light hover:border hover:border-light;
   }
   .bullets {
     @apply mt-2 text-3xl max-w-5xl leading-10 text-secondary;
@@ -54,7 +54,9 @@
   .thumb {
     @apply list-["\1F44D"] pr-6;
   }
-
+  .btn-fb-share {
+    @apply bg-[#4267B2] py-2 px-4;
+  }
   .button-container {
     @apply px-4;
   }
@@ -88,7 +90,6 @@ h6,
 label,
 button {
   font-variant-caps: small-caps;
-  font-weight: 400;
   vertical-align: middle;
   text-transform: capitalize;
 }
@@ -154,8 +155,9 @@ input:checked + div svg {
 .invalid label {
   @apply text-red-500;
 }
-.invalid input,
+/* .invalid input,
 .invalid textarea,
-.invalid select {
+.invalid select,
+.invalid .checkbox {
   @apply border border-solid border-red-500;
-}
+} */
