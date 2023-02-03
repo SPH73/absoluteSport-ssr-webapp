@@ -5,7 +5,7 @@ const count = 688;
 <template>
   <footer class="bg-dark text-light text-xl print:hidden" id="footer-container">
     <div
-      class="grid grid-cols-1 p-4 md:grid-cold-3 lg:grid-cols-4 w-full font-play"
+      class="grid grid-cols-1 p-4 md:grid-cols-2 lg:grid-cols-4 w-full font-play"
     >
       <div class="mt-4 flex flex-col">
         <NuxtLink to="/img/logo.webp" class=""
