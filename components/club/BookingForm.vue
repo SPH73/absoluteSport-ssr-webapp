@@ -49,14 +49,14 @@ schoolList.value.forEach((record, index) => {
   schoolOptions.value.push(school);
 });
 
-const enteredParentName = ref({ val: "Sue", isValid: true });
-const enteredEmail = ref({ val: "mail@mail.com", isValid: true });
-const enteredPhone = ref({ val: "07492727870", isValid: true });
-const enteredAltParentName = ref("N/A");
-const enteredAltContact = ref("N/A");
-const enteredChildFirstName = ref({ val: "Nate", isValid: true });
-const enteredSurname = ref({ val: "Holder", isValid: true });
-const enteredMedical = ref({ val: "None", isValid: true });
+const enteredParentName = ref({ val: "", isValid: true });
+const enteredEmail = ref({ val: "", isValid: true });
+const enteredPhone = ref({ val: "", isValid: true });
+const enteredAltParentName = ref("");
+const enteredAltContact = ref("");
+const enteredChildFirstName = ref({ val: "", isValid: true });
+const enteredSurname = ref({ val: "", isValid: true });
+const enteredMedical = ref({ val: "", isValid: true });
 const enteredYearGroup = ref({ val: "select", isValid: true });
 const selectedSchool = ref({ val: "select", isValid: true });
 const filteredClubs = ref([]);
