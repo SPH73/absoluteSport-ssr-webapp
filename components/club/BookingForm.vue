@@ -67,11 +67,14 @@ const acceptedTerms = ref({ val: false, isValid: true });
 const bookingRef = ref("");
 const paymentRef = ref("");
 const clubBooking = ref({});
+const clubPayment = ref({});
 const formIsValid = ref(true);
 const clubDetails = ref([]);
+const bookingSummary = ref([]);
+const paymentSummary = ref({});
 
-console.log("ClubOptions", clubOptions.value);
-console.log("schoolOptions", schoolOptions.value);
+// console.log("ClubOptions", clubOptions.value);
+// console.log("schoolOptions", schoolOptions.value);
 
 watch(selectedSchool, () => {
   return (schoolClubs.value = clubOptions.value.filter(
@@ -171,6 +174,10 @@ const createBookingRef = club => {
   bookingRef.value = `${paymentRef.value}-${club}`;
 };
 
+const clubsBooked = computed(() => {
+  return JSON.stringify(checkedClubs.value.val);
+});
+
 async function handleSubmitClubBooking() {
   validateForm();
   if (!formIsValid.value) {
@@ -178,39 +185,68 @@ async function handleSubmitClubBooking() {
   }
   createPaymentRef();
 
-  for (let club of checkedClubs.value.val) {
-    createBookingRef(club);
-    clubDetails.value = filteredClubs.value.find(item => item.clubRef === club);
-    console.log("clubDetails***", clubDetails.value);
-    clubBooking.value = {
-      club: club,
-      paymentRef: paymentRef.value,
-      bookingRef: bookingRef.value,
-      surname: enteredSurname.value.val,
-      childName: enteredChildFirstName.value.val,
-      parentName: enteredParentName.value.val,
-      contactNumber: enteredPhone.value.val,
-      email: enteredEmail.value.val,
-      altParentName: enteredAltParentName.value.val,
-      altParentContact: enteredAltContact.value.val,
-      medicalConds: enteredMedical.value.val,
-      yearGroup: enteredYearGroup.value.val,
-      school: selectedSchool.value.val,
-      startDate: clubDetails.value.startDate,
-      endDate: clubDetails.value.endDate,
-      sessionCost: clubDetails.value.pricePerSession,
-      sessionsPerTerm: clubDetails.value.sessions,
-      termCost: clubDetails.value.termCost,
-      status: "reserved awaiting payment",
-    };
+  clubPayment.value = {
+    paymentRef: paymentRef.value,
+    status: "awaiting payment",
+    surname: enteredSurname.value.val,
+    childName: enteredChildFirstName.value.val,
+    parentName: enteredParentName.value.val,
+    contactNumber: enteredPhone.value.val,
+    email: enteredEmail.value.val,
+    clubsBooked: clubsBooked.value,
+    clubsQty: checkedClubs.value.val.length,
+    amountDue: cost.value,
+  };
 
-    console.log("club booked", clubBooking.value);
+  console.log("club payment", clubPayment.value);
+  const createdPayment = await $fetch("/api/clubs/clubPayment", {
+    method: "post",
+    body: clubPayment.value,
+  });
 
-    const createdBooking = await $fetch("/api/clubs/clubBooking", {
-      method: "post",
-      body: clubBooking.value,
-    });
-    console.log("booking res*****", createdBooking.fields);
+  paymentSummary.value = createdPayment.fields;
+  // console.log("payment res****", createdPayment.fields);
+  // console.log("payment summary****", paymentSummary.value);
+
+  if (paymentSummary) {
+    for (let club of checkedClubs.value.val) {
+      createBookingRef(club);
+      clubDetails.value = filteredClubs.value.find(
+        item => item.clubRef === club,
+      );
+      // console.log("clubDetails***", clubDetails.value);
+
+      clubBooking.value = {
+        club: club,
+        paymentRef: paymentRef.value,
+        bookingRef: bookingRef.value,
+        surname: enteredSurname.value.val,
+        childName: enteredChildFirstName.value.val,
+        parentName: enteredParentName.value.val,
+        contactNumber: enteredPhone.value.val,
+        email: enteredEmail.value.val,
+        altParentName: enteredAltParentName.value.val,
+        altParentContact: enteredAltContact.value.val,
+        medicalConds: enteredMedical.value.val,
+        yearGroup: enteredYearGroup.value.val,
+        school: selectedSchool.value.val,
+        startDate: clubDetails.value.startDate,
+        endDate: clubDetails.value.endDate,
+        sessionCost: clubDetails.value.pricePerSession,
+        sessionsPerTerm: clubDetails.value.sessions,
+        termCost: clubDetails.value.termCost,
+        status: "reserved awaiting payment",
+      };
+      // console.log("club booked", clubBooking.value);
+
+      const createdBooking = await $fetch("/api/clubs/clubBooking", {
+        method: "post",
+        body: clubBooking.value,
+      });
+      // console.log("booking res*****", createdBooking.fields);
+      bookingSummary.value.push(createdBooking.fields);
+      // console.log(bookingSummary.value);
+    }
   }
 }
 </script>
