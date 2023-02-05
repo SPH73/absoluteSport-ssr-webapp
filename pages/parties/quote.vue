@@ -154,7 +154,7 @@ async function handleSubmit() {
   <div class="md:container p-2">
     <BaseCard>
       <div>
-        <h1 class="text-accent capitalize">party booking enquiry</h1>
+        <h1 class="text-accent font-play capitalize">party booking enquiry</h1>
         <p class="tracking-wide">
           We cover West Sussex and Hampshire, however we may also be able to
           accomodate parties beyond with an additional travel charge.

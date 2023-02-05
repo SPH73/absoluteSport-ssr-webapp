@@ -2,7 +2,8 @@
 
 <template>
   <div class="container py-4">
-    <h1>404</h1>
-    <p>Oops that page doesn't exist or has been moved</p>
+    <h2 class="font-play capitalize">Term's &amp; Conditions</h2>
   </div>
 </template>
+
+<style scoped></style>

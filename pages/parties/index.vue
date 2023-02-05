@@ -37,7 +37,7 @@ content.value.forEach((record, index) => {
   <div class="my-8">
     <section class="max-w-7xl mx-auto">
       <div class="container py-4">
-        <h2>Themed Kids Parties</h2>
+        <h2 class="font-play capitalize">Themed Kids Parties</h2>
         <div>
           <p>
             At AbsoluteSport we offer 3 different Themed Birthday Parties. Our
@@ -61,7 +61,7 @@ content.value.forEach((record, index) => {
     </section>
     <section class="max-w-7xl mx-auto">
       <div class="container py-4">
-        <h3 class="capitalize">
+        <h3 class="font-play capitalize">
           why choose AbsoluteSport as your party entertainer?
         </h3>
         <p>

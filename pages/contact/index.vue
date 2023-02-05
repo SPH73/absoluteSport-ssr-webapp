@@ -8,7 +8,7 @@ const phone = ref({ val: "", isValid: true });
 const info = ref({ val: "", isValid: true });
 const enqRef = ref("");
 const formIsValid = ref(true);
-const isValid = true;
+
 // TODO
 // const recaptcha = ref({ val: "..." });
 
@@ -85,11 +85,13 @@ async function handleSubmit() {
   <div class="md:container p-2">
     <BaseCard>
       <div class="mb-8">
-        <h1 class="text-accent capitalize">Let's Chat!</h1>
-        <p class="tracking-wide">Got questions that we haven't answered in our FAQ's?</p>
+        <h1 class="text-accent font-play capitalize">Let's Chat!</h1>
         <p class="tracking-wide">
-          We would love to hear from you so send us a message and we will endeavour to
-          respond within one business day.
+          Got questions that we haven't answered in our FAQ's?
+        </p>
+        <p class="tracking-wide">
+          We would love to hear from you so send us a message and we will
+          endeavour to respond within one business day.
         </p>
       </div>
       <form @submit.prevent="handleSubmit">
@@ -181,8 +183,9 @@ async function handleSubmit() {
         <div class="md:flex md:justify-end">
           <button class="btn-accent my-4 w-full md:w-fit">Send Message</button>
         </div>
-        <p class="error" v-if="!formIsValid">
-          One or more fields are invalid. Please correct the errors and submit again.
+        <p class="error" v-if="!parentformIsValid">
+          One or more fields are invalid. Please correct the errors and submit
+          again.
         </p>
       </form>
     </BaseCard>

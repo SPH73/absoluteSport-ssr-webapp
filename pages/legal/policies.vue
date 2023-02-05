@@ -22,7 +22,7 @@ console.log("policies", policyList.value);
     <p>
       The nature of caring for children requires us to have strict policies and
       procedures in place that ensure the children are protected at all times
-      and cover pupil welfare, safeguarding, coaching practices, behaviour, and
+      and cover pupil welfare, safeguarding, recruitment, behaviour, and
       discrimination amongst many others.
     </p>
     <p>

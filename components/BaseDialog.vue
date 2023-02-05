@@ -7,15 +7,15 @@ const emit = defineEmits(["close"]);
   <teleport to="body">
     <div class="backdrop" v-if="open" @click="$emit('close')"></div>
     <dialog open v-if="open">
-      <header>
+      <header class="bg-primary text-light w-full p-4">
         <slot name="header">
-          <h2>{{ title }}</h2>
+          <h2 class="m-0">{{ title }}</h2>
         </slot>
       </header>
-      <section>
-        <slot name="content"> </slot>
+      <section class="p-4">
+        <slot name="content"></slot>
       </section>
-      <menu>
+      <menu class="p-4 flex justify-end m-0">
         <slot name="actions"></slot>
       </menu>
     </dialog>
@@ -35,31 +35,15 @@ const emit = defineEmits(["close"]);
   }
 }
 
-/* .modal-enter-from {
-  opacity: 0;
-  transform: translateY(30px);
-} */
+/* check .modal enter active ***** */
 .modal-enter-active {
   animation: dialog 0.8s ease-in;
 }
 
-/* .modal-enter-to {
-  opacity: 1;
-  transform: translateY(0);
-} */
-
-/* .modal-leave-from {
-  opacity: 1;
-  transform: translateY(0);
-} */
+/* check .modal leave active ***** */
 .modal-leave-active {
   animation: dialog 0.8s ease-out reverse;
 }
-
-/* .modal-leave-to {
-  opacity: 0;
-  transform: translateY(-30px);
-} */
 
 .backdrop {
   position: fixed;
@@ -86,28 +70,6 @@ dialog {
   animation: modal 0.3s ease-in-out forwards;
 }
 
-header {
-  background-color: var(--color-primary);
-  color: white;
-  width: 100%;
-  padding: 1rem;
-}
-
-header h2 {
-  margin: 0;
-}
-
-section {
-  padding: 1rem;
-}
-
-menu {
-  padding: 1rem;
-  display: flex;
-  justify-content: flex-end;
-  margin: 0;
-}
-
 @media (min-width: 768px) {
   dialog {
     left: calc(50% - 20rem);
@@ -115,7 +77,7 @@ menu {
   }
 }
 
-@keyframes modal {
+/* @keyframes modal {
   from {
     opacity: 0;
     transform: translateY(-50px) scale(0.9);
@@ -125,5 +87,5 @@ menu {
     opacity: 1;
     transform: translateY(0) scale(1);
   }
-}
+} */
 </style>

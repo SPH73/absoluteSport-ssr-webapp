@@ -282,19 +282,21 @@ async function handleSubmitClubBooking() {
         Clubs run for 6 weeks and will be need to will need to be paid in a
         block booking for all weeks.
       </p>
+      <p>Morning School Clubs have a maximum capacity of 12 children.</p>
+      <p>After School Clubs have a maximum capacity of 24 children.</p>
       <p>
         Clubs that are full to maximum capacity will not show up when selecting
         your child&#39;s year and school which filters suitable clubs for your
         convenience. We apologise for any disappointment and recommend booking
         as soon as possible.
       </p>
-      <p>Morning School Clubs have a max capacity of 12 children.</p>
-      <p>After School Clubs have a max capacity of 24 children.</p>
       <p>
-        Please complete the booking form to reserve a place for your child. On
-        receipt of payment a booking confirmation email will be sent to confirm
-        your child&#39;s place for the club. Please use the booking reference
-        provided when you make payment.
+        Please complete the booking form to reserve a place for your child at
+        one of the many clubs we run at our schools. We will email confirmation
+        to your privided email address once we receive payment into our bank and
+        your child&#39;s place will then be confirmed for the term. Please use
+        the booking reference provided when you make payment so that we can
+        allocate it correctly to all the clubs included in your booking.
       </p>
       <p>
         Please refer to our FAQ&#39;s for more info or contact us if you have

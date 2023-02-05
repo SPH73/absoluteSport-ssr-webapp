@@ -44,7 +44,7 @@
           rel="nopener"
           >Instagram
         </NuxtLink>
-        <NuxtLink :to="{ name: 'about' }" class="py-2">About Us</NuxtLink>
+        <NuxtLink to="/" class="py-2">About Us</NuxtLink>
       </div>
 
       <div id="links-area" class="flex flex-col pt-2">
@@ -65,7 +65,7 @@
           >Book Upcoming Camps</NuxtLink
         >
 
-        <NuxtLink :to="{ name: 'faqs' }" class="py-2">FAQ's</NuxtLink>
+        <NuxtLink to="/faqs" class="py-2">FAQ's</NuxtLink>
       </div>
 
       <div id="legal-area" class="flex flex-col pt-2">

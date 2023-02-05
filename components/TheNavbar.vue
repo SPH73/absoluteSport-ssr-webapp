@@ -10,7 +10,7 @@ watch(isOpen, function handler(isOpen) {
   }
 });
 onMounted(() => {
-  document.addEventListener("keydown", e => {
+  document.addEventListener("keydown", (e) => {
     if (e.key === "Enter" && isOpen.value) isOpen.value = !isOpen.value;
   });
 });
@@ -24,25 +24,18 @@ onMounted(() => {
       <!-- Mobile Menu Button -->
       <div class="lg:hidden">
         <button @click="drawer">
-          <font-awesome-icon
-            :icon="['fas', 'bars']"
-            class="text-secondary w-12 h-12"
-          />
+          <font-awesome-icon :icon="['fas', 'bars']" class="text-secondary w-12 h-12" />
         </button>
       </div>
 
       <!-- Navbar -->
       <div class="hidden lg:block">
-        <ul
-          class="flex space-x-8 text-3xl font-mulish uppercase text-secondary"
-        >
+        <ul class="flex space-x-8 text-3xl font-mulish uppercase text-secondary">
           <div class="flex justify-items-center">
             <NuxtLink to="/" class="pb-2 hover:font-bold"> Home </NuxtLink>
           </div>
           <div class="flex justify-items-center">
-            <NuxtLink to="/clubs" class="hover:font-bold pb-2">
-              School Clubs
-            </NuxtLink>
+            <NuxtLink to="/clubs" class="hover:font-bold pb-2"> School Clubs </NuxtLink>
             <div v-if="isOpen">
               <font-awesome-icon
                 :icon="['fas', 'angle-up']"
@@ -57,9 +50,7 @@ onMounted(() => {
             </div>
           </div>
           <div class="flex justify-items-center">
-            <NuxtLink to="/camps" class="hover:font-bold pb-2">
-              Activity Camps
-            </NuxtLink>
+            <NuxtLink to="/camps" class="hover:font-bold pb-2"> Activity Camps </NuxtLink>
             <div v-if="isOpen">
               <font-awesome-icon
                 :icon="['fas', 'angle-up']"
@@ -74,9 +65,7 @@ onMounted(() => {
             </div>
           </div>
           <div class="flex justify-items-center">
-            <NuxtLink to="/parties" class="hover:font-bold pb-2">
-              Kids Parties
-            </NuxtLink>
+            <NuxtLink to="/parties" class="hover:font-bold pb-2"> Kids Parties </NuxtLink>
             <div v-if="isOpen">
               <font-awesome-icon
                 :icon="['fas', 'angle-up']"
@@ -89,11 +78,14 @@ onMounted(() => {
                 class="text-secondary h-8 w-8 my-auto"
               />
             </div>
+          </div>
+          <div class="flex justify-items-center">
+            <NuxtLink to="/football" class="hover:font-bold pb-2">
+              Football Academy
+            </NuxtLink>
           </div>
           <div class="flex items-center">
-            <NuxtLink to="/contact" class="hover:font-bold pb-2">
-              Contact
-            </NuxtLink>
+            <NuxtLink to="/contact" class="hover:font-bold pb-2"> Contact </NuxtLink>
           </div>
         </ul>
       </div>
@@ -124,14 +116,8 @@ onMounted(() => {
         :class="isOpen ? 'translate-x-0' : '-translate-x-full'"
       >
         <div class="close">
-          <button
-            class="absolute top-0 right-0 mt-4 mr-4"
-            @click="isOpen = false"
-          >
-            <font-awesome-icon
-              :icon="['fas', 'xmark']"
-              class="text-secondary h-12 w12"
-            />
+          <button class="absolute top-0 right-0 mt-4 mr-4" @click="isOpen = false">
+            <font-awesome-icon :icon="['fas', 'xmark']" class="text-secondary h-12 w12" />
           </button>
         </div>
         <span @click="isOpen = false" class="flex w-full items-center p-4">
@@ -146,11 +132,7 @@ onMounted(() => {
             >
           </div>
           <div class="flex items-center">
-            <NuxtLink
-              to="/clubs"
-              @click="isOpen = false"
-              class="my-4 inline-block"
-            >
+            <NuxtLink to="/clubs" @click="isOpen = false" class="my-4 inline-block">
               School Clubs</NuxtLink
             >
             <font-awesome-icon
@@ -159,11 +141,7 @@ onMounted(() => {
             />
           </div>
           <div class="flex items-center">
-            <NuxtLink
-              to="/camps"
-              @click="isOpen = false"
-              class="my-4 inline-block"
-            >
+            <NuxtLink to="/camps" @click="isOpen = false" class="my-4 inline-block">
               Activity Camps</NuxtLink
             >
             <font-awesome-icon
@@ -172,11 +150,7 @@ onMounted(() => {
             />
           </div>
           <div class="flex items-center">
-            <NuxtLink
-              to="/parties"
-              @click="isOpen = false"
-              class="my-4 inline-block"
-            >
+            <NuxtLink to="/parties" @click="isOpen = false" class="my-4 inline-block">
               Kids Parties</NuxtLink
             >
             <font-awesome-icon
@@ -185,19 +159,18 @@ onMounted(() => {
             />
           </div>
           <div class="flex items-center">
-            <NuxtLink
-              to="/contact"
-              @click="isOpen = false"
-              class="my-4 inline-block"
+            <NuxtLink to="/football" @click="isOpen = false" class="my-4 inline-block">
+              Football Academy</NuxtLink
             >
+          </div>
+          <div class="flex items-center">
+            <NuxtLink to="/contact" @click="isOpen = false" class="my-4 inline-block">
               Contact</NuxtLink
             >
           </div>
         </ul>
         <div class="follow">
-          <p class="font-mulish uppercase text-secondary text-2xl">
-            follow us:
-          </p>
+          <p class="font-mulish uppercase text-secondary text-2xl">follow us:</p>
           <div class="social flex space-x-5 mt-4">
             <a href="#">
               <font-awesome-icon

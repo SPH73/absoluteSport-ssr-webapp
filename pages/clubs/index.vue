@@ -2,7 +2,7 @@
 
 <template>
   <div class="container py-4">
-    <h1 class="font-play">School Clubs Page</h1>
+    <h2 class="font-play capitalize">AbsoluteSport School Clubs</h2>
     <div>
       <button class="btn-primary">
         <NuxtLink to="clubs/booking">Club Booking Page</NuxtLink>
