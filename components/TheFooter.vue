@@ -22,16 +22,26 @@
         <NuxtLink to="tel:07540309658" class="py-2">Phone</NuxtLink>
         <NuxtLink to="sms:07540309658" class="py-2"> Text Message</NuxtLink>
         <NuxtLink to="/contact" class="py-2">Message Form</NuxtLink>
-        <NuxtLink to="https://www.facebook.com/AbsoluteSport.AS" class="py-2"
+        <NuxtLink
+          to="https://www.facebook.com/AbsoluteSport.AS"
+          class="py-2"
+          target="_blank"
+          rel="noopener"
           >FaceBook
         </NuxtLink>
         <NuxtLink
           to="https://www.linkedin.com/in/ben-blakeley-b2600522b/"
           class="py-2"
+          target="_blank"
+          rel="noopener"
         >
           LinkedIn</NuxtLink
         >
-        <NuxtLink to="https://www.instagram.com/absolutesport2211/" class="py-2"
+        <NuxtLink
+          to="https://www.instagram.com/absolutesport2211/"
+          class="py-2"
+          target="_blank"
+          rel="nopener"
           >Instagram
         </NuxtLink>
         <NuxtLink to="#" class="py-2">About</NuxtLink>
@@ -71,6 +81,8 @@
         <!-- ToDO add fb share button -->
         <button class="btn-fb-share">
           <NuxtLink
+            target="_blank"
+            rel="noopener"
             to="https://www.facebook.com/sharer/sharer.php?u=https://www.facebook.com/AbsoluteSport.AS"
           >
             <font-awesome-icon
@@ -89,19 +101,33 @@
           >
         </button> -->
         <div id="social-icons" class="flex flex-row gap-x-4 justify-between">
-          <font-awesome-icon
-            :icon="['fab', 'instagram']"
-            class="text-accent w-12 h-12"
-          />
-
-          <font-awesome-icon
-            :icon="['fab', 'facebook']"
-            class="text-accent w-12 h-12"
-          />
-          <font-awesome-icon
-            :icon="['fab', 'linkedin']"
-            class="text-accent w-12 h-12"
-          />
+          <NuxtLink
+            to="https://www.instagram.com/absolutesport2211/"
+            target="_blank"
+            rel="noopener"
+          >
+            <font-awesome-icon
+              :icon="['fab', 'instagram']"
+              class="text-accent w-12 h-12"
+          /></NuxtLink>
+          <NuxtLink
+            to="https://www.facebook.com/AbsoluteSport.AS"
+            target="_blank"
+            rel="noopener"
+          >
+            <font-awesome-icon
+              :icon="['fab', 'facebook']"
+              class="text-accent w-12 h-12"
+          /></NuxtLink>
+          <NuxtLink
+            to="https://www.linkedin.com/in/ben-blakeley-b2600522b/"
+            target="_blank"
+            rel="noopener"
+          >
+            <font-awesome-icon
+              :icon="['fab', 'linkedin']"
+              class="text-accent w-12 h-12"
+          /></NuxtLink>
         </div>
       </div>
       <div id="recog-area" class="text-center my-8">
