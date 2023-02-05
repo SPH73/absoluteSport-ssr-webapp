@@ -44,34 +44,48 @@
           rel="nopener"
           >Instagram
         </NuxtLink>
-        <NuxtLink :to="{ name: 'about' }" class="py-2">About</NuxtLink>
+        <NuxtLink :to="{ name: 'about' }" class="py-2">About Us</NuxtLink>
       </div>
 
       <div id="links-area" class="flex flex-col pt-2">
         <h5 class="mt-2 mb-4">LINKS</h5>
 
         <NuxtLink :to="{ name: 'clubs' }" class="py-2">School Clubs</NuxtLink>
-        <NuxtLink to="/clubs/booking" class="py-2">Book School Clubs</NuxtLink>
+        <NuxtLink :to="{ name: 'clubs-booking' }" class="py-2"
+          >Book School Clubs</NuxtLink
+        >
         <NuxtLink :to="{ name: 'parties' }" class="py-2">Kids Parties</NuxtLink>
-        <NuxtLink :to="{ path: '/parties/quote' }" class="py-2"
+        <NuxtLink :to="{ name: 'parties-quote' }" class="py-2"
           >Request A Party Quote</NuxtLink
         >
         <NuxtLink :to="{ name: 'camps' }" class="py-2"
           >Holiday Activity Camps</NuxtLink
         >
-        <NuxtLink to="/camps/booking" class="py-2"
+        <NuxtLink :to="{ name: 'camps-booking' }" class="py-2"
           >Book Upcoming Camps</NuxtLink
         >
 
-        <NuxtLink to="/faqs" class="py-2">FAQ's</NuxtLink>
+        <NuxtLink :to="{ name: 'faqs' }" class="py-2">FAQ's</NuxtLink>
       </div>
 
       <div id="legal-area" class="flex flex-col pt-2">
         <h5 class="mt-2 mb-4">LEGAL &#38; SITE MAP</h5>
-        <NuxtLink to="/" class="py-2">Privacy Policy</NuxtLink>
-        <NuxtLink to="/" class="py-2">Disclaimer</NuxtLink>
-        <NuxtLink to="/" class="py-2">T's &amp; C's</NuxtLink>
-        <NuxtLink to="/" class="py-2">Policies &amp; Procedures</NuxtLink>
+        <NuxtLink
+          to="https://docs.google.com/document/d/12DXvOXiAUBYBcFtsjq6ei398QyFPxPdn/edit?usp=sharing&ouid=105789957608846293341&rtpof=true&sd=true"
+          target="_blank"
+          rel="noopener"
+          class="py-2"
+          >Privacy Policy</NuxtLink
+        >
+        <NuxtLink :to="{ name: 'legal-disclaimer' }" class="py-2"
+          >Disclaimer</NuxtLink
+        >
+        <NuxtLink :to="{ name: 'legal-terms' }" class="py-2"
+          >T's &amp; C's</NuxtLink
+        >
+        <NuxtLink :to="{ name: 'legal-policies' }" class="py-2"
+          >Policies &amp; Procedures</NuxtLink
+        >
         <NuxtLink to="/" class="py-2">Site Map</NuxtLink>
       </div>
     </div>
