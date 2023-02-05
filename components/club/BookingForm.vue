@@ -73,15 +73,7 @@ const clubDetails = ref([]);
 const bookingSummary = ref([]);
 const paymentSummary = ref({});
 
-// console.log("ClubOptions", clubOptions.value);
-// console.log("schoolOptions", schoolOptions.value);
-
-watch(selectedSchool, () => {
-  return (schoolClubs.value = clubOptions.value.filter(
-    club => club.schoolName === selectedSchool.value.val,
-  ));
-});
-
+// calculate cost of all clubs
 const calculateCost = computed(() => {
   for (club of checkedClubs.value.val) {
     clubDetails.value = filteredClubs.value.find(item => item.clubRef === club);
@@ -89,10 +81,13 @@ const calculateCost = computed(() => {
   }
   return cost.value;
 });
+
 const clearCost = () => {
   checkedClubs.value.val = [];
   cost.value = 0;
 };
+
+// recalc each time a club is checked
 watch(checkedClubs, () => {
   cost.value = 0;
   for (club of checkedClubs.value.val) {
@@ -101,12 +96,14 @@ watch(checkedClubs, () => {
   }
   return cost.value;
 });
+
 watch(calculateCost, () => {
   cost.value = 0;
   calculateCost.value;
   return cost.value;
 });
 
+// build checkbox list from year & school selection
 const filteredSchoolClubs = computed(() => {
   let yearGroup = enteredYearGroup.value.val.toString();
   let schoolRef = selectedSchool.value.val;
@@ -114,6 +111,7 @@ const filteredSchoolClubs = computed(() => {
     return el.yearRange.includes(yearGroup) && el.schoolName === schoolRef;
   });
 });
+
 watchEffect(() => {
   enteredYearGroup.value.val.toString();
   selectedSchool.value.val;
@@ -168,15 +166,11 @@ const validateForm = () => {
 };
 
 const createPaymentRef = () => {
-  paymentRef.value = Date.now().toString(24);
+  paymentRef.value = Date.now().toString(36);
 };
 const createBookingRef = club => {
   bookingRef.value = `${paymentRef.value}-${club}`;
 };
-
-// const clubsBooked = computed(() => {
-//   return JSON.stringify(checkedClubs.value.val);
-// });
 
 // Form submission
 async function handleSubmitClubBooking() {
@@ -209,19 +203,17 @@ async function handleSubmitClubBooking() {
   });
 
   paymentSummary.value = createdPayment.fields;
-  // console.log("payment res****", createdPayment.fields);
-  // console.log("payment summary****", paymentSummary.value);
+  console.log("payment res****", createdPayment.fields);
 
-  if (paymentSummary) {
+  if (createdPayment.id) {
     for (let club of checkedClubs.value.val) {
       createBookingRef(club);
       clubDetails.value = filteredClubs.value.find(
         item => item.clubRef === club,
       );
-      // console.log("clubDetails***", clubDetails.value);
 
       clubBooking.value = {
-        club: club,
+        club: clubDetails.value.clubName,
         paymentRef: paymentRef.value,
         bookingRef: bookingRef.value,
         surname: enteredSurname.value.val,
@@ -241,36 +233,40 @@ async function handleSubmitClubBooking() {
         termCost: clubDetails.value.termCost,
         status: "reserved awaiting payment",
       };
-      // console.log("club booked", clubBooking.value);
 
       const createdBooking = await $fetch("/api/clubs/clubBooking", {
         method: "post",
         body: clubBooking.value,
       });
-      // console.log("booking res*****", createdBooking.fields);
-      bookingSummary.value.push(createdBooking.fields);
-      // console.log(bookingSummary.value);
-    }
-  }
 
-  const router = useRouter();
-  router.replace({
-    path: "/clubs/success",
-    query: {
-      name: enteredParentName.value.val,
-      childName: enteredChildFirstName.value.val,
-      surname: enteredSurname.value.val,
-      phone: enteredPhone.value.val,
-      email: enteredEmail.value.val,
-      paymentRef: paymentRef.value,
-      school: selectedSchool.value.val,
-      yearGroup: enteredYearGroup.value.val,
-      medicalConds: enteredMedical.value.val,
-      clubsBooked: JSON.stringify(checkedClubs.value.val),
-      clubsQty: checkedClubs.value.val.length,
-      amountDue: cost.value,
-    },
-  });
+      bookingSummary.value.push(createdBooking.fields);
+
+      if (bookingSummary.value.length === checkedClubs.value.val.length) {
+        const date = new Date().toLocaleString("en-GB");
+        const router = useRouter();
+        router.replace({
+          path: "/clubs/success",
+          query: {
+            name: enteredParentName.value.val,
+            childName: enteredChildFirstName.value.val,
+            surname: enteredSurname.value.val,
+            phone: enteredPhone.value.val,
+            email: enteredEmail.value.val,
+            paymentRef: paymentRef.value,
+            school: selectedSchool.value.val,
+            yearGroup: enteredYearGroup.value.val,
+            medicalConds: enteredMedical.value.val,
+            clubsBooked: JSON.stringify(checkedClubs.value.val),
+            clubsQty: checkedClubs.value.val.length,
+            amountDue: cost.value,
+            bookingDate: date,
+          },
+        });
+      }
+    }
+  } else {
+    alert("Oops, something has gone wrong, please try again later.");
+  }
 }
 </script>
 

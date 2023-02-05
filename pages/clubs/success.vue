@@ -3,7 +3,7 @@ const route = useRoute();
 const data = ref(route.query);
 const paymentRef = ref(route.query.paymentRef);
 
-const date = new Date().toLocaleString("en-GB");
+// const date = ref(route.query.bookingDate);
 // console.log("success****", data.value);
 </script>
 
@@ -55,7 +55,7 @@ const date = new Date().toLocaleString("en-GB");
                   Booking Date
                 </th>
                 <td class="bg-light text-dark border border-light p-4 w-3/5">
-                  {{ date }}
+                  {{ data.bookingDate }}
                 </td>
               </tr>
               <tr>
