@@ -23,14 +23,14 @@ defineProps(["partyDetails"]);
       </div>
     </div>
     <div class="my-4 flex justify-between">
-      <button class="btn-accent">
+      <button class="btn-accent w-full md:w-fit">
         <NuxtLink :to="{ name: 'parties-slug', params: { slug: party.slug } }">
           party details &nbsp;<font-awesome-icon
             :icon="['fas', 'arrow-right']"
           />
         </NuxtLink>
       </button>
-      <button class="btn-accent">
+      <button class="btn-accent hidden md:block lg:hidden xl:block">
         <NuxtLink :to="{ name: 'parties-quote' }" :ref="party.partyRef">
           get a quote &nbsp;<font-awesome-icon :icon="['fas', 'arrow-right']" />
         </NuxtLink>
