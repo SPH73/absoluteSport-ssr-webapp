@@ -21,7 +21,7 @@
         <h5 class="mt-2 mb-4">CONNECT WITH US</h5>
         <NuxtLink to="tel:07540309658" class="py-2">Phone</NuxtLink>
         <NuxtLink to="sms:07540309658" class="py-2"> Text Message</NuxtLink>
-        <NuxtLink to="/contact" class="py-2">Message Form</NuxtLink>
+        <NuxtLink :to="{ name: 'contact' }" class="py-2">Message Form</NuxtLink>
         <NuxtLink
           to="https://www.facebook.com/AbsoluteSport.AS"
           class="py-2"
@@ -44,24 +44,26 @@
           rel="nopener"
           >Instagram
         </NuxtLink>
-        <NuxtLink to="#" class="py-2">About</NuxtLink>
+        <NuxtLink :to="{ name: 'about' }" class="py-2">About</NuxtLink>
       </div>
 
       <div id="links-area" class="flex flex-col pt-2">
         <h5 class="mt-2 mb-4">LINKS</h5>
 
-        <NuxtLink to="/" class="py-2">School Clubs</NuxtLink>
-        <NuxtLink to="/" class="py-2">Book School Clubs</NuxtLink>
+        <NuxtLink :to="{ name: 'clubs' }" class="py-2">School Clubs</NuxtLink>
+        <NuxtLink to="/clubs/booking" class="py-2">Book School Clubs</NuxtLink>
         <NuxtLink :to="{ name: 'parties' }" class="py-2">Kids Parties</NuxtLink>
-        <NuxtLink to="/parties/partyQote" class="py-2"
+        <NuxtLink :to="{ path: '/parties/quote' }" class="py-2"
           >Request A Party Quote</NuxtLink
         >
-        <NuxtLink to="/camps" class="py-2">Holiday Activity Camps</NuxtLink>
+        <NuxtLink :to="{ name: 'camps' }" class="py-2"
+          >Holiday Activity Camps</NuxtLink
+        >
         <NuxtLink to="/camps/booking" class="py-2"
           >Book Upcoming Camps</NuxtLink
         >
 
-        <NuxtLink to="/" class="py-2">FAQ's</NuxtLink>
+        <NuxtLink to="/faqs" class="py-2">FAQ's</NuxtLink>
       </div>
 
       <div id="legal-area" class="flex flex-col pt-2">
