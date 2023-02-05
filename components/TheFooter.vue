@@ -1,6 +1,4 @@
-<script lang="ts" setup>
-const count = 688;
-</script>
+<script lang="ts" setup></script>
 
 <template>
   <footer class="bg-dark text-light text-xl print:hidden" id="footer-container">
@@ -8,7 +6,7 @@ const count = 688;
       class="grid grid-cols-1 p-4 md:grid-cols-2 lg:grid-cols-4 w-full font-play"
     >
       <div class="mt-4 flex flex-col">
-        <NuxtLink to="/img/logo.webp" class=""
+        <NuxtLink to="/" class=""
           ><img src="/img/logo.webp" alt="Logo" class="w-64" />
         </NuxtLink>
         <ul class="list-none">
@@ -81,7 +79,7 @@ const count = 688;
             />Share
           </NuxtLink>
         </button>
-        <button class="btn-fb-share">
+        <!-- <button class="btn-fb-share">
           <NuxtLink to="#">
             <font-awesome-icon
               :icon="['fas', 'thumbs-up']"
@@ -89,7 +87,7 @@ const count = 688;
             />
             Like</NuxtLink
           >
-        </button>
+        </button> -->
         <div id="social-icons" class="flex flex-row gap-x-4 justify-between">
           <font-awesome-icon
             :icon="['fab', 'instagram']"
