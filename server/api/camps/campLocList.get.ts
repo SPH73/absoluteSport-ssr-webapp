@@ -5,23 +5,15 @@ export default defineEventHandler(async event => {
   const { atBaseId } = useRuntimeConfig().public;
   const base = new Airtable({ apiKey: atApiKey }).base(atBaseId);
 
-  const table = base("campsList");
+  const table = base("campLocList");
 
   const records = await table
     .select({
       view: "Grid view",
-      // maxRecords: 2,
-      filterByFormula: "AND(spaceAvailable > 0, status = 'current')",
-      sort: [
-        {
-          field: "ws",
-          direction: "asc",
-        },
-      ],
     })
     .firstPage();
   if (!records) {
-    throw Error("Unable to fetch available camps");
+    throw Error("Unable to fetch available camp locations");
   }
 
   return records;

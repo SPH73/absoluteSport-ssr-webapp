@@ -125,7 +125,7 @@ const currentCamps = computed(() => {
           <h3 class="font-play capitalize">Current Camps</h3>
           <p>We have opened bookings now!</p>
           <div>
-            <button class="btn-accent my-4 w-full md:w-fit">
+            <button class="btn-primary my-4 w-full md:w-fit">
               <nuxt-link to="/camps/booking">Book Now</nuxt-link>
             </button>
           </div>

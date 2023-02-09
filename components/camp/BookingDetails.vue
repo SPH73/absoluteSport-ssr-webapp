@@ -1,0 +1,277 @@
+<script setup>
+const props = defineProps([
+  "parentAdded",
+  "parentName",
+  "mainContact",
+  "email",
+  "paymentRef",
+  "bookingDate",
+  "campBooking",
+  "numChildren",
+]);
+
+console.log("campbooking***", props.campBooking);
+// events
+const emit = defineEmits([
+  "handleRemoveBookingItem",
+  "handleConfirmBooking",
+  "handleCancelBooking",
+]);
+const removeBookingItem = item => {
+  emit("handleRemoveBookingItem", item);
+};
+const confirmBooking = () => {
+  emit("handleConfirmBooking");
+};
+const cancelBooking = () => {
+  emit("handleCancelBooking");
+};
+// computed cost
+const amountDue = computed(() => {
+  return props.campBooking.reduce(
+    (total, curr) => (total = total + curr.price),
+    0,
+  );
+});
+</script>
+
+<template>
+  <div>
+    <h2 class="text-accent">Booking Details</h2>
+    <div v-if="!props.parentAdded">
+      <ul>
+        <li>
+          <p><strong class="text-accent">Step 1</strong></p>
+          <p>
+            To start your booking process, please add and save parent/guardian's
+            details.
+          </p>
+        </li>
+      </ul>
+    </div>
+    <div v-else>
+      <h3>Parent/Guardian</h3>
+      <table
+        class="table-auto border-separate border-spacing-2 border border-light w-full text-2xl rounded-md"
+      >
+        <tbody>
+          <tr>
+            <th
+              class="uppercase p-4 bg-secondary text-left text-accent border border-secondary p-4"
+            >
+              Your Name
+            </th>
+            <td class="bg-light text-dark border border-secondary p-4">
+              {{ props.parentName }}
+            </td>
+          </tr>
+          <tr>
+            <th
+              class="uppercase p-4 bg-secondary text-left text-accent border border-secondary p-4"
+            >
+              Contact Number
+            </th>
+            <td class="bg-light text-dark border border-secondary p-4">
+              {{ props.mainContact }}
+            </td>
+          </tr>
+          <tr>
+            <th
+              class="uppercase p-4 bg-secondary text-left text-accent border border-secondary p-4"
+            >
+              Email
+            </th>
+            <td class="bg-light text-dark border border-secondary p-4">
+              {{ props.email }}
+            </td>
+          </tr>
+          <tr>
+            <th
+              class="uppercase p-4 bg-secondary text-left text-accent border border-secondary p-4 w-2/5"
+            >
+              Booking Date
+            </th>
+            <td class="bg-light text-dark border border-secondary p-4 w-3/5">
+              {{ props.bookingDate }}
+            </td>
+          </tr>
+
+          <tr>
+            <th
+              class="uppercase p-4 bg-secondary text-left text-accent border border-secondary p-4 w-2/5"
+            >
+              Total Children in Booking
+            </th>
+            <td class="bg-light text-dark border border-secondary p-4 w-3/5">
+              {{ props.numChildren }}
+            </td>
+          </tr>
+
+          <tr>
+            <th
+              class="uppercase p-4 bg-secondary text-left text-accent border border-secondary p-4 w-2/5"
+            >
+              Total camp weeks booked
+            </th>
+            <td class="bg-light text-dark border border-secondary p-4 w-3/5">
+              {{ props.campBooking.length }}
+            </td>
+          </tr>
+          <tr>
+            <th
+              class="uppercase p-4 bg-secondary text-left text-accent border border-secondary p-4 w-2/5"
+            >
+              Total Cost
+            </th>
+            <td class="bg-light text-dark border border-secondary p-4 w-3/5">
+              <strong>£{{ amountDue }}</strong>
+            </td>
+          </tr>
+          <tr>
+            <th
+              class="uppercase p-4 bg-secondary text-left text-accent border border-secondary p-4 w-2/5"
+            >
+              Payment Reference
+            </th>
+            <td class="bg-light text-dark border border-secondary p-4 w-3/5">
+              <strong>{{ props.paymentRef }}</strong>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div v-if="props.campBooking.length">
+      <h3>Camps Booked</h3>
+      <table
+        class="table-auto border-separate border-spacing-2 border border-light w-full text-2xl rounded-md mt-8"
+      >
+        <tbody
+          v-for="(booking, index) in props.campBooking"
+          :key="booking.bookingRef"
+          @click="removeItem(booking.bookingRef)"
+        >
+          <tr>
+            <th
+              class="uppercase p-4 bg-secondary text-left text-accent border border-secondary p-4 w-2/5 mt-8"
+            >
+              {{ index + 1 }}:&nbsp;Camp Booked
+            </th>
+            <td
+              class="bg-light text-dark border border-secondary p-4 w-3/5 mt-8"
+            >
+              {{ booking.campName }}&nbsp;<span class="cursor-pointer"
+                ><strong class="text-secondary">[X&nbsp;Remove]</strong></span
+              >
+            </td>
+          </tr>
+          <tr>
+            <th
+              class="uppercase p-4 bg-secondary text-left text-accent border border-secondary p-4 w-2/5"
+            >
+              Camp Location
+            </th>
+            <td class="bg-light text-dark border border-secondary p-4 w-3/5">
+              {{ booking.location }}
+            </td>
+          </tr>
+          <tr>
+            <th
+              class="uppercase p-4 bg-secondary text-left text-accent border border-secondary p-4"
+            >
+              Child
+            </th>
+            <td class="bg-light text-dark border border-secondary p-4">
+              {{ booking.childName }}
+              {{ booking.childSurname }} ({{ booking.childAge }}y/o at camp)
+            </td>
+          </tr>
+          <tr>
+            <th
+              class="uppercase p-4 bg-secondary text-left text-accent border border-secondary p-4"
+            >
+              Days attending
+            </th>
+            <td class="bg-light text-dark border border-secondary p-4">
+              <span v-for="day in booking.campDays" :key="day">
+                {{ day }},&nbsp;
+              </span>
+            </td>
+          </tr>
+          <tr>
+            <th
+              class="uppercase p-4 bg-secondary text-left text-accent border border-secondary p-4"
+            >
+              Booking Cost
+            </th>
+            <td class="bg-light text-dark border border-secondary p-4">
+              £{{ booking.price }}
+            </td>
+          </tr>
+        </tbody>
+      </table>
+
+      <div class="btn-group mt-4">
+        <button class="btn-accent mr-4" @click="confirmBooking">
+          Submit Booking
+        </button>
+        <button class="btn-accent" @click="cancelBooking">
+          Cancel Booking
+        </button>
+      </div>
+    </div>
+    <div v-else>
+      <ul>
+        <li>
+          <p><strong class="text-accent">Step 2</strong></p>
+          <p>Please add your child's details then...</p>
+        </li>
+        <li>
+          <p><strong class="text-accent">Step 3</strong></p>
+          <p>
+            ... select a camp week and confirm the camp days they will be
+            attending. Save by clicking
+            <span class="text-accent">"Add To Booking"</span>.
+          </p>
+        </li>
+        <li>
+          <p><strong class="text-accent">Step 4</strong></p>
+          <p>
+            Continue repeating
+            <span class="text-accent">Steps 2 & 3 </span> for this child and any
+            siblings for each camp week you wish to book.
+          </p>
+        </li>
+      </ul>
+      <ul>
+        <li>
+          <p><strong class="text-accent">Step 5</strong></p>
+          <p>
+            Once you have added all required camps for each child and confirmed
+            the details are correct, click
+            <span class="text-accent">"Confirm & Submit" </span> to send us your
+            booking. That's it, you are done!
+          </p>
+        </li>
+      </ul>
+      <ul>
+        <li>
+          <p><strong class="text-accent">TIP</strong></p>
+          <p>
+            You can remove individual bookings by clicking
+            <span class="text-accent">"[X Remove]"</span> next to each camp
+            booking or click <span class="text-accent">"cancel" </span>to start
+            over.
+          </p>
+          <p>
+            Kindly take note: Camp places are reserved on receipt of booking but
+            will only be confirmed on receipt of payment.
+          </p>
+        </li>
+      </ul>
+    </div>
+  </div>
+  <p>
+    If you experience any difficulties with booking or need assistance, please
+    contact us for help.
+  </p>
+</template>
