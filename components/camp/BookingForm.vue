@@ -14,9 +14,9 @@ async function showSteps() {
 
 // parent form data ****
 
-const enteredParentName = ref({ val: "Sue", isValid: true });
-const enteredMainContact = ref({ val: "07492727870", isValid: true });
-const enteredEmail = ref({ val: "susanpholder@gmail.com", isValid: true });
+const enteredParentName = ref({ val: "", isValid: true });
+const enteredMainContact = ref({ val: "", isValid: true });
+const enteredEmail = ref({ val: "", isValid: true });
 const acceptedTerms = ref({ val: true, isValid: true });
 const parentFormIsValid = ref(true);
 // const savedParent = ref({});
@@ -58,9 +58,9 @@ async function onSubmitParent() {
 
 // child form data
 const title = "Pupil Premium Booking";
-const childName = ref({ val: "nathan", isValid: true });
-const childSurname = ref({ val: "Holder", isValid: true });
-const childAge = ref({ val: "10", isValid: true });
+const childName = ref({ val: "", isValid: true });
+const childSurname = ref({ val: "", isValid: true });
+const childAge = ref({ val: "select", isValid: true });
 const confirmedPhoto = ref(true);
 
 const pupilPrem = ref(false);
@@ -87,7 +87,7 @@ campLocList.value.forEach((record, index) => {
   locationOptions.value.push(location);
 });
 console.log("locationOptions", locationOptions.value);
-const campLoc = ref({ val: "Portfield" });
+const campLoc = ref({ val: "" });
 const filteredCamps = ref([]);
 
 const filterCampsByLoc = computed(() => {
