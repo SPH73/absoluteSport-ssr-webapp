@@ -187,7 +187,7 @@ async function confirmBooking() {
             v-show="selectedTab === 'CampForm'"
             @click="selectedTab = 'CampBookingDetails'"
           >
-            re Review Booking Details <span>&nbsp;⟼</span>
+            Review Booking Details <span>&nbsp;⟼</span>
           </button>
           <button
             class="btn-accent"
