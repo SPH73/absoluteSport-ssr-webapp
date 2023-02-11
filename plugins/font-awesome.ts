@@ -2,6 +2,7 @@ import { library, config } from "@fortawesome/fontawesome-svg-core";
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
 import {
   faArrowUpRightFromSquare,
+  faCircleInfo,
   faAddressCard,
   faAngleDown,
   faAngleLeft,
@@ -58,6 +59,7 @@ import {
 export default defineNuxtPlugin(nuxtApp => {
   library.add(
     faArrowUpRightFromSquare,
+    faCircleInfo,
     faBars,
     faPaintBrush,
     faPuzzlePiece,

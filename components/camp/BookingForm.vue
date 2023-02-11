@@ -200,13 +200,17 @@ const onAddBookingItem = () => {
       it to the booking and confirm your child's place.
     </p>
     <p v-if="!parentAdded" class="cursor-pointer">
+      <font-awesome-icon
+        :icon="['fas', 'circle-info']"
+        class="text-primary w-6 h-6 mr-4"
+      />
       <strong class="text-accent" @click="showSteps"
         >Show me the steps to complete this form</strong
       >
     </p>
   </div>
   <div id="forms" class="my-2">
-    <h3 class="text-accent">1: Parent/Guardian Details</h3>
+    <h3>1: Parent/Guardian Details</h3>
     <div id="parent-details" v-if="!parentAdded">
       <form @submit.prevent="onSubmitParent">
         <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-3xl w-full">
@@ -671,7 +675,7 @@ const onAddBookingItem = () => {
       </p>
       <p>
         Please review your booking to confirm all children and camp weeks have been added
-        to your booking and then click submit when ready. A booking reference and payment
+        to your booking and then click confirm when ready. A booking reference and payment
         details will be emailed to you on submission.
       </p>
     </div>
