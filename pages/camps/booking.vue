@@ -21,7 +21,7 @@ campsList.value.forEach((record, index) => {
 
 // keep alive
 const selectedTab = ref("CampForm");
-const setSelectedTab = tab => {
+const setSelectedTab = (tab) => {
   selectedTab.value = tab;
 };
 
@@ -65,6 +65,7 @@ const childName = ref("");
 const childSurname = ref("");
 const childAge = ref("select");
 const pupilPrem = ref(false);
+const hafID = ref("");
 const confirmedPhoto = ref(true);
 const campLoc = ref("select");
 const campName = ref("select");
@@ -83,12 +84,12 @@ const handleAddCampBookingItem = (
   surname,
   age,
   pp,
-  hafID,
+  haf,
   photo,
   loc,
   camp,
   days,
-  num,
+  num
 ) => {
   createBookingRef();
   childName.value = name;
@@ -96,6 +97,7 @@ const handleAddCampBookingItem = (
   childAge.value = age;
   pupilPrem.value = pp;
   confirmedPhoto.value = photo;
+  hafID.value = haf;
   campLoc.value = loc;
   campName.value = camp;
   campDays.value = days;
@@ -106,7 +108,7 @@ const handleAddCampBookingItem = (
   }
 
   const findCamp = computed(() => {
-    return campsList.value.find(camp => camp.locRef === campLoc.value);
+    return campsList.value.find((camp) => camp.locRef === campLoc.value);
   });
 
   watchEffect(() => {
@@ -128,6 +130,7 @@ const handleAddCampBookingItem = (
     numCampDays: numCampDays.value,
     bookingRef: bookingRef.value,
     pupilPrem: pupilPrem.value,
+    hafID: hafID.value,
     price: calculatedPrice.value,
     paymentRef: paymentRef.value,
     status: "reserved",
@@ -145,16 +148,11 @@ const numChildren = computed(() => {
 });
 
 const totalCost = computed(() => {
-  return campBooking.value.reduce(
-    (total, curr) => (total = total + curr.price),
-    0,
-  );
+  return campBooking.value.reduce((total, curr) => (total = total + curr.price), 0);
 });
 
-const removeItem = item => {
-  campBooking.value = campBooking.value.filter(
-    booking => booking.bookingRef !== item,
-  );
+const removeItem = (item) => {
+  campBooking.value = campBooking.value.filter((booking) => booking.bookingRef !== item);
 };
 
 const createBookingRef = () => {
