@@ -199,6 +199,10 @@ const onAddBookingItem = () => {
       Kindly use your unique payment reference when making payment so that we can allocate
       it to the booking and confirm your child's place.
     </p>
+    <p>
+      TIP: Use the review booking details button at each stage of your booking to check
+      your booking status.
+    </p>
     <p v-if="!parentAdded" class="cursor-pointer">
       <font-awesome-icon
         :icon="['fas', 'circle-info']"
