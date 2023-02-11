@@ -124,7 +124,7 @@ const amountDue = computed(() => {
               <strong>£{{ amountDue }}</strong>
             </td>
           </tr>
-          <tr v-if="!amountDue === 0">
+          <tr v-if="amountDue > 0">
             <th
               class="uppercase p-4 bg-secondary text-left text-accent border border-secondary p-4 w-2/5"
             >
@@ -137,7 +137,7 @@ const amountDue = computed(() => {
         </tbody>
       </table>
     </div>
-    <div v-if="!amountDue === 0">
+    <div v-if="amountDue > 0">
       <p>Please make payment to:</p>
       <p>AbsoluteSport</p>
       <p>Account number:</p>
