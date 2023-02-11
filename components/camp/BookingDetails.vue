@@ -201,7 +201,7 @@ const amountDue = computed(() => {
           <p>
             ... select a camp week and confirm the camp days they will be attending. Save
             by clicking
-            <span class="text-accent">"Add To Booking"</span>.
+            <span class="text-accent">"Save To Booking"</span>.
           </p>
         </li>
         <li>
@@ -217,10 +217,11 @@ const amountDue = computed(() => {
         <li>
           <p><strong class="text-accent">Step 5</strong></p>
           <p>
-            Once you have added all required camps for each child and confirmed the
+            Once you have added all required camp weeks for each child and confirmed the
             details are correct, click
-            <span class="text-accent">"Confirm & Submit" </span> to send us your booking.
-            That's it, you are done!
+            <span class="text-accent">"Confirm Booking" </span> to send us your booking.
+            That's it, you are done and your booking is reserved. Please remember to make
+            your payment to confirm your camp bookings!
           </p>
         </li>
       </ul>
@@ -230,7 +231,7 @@ const amountDue = computed(() => {
           <p>
             You can remove individual bookings by clicking
             <span class="text-accent">"[X Remove]"</span> next to each camp booking or
-            click <span class="text-accent">"cancel" </span>to start over.
+            click <span class="text-accent">"Cancel Booking" </span>to start again.
           </p>
           <p>
             Kindly take note: Camp places are reserved on receipt of booking but will only
