@@ -11,7 +11,7 @@ export default defineEventHandler(async event => {
     .select({
       view: "Grid view",
       // maxRecords: 2,
-      filterByFormula: "AND(spaceAvailable > 0, status = 'current')",
+      filterByFormula: "NOT(spaceAvailable = 0, status = 'past')",
       sort: [
         {
           field: "ws",
