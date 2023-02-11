@@ -17,7 +17,7 @@ async function showSteps() {
 const enteredParentName = ref({ val: "", isValid: true });
 const enteredMainContact = ref({ val: "", isValid: true });
 const enteredEmail = ref({ val: "", isValid: true });
-const acceptedTerms = ref({ val: true, isValid: true });
+const acceptedTerms = ref({ val: false, isValid: true });
 const parentFormIsValid = ref(true);
 // const savedParent = ref({});
 
@@ -61,7 +61,6 @@ const title = "Pupil Premium Booking";
 const childName = ref({ val: "", isValid: true });
 const childSurname = ref({ val: "", isValid: true });
 const childAge = ref({ val: "select", isValid: true });
-const confirmedPhoto = ref(true);
 
 const pupilPrem = ref(false);
 const ppIsChecked = ref(false);
@@ -71,7 +70,8 @@ watch(pupilPrem, () => {
 const confirmPP = () => {
   ppIsChecked.value = false;
 };
-const hafId = ref({ val: "", isValid: true });
+const hafID = ref({ val: "", isValid: true });
+const confirmedPhoto = ref(true);
 
 // camp details
 const locationOptions = ref([]);
@@ -133,10 +133,10 @@ const validateCampForm = () => {
     campFormIsValid.value = false;
   }
   if (pupilPrem) {
-    if (hafId.value.val === "") {
-      hafId.value.isValid = false;
+    if (hafID.value.val === "") {
+      hafID.value.isValid = false;
+      campFormIsValid.value = false;
     }
-    campFormIsValid.value = false;
   }
 
   if (campName.value.val === "select") {
@@ -148,7 +148,7 @@ const validateCampForm = () => {
     campFormIsValid.value = false;
   }
 };
-// submition
+// submission
 const onAddBookingItem = () => {
   validateCampForm();
   if (!campFormIsValid) {
@@ -160,7 +160,7 @@ const onAddBookingItem = () => {
     childSurname.value.val,
     childAge.value.val,
     pupilPrem.value,
-    // hafId.value.val,
+    hafID.value.val,
     confirmedPhoto.value,
     campLoc.value.val,
     campName.value.val,
@@ -188,7 +188,7 @@ const onAddBookingItem = () => {
     </template>
   </BaseDialog>
   <div id="text">
-    <h1 class="text-accent capitalize">camp bookings</h1>
+    <h1 class="text-accent font-play capitalize">camp bookings</h1>
     <p>
       We run Holiday Activity Camps at Sidlesham Primary School and Portfield
       Academy throughout the year.
@@ -413,18 +413,18 @@ const onAddBookingItem = () => {
         </div>
         <div
           v-if="pupilPrem"
-          class="grid grid-cols-1 md:grid-cols-2 gap-4 text-3xl w-full"
+          class="grid grid-cols-1 md:grid-cols-2 gap-4 text-3xl w-full pt-2"
         >
-          <div class="md:text-end" :class="{ invalid: !hafId.isValid }">
-            <label>HafID</label>
+          <div class="md:text-end" :class="{ invalid: !hafID.isValid }">
+            <label>HAF ID Code</label>
           </div>
-          <div :class="{ invalid: !hafId.isValid }">
+          <div>
             <input
               type="text"
-              v-model.trim.lazy="hafId.val"
+              v-model.trim.lazy="hafID.val"
               class="w-full p-2 rounded"
-              autocomplete="name"
-              required
+              autocomplete="off"
+              placeholder="HAF..."
             />
           </div>
         </div>
@@ -487,41 +487,41 @@ const onAddBookingItem = () => {
               </option>
             </select>
           </div>
-          <!-- camp week -->
-          <div v-if="filteredCamps.length">
-            <div
-              class="md:text-end"
-              :class="{
-                invalid: !campName.isValid,
-              }"
-            >
-              <label>Camp week</label>
-            </div>
-            <div
-              :class="{
-                invalid: !campName.isValid,
-              }"
-            >
-              <select
-                required
-                v-model="campName.val"
-                class="w-full p-2 rounded"
-              >
-                <option disabled value="select">Select a camp...</option>
-                <option
-                  v-for="option in filteredCamps"
-                  :value="option.campName"
-                  :key="option.id"
-                >
-                  {{ option.campName }} £{{ option.pricePerDay }} p/day
-                </option>
-              </select>
-            </div>
-          </div>
-          <p v-else>Please choose a camp location to display available camps</p>
         </div>
+        <!-- camp week -->
+        <div
+          v-if="filteredCamps.length"
+          class="grid grid-cols-1 md:grid-cols-2 gap-4 text-3xl w-full pt-4"
+        >
+          <div
+            class="md:text-end"
+            :class="{
+              invalid: !campName.isValid,
+            }"
+          >
+            <label>Camp week</label>
+          </div>
+          <div
+            :class="{
+              invalid: !campName.isValid,
+            }"
+          >
+            <select required v-model="campName.val" class="w-full p-2 rounded">
+              <option disabled value="select">Select a camp...</option>
+              <option
+                v-for="option in filteredCamps"
+                :value="option.campName"
+                :key="option.id"
+              >
+                {{ option.campName }} £{{ option.pricePerDay }} p/day
+              </option>
+            </select>
+          </div>
+        </div>
+        <p v-else>Please choose a camp location to display available camps</p>
+
         <!-- camp days -->
-        <div class="flex flex-row justify-between items-center">
+        <div class="flex flex-row justify-between items-center pt-4">
           <div class="flex flex-col items-center justify-end gap-4">
             <label for="mon">Mo</label>
             <input

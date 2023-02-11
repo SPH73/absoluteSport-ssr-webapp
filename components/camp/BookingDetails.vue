@@ -37,7 +37,7 @@ const amountDue = computed(() => {
 
 <template>
   <div>
-    <h2 class="text-accent">Booking Details</h2>
+    <h2 class="text-accent font-play capitalize">Booking Details</h2>
     <div v-if="!props.parentAdded">
       <ul>
         <li>
@@ -50,7 +50,7 @@ const amountDue = computed(() => {
       </ul>
     </div>
     <div v-else>
-      <h3>Parent/Guardian</h3>
+      <h3>Parent/Guardian Payment Details</h3>
       <table
         class="table-auto border-separate border-spacing-2 border border-light w-full text-2xl rounded-md"
       >
@@ -121,7 +121,7 @@ const amountDue = computed(() => {
             <th
               class="uppercase p-4 bg-secondary text-left text-accent border border-secondary p-4 w-2/5"
             >
-              Total Cost
+              Total Amount Due
             </th>
             <td class="bg-light text-dark border border-secondary p-4 w-3/5">
               <strong>£{{ amountDue }}</strong>
@@ -131,7 +131,7 @@ const amountDue = computed(() => {
             <th
               class="uppercase p-4 bg-secondary text-left text-accent border border-secondary p-4 w-2/5"
             >
-              Payment Reference
+              Payment Reference (if applicable)
             </th>
             <td class="bg-light text-dark border border-secondary p-4 w-3/5">
               <strong>{{ props.paymentRef }}</strong>
@@ -141,7 +141,7 @@ const amountDue = computed(() => {
       </table>
     </div>
     <div v-if="props.campBooking.length">
-      <h3>Camps Booked</h3>
+      <h3>Camp Bookings</h3>
       <table
         class="table-auto border-separate border-spacing-2 border border-light w-full text-2xl rounded-md mt-8"
       >
@@ -212,7 +212,7 @@ const amountDue = computed(() => {
 
       <div class="btn-group mt-4">
         <button class="btn-accent mr-4" @click="confirmBooking">
-          Submit Booking
+          Confirm Booking
         </button>
         <button class="btn-accent" @click="cancelBooking">
           Cancel Booking

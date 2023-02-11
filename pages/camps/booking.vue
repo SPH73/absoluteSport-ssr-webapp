@@ -30,9 +30,9 @@ const campBooking = ref([]);
 const bookingRef = ref(null);
 const paymentRef = ref(null);
 const childList = ref([]);
-const enteredParentName = ref({ val: "", isValid: true });
-const enteredEmail = ref({ val: "", isValid: true });
-const enteredMainContact = ref({ val: "", isValid: true });
+const enteredParentName = ref("");
+const enteredEmail = ref("");
+const enteredMainContact = ref("");
 const acceptedTerms = ref(false);
 const parentAdded = ref(null);
 const savedParent = ref({});
@@ -65,7 +65,6 @@ const childName = ref("");
 const childSurname = ref("");
 const childAge = ref("select");
 const pupilPrem = ref(false);
-// const hafId = ref("");
 const confirmedPhoto = ref(true);
 const campLoc = ref("select");
 const campName = ref("select");
@@ -84,7 +83,7 @@ const handleAddCampBookingItem = (
   surname,
   age,
   pp,
-  // hafId,
+  hafID,
   photo,
   loc,
   camp,
@@ -96,7 +95,6 @@ const handleAddCampBookingItem = (
   childSurname.value = surname;
   childAge.value = age;
   pupilPrem.value = pp;
-  // hafId.value = hafId;
   confirmedPhoto.value = photo;
   campLoc.value = loc;
   campName.value = camp;
@@ -130,7 +128,6 @@ const handleAddCampBookingItem = (
     numCampDays: numCampDays.value,
     bookingRef: bookingRef.value,
     pupilPrem: pupilPrem.value,
-    // hafId: hafId.value,
     price: calculatedPrice.value,
     paymentRef: paymentRef.value,
     status: "reserved",
@@ -219,6 +216,7 @@ async function confirmBooking() {
           :paymentRef="paymentRef"
           :bookingDate="bookingDate"
           :numChildren="numChildren"
+          :childrenNames="childrenNames"
           :campBooking="campBooking"
           @handleRemoveBookingItem="removeItem"
           @handleCancelBooking="cancelBooking"

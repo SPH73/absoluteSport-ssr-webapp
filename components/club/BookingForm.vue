@@ -60,7 +60,6 @@ const enteredMedical = ref({ val: "", isValid: true });
 const enteredYearGroup = ref({ val: "select", isValid: true });
 const selectedSchool = ref({ val: "select", isValid: true });
 const filteredClubs = ref([]);
-const schoolClubs = ref([]);
 const checkedClubs = ref({ val: [], isValid: true });
 const cost = ref(0);
 const acceptedTerms = ref({ val: false, isValid: true });
