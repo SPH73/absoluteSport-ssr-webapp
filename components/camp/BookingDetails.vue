@@ -7,11 +7,8 @@ const props = defineProps([
   "paymentRef",
   "bookingDate",
   "campBooking",
-  "numChildren",
-  "childrenNames",
 ]);
 
-console.log("campbooking***", props.campBooking);
 // events
 const emit = defineEmits([
   "handleRemoveBookingItem",
@@ -92,28 +89,6 @@ const amountDue = computed(() => {
               {{ props.bookingDate }}
             </td>
           </tr>
-
-          <tr>
-            <th
-              class="uppercase p-4 bg-secondary text-left text-accent border border-secondary p-4 w-2/5"
-            >
-              Children in Booking
-            </th>
-            <td class="bg-light text-dark border border-secondary p-4 w-3/5">
-              {{ props.numChildren }} - {{ props.childrenNames }}
-            </td>
-          </tr>
-
-          <tr>
-            <th
-              class="uppercase p-4 bg-secondary text-left text-accent border border-secondary p-4 w-2/5"
-            >
-              Total camp weeks booked
-            </th>
-            <td class="bg-light text-dark border border-secondary p-4 w-3/5">
-              {{ props.campBooking.length }}
-            </td>
-          </tr>
           <tr>
             <th
               class="uppercase p-4 bg-secondary text-left text-accent border border-secondary p-4 w-2/5"
@@ -152,7 +127,7 @@ const amountDue = computed(() => {
         <tbody
           v-for="(booking, index) in props.campBooking"
           :key="booking.bookingRef"
-          @click="removeItem(booking.bookingRef)"
+          @click="removeBookingItem(booking.bookingRef)"
         >
           <tr>
             <th
@@ -194,7 +169,7 @@ const amountDue = computed(() => {
               Days attending
             </th>
             <td class="bg-light text-dark border border-secondary p-4">
-              <span v-for="day in booking.campDays" :key="day"> {{ day }},&nbsp; </span>
+              <span v-for="day in booking.daysBooked" :key="day"> {{ day }},&nbsp; </span>
             </td>
           </tr>
           <tr>

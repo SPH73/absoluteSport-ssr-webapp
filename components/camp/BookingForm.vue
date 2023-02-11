@@ -3,11 +3,7 @@
 const { data: campLocList, error } = await useFetch("/api/camps/campLocList");
 const props = defineProps(["parentAdded", "error", "campsList"]);
 // events ****
-const emit = defineEmits([
-  "parent-submitted",
-  "camp-booking-added",
-  "show-steps",
-]);
+const emit = defineEmits(["parent-submitted", "camp-booking-added", "show-steps"]);
 async function showSteps() {
   emit("show-steps");
 }
@@ -52,7 +48,7 @@ async function onSubmitParent() {
     enteredParentName.value.val,
     enteredMainContact.value.val,
     enteredEmail.value.val,
-    acceptedTerms.value.val,
+    acceptedTerms.value.val
   );
 }
 
@@ -86,15 +82,13 @@ campLocList.value.forEach((record, index) => {
   };
   locationOptions.value.push(location);
 });
-console.log("locationOptions", locationOptions.value);
+
 const campLoc = ref({ val: "" });
 const filteredCamps = ref([]);
 
 const filterCampsByLoc = computed(() => {
   let loc = campLoc.value.val;
-  return (filteredCamps.value = props.campsList.filter(
-    camp => camp.locRef === loc,
-  ));
+  return (filteredCamps.value = props.campsList.filter((camp) => camp.locRef === loc));
 });
 
 const campName = ref({ val: "select", isValid: true });
@@ -106,12 +100,12 @@ const calculatedDays = computed(() => {
 });
 
 watchEffect(() => {
-  console.log("camp loc", campLoc.value.val);
+  campLoc.value.val;
   filterCampsByLoc.value;
-  console.log("filtered camps", filteredCamps.value);
-  console.log("camp days", campDays.value.val);
+  filteredCamps.value;
+  campDays.value.val;
   calculatedDays.value;
-  console.log("num days", numCampDays.value);
+  numCampDays.value;
 });
 
 const campFormIsValid = ref(true);
@@ -165,11 +159,15 @@ const onAddBookingItem = () => {
     campLoc.value.val,
     campName.value.val,
     campDays.value.val,
-    numCampDays.value,
+    numCampDays.value
   );
-  // reset after each camp is added
+  // reset after each booking is added
   childName.value.val = "";
+  childSurname.value.val = "";
   childAge.value.val = "select";
+  pupilPrem.value = false;
+  hafID.value.val = "";
+  campLoc.value.val = "select";
   campName.value.val = "select";
   campDays.value.val = [];
 };
@@ -179,8 +177,8 @@ const onAddBookingItem = () => {
   <BaseDialog @close="confirmPP" :open="ppIsChecked" :title="title">
     <template #content>
       <p class="text-dark">
-        Please provide your child's HAF ID so that we can confirm a place with
-        the council. If there are any issues we will contact you directly.
+        Please provide your child's HAF ID so that we can confirm a place with the
+        council. If there are any issues we will contact you directly.
       </p>
     </template>
     <template #actions>
@@ -190,16 +188,16 @@ const onAddBookingItem = () => {
   <div id="text">
     <h1 class="text-accent font-play capitalize">camp bookings</h1>
     <p>
-      We run Holiday Activity Camps at Sidlesham Primary School and Portfield
-      Academy throughout the year.
+      We run Holiday Activity Camps at Sidlesham Primary School and Portfield Academy
+      throughout the year.
     </p>
     <p>
-      If you are booking a HAF place please have your child's HAF ID handy. If
-      you aren't sure what it is you can request it from your child's school.
+      If you are booking a HAF place please have your child's HAF ID handy. If you aren't
+      sure what it is you can request it from your child's school.
     </p>
     <p>
-      Kindly use your unique payment reference when making payment so that we
-      can allocate it to the booking and confirm your child's place.
+      Kindly use your unique payment reference when making payment so that we can allocate
+      it to the booking and confirm your child's place.
     </p>
     <p v-if="!parentAdded" class="cursor-pointer">
       <strong class="text-accent" @click="showSteps"
@@ -212,10 +210,7 @@ const onAddBookingItem = () => {
     <div id="parent-details" v-if="!parentAdded">
       <form @submit.prevent="onSubmitParent">
         <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-3xl w-full">
-          <div
-            class="md:text-end"
-            :class="{ invalid: !enteredParentName.isValid }"
-          >
+          <div class="md:text-end" :class="{ invalid: !enteredParentName.isValid }">
             <label>Name</label>
           </div>
           <div :class="{ invalid: !enteredParentName.isValid }">
@@ -227,10 +222,7 @@ const onAddBookingItem = () => {
               required
             />
           </div>
-          <div
-            class="md:text-end"
-            :class="{ invalid: !enteredMainContact.isValid }"
-          >
+          <div class="md:text-end" :class="{ invalid: !enteredMainContact.isValid }">
             <label>Mobile Number</label>
           </div>
           <div :class="{ invalid: !enteredMainContact.isValid }">
@@ -270,9 +262,7 @@ const onAddBookingItem = () => {
               invalid: !acceptedTerms.isValid,
             }"
           >
-            <label for="terms-agreed" class="select-none"
-              >Accept T's &amp; C's</label
-            >
+            <label for="terms-agreed" class="select-none">Accept T's &amp; C's</label>
           </div>
           <input
             type="checkbox"
@@ -294,11 +284,7 @@ const onAddBookingItem = () => {
               xmlns="http://www.w3.org/2000/svg"
             >
               <g fill="none" fill-rule="evenodd">
-                <g
-                  transform="translate(-9 -11)"
-                  fill="#F88425"
-                  fill-rule="nonzero"
-                >
+                <g transform="translate(-9 -11)" fill="#F88425" fill-rule="nonzero">
                   <path
                     d="m25.576 11.414c0.56558 0.55188 0.56558 1.4439 0 1.9961l-9.404 9.176c-0.28213 0.27529-0.65247 0.41385-1.0228 0.41385-0.37034 0-0.74068-0.13855-1.0228-0.41385l-4.7019-4.588c-0.56584-0.55188-0.56584-1.4442 0-1.9961 0.56558-0.55214 1.4798-0.55214 2.0456 0l3.679 3.5899 8.3812-8.1779c0.56558-0.55214 1.4798-0.55214 2.0456 0z"
                   />
@@ -312,8 +298,7 @@ const onAddBookingItem = () => {
         </div>
       </form>
       <p class="error" v-if="!parentFormIsValid">
-        One or more fields are invalid. Please correct the errors and submit
-        again.
+        One or more fields are invalid. Please correct the errors and submit again.
       </p>
     </div>
 
@@ -398,11 +383,7 @@ const onAddBookingItem = () => {
               xmlns="http://www.w3.org/2000/svg"
             >
               <g fill="none" fill-rule="evenodd">
-                <g
-                  transform="translate(-9 -11)"
-                  fill="#F88425"
-                  fill-rule="nonzero"
-                >
+                <g transform="translate(-9 -11)" fill="#F88425" fill-rule="nonzero">
                   <path
                     d="m25.576 11.414c0.56558 0.55188 0.56558 1.4439 0 1.9961l-9.404 9.176c-0.28213 0.27529-0.65247 0.41385-1.0228 0.41385-0.37034 0-0.74068-0.13855-1.0228-0.41385l-4.7019-4.588c-0.56584-0.55188-0.56584-1.4442 0-1.9961 0.56558-0.55214 1.4798-0.55214 2.0456 0l3.679 3.5899 8.3812-8.1779c0.56558-0.55214 1.4798-0.55214 2.0456 0z"
                   />
@@ -429,9 +410,7 @@ const onAddBookingItem = () => {
           </div>
         </div>
         <div class="flex items-center justify-end mb-2 relative pt-4">
-          <label for="photo-permission" class="select-none"
-            >Photo permission</label
-          >
+          <label for="photo-permission" class="select-none">Photo permission</label>
           <input
             type="checkbox"
             name="photo-permission"
@@ -448,11 +427,7 @@ const onAddBookingItem = () => {
               xmlns="http://www.w3.org/2000/svg"
             >
               <g fill="none" fill-rule="evenodd">
-                <g
-                  transform="translate(-9 -11)"
-                  fill="#F88425"
-                  fill-rule="nonzero"
-                >
+                <g transform="translate(-9 -11)" fill="#F88425" fill-rule="nonzero">
                   <path
                     d="m25.576 11.414c0.56558 0.55188 0.56558 1.4439 0 1.9961l-9.404 9.176c-0.28213 0.27529-0.65247 0.41385-1.0228 0.41385-0.37034 0-0.74068-0.13855-1.0228-0.41385l-4.7019-4.588c-0.56584-0.55188-0.56584-1.4442 0-1.9961 0.56558-0.55214 1.4798-0.55214 2.0456 0l3.679 3.5899 8.3812-8.1779c0.56558-0.55214 1.4798-0.55214 2.0456 0z"
                   />
@@ -545,11 +520,7 @@ const onAddBookingItem = () => {
                 xmlns="http://www.w3.org/2000/svg"
               >
                 <g fill="none" fill-rule="evenodd">
-                  <g
-                    transform="translate(-9 -11)"
-                    fill="#F88425"
-                    fill-rule="nonzero"
-                  >
+                  <g transform="translate(-9 -11)" fill="#F88425" fill-rule="nonzero">
                     <path
                       d="m25.576 11.414c0.56558 0.55188 0.56558 1.4439 0 1.9961l-9.404 9.176c-0.28213 0.27529-0.65247 0.41385-1.0228 0.41385-0.37034 0-0.74068-0.13855-1.0228-0.41385l-4.7019-4.588c-0.56584-0.55188-0.56584-1.4442 0-1.9961 0.56558-0.55214 1.4798-0.55214 2.0456 0l3.679 3.5899 8.3812-8.1779c0.56558-0.55214 1.4798-0.55214 2.0456 0z"
                     />
@@ -581,11 +552,7 @@ const onAddBookingItem = () => {
                 xmlns="http://www.w3.org/2000/svg"
               >
                 <g fill="none" fill-rule="evenodd">
-                  <g
-                    transform="translate(-9 -11)"
-                    fill="#F88425"
-                    fill-rule="nonzero"
-                  >
+                  <g transform="translate(-9 -11)" fill="#F88425" fill-rule="nonzero">
                     <path
                       d="m25.576 11.414c0.56558 0.55188 0.56558 1.4439 0 1.9961l-9.404 9.176c-0.28213 0.27529-0.65247 0.41385-1.0228 0.41385-0.37034 0-0.74068-0.13855-1.0228-0.41385l-4.7019-4.588c-0.56584-0.55188-0.56584-1.4442 0-1.9961 0.56558-0.55214 1.4798-0.55214 2.0456 0l3.679 3.5899 8.3812-8.1779c0.56558-0.55214 1.4798-0.55214 2.0456 0z"
                     />
@@ -617,11 +584,7 @@ const onAddBookingItem = () => {
                 xmlns="http://www.w3.org/2000/svg"
               >
                 <g fill="none" fill-rule="evenodd">
-                  <g
-                    transform="translate(-9 -11)"
-                    fill="#F88425"
-                    fill-rule="nonzero"
-                  >
+                  <g transform="translate(-9 -11)" fill="#F88425" fill-rule="nonzero">
                     <path
                       d="m25.576 11.414c0.56558 0.55188 0.56558 1.4439 0 1.9961l-9.404 9.176c-0.28213 0.27529-0.65247 0.41385-1.0228 0.41385-0.37034 0-0.74068-0.13855-1.0228-0.41385l-4.7019-4.588c-0.56584-0.55188-0.56584-1.4442 0-1.9961 0.56558-0.55214 1.4798-0.55214 2.0456 0l3.679 3.5899 8.3812-8.1779c0.56558-0.55214 1.4798-0.55214 2.0456 0z"
                     />
@@ -653,11 +616,7 @@ const onAddBookingItem = () => {
                 xmlns="http://www.w3.org/2000/svg"
               >
                 <g fill="none" fill-rule="evenodd">
-                  <g
-                    transform="translate(-9 -11)"
-                    fill="#F88425"
-                    fill-rule="nonzero"
-                  >
+                  <g transform="translate(-9 -11)" fill="#F88425" fill-rule="nonzero">
                     <path
                       d="m25.576 11.414c0.56558 0.55188 0.56558 1.4439 0 1.9961l-9.404 9.176c-0.28213 0.27529-0.65247 0.41385-1.0228 0.41385-0.37034 0-0.74068-0.13855-1.0228-0.41385l-4.7019-4.588c-0.56584-0.55188-0.56584-1.4442 0-1.9961 0.56558-0.55214 1.4798-0.55214 2.0456 0l3.679 3.5899 8.3812-8.1779c0.56558-0.55214 1.4798-0.55214 2.0456 0z"
                     />
@@ -689,11 +648,7 @@ const onAddBookingItem = () => {
                 xmlns="http://www.w3.org/2000/svg"
               >
                 <g fill="none" fill-rule="evenodd">
-                  <g
-                    transform="translate(-9 -11)"
-                    fill="#F88425"
-                    fill-rule="nonzero"
-                  >
+                  <g transform="translate(-9 -11)" fill="#F88425" fill-rule="nonzero">
                     <path
                       d="m25.576 11.414c0.56558 0.55188 0.56558 1.4439 0 1.9961l-9.404 9.176c-0.28213 0.27529-0.65247 0.41385-1.0228 0.41385-0.37034 0-0.74068-0.13855-1.0228-0.41385l-4.7019-4.588c-0.56584-0.55188-0.56584-1.4442 0-1.9961 0.56558-0.55214 1.4798-0.55214 2.0456 0l3.679 3.5899 8.3812-8.1779c0.56558-0.55214 1.4798-0.55214 2.0456 0z"
                     />
@@ -704,24 +659,20 @@ const onAddBookingItem = () => {
           </div>
         </div>
         <!-- /end camp details -->
-        <p v-if="!campFormIsValid" class="errors">
-          Please correct the above errors and submit again.
-        </p>
+        <p v-if="!campFormIsValid">Please add the missing fields and submit again.</p>
         <div class="md:flex md:justify-end">
-          <button class="btn-accent my-4 w-full md:w-fit">
-            Save to booking
-          </button>
+          <button class="btn-accent my-4 w-full md:w-fit">Save to booking</button>
         </div>
       </form>
       <!-- /end camp item form -->
       <p>
-        Please save each camp week and the specific days for each week you wish
-        to book for your child(ren) individually.
+        Please save each camp week and the specific days for each week you wish to book
+        for your child(ren) individually.
       </p>
       <p>
-        Please review your booking to confirm all children and camp weeks have
-        been added to your booking and then click submit when ready. A booking
-        reference and payment details will be emailed to you on submission.
+        Please review your booking to confirm all children and camp weeks have been added
+        to your booking and then click submit when ready. A booking reference and payment
+        details will be emailed to you on submission.
       </p>
     </div>
   </div>

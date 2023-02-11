@@ -108,15 +108,17 @@ const handleAddCampBookingItem = (
   }
 
   const findCamp = computed(() => {
-    return campsList.value.find((camp) => camp.locRef === campLoc.value);
+    return campOptions.value.find((camp) => camp.locRef === campLoc.value);
   });
 
   watchEffect(() => {
-    console.log("found camp price", findCamp.value);
+    console.log("find camp***", findCamp.value.pricePerDay);
+    console.log("total cost***", totalCost.value);
   });
 
   const calculatedPrice = computed(() => {
-    return (pricePerDay.value = pupilPrem.value ? 0 : numCampDays.value * 25);
+    let ppd = findCamp.value.pricePerDay;
+    return (pricePerDay.value = pupilPrem.value ? 0 : numCampDays.value * ppd);
   });
   campBookingItem.value = {
     childName: childName.value,
@@ -126,14 +128,14 @@ const handleAddCampBookingItem = (
     photos: confirmedPhoto.value,
     location: campLoc.value,
     campName: campName.value,
-    campDays: campDays.value,
-    numCampDays: numCampDays.value,
+    daysBooked: campDays.value,
+    totalDays: numCampDays.value,
     bookingRef: bookingRef.value,
     pupilPrem: pupilPrem.value,
     hafID: hafID.value,
     price: calculatedPrice.value,
     paymentRef: paymentRef.value,
-    status: "reserved",
+    status: calculatedPrice.value > 0 ? "reserved" : "pupil premium",
   };
 
   campBooking.value.push(campBookingItem.value);
@@ -165,10 +167,58 @@ const bookingDate = new Date().toLocaleString("en-GB");
 const cancelBooking = () => {
   savedParent.value = {};
   campBooking.value = [];
+  childList.value = [];
 };
 
 async function confirmBooking() {
-  alert("ready to handle confirm booking");
+  const success = ref(false);
+  const payId = ref(null);
+  const bookId = ref(null);
+
+  const resPay = await $fetch("/api/camps/campPayment", {
+    method: "post",
+    body: savedParent.value,
+  });
+
+  payId.value = resPay.id;
+  console.log("resPay*****", resPay.id);
+  console.log("payId*****", payId.value);
+
+  const summary = ref([]);
+  for (let campItem of campBooking.value) {
+    const resBook = await $fetch("/api/camps/campBooking", {
+      method: "post",
+      body: campItem,
+    });
+    bookId.value = resBook.id;
+    console.log("resBook*****", resBook.fields);
+    console.log("bookId*****", bookId.value);
+    summary.value.push(resBook.fields);
+  }
+  console.log("booking summary*****", summary.value);
+
+  if (payId && bookId) {
+    success.value = true;
+  } else {
+    alert("We are sorry, there was a problem with your booking");
+  }
+  if (success) {
+    const router = useRouter();
+    const date = new Date().toLocaleString("en-GB");
+    router.replace({
+      path: "/camps/success",
+      query: {
+        name: enteredParentName.value,
+        phone: enteredMainContact.value,
+        email: enteredEmail.value,
+        children: childList.value,
+        paymentRef: paymentRef.value,
+        amountDue: totalCost.value,
+        bookingDate: date,
+        status: totalCost.value > 0 ? "awaiting payment" : "pupil premium",
+      },
+    });
+  }
 }
 </script>
 
@@ -213,8 +263,6 @@ async function confirmBooking() {
           :email="enteredEmail"
           :paymentRef="paymentRef"
           :bookingDate="bookingDate"
-          :numChildren="numChildren"
-          :childrenNames="childrenNames"
           :campBooking="campBooking"
           @handleRemoveBookingItem="removeItem"
           @handleCancelBooking="cancelBooking"

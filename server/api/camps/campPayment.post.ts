@@ -11,13 +11,9 @@ export default defineEventHandler(async fields => {
   const { atBaseId } = useRuntimeConfig().public;
   const base = new Airtable({ apiKey: atApiKey }).base(atBaseId);
 
-  const table = base("camp-bookings");
+  const table = base("camp-payments");
   const record = await readBody(fields);
 
-  try {
-    const createdRecord = await table.create(record);
-    return minifyData(createdRecord);
-  } catch (err) {
-    console.error(err);
-  }
+  const createdRecord = await table.create(record);
+  return minifyData(createdRecord);
 });
