@@ -22,7 +22,7 @@ const selectedParty = computed((partySlug) => {
   return partyList.value.find((party) => party.slug === route.params.slug);
 });
 console.log("partyList***********", partyList.value);
-
+// add meta to Airtable
 // useHead({
 //   title: selectedParty.value.fields.partyName,
 //   meta: [
@@ -76,21 +76,5 @@ console.log("partyList***********", partyList.value);
         </button>
       </div>
     </div>
-
-    <!-- <div v-for="slug in party.slug">
-      <pre>{{ slug }}</pre>
-      <div v-if="!slug === $route.params.slug">
-        <button class="btn-accent">
-          <NuxtLink
-            :to="{ name: 'parties-slug', params: { slug: slug } }"
-            class="flex justify-center items-center p-2 text-xl uppercase font-bold"
-          >
-            {{ party.partyName }} details &nbsp;<font-awesome-icon
-              :icon="['fas', 'arrow-right']"
-            />
-          </NuxtLink>
-        </button>
-      </div>
-    </div> -->
   </section>
 </template>
