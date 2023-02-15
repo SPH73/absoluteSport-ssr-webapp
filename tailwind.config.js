@@ -33,8 +33,8 @@ module.exports = {
       center: true,
       padding: {
         DEFAULT: "1rem",
-        sm: "2rem",
-        md: "3rem",
+        sm: "1.5rem",
+        md: "2rem",
         lg: "4rem",
         xl: "5rem",
         "2xl": "6rem",
@@ -51,18 +51,24 @@ module.exports = {
         accent: "rgb(var(--color-accent) / 1)",
         dark: "rgb(var(--color-dark) / 1)",
         light: "rgb(var(--color-light) / 1)",
-        "backdrop-start": "rgb(var(--color-backdrop) / 0.75)",
-        "backdrop-end": "rgb(var(--color-backdrop) / 0.25)",
       },
-      // keyframes: {
-      //   dialog: {
-      //     "0%": { transform: "translate-y[-50%]", scale: "scale-75" },
-      //     "100%": { transform: "translate-y-0", scale: "scale-100" },
-      //   },
-      // },
-      // animation: {
-      //   dialog: "dialog 0.3s ease-in-out forwards",
-      // },
+      keyframes: {
+        modal: {
+          "0%": {
+            transform: "-translate-y-[50px]",
+            scale: "scale-90",
+            opacity: "opacity-0",
+          },
+          "100%": {
+            transform: "translate-y-0",
+            scale: "scale-100",
+            opacity: "opacity-100",
+          },
+        },
+      },
+      animation: {
+        modal: "modal 0.3s ease-in-out forwards",
+      },
     },
   },
   plugins: [require("@tailwindcss/typography")],

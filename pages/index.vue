@@ -2,7 +2,7 @@
 const { error, pending, data: reviews } = await useFetch("/api/reviews");
 const reviewList = ref([]);
 let review = {};
-console.log("reviewsList", reviews.value);
+// console.log("reviewsList", reviews.value);
 reviews.value.forEach((record, index) => {
   if (record.fields.featured) {
     review = {
@@ -29,11 +29,11 @@ reviews.value.forEach((record, index) => {
           <h2>Kids learn while having fun at our clubs, camps and parties</h2>
           <div
             id="carousel"
-            class="absolute inset-x-0 md:inset-x-5 bottom-0 md:bottom-1/4 lg:bottom-1/3"
+            class="absolute inset-x-0 md:inset-x-5 sm:bottom-0 md:bottom-1/4 lg:top-2/4"
           >
             <!-- reviews -->
             <Swiper
-              class="w-full md:w-3/4 lg:w-2/4 xl:w-1/4 backdrop-grayscale rounded-xl flex justify-center items center p-4"
+              class="w-full md:w-3/4 lg:w-2/4 xl:w-1/3 backdrop-grayscale rounded-xl flex justify-center items center p-4"
               :modules="[
                 SwiperAutoplay,
                 SwiperEffectCreative,
