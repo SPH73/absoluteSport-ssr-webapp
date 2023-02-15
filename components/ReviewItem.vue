@@ -1,7 +1,7 @@
 <script setup>
 const props = defineProps(["review"]);
 const snippet = computed(() => {
-  return props.review.comment.substring(0, 200) + "...";
+  return props.review.comment.substring(0, 300) + "...";
 });
 </script>
 

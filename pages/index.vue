@@ -27,10 +27,10 @@ reviews.value.forEach((record, index) => {
         <div class="container font-play py-8">
           <h1>Fun, Laughter, Games and Exercise with AbsoluteSport</h1>
           <h2>Kids learn while having fun at our clubs, camps and parties</h2>
-          <div id="carousel" class="absolute inset-x-5 bottom-5 md:bottom-1/4">
+          <div id="carousel" class="absolute inset-x-5 bottom-5 md:bottom-1/4 p-8">
             <!-- reviews -->
             <Swiper
-              class=""
+              class="w-full md:w-3/4 lg:w-2/4"
               :modules="[
                 SwiperAutoplay,
                 SwiperEffectCreative,
@@ -59,7 +59,7 @@ reviews.value.forEach((record, index) => {
               <SwiperSlide
                 v-for="review in reviewList"
                 :key="review.index"
-                class="backdrop-grayscale rounded-xl w-4/5 text-light"
+                class="backdrop-grayscale rounded-xl w-4/5 px-8"
                 ><ReviewItem :review="review" />
               </SwiperSlide>
             </Swiper>
