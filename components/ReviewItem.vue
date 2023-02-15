@@ -7,7 +7,7 @@ const snippet = computed(() => {
 
 <template>
   <div
-    class="text-light flex flex-col text-center items-center justify-center rounded-lg px-8 pb-6"
+    class="text-light flex flex-col text-center items-center justify-center rounded-lg px-16 py-4"
   >
     <p class="text-xl md:text-2xl tracking-wider max-w-prose">
       {{ review.comment.length < 300 ? review.comment : snippet }}
