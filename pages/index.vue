@@ -21,36 +21,49 @@ reviews.value.forEach((record, index) => {
 <template>
   <div>
     <section
-      class="bg-blend-overlay lg:bg-fixed bg-neutral-600 bg-[url('/img/hero_portrait_1920.webp')] md:bg-[url('/img/hero_landscape_1920.webp')] bg-center bg-no-repeat bg-cover w-full h-[90vh] md:h-[70vh] pt-10 pb-4"
+      class="bg-blend-overlay lg:bg-fixed bg-neutral-600 bg-[url('/img/hero_portrait_1920.webp')] md:bg-[url('/img/hero_landscape_1920.webp')] bg-center bg-no-repeat bg-cover w-full h-[90vh] md:h-[70vh] pt-10 pb-4 relative"
     >
       <div class="max-w-7xl mx-auto">
-        <div class="container relative font-play py-8">
+        <div class="container font-play py-8">
           <h1>Fun, Laughter, Games and Exercise with AbsoluteSport</h1>
           <h2>Kids learn while having fun at our clubs, camps and parties</h2>
-          <!-- reviews -->
-          <Swiper
-            :modules="[SwiperAutoplay, SwiperEffectCreative, SwiperNavigation]"
-            :slides-per-view="1"
-            :loop="true"
-            :effect="'creative'"
-            :creative-effect="{
-              prev: {
-                shadow: false,
-                translate: ['-100%', 0, -1],
-              },
-              next: {
-                translate: ['100%', 0, 0],
-              },
-            }"
-            :autoplay="{
-              delay: 8000,
-              disableOnInteraction: true,
-            }"
-          >
-            <SwiperSlide v-for="review in reviewList" :key="review.index"
-              ><ReviewItem :review="review" />
-            </SwiperSlide>
-          </Swiper>
+          <div id="carousel" class="absolute inset-x-5 bottom-5 md:bottom-1/4">
+            <!-- reviews -->
+            <Swiper
+              class=""
+              :modules="[
+                SwiperAutoplay,
+                SwiperEffectCreative,
+                SwiperNavigation,
+                SwiperManipulation,
+                SwiperAutoplay,
+              ]"
+              :slides-per-view="1"
+              :loop="true"
+              :effect="'creative'"
+              :navigation="true"
+              :creative-effect="{
+                prev: {
+                  shadow: false,
+                  translate: ['-100%', 0, -1],
+                },
+                next: {
+                  translate: ['100%', 0, 0],
+                },
+              }"
+              :autoplay="{
+                delay: 7000,
+                disableOnInteraction: true,
+              }"
+            >
+              <SwiperSlide
+                v-for="review in reviewList"
+                :key="review.index"
+                class="backdrop-grayscale rounded-xl w-4/5 text-light"
+                ><ReviewItem :review="review" />
+              </SwiperSlide>
+            </Swiper>
+          </div>
         </div>
       </div>
     </section>
