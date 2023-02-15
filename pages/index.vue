@@ -24,13 +24,13 @@ reviews.value.forEach((record, index) => {
       class="bg-blend-overlay lg:bg-fixed bg-neutral-600 bg-[url('/img/hero_portrait_1920.webp')] md:bg-[url('/img/hero_landscape_1920.webp')] bg-center bg-no-repeat bg-cover w-full h-[90vh] md:h-[70vh] pt-10 pb-4 relative"
     >
       <div class="max-w-7xl mx-auto">
-        <div class="container font-play py-8">
+        <div class="container font-play py-4">
           <h1>Fun, Laughter, Games and Exercise with AbsoluteSport</h1>
           <h2>Kids learn while having fun at our clubs, camps and parties</h2>
-          <div id="carousel" class="absolute inset-x-5 bottom-5 md:bottom-1/4 p-8">
+          <div id="carousel" class="absolute inset-x-5 bottom-1 md:bottom-1/3">
             <!-- reviews -->
             <Swiper
-              class="w-full md:w-3/4 lg:w-2/4"
+              class="w-full md:w-3/4 lg:w-2/4 p-4"
               :modules="[
                 SwiperAutoplay,
                 SwiperEffectCreative,
@@ -59,7 +59,7 @@ reviews.value.forEach((record, index) => {
               <SwiperSlide
                 v-for="review in reviewList"
                 :key="review.index"
-                class="backdrop-grayscale rounded-xl w-4/5 px-8"
+                class="backdrop-grayscale rounded-xl w-4/5 px-8 py-4"
                 ><ReviewItem :review="review" />
               </SwiperSlide>
             </Swiper>
