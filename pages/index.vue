@@ -1,5 +1,21 @@
 <script setup>
-const { error, data: reviews } = await useFetch("/api/reviews");
+const { error, pending, data: reviews } = await useFetch("/api/reviews");
+const reviewList = ref([]);
+let review = {};
+console.log("reviewsList", reviews.value);
+reviews.value.forEach((record, index) => {
+  if (record.fields.featured) {
+    review = {
+      index: index + 1,
+      id: record.id,
+      name: record.fields.reviewerName,
+      comment: record.fields.reviewerComment,
+      rating: record.fields.rating,
+      created: record.fields.created,
+    };
+    reviewList.value.push(review);
+  }
+});
 </script>
 
 <template>
@@ -12,17 +28,29 @@ const { error, data: reviews } = await useFetch("/api/reviews");
           <h1>Fun, Laughter, Games and Exercise with AbsoluteSport</h1>
           <h2>Kids learn while having fun at our clubs, camps and parties</h2>
           <!-- reviews -->
-          <!-- <div class="relative h-96 mx-auto">
-          <div class="absolute inset-x-0 bottom-28 md:bottom-0 h-16">
-            <div v-if="error">{{ error }}</div>
-            <ReviewsCarousel :reviews="reviews" v-if="reviews" />
-            <div v-else>
-              <TheSpinner>
-                <template #fetching>reviews...</template>
-              </TheSpinner>
-            </div>
-          </div>
-        </div> -->
+          <Swiper
+            :modules="[SwiperAutoplay, SwiperEffectCreative, SwiperNavigation]"
+            :slides-per-view="1"
+            :loop="true"
+            :effect="'creative'"
+            :creative-effect="{
+              prev: {
+                shadow: false,
+                translate: ['-100%', 0, -1],
+              },
+              next: {
+                translate: ['100%', 0, 0],
+              },
+            }"
+            :autoplay="{
+              delay: 8000,
+              disableOnInteraction: true,
+            }"
+          >
+            <SwiperSlide v-for="review in reviewList" :key="review.index"
+              ><ReviewItem :review="review" />
+            </SwiperSlide>
+          </Swiper>
         </div>
       </div>
     </section>

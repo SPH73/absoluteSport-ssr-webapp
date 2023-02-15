@@ -1,5 +1,9 @@
 // https://v3.nuxtjs.org/api/configuration/nuxt.config
+import { resolve } from "path";
 export default defineNuxtConfig({
+  alias: {
+    "@": resolve(__dirname, "/"),
+  },
   app: {
     pageTransition: { name: "page", mode: "out-in" },
   },
@@ -11,9 +15,10 @@ export default defineNuxtConfig({
       "@fortawesome/free-solid-svg-icons",
       "@fortawesome/free-regular-svg-icons",
       "@fortawesome/vue-fontawesome",
+      "swiper",
     ],
   },
-  modules: ["@nuxtjs/tailwindcss"],
+  modules: ["@nuxtjs/tailwindcss", "nuxt-swiper"],
   tailwindcss: {
     cssPath: "~/assets/css/tailwind.css",
     configPath: "tailwind.config",
