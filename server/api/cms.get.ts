@@ -7,7 +7,9 @@ export default defineEventHandler(async () => {
 
   const table = base("cms");
 
-  const records = await table.select({ view: "allCMS" }).firstPage();
+  const records = await table
+    .select({ view: "allCMS", filterByFormula: "NOT({display} = 'false')" })
+    .firstPage();
   if (!records) {
     throw Error("Unable to fetch content");
   }
