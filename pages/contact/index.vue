@@ -183,7 +183,7 @@ async function handleSubmit() {
         <div class="md:flex md:justify-end">
           <button class="btn-accent my-4 w-full md:w-fit">Send Message</button>
         </div>
-        <p class="error" v-if="!parentformIsValid">
+        <p class="error" v-if="!formIsValid">
           One or more fields are invalid. Please correct the errors and submit
           again.
         </p>
