@@ -65,7 +65,7 @@ const filteredFAQs = computed(() => {
           placeholder="Search..."
         />
         <p v-if="search.length">
-          Searching all FAQ's that include the term "{{ search }}""
+          Searching any FAQ's that include the term "{{ search }}"
         </p>
 
         <div v-if="error">{{ error }}</div>
@@ -77,15 +77,14 @@ const filteredFAQs = computed(() => {
           />
           <div v-if="selectedTag" id="selected-tag">
             <p class="m-auto inline-block">
-              Searching all Faq's tagged with #{{ selectedTag }}&nbsp;
-              <button @click="clearTag">X</button>
+              Searching all Faq's tagged with #{{ selectedTag }}
             </p>
           </div>
         </div>
         <!-- <div v-else>
             <TheSpinner></TheSpinner>
           </div> -->
-        <div class="btn-group">
+        <div class="btn-group mt-4">
           <button class="btn-accent mr-4" @click="clearFilters">
             Clear All
           </button>
