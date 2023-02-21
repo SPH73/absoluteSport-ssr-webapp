@@ -45,10 +45,12 @@ const selectTag = tag => {
 };
 
 const matchingFAQs = computed(() => {
+  clearTag();
   return faqList.value.filter(faq => faq.question.includes(search.value));
 });
-watch(matchingFAQs, () => console.log(matchingFAQs.value));
+// watch(matchingFAQs, () => console.log(matchingFAQs.value));
 const filteredFAQs = computed(() => {
+  clearInput();
   return faqList.value.filter(faq => faq.tags.includes(selectedTag.value));
 });
 </script>
