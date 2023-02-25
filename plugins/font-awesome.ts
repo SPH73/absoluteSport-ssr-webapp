@@ -52,8 +52,7 @@ import {
   faLinkedin,
   faFacebook,
   faInstagram,
-  faArtstation,
-  faSuperpowers,
+  faWhatsapp,
 } from "@fortawesome/free-brands-svg-icons";
 
 export default defineNuxtPlugin(nuxtApp => {
@@ -104,10 +103,9 @@ export default defineNuxtPlugin(nuxtApp => {
     faImage,
     faFaceSmileBeam,
     faBolt,
-    faArtstation,
+    faWhatsapp,
     faLightbulb,
     faMagnifyingGlassArrowRight,
-    faSuperpowers,
     faSurprise,
   );
   nuxtApp.vueApp.component("font-awesome-icon", FontAwesomeIcon);
