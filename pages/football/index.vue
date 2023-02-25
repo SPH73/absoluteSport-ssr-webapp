@@ -35,20 +35,17 @@ async function subscribe() {
   formData.value = {
     firstName: firstName.value.val,
     lastName: lastName.value.val,
-    email: email.value.val,
-    status: "pending",
+    email: email.value.val.toLowerCase(),
+    tags: ["football"],
   };
 
-  console.log(formData.value);
-
   const result = await $fetch("/api/mailchimp", {
-    method: "post",
+    method: "put",
     body: formData.value,
   });
 
   if (result) {
-    success.value =
-      "Thank you for subscribing to updates, please confirm your email address!";
+    success.value = "Thank you for subscribing to Football Academy updates and news!";
     firstName.value.val = "";
     lastName.value.val = "";
     email.value.val = "";
@@ -93,7 +90,7 @@ async function subscribe() {
             <button class="btn-subscribe">Subscribe</button>
           </div>
         </form>
-        <p v-if="success" class="text-md text-primary font-inter-medium tracking-wide">
+        <p v-if="success" class="text-md font-inter-medium tracking-wide">
           {{ success }}
         </p>
         <p v-else class="text-sm font-inter-regular tracking-wide">
