@@ -28,9 +28,12 @@ export default defineNuxtConfig({
   runtimeConfig: {
     private: {
       atApiKey: process.env.AT_API_KEY,
+      mcApiKey: process.env.MC_API_KEY,
     },
     public: {
       atBaseId: process.env.AT_BASE_ID,
+      mcAudId: process.env.MC_AUDIENCE_ID,
+      mcServer: process.env.MC_SERVER_PREFIX,
     },
   },
 });

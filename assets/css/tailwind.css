@@ -39,6 +39,9 @@
 }
 
 @layer components {
+  .btn-subscribe {
+    @apply bg-light border border-light text-primary px-3 py-2 rounded-md hover:bg-primary hover:text-light hover:border hover:border-light;
+  }
   .btn-accent {
     @apply bg-accent text-secondary hover:bg-secondary hover:text-accent hover:border hover:border-accent;
   }
