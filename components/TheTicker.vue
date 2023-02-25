@@ -9,5 +9,3 @@ const props = defineProps(["cms"]);
     <h4 class="text-center">{{ cms.content }}</h4>
   </div>
 </template>
-
-<style scoped></style>

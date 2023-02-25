@@ -13,7 +13,7 @@ export default defineEventHandler(async () => {
   if (!records) {
     throw Error("Unable to fetch content");
   }
-  console.log("airtable cms", records);
+  // console.log("airtable cms", records);
 
   return records;
 });
