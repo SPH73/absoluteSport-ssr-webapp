@@ -2,7 +2,7 @@
 const formData = ref({});
 const firstName = ref({ val: "", isValid: true });
 const lastName = ref({ val: "", isValid: true });
-const email = ref({ val: "@gmail.com", isValid: true });
+const email = ref({ val: "", isValid: true });
 const success = ref("");
 
 const formIsValid = ref(true);
