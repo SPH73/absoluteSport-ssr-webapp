@@ -11,25 +11,21 @@ const paymentRef = ref(route.query.paymentRef);
   <div class="max-w-7xl mx-auto print:bg-light print:text-dark">
     <div class="container py-8">
       <h2 class="font-play">Success!</h2>
-      <p class="tracking-wide text-dark">
-        Thank you for reserving your child a place in our AbsoluteSport school
-        clubs. Please use the payment reference for any future correspondence.
+      <p class="tracking-wide">
+        Thank you for reserving your child a place in our AbsoluteSport school clubs.
+        Please use the payment reference for any future correspondence.
       </p>
-      <p class="tracking-wide text-dark">Payment is by bank transfer to:</p>
-      <p class="tracking-wide text-dark">Account Name:</p>
-      <p class="tracking-wide text-dark">Account Number:</p>
-      <p class="tracking-wide text-dark">Sort Code:</p>
-      <p class="tracking-wide text-dark">
-        Beneficiary Reference: {{ data.paymentRef }}
-      </p>
+      <p class="tracking-wide">Payment is by bank transfer to:</p>
+      <p class="tracking-wide">Account Name:</p>
+      <p class="tracking-wide">Account Number:</p>
+      <p class="tracking-wide">Sort Code:</p>
+      <p class="tracking-wide">Beneficiary Reference: {{ data.paymentRef }}</p>
       <div class="pb-4">
         <h3 class="font-play capitalize">Club Booking Summary</h3>
-        <p class="text-dark">
-          Below is a summary of your booking to save or print for your records.
-        </p>
-        <p class="text-dark">
+        <p>Below is a summary of your booking to save or print for your records.</p>
+        <p>
           Please use your payment reference
-          <span class="font-bold text-light">{{ paymentRef }} </span>
+          <span class="font-play">{{ paymentRef }} </span>
           for any future correspondence relating to this booking.
         </p>
         <div>
@@ -170,10 +166,7 @@ const paymentRef = ref(route.query.paymentRef);
         </div>
       </div>
       <div class="print:hidden">
-        <button
-          class="btn-primary my-4 w-full md:w-fit"
-          onclick="window.print()"
-        >
+        <button class="btn-primary my-4 w-full md:w-fit" onclick="window.print()">
           Print this page
         </button>
       </div>

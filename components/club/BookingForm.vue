@@ -478,7 +478,9 @@ async function handleSubmitClubBooking() {
         <div class="flex flex-col">
           <!-- cost buttons -->
           <div v-if="checkedClubs.val.length" class="relative">
-            <p>Total cost for all checked clubs for the term: £{{ cost }}</p>
+            <p class="text-light">
+              Total cost for all checked clubs for the term: £{{ cost }}
+            </p>
           </div>
           <button
             v-if="checkedClubs.val.length"

@@ -10,19 +10,17 @@ console.log("success****", data.value);
   <div class="max-w-7xl mx-auto print:bg-light print:text-dark">
     <div class="container py-8">
       <h2 class="font-play">Success!</h2>
-      <p class="tracking-wide text-dark">
+      <p class="tracking-wide">
         Thank you, we have received your booking. If applicable, please use the payment
         reference provided when making payment to ensure it is correctly allocated to your
         booking.
       </p>
       <div class="pb-4">
         <h3 class="font-play capitalize">Booking Summary</h3>
-        <p class="text-dark">
-          Below is a summary of your booking to save or print for your records.
-        </p>
-        <p class="text-dark">
+        <p>Below is a summary of your booking to save or print for your records.</p>
+        <p>
           This is the payment reference number:
-          <span class="font-bold">{{ paymentRef }} </span>. Please include it in any
+          <span class="font-play">{{ paymentRef }} </span>. Please include it in any
           correspondence for this booking.
         </p>
         <div>
