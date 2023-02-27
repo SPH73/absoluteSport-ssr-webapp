@@ -1,10 +1,6 @@
 <script setup>
-const { data: clubList, error: clubError } = await useFetch(
-  "/api/clubs/clubsList",
-);
-const { data: schoolList, error: schoolError } = await useFetch(
-  "/api/clubs/schoolList",
-);
+const { data: clubList, error: clubError } = await useFetch("/api/clubs/clubsList");
+const { data: schoolList, error: schoolError } = await useFetch("/api/clubs/schoolList");
 
 let club = {};
 const clubOptions = ref([]);
@@ -75,7 +71,7 @@ const paymentSummary = ref({});
 // calculate cost of all clubs
 const calculateCost = computed(() => {
   for (club of checkedClubs.value.val) {
-    clubDetails.value = filteredClubs.value.find(item => item.clubRef === club);
+    clubDetails.value = filteredClubs.value.find((item) => item.clubRef === club);
     cost.value += clubDetails.value.termCost;
   }
   return cost.value;
@@ -90,7 +86,7 @@ const clearCost = () => {
 watch(checkedClubs, () => {
   cost.value = 0;
   for (club of checkedClubs.value.val) {
-    clubDetails.value = filteredClubs.value.find(item => item.clubRef === club);
+    clubDetails.value = filteredClubs.value.find((item) => item.clubRef === club);
     cost.value += clubDetails.value.termCost;
   }
   return cost.value;
@@ -106,7 +102,7 @@ watch(calculateCost, () => {
 const filteredSchoolClubs = computed(() => {
   let yearGroup = enteredYearGroup.value.val.toString();
   let schoolRef = selectedSchool.value.val;
-  filteredClubs.value = clubOptions.value.filter(el => {
+  filteredClubs.value = clubOptions.value.filter((el) => {
     return el.yearRange.includes(yearGroup) && el.schoolName === schoolRef;
   });
 });
@@ -167,7 +163,7 @@ const validateForm = () => {
 const createPaymentRef = () => {
   paymentRef.value = Date.now().toString(36);
 };
-const createBookingRef = club => {
+const createBookingRef = (club) => {
   bookingRef.value = `${paymentRef.value}-${club}`;
 };
 
@@ -207,9 +203,7 @@ async function handleSubmitClubBooking() {
   if (createdPayment.id) {
     for (let club of checkedClubs.value.val) {
       createBookingRef(club);
-      clubDetails.value = filteredClubs.value.find(
-        item => item.clubRef === club,
-      );
+      clubDetails.value = filteredClubs.value.find((item) => item.clubRef === club);
 
       clubBooking.value = {
         club: clubDetails.value.clubName,
@@ -273,42 +267,40 @@ async function handleSubmitClubBooking() {
   <BaseCard>
     <div id="text">
       <h2 class="text-accent font-play">School Clubs Booking Form</h2>
-      <p>
-        We currently run school clubs at Sidlesham Primary School, West
-        Witterings Primary School and Portfield Academy in West Sussex.
+      <p class="text-light">
+        We currently run school clubs at Sidlesham Primary School, West Witterings Primary
+        School and Portfield Academy in West Sussex.
       </p>
-      <p>
-        Clubs run for 6 weeks and will be need to will need to be paid in a
-        block booking for all weeks.
+      <p class="text-light">
+        Clubs run for 6 weeks and will be need to will need to be paid in a block booking
+        for all weeks.
       </p>
-      <p>Morning School Clubs have a maximum capacity of 12 children.</p>
-      <p>After School Clubs have a maximum capacity of 24 children.</p>
-      <p>
-        Clubs that are full to maximum capacity will not show up when selecting
-        your child&#39;s year and school which filters suitable clubs for your
-        convenience. We apologise for any disappointment and recommend booking
-        as soon as possible.
+      <p class="text-light">
+        Morning School Clubs have a maximum capacity of 12 children.
       </p>
-      <p>
-        Please complete the booking form to reserve a place for your child at
-        one of the many clubs we run at our schools. We will email confirmation
-        to your privided email address once we receive payment into our bank and
-        your child&#39;s place will then be confirmed for the term. Please use
-        the booking reference provided when you make payment so that we can
-        allocate it correctly to all the clubs included in your booking.
+      <p class="text-light">After School Clubs have a maximum capacity of 24 children.</p>
+      <p class="text-light">
+        Clubs that are full to maximum capacity will not show up when selecting your
+        child&#39;s year and school which filters suitable clubs for your convenience. We
+        apologise for any disappointment and recommend booking as soon as possible.
       </p>
-      <p>
-        Please refer to our FAQ&#39;s for more info or contact us if you have
-        additional questions.
+      <p class="text-light">
+        Please complete the booking form to reserve a place for your child at one of the
+        many clubs we run at our schools. We will email confirmation to your privided
+        email address once we receive payment into our bank and your child&#39;s place
+        will then be confirmed for the term. Please use the booking reference provided
+        when you make payment so that we can allocate it correctly to all the clubs
+        included in your booking.
+      </p>
+      <p class="text-light">
+        Please refer to our FAQ&#39;s for more info or contact us if you have additional
+        questions.
       </p>
     </div>
     <div id="form">
       <form @submit.prevent="handleSubmitClubBooking">
         <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-3xl w-full">
-          <div
-            class="md:text-end"
-            :class="{ invalid: !enteredParentName.isValid }"
-          >
+          <div class="md:text-end" :class="{ invalid: !enteredParentName.isValid }">
             <label>Parent / Guardian Name *</label>
           </div>
           <div :class="{ invalid: !enteredParentName.isValid }">
@@ -363,10 +355,7 @@ async function handleSubmitClubBooking() {
               v-model.trim.lazy="enteredAltContact"
             />
           </div>
-          <div
-            class="md:text-end"
-            :class="{ invalid: !enteredChildFirstName.isValid }"
-          >
+          <div class="md:text-end" :class="{ invalid: !enteredChildFirstName.isValid }">
             <label for="childFName">Pupil First Name *</label>
           </div>
           <div :class="{ invalid: !enteredChildFirstName.isValid }">
@@ -379,10 +368,7 @@ async function handleSubmitClubBooking() {
               autocomplete="child-name"
             />
           </div>
-          <div
-            class="md:text-end"
-            :class="{ invalid: !enteredSurname.isValid }"
-          >
+          <div class="md:text-end" :class="{ invalid: !enteredSurname.isValid }">
             <label for="surname">Surname *</label>
           </div>
           <div :class="{ invalid: !enteredSurname.isValid }">
@@ -393,10 +379,7 @@ async function handleSubmitClubBooking() {
               autocomplete="family-name"
             />
           </div>
-          <div
-            class="md:text-end"
-            :class="{ invalid: !enteredMedical.isValid }"
-          >
+          <div class="md:text-end" :class="{ invalid: !enteredMedical.isValid }">
             <label for="medical">Medical Conditions *</label>
           </div>
           <div :class="{ invalid: !enteredMedical.isValid }">
@@ -407,10 +390,7 @@ async function handleSubmitClubBooking() {
               placeholder="Please tell us about any medical conditions we need to be aware of. (None if N/A)"
             ></textarea>
           </div>
-          <div
-            class="md:text-end"
-            :class="{ invalid: !enteredYearGroup.isValid }"
-          >
+          <div class="md:text-end" :class="{ invalid: !enteredYearGroup.isValid }">
             <label>Year Group *</label>
           </div>
           <div :class="{ invalid: !enteredYearGroup.isValid }">
@@ -424,16 +404,10 @@ async function handleSubmitClubBooking() {
           <div v-if="schoolError">
             <p>{{ schoolError }} Please contact us to book.</p>
           </div>
-          <div
-            class="md:text-end"
-            :class="{ invalid: !selectedSchool.isValid }"
-          >
+          <div class="md:text-end" :class="{ invalid: !selectedSchool.isValid }">
             <label for="school">School *</label>
           </div>
-          <div
-            v-if="schoolList.length"
-            :class="{ invalid: !selectedSchool.isValid }"
-          >
+          <div v-if="schoolList.length" :class="{ invalid: !selectedSchool.isValid }">
             <select v-model="selectedSchool.val" class="w-full p-2 rounded">
               <option disabled value="select">Select School...</option>
               <option
@@ -446,7 +420,7 @@ async function handleSubmitClubBooking() {
             </select>
           </div>
           <div v-else class="form-control">
-            <p>Loading schools...</p>
+            <p class="text-light">Loading schools...</p>
           </div>
         </div>
         <div v-if="clubError">
@@ -482,11 +456,7 @@ async function handleSubmitClubBooking() {
                 xmlns="http://www.w3.org/2000/svg"
               >
                 <g fill="none" fill-rule="evenodd">
-                  <g
-                    transform="translate(-9 -11)"
-                    fill="#F88425"
-                    fill-rule="nonzero"
-                  >
+                  <g transform="translate(-9 -11)" fill="#F88425" fill-rule="nonzero">
                     <path
                       d="m25.576 11.414c0.56558 0.55188 0.56558 1.4439 0 1.9961l-9.404 9.176c-0.28213 0.27529-0.65247 0.41385-1.0228 0.41385-0.37034 0-0.74068-0.13855-1.0228-0.41385l-4.7019-4.588c-0.56584-0.55188-0.56584-1.4442 0-1.9961 0.56558-0.55214 1.4798-0.55214 2.0456 0l3.679 3.5899 8.3812-8.1779c0.56558-0.55214 1.4798-0.55214 2.0456 0z"
                     />
@@ -498,11 +468,12 @@ async function handleSubmitClubBooking() {
         </div>
         <div v-else>
           <p
+            class="text-light"
             v-if="enteredYearGroup !== 'select' || selectedSchool !== 'select'"
           >
             Sorry, there are no clubs available for your selections.
           </p>
-          <p v-else>Select a year group and school to load clubs...</p>
+          <p class="text-light" v-else>Select a year group and school to load clubs...</p>
         </div>
         <div class="flex flex-col">
           <!-- cost buttons -->
@@ -543,11 +514,7 @@ async function handleSubmitClubBooking() {
               xmlns="http://www.w3.org/2000/svg"
             >
               <g fill="none" fill-rule="evenodd">
-                <g
-                  transform="translate(-9 -11)"
-                  fill="#F88425"
-                  fill-rule="nonzero"
-                >
+                <g transform="translate(-9 -11)" fill="#F88425" fill-rule="nonzero">
                   <path
                     d="m25.576 11.414c0.56558 0.55188 0.56558 1.4439 0 1.9961l-9.404 9.176c-0.28213 0.27529-0.65247 0.41385-1.0228 0.41385-0.37034 0-0.74068-0.13855-1.0228-0.41385l-4.7019-4.588c-0.56584-0.55188-0.56584-1.4442 0-1.9961 0.56558-0.55214 1.4798-0.55214 2.0456 0l3.679 3.5899 8.3812-8.1779c0.56558-0.55214 1.4798-0.55214 2.0456 0z"
                   />
@@ -557,13 +524,11 @@ async function handleSubmitClubBooking() {
           </div>
         </div>
         <p v-if="!formIsValid" class="text-xl">
-          One or more fields are invalid and/or at least one club selection is
-          required. Please correct the errors and submit again.
+          One or more fields are invalid and/or at least one club selection is required.
+          Please correct the errors and submit again.
         </p>
         <div class="md:flex md:justify-end">
-          <button class="btn-accent my-4 w-full md:w-fit">
-            Submit Booking
-          </button>
+          <button class="btn-accent my-4 w-full md:w-fit">Submit Booking</button>
         </div>
       </form>
     </div>
