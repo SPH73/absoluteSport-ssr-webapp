@@ -187,19 +187,19 @@ const onAddBookingItem = () => {
   </BaseDialog>
   <div id="text">
     <h1 class="text-accent font-play capitalize">camp bookings</h1>
-    <p>
+    <p class="text-light">
       We run Holiday Activity Camps at Sidlesham Primary School and Portfield Academy
       throughout the year.
     </p>
-    <p>
+    <p class="text-light">
       If you are booking a HAF place please have your child's HAF ID handy. If you aren't
       sure what it is you can request it from your child's school.
     </p>
-    <p>
+    <p class="text-light">
       Kindly use your unique payment reference when making payment so that we can allocate
       it to the booking and confirm your child's place.
     </p>
-    <p>
+    <p class="text-light">
       TIP: Use the review booking details button at each stage of your booking to check
       your booking status.
     </p>
@@ -367,7 +367,7 @@ const onAddBookingItem = () => {
               class="w-full p-2 rounded"
             >
               <option disabled value="select">Select age at camp ...</option>
-              <option v-for="(n, i) in 12" :key="i" :value="n">
+              <option v-for="(n, i) in 14" :key="i" :value="n">
                 {{ n }}
               </option>
             </select>
@@ -501,7 +501,9 @@ const onAddBookingItem = () => {
             </select>
           </div>
         </div>
-        <p v-else>Please choose a camp location to display available camps</p>
+        <p class="text-light" v-else>
+          Please choose a camp location to display available camps
+        </p>
 
         <!-- camp days -->
         <div class="flex flex-row justify-between items-center pt-4">
@@ -667,17 +669,19 @@ const onAddBookingItem = () => {
           </div>
         </div>
         <!-- /end camp details -->
-        <p v-if="!campFormIsValid">Please add the missing fields and submit again.</p>
+        <p class="text-light" v-if="!campFormIsValid">
+          Please add the missing fields and submit again.
+        </p>
         <div class="md:flex md:justify-end">
           <button class="btn-accent my-4 w-full md:w-fit">Save to booking</button>
         </div>
       </form>
       <!-- /end camp item form -->
-      <p>
+      <p class="text-light">
         Please save each camp week and the specific days for each week you wish to book
         for your child(ren) individually.
       </p>
-      <p>
+      <p class="text-light">
         Please review your booking to confirm all children and camp weeks have been added
         to your booking and then click confirm when ready. A booking reference and payment
         details will be emailed to you on submission.

@@ -36,8 +36,8 @@ const amountDue = computed(() => {
     <div v-if="!props.parentAdded">
       <ul>
         <li>
-          <p><strong class="text-accent">Step 1</strong></p>
-          <p>
+          <p class="text-light"><strong class="text-accent">Step 1</strong></p>
+          <p class="text-light">
             To start your booking process, please add and save parent/guardian's details.
           </p>
         </li>
@@ -113,11 +113,11 @@ const amountDue = computed(() => {
       </table>
     </div>
     <div v-if="amountDue > 0">
-      <p>Please make payment to:</p>
-      <p>AbsoluteSport</p>
-      <p>Account number:</p>
-      <p>Sort Code:</p>
-      <p>Beneficiary refernece: {{ props.paymentRef }}</p>
+      <p class="text-light">Please make payment to:</p>
+      <p class="text-light">AbsoluteSport</p>
+      <p class="text-light">Account number:</p>
+      <p class="text-light">Sort Code:</p>
+      <p class="text-light">Beneficiary refernece: {{ props.paymentRef }}</p>
     </div>
     <div v-if="props.campBooking.length">
       <h3>Camp Bookings</h3>
@@ -193,20 +193,20 @@ const amountDue = computed(() => {
     <div v-else>
       <ul>
         <li>
-          <p><strong class="text-accent">Step 2</strong></p>
-          <p>Please add your child's details then...</p>
+          <p class="text-light"><strong class="text-accent">Step 2</strong></p>
+          <p class="text-light">Please add your child's details then...</p>
         </li>
         <li>
-          <p><strong class="text-accent">Step 3</strong></p>
-          <p>
+          <p class="text-light"><strong class="text-accent">Step 3</strong></p>
+          <p class="text-light">
             ... select a camp week and confirm the camp days they will be attending. Save
             by clicking
             <span class="text-accent">"Save To Booking"</span>.
           </p>
         </li>
         <li>
-          <p><strong class="text-accent">Step 4</strong></p>
-          <p>
+          <p class="text-light"><strong class="text-accent">Step 4</strong></p>
+          <p class="text-light">
             Continue repeating
             <span class="text-accent">Steps 2 & 3 </span> for this child and any siblings
             for each camp week you wish to book.
@@ -215,8 +215,8 @@ const amountDue = computed(() => {
       </ul>
       <ul>
         <li>
-          <p><strong class="text-accent">Step 5</strong></p>
-          <p>
+          <p class="text-light"><strong class="text-accent">Step 5</strong></p>
+          <p class="text-light">
             Once you have added all required camp weeks for each child and confirmed the
             details are correct, click
             <span class="text-accent">"Confirm Booking" </span> to send us your booking.
@@ -227,13 +227,13 @@ const amountDue = computed(() => {
       </ul>
       <ul>
         <li>
-          <p><strong class="text-accent">TIP</strong></p>
-          <p>
+          <p class="text-light"><strong class="text-accent">TIP</strong></p>
+          <p class="text-light">
             You can remove individual bookings by clicking
             <span class="text-accent">"[X Remove]"</span> next to each camp booking or
             click <span class="text-accent">"Cancel Booking" </span>to start again.
           </p>
-          <p>
+          <p class="text-light">
             Kindly take note: Camp places are reserved on receipt of booking but will only
             be confirmed on receipt of payment.
           </p>
@@ -241,7 +241,7 @@ const amountDue = computed(() => {
       </ul>
     </div>
   </div>
-  <p>
+  <p class="text-light">
     If you experience any difficulties with booking or need assistance, please contact us
     for help.
   </p>

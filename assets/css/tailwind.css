@@ -146,7 +146,7 @@ label {
 }
 
 p {
-  @apply font-inter-regular text-xl text-light leading-8 tracking-[0.1em];
+  @apply font-inter-regular text-2xl text-dark leading-8 tracking-[0.15rem];
 }
 
 input:checked + div {

@@ -9,7 +9,9 @@ defineProps(["partyDetails"]);
     class="bg-secondary p-8 rounded border-4 border-light flex flex-col justify-between items-stretch"
   >
     <div class="self-start">
-      <h3 class="text-accent text-center capitalize">{{ party.partyName }}</h3>
+      <h3 class="text-accent text-center capitalize font-play">
+        {{ party.partyName }}
+      </h3>
       <img
         v-for="img in party.image"
         :src="img.thumbnail"
@@ -17,9 +19,9 @@ defineProps(["partyDetails"]);
         class="w-full h-50 my-8"
       />
       <div class="my-8">
-        <h4 class="text-accent capitalize">{{ party.summaryP1 }}</h4>
-        <p>{{ party.summaryP2 }}</p>
-        <p>{{ party.summaryP3 }}</p>
+        <h4 class="text-accent capitalize font-play">{{ party.summaryP1 }}</h4>
+        <p class="text-light">{{ party.summaryP2 }}</p>
+        <p class="text-light">{{ party.summaryP3 }}</p>
       </div>
     </div>
     <div class="my-4 flex justify-between">
