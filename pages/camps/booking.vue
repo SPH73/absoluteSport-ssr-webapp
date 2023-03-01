@@ -18,10 +18,12 @@ campsList.value.forEach((record, index) => {
   };
   campOptions.value.push(camp);
 });
-
+const currentCamps = computed(() => {
+  return campOptions.value.filter(camp => camp.status.includes("current"));
+});
 // keep alive
 const selectedTab = ref("CampForm");
-const setSelectedTab = (tab) => {
+const setSelectedTab = tab => {
   selectedTab.value = tab;
 };
 
@@ -89,7 +91,7 @@ const handleAddCampBookingItem = (
   loc,
   camp,
   days,
-  num
+  num,
 ) => {
   createBookingRef();
   childName.value = name;
@@ -108,7 +110,7 @@ const handleAddCampBookingItem = (
   }
 
   const findCamp = computed(() => {
-    return campOptions.value.find((camp) => camp.locRef === campLoc.value);
+    return campOptions.value.find(camp => camp.locRef === campLoc.value);
   });
 
   watchEffect(() => {
@@ -150,11 +152,16 @@ const numChildren = computed(() => {
 });
 
 const totalCost = computed(() => {
-  return campBooking.value.reduce((total, curr) => (total = total + curr.price), 0);
+  return campBooking.value.reduce(
+    (total, curr) => (total = total + curr.price),
+    0,
+  );
 });
 
-const removeItem = (item) => {
-  campBooking.value = campBooking.value.filter((booking) => booking.bookingRef !== item);
+const removeItem = item => {
+  campBooking.value = campBooking.value.filter(
+    booking => booking.bookingRef !== item,
+  );
 };
 
 const createBookingRef = () => {
@@ -250,7 +257,7 @@ async function confirmBooking() {
           @show-steps="selectedTab = 'CampBookingDetails'"
           @camp-booking-added="handleAddCampBookingItem"
           :error="error"
-          :camps-list="campOptions"
+          :camps-list="currentCamps"
           :parent-added="parentAdded"
         ></CampBookingForm>
       </KeepAlive>
