@@ -55,7 +55,8 @@ const nextCamps = computed(() => {
             confidence).
           </p>
           <p>
-            You'll find a full list of the camps we will run this year below.
+            You'll find an up-to-date list of the current and upcoming camps we
+            are running below.
           </p>
         </div>
       </div>
