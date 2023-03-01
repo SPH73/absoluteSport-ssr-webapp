@@ -23,37 +23,35 @@ console.log("sportList", sportList.value);
     <section class="max-w-7xl mx-auto">
       <div class="container py-4">
         <h2 class="font-play capitalize">School Clubs &amp; Wraparound Care</h2>
-        <div>
-          <p>
-            Our clubs and wraparound care are designed with children at the
-            fore. We aim to ensure that each child is supported as an individual
-            whilst encouraging them to engage within a group. This provides them
-            a safe environment to improve their self-confidence and social
-            interaction alongside their teams and as individuals; skills that
-            reach far beyond school and sports to other areas of their lives.
-          </p>
-          <p>
-            The parents of children attending our clubs report that their
-            children enjoy a greater sense of well-being and concentration due
-            to the extra opportunities to spend time being active.
-          </p>
-          <p>
-            Our clubs are suitable for children of all levels of ability/skill.
-            Regular practice promotes muscle memory, which results in positive
-            self-esteem from improving their game. In addition, children learn
-            the art of effective strategising and planning through team sports
-            and again, these skills will be highly beneficial for the children
-            to establish early on.
-          </p>
-          <p>
-            Research on the topic suggests that extra-curricular sports and
-            activities play a positive role in significantly improving soft
-            skills for those children who regularly attend, such as
-            independence, teamwork, communication, problem-solving as well as
-            fitting in with their peers.
-          </p>
-          <p>You'll find an itinerary of upcoming clubs we run below.</p>
-        </div>
+        <p>
+          Our clubs and wraparound care are designed with children at the fore.
+          We aim to ensure that each child is supported as an individual whilst
+          encouraging them to engage within a group. This provides them a safe
+          environment to improve their self-confidence and social interaction
+          alongside their teams and as individuals; skills that reach far beyond
+          school and sports to other areas of their lives.
+        </p>
+        <p>
+          The parents of children attending our clubs report that their children
+          enjoy a greater sense of well-being and concentration due to the extra
+          opportunities to spend time being active.
+        </p>
+        <p>
+          Our clubs are suitable for children of all levels of ability/skill.
+          Regular practice promotes muscle memory, which results in positive
+          self-esteem from improving their game. In addition, children learn the
+          art of effective strategising and planning through team sports and
+          again, these skills will be highly beneficial for the children to
+          establish early on.
+        </p>
+        <p>
+          Research on the topic suggests that extra-curricular sports and
+          activities play a positive role in significantly improving soft skills
+          for those children who regularly attend, such as independence,
+          teamwork, communication, problem-solving as well as fitting in with
+          their peers.
+        </p>
+        <p>You'll find an itinerary of upcoming clubs we run below.</p>
       </div>
     </section>
     <section

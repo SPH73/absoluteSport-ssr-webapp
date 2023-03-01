@@ -30,35 +30,32 @@ const nextCamps = computed(() => {
     <section class="max-w-7xl mx-auto">
       <div class="container py-4">
         <h2 class="font-play capitalize">Holiday Activity Camps</h2>
-        <div>
-          <p>
-            Who doesn’t love meeting a superhero, dressing up like a Pirate or
-            playing Survival?
-          </p>
-          <p>
-            Each one of our Holiday Camp days has a different theme in store for
-            the children. Our days are fun-filled and exciting, helping your
-            children to spend the school break in laughter while building new
-            friendships and life-long memories.
-          </p>
-          <p>
-            Our camps are suitable for children of all abilities between 5 and
-            12 years old and provide an opportunity to stay active throughout
-            the school holidays by participating in a wide range of fun,
-            exciting sports, games and art projects.
-          </p>
-          <p>
-            Our camps are structured and delivered by our coaches trained in
-            coaching children in sports. The team will ensure that your child
-            feels included in all the fun so that they build not only skills in
-            sports but also socially and emotionally (self-esteem and
-            confidence).
-          </p>
-          <p>
-            You'll find an up-to-date list of the current and upcoming camps we
-            are running below.
-          </p>
-        </div>
+        <p>
+          Who doesn’t love meeting a superhero, dressing up like a Pirate or
+          playing Survival?
+        </p>
+        <p>
+          Each one of our Holiday Camp days has a different theme in store for
+          the children. Our days are fun-filled and exciting, helping your
+          children to spend the school break in laughter while building new
+          friendships and life-long memories.
+        </p>
+        <p>
+          Our camps are suitable for children of all abilities between 5 and 12
+          years old and provide an opportunity to stay active throughout the
+          school holidays by participating in a wide range of fun, exciting
+          sports, games and art projects.
+        </p>
+        <p>
+          Our camps are structured and delivered by our coaches trained in
+          coaching children in sports. The team will ensure that your child
+          feels included in all the fun so that they build not only skills in
+          sports but also socially and emotionally (self-esteem and confidence).
+        </p>
+        <p>
+          You'll find an up-to-date list of the current and upcoming camps we
+          are running below.
+        </p>
       </div>
     </section>
     <section
