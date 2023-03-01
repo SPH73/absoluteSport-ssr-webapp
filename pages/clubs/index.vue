@@ -67,7 +67,7 @@ console.log("sportList", sportList.value);
         <template #details>
           Encourages a healthy lifestyle outside of the school curriculum which
           is physically beneficial for primary children and lowers the risk of
-          obesity.
+          obesity
         </template>
       </BaseBadge>
       <BaseBadge>
@@ -98,8 +98,8 @@ console.log("sportList", sportList.value);
         <template #heading>Social</template>
         <template #details>
           The opportunity to interact with new people, develop interpersonal
-          skills and learn from each other. Discourages children from engaging
-          in anti-social behaviours by keeping them busy
+          skills and learn from each other; discourages anti-social behaviours
+          and encourages trust and friendship
         </template>
       </BaseBadge>
     </section>
@@ -116,7 +116,7 @@ console.log("sportList", sportList.value);
           disciplines. Developing these vital skills in one sport will transfer
           into another. For example, a great footballer will also have the
           skills of a track and field athlete. This statement can be rephrased
-          to make sense for most sports.
+          to make sense for most sports
         </p>
 
         <p class="tracking-wide">
