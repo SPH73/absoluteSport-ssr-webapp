@@ -13,7 +13,6 @@ const paymentRef = ref(route.query.paymentRef);
       <h2 class="font-play">Success!</h2>
       <p class="tracking-wide">
         Thank you for reserving your child a place in our AbsoluteSport school clubs.
-        Please use the payment reference for any future correspondence.
       </p>
       <p class="tracking-wide">Payment is by bank transfer to:</p>
       <p class="tracking-wide">Account Name:</p>
