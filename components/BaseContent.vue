@@ -8,16 +8,16 @@
     <h3 class="text-accent font-play">
       <slot name="sub-1" />
     </h3>
-    <p class="font-mulish">
+    <p class="font-mulish text-white">
       <slot name="para-1" />
     </p>
     <h3 class="text-accent font-play">
       <slot name="sub-2" />
     </h3>
-    <p class="font-mulish">
+    <p class="font-mulish text-white">
       <slot name="para-2" />
     </p>
-    <p class="font-mulish">
+    <p class="font-mulish text-white">
       <slot name="para-3" />
     </p>
   </div>
