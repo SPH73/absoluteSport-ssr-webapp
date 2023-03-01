@@ -42,7 +42,7 @@
           rel="nopener"
           >Instagram
         </NuxtLink>
-        <NuxtLink to="/" class="py-2">About Us</NuxtLink>
+        <NuxtLink to="/#about" :external="false" class="py-2">About Us</NuxtLink>
       </div>
 
       <div id="links-area" class="flex flex-col pt-2">
