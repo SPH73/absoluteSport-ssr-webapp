@@ -65,8 +65,9 @@ console.log("sportList", sportList.value);
         </template>
         <template #heading> Physical </template>
         <template #details>
-          Why spending extra time being active and learning/playing sports is
-          beneficial.
+          Encourages a healthy lifestyle outside of the school curriculum which
+          is physically beneficial for primary children and lowers the risk of
+          obesity.
         </template>
       </BaseBadge>
       <BaseBadge>
@@ -75,8 +76,9 @@ console.log("sportList", sportList.value);
         </template>
         <template #heading>Mental</template>
         <template #details>
-          What are the mental benefits to children who regularly learn a new
-          skill or sport.
+          Physical activity and increased exercise can, to an extent, aid in
+          lowering the chance of an individual suffering from depression and
+          anxiety
         </template>
       </BaseBadge>
       <BaseBadge>
@@ -85,8 +87,8 @@ console.log("sportList", sportList.value);
         </template>
         <template #heading>Emotional </template>
         <template #details>
-          How do children develop emotionally while attending school clubs and
-          learning a sport.
+          Develop skills in sports and attending extra-curricular enrichment
+          activities helps build confidence and self-esteem
         </template>
       </BaseBadge>
       <BaseBadge>
@@ -95,8 +97,9 @@ console.log("sportList", sportList.value);
         </template>
         <template #heading>Social</template>
         <template #details>
-          What are the social benefits of attending extra-curricular school
-          clubs.
+          The opportunity to interact with new people, develop interpersonal
+          skills and learn from each other. Discourages children from engaging
+          in anti-social behaviours by keeping them busy
         </template>
       </BaseBadge>
     </section>
