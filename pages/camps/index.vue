@@ -19,6 +19,10 @@ list.value.forEach((record, index) => {
 const currentCamps = computed(() => {
   return campList.value.filter(camp => camp.status.includes("current"));
 });
+
+const nextCamps = computed(() => {
+  return campList.value.filter(camp => camp.status === "next");
+});
 </script>
 
 <template>
@@ -190,7 +194,7 @@ const currentCamps = computed(() => {
           </p>
         </div>
         <table
-          v-for="camp in campList"
+          v-for="camp in nextCamps"
           class="table-auto border-separate border-spacing-2 border border-secondary text-light w-full text-2xl rounded-md mb-4"
         >
           <tbody>
