@@ -47,6 +47,10 @@ import {
   faMask,
   faPuzzlePiece,
   faPaintBrush,
+  faDumbbell,
+  faBrain,
+  faFaceLaughBeam,
+  faPeopleGroup,
 } from "@fortawesome/free-solid-svg-icons";
 import {
   faLinkedin,
@@ -68,6 +72,10 @@ export default defineNuxtPlugin(nuxtApp => {
     faInstagram,
     faLinkedin,
     faMedal,
+    faDumbbell,
+    faBrain,
+    faFaceLaughBeam,
+    faPeopleGroup,
     faHeartPulse,
     faPersonRunning,
     faRankingStar,
