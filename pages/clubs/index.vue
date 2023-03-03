@@ -5,7 +5,7 @@ const { error: commentError, data: comments } = await useFetch(
 );
 // TODO get clubs images for carousel
 const slides = ref(
-  Array.from({ length: 10 }, () => {
+  Array.from({ length: 5 }, () => {
     const r = Math.floor(Math.random() * 256);
     const g = Math.floor(Math.random() * 256);
     const b = Math.floor(Math.random() * 256);
@@ -16,6 +16,7 @@ const slides = ref(
     return { bg: `rgb(${r}, ${g}, ${b})`, color: contrast };
   }),
 );
+
 const sportList = ref([]);
 let activity = {};
 list.value.forEach((record, index) => {
@@ -30,7 +31,7 @@ list.value.forEach((record, index) => {
   };
   sportList.value.push(activity);
 });
-console.log("sportList", sportList.value);
+// console.log("sportList", sportList.value);
 
 const commentList = ref([]);
 let comment = {};
@@ -44,7 +45,7 @@ comments.value.forEach((record, index) => {
   };
   commentList.value.push(comment);
 });
-console.log("comments", commentList.value);
+// console.log("comments", commentList.value);
 </script>
 
 <template>
@@ -89,34 +90,14 @@ console.log("comments", commentList.value);
           class="container py-4 flex flex-col items-center justify-space-evenly"
         >
           <h2 class="font-play capitalize">An AbsoluteSport blast!</h2>
-          <p>Placeholder for Image carousel until images are ready</p>
+
           <p>
             Our clubs are designed with fun in mind. We deliver a variety of
             exciting sports and games to help build confidence, social skills
             and sportsmanship.
           </p>
           <br />
-          <Swiper
-            class="swiper-cards"
-            :width="240"
-            :modules="[SwiperAutoplay, SwiperEffectCards]"
-            :slides-per-view="1"
-            :loop="true"
-            :effect="'cards'"
-            :autoplay="{
-              delay: 8000,
-              disableOnInteraction: true,
-            }"
-          >
-            <SwiperSlide
-              v-for="(slide, idx) in slides"
-              :key="idx"
-              :style="`background-color: ${slide.bg}; color: ${slide.color}; border: 4px solid white`"
-            >
-              {{ idx + 1 }}
-            </SwiperSlide>
-          </Swiper>
-          <p>!!!!Placeholder for Image carousel until images are ready</p>
+
           <p>
             Children attending our clubs are extra prepared for up and coming
             school sports tournaments.
