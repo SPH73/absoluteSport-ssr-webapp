@@ -1,6 +1,21 @@
 <script setup>
-const { error, data: list } = await useFetch("/api/clubs/sportList");
+const { error: listError, data: list } = await useFetch("/api/clubs/sportList");
+const { error: commentError, data: comments } = await useFetch(
+  "/api/clubs/schoolTestimonials",
+);
+// TODO get clubs images for carousel
+const slides = ref(
+  Array.from({ length: 10 }, () => {
+    const r = Math.floor(Math.random() * 256);
+    const g = Math.floor(Math.random() * 256);
+    const b = Math.floor(Math.random() * 256);
+    // Figure out contrast color for font
+    const contrast =
+      r * 0.299 + g * 0.587 + b * 0.114 > 186 ? "black" : "white";
 
+    return { bg: `rgb(${r}, ${g}, ${b})`, color: contrast };
+  }),
+);
 const sportList = ref([]);
 let activity = {};
 list.value.forEach((record, index) => {
@@ -16,42 +31,97 @@ list.value.forEach((record, index) => {
   sportList.value.push(activity);
 });
 console.log("sportList", sportList.value);
+
+const commentList = ref([]);
+let comment = {};
+comments.value.forEach((record, index) => {
+  comment = {
+    index: index + 1,
+    id: record.id,
+    school: record.fields.school,
+    comment: record.fields.comment,
+    featured: record.fields.featured,
+  };
+  commentList.value.push(comment);
+});
+console.log("comments", commentList.value);
 </script>
 
 <template>
   <div class="my-8">
-    <section class="max-w-7xl mx-auto">
-      <div class="container py-4">
-        <h2 class="font-play capitalize">School Clubs &amp; Wraparound Care</h2>
-        <p>
-          Our clubs and wraparound care are designed with children at the fore.
-          We aim to ensure that each child is supported as an individual whilst
-          encouraging them to engage within a group. This provides them a safe
-          environment to improve their self-confidence and social interaction
-          alongside their teams and as individuals; skills that reach far beyond
-          school and sports to other areas of their lives.
-        </p>
-        <p>
-          The parents of children attending our clubs report that their children
-          enjoy a greater sense of well-being and concentration due to the extra
-          opportunities to spend time being active.
-        </p>
-        <p>
-          Our clubs are suitable for children of all levels of ability/skill.
-          Regular practice promotes muscle memory, which results in positive
-          self-esteem from improving their game. In addition, children learn the
-          art of effective strategising and planning through team sports and
-          again, these skills will be highly beneficial for the children to
-          establish early on.
-        </p>
-        <p>
-          Research on the topic suggests that extra-curricular sports and
-          activities play a positive role in significantly improving soft skills
-          for those children who regularly attend, such as independence,
-          teamwork, communication, problem-solving as well as fitting in with
-          their peers.
-        </p>
-        <p>You'll find an itinerary of upcoming clubs we run below.</p>
+    <section class="w-full mx-auto">
+      <div class="grid grid-cols-1 md:grid-cols-2">
+        <div class="container py-4">
+          <h2 class="font-play capitalize">
+            School Clubs &amp; Wraparound Care
+          </h2>
+          <p>
+            Our clubs and wraparound care are designed with children at the
+            fore. We aim to ensure that each child is supported as an individual
+            whilst encouraging them to engage within a group. This provides them
+            a safe environment to improve their self-confidence and social
+            interaction alongside their teams and as individuals; skills that
+            reach far beyond school and sports to other areas of their lives.
+          </p>
+          <p>
+            The parents of children attending our clubs report that their
+            children enjoy a greater sense of well-being and concentration due
+            to the extra opportunities to spend time being active.
+          </p>
+          <p>
+            Our clubs are suitable for children of all levels of ability/skill.
+            Regular practice promotes muscle memory, which results in positive
+            self-esteem from improving their game. In addition, children learn
+            the art of effective strategising and planning through team sports
+            and again, these skills will be highly beneficial for the children
+            to establish during their primary years.
+          </p>
+          <p>
+            Research on the topic suggests that extra-curricular sports and
+            activities play a positive role in significantly improving soft
+            skills for those children who regularly attend, such as
+            independence, teamwork, communication, problem-solving as well as
+            fitting in with their peers.
+          </p>
+          <p>You'll find an itinerary of upcoming clubs we run below.</p>
+        </div>
+        <div
+          class="container py-4 flex flex-col items-center justify-space-evenly"
+        >
+          <h2 class="font-play capitalize">An AbsoluteSport blast!</h2>
+          <p>Placeholder for Image carousel until images are ready</p>
+          <p>
+            Our clubs are designed with fun in mind. We deliver a variety of
+            exciting sports and games to help build confidence, social skills
+            and sportsmanship.
+          </p>
+          <br />
+          <Swiper
+            class="swiper-cards"
+            :width="240"
+            :modules="[SwiperAutoplay, SwiperEffectCards]"
+            :slides-per-view="1"
+            :loop="true"
+            :effect="'cards'"
+            :autoplay="{
+              delay: 8000,
+              disableOnInteraction: true,
+            }"
+          >
+            <SwiperSlide
+              v-for="(slide, idx) in slides"
+              :key="idx"
+              :style="`background-color: ${slide.bg}; color: ${slide.color}; border: 4px solid white`"
+            >
+              {{ idx + 1 }}
+            </SwiperSlide>
+          </Swiper>
+          <p>!!!!Placeholder for Image carousel until images are ready</p>
+          <p>
+            Children attending our clubs are extra prepared for up and coming
+            school sports tournaments.
+          </p>
+        </div>
       </div>
     </section>
     <section

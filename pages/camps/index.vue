@@ -1,5 +1,18 @@
 <script setup>
-const { error, data: list } = await useFetch("/api/camps/campsList");
+const { error: listError, data: list } = await useFetch("/api/camps/campsList");
+// TODO get camps images for carousel
+const slides = ref(
+  Array.from({ length: 10 }, () => {
+    const r = Math.floor(Math.random() * 256);
+    const g = Math.floor(Math.random() * 256);
+    const b = Math.floor(Math.random() * 256);
+    // Figure out contrast color for font
+    const contrast =
+      r * 0.299 + g * 0.587 + b * 0.114 > 186 ? "black" : "white";
+
+    return { bg: `rgb(${r}, ${g}, ${b})`, color: contrast };
+  }),
+);
 
 const campList = ref([]);
 let camp = {};
@@ -27,35 +40,75 @@ const nextCamps = computed(() => {
 
 <template>
   <div class="my-8">
-    <section class="max-w-7xl mx-auto">
-      <div class="container py-4">
-        <h2 class="font-play capitalize">Holiday Activity Camps</h2>
-        <p>
-          Who doesn’t love meeting a superhero, dressing up like a Pirate or
-          playing Survival?
-        </p>
-        <p>
-          Each one of our Holiday Camp days has a different theme in store for
-          the children. Our days are fun-filled and exciting, helping your
-          children to spend the school break in laughter while building new
-          friendships and life-long memories.
-        </p>
-        <p>
-          Our camps are suitable for children of all abilities aged between 5
-          and 14 and provide an opportunity to stay active throughout the school
-          holidays by participating in a wide range of fun, exciting sports,
-          games and science and art projects.
-        </p>
-        <p>
-          Our camps are structured and delivered by our coaches trained in
-          coaching children in sports. The team will ensure that your child
-          feels included in all the fun so that they build not only skills in
-          sports but also socially and emotionally (self-esteem and confidence).
-        </p>
-        <p>
-          You'll find an up-to-date list of the current and upcoming camps we
-          are running below.
-        </p>
+    <section class="w-full mx-auto">
+      <div class="grid grid-cols-1 md:grid-cols-2">
+        <div class="container py-4">
+          <h2 class="font-play capitalize">Holiday Activity Camps</h2>
+          <p>
+            Who doesn’t love meeting a superhero, dressing up like a Pirate or
+            playing Survival?
+          </p>
+          <p>
+            Each one of our Holiday Camp days has a different theme in store for
+            the children. Our days are fun-filled and exciting, helping your
+            children to spend the school break in laughter while building new
+            friendships and life-long memories.
+          </p>
+          <p>
+            Our camps are suitable for children of all abilities aged between 5
+            and 14 and provide an opportunity to stay active throughout the
+            school holidays by participating in a wide range of fun, exciting
+            sports, games and science and art projects.
+          </p>
+          <p>
+            Our camps are structured and delivered by our coaches trained in
+            coaching children in sports. The team will ensure that your child
+            feels included in all the fun so that they build not only skills in
+            sports but also socially and emotionally (self-esteem and
+            confidence).
+          </p>
+          <p>
+            You'll find an up-to-date list of the current and upcoming camps we
+            are running below.
+          </p>
+        </div>
+        <div
+          class="container py-4 flex flex-col items-center justify-space-evenly"
+        >
+          <h2 class="font-play capitalize">An AbsoluteSport blast!</h2>
+          <p>!!!Placeholder for Image carousel until images are ready</p>
+          <p>
+            Take a sneak peek into a day in the life of our campee's. We only
+            show images with the parents permission.
+          </p>
+          <br />
+          <Swiper
+            class="swiper-cards"
+            :width="240"
+            :modules="[SwiperAutoplay, SwiperEffectCards]"
+            :slides-per-view="1"
+            :loop="true"
+            :effect="'cards'"
+            :autoplay="{
+              delay: 8000,
+              disableOnInteraction: true,
+            }"
+          >
+            <SwiperSlide
+              v-for="(slide, idx) in slides"
+              :key="idx"
+              :style="`background-color: ${slide.bg}; color: ${slide.color}; border: 4px solid white`"
+            >
+              {{ idx + 1 }}
+            </SwiperSlide>
+          </Swiper>
+          <p>Placeholder for Image carousel until images are ready</p>
+          <p>
+            Take a sneak peek into a day in the life of our camp adventurer's.
+            We only show images of children with their parents permission, of
+            course!
+          </p>
+        </div>
       </div>
     </section>
     <section
@@ -78,7 +131,7 @@ const nextCamps = computed(() => {
         <template #heading>Arts & Crafts</template>
         <template #details>
           Your children's imaginations will run wild with our creative arts and
-          crafts sessions!
+          crafts and thrilling science experiments sessions!
         </template>
       </BaseBadge>
       <BaseBadge>
@@ -243,3 +296,28 @@ const nextCamps = computed(() => {
     </section>
   </div>
 </template>
+
+<style>
+.swiper-slide {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 18px;
+  height: 20vh;
+  font-size: 4rem;
+  font-weight: bold;
+  font-family: "Roboto", sans-serif;
+}
+.swiper-wrapper {
+  min-width: 100vh;
+  width: 100vh;
+}
+.swiper-cards {
+  width: 240px;
+  height: 240px;
+}
+.swiper-cards .swiper-slide {
+  border-radius: 6px;
+  border: 1px solid black;
+}
+</style>
