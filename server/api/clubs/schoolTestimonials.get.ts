@@ -16,7 +16,7 @@ export default defineEventHandler(async () => {
   if (!records) {
     throw Error("Unable to fetch testimonials");
   }
-  console.log("airtable schoolTests", records);
+  // console.log("airtable schoolTests", records);
 
   return records;
 });

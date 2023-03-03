@@ -40,12 +40,14 @@ comments.value.forEach((record, index) => {
     index: index + 1,
     id: record.id,
     school: record.fields.school,
+    name: record.fields.name,
+    designation: record.fields.designation,
     comment: record.fields.comment,
     featured: record.fields.featured,
   };
   commentList.value.push(comment);
 });
-// console.log("comments", commentList.value);
+console.log("comments", commentList.value);
 </script>
 
 <template>
@@ -103,6 +105,45 @@ comments.value.forEach((record, index) => {
             school sports tournaments.
           </p>
         </div>
+      </div>
+    </section>
+    <section id="testimonials">
+      <div id="carousel" class="inset-x-0 md:inset-x-5 bottom-0">
+        <!-- reviews -->
+        <Swiper
+          class="w-full md:w-3/4 lg:w-2/4 xl:w-1/3 bg-secondary rounded-xl border-4 border-white flex justify-center items center p-4"
+          :modules="[
+            SwiperAutoplay,
+            SwiperEffectCreative,
+            SwiperNavigation,
+            SwiperManipulation,
+            SwiperAutoplay,
+          ]"
+          :slides-per-view="1"
+          :loop="true"
+          :effect="'creative'"
+          :navigation="true"
+          :creative-effect="{
+            prev: {
+              shadow: false,
+              translate: ['-100%', 0, -1],
+            },
+            next: {
+              translate: ['100%', 0, 0],
+            },
+          }"
+          :autoplay="{
+            delay: 7000,
+            disableOnInteraction: true,
+          }"
+        >
+          <SwiperSlide
+            v-for="review in commentList"
+            :key="review.index"
+            class="p-4"
+            ><TestimonialItem :review="review" />
+          </SwiperSlide>
+        </Swiper>
       </div>
     </section>
     <section

@@ -16,6 +16,6 @@ export default defineEventHandler(async event => {
   if (!records) {
     throw Error("Unable to fetch list");
   }
-  console.log("airtable sportList", records);
+  // console.log("airtable sportList", records);
   return records;
 });
