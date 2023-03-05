@@ -21,18 +21,19 @@ reviews.value.forEach((record, index) => {
 <template>
   <div>
     <section
-      class="bg-blend-overlay lg:bg-fixed bg-neutral-600 bg-[url('/img/hero_portrait_1920.webp')] md:bg-[url('/img/hero_landscape_1920.webp')] bg-center bg-no-repeat bg-cover w-full h-[85vh] md:h-[70vh] pt-10 pb-4 relative"
+      class="flex flex-col bg-blend-overlay lg:bg-fixed bg-neutral-600 bg-[url('/img/hero_portrait_1920.webp')] md:bg-[url('/img/hero_landscape_1920.webp')] bg-center bg-no-repeat bg-cover w-full h-[100vh] min-h-[667px] md:h-[70vh] pt-10 pb-4 relative"
     >
       <div class="max-w-7xl mx-auto">
         <div class="container font-play py-4 text-center md:text-left">
-          <h1 class="">Fun, Laughter, Games and Exercise with AbsoluteSport</h1>
-          <h2 class="">
-            Kids learn while having fun at our clubs, camps and parties
-          </h2>
+          <div class="mb-12 static">
+            <h1>Fun, Laughter, Games and Exercise with AbsoluteSport</h1>
+            <h2>Kids learn while having fun at our clubs, camps and parties</h2>
+          </div>
           <div
             id="carousel"
-            class="absolute inset-x-0 md:inset-x-5 bottom-0 backdrop-grayscale h-min h-96"
+            class="flex justify-center items-center backdrop-grayscale w-full md:w-1/2 lg:w-1/3 h-fit absolute inset-x-0 bottom-0 text-center mx-auto"
           >
+            <p class="text-light">Reviews carousel here!</p>
             <!-- reviews -->
           </div>
         </div>
@@ -41,7 +42,7 @@ reviews.value.forEach((record, index) => {
     <section>
       <!-- Benefits -->
       <section
-        class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 w-full mx-auto pt-8 px-8"
+        class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 w-full mx-auto pt-8 px-8 mt-10"
       >
         <BaseBadge>
           <template #icon>
@@ -163,41 +164,46 @@ reviews.value.forEach((record, index) => {
     <!-- About -->
     <section
       id="about"
-      class="bg-blend-overlay lg:bg-fixed bg-neutral-700 bg-[url('/img/home_about_portrait_1920.webp')] md:bg-[url('/img/home_about_landscape_1920.webp')] h-[90vh] md:h-[70vh] bg-center bg-no-repeat bg-cover w-full py-10"
+      class="bg-blend-overlay lg:bg-fixed bg-neutral-700 bg-[url('/img/home_about_portrait_1920.webp')] md:bg-[url('/img/home_about_landscape_1920.webp')] md:h-[70vh] bg-center bg-no-repeat bg-cover w-full py-8"
     >
       <div class="max-w-7xl mx-auto">
-        <div class="container py-8">
-          <BaseContent>
-            <template #title
-              >“FUN FOR EVERYONE” <br />
-              -AbsoluteSport</template
-            >
-            <template #sub-1
-              >Service Provider to Parents, Schools, Councils and Sport Coaches
-              in West Sussex and Hampshire</template
-            >
-            <template #para-1
-              >Whether you're a parent seeking ways to help your children become
-              more active or a school or other organisation looking for a
-              provider of first-class sports coaching, mentoring or training,
-              AbsoluteSport is certified to help.</template
-            >
-            <template #para-2
-              >Our highly qualified and experienced team will provide programmes
-              and activities tailored to your exact needs.</template
-            >
-            <template #para-3
-              >AbsoluteSport is dedicated to providing positive youth team
-              sports experiences through family and community involvement that
-              is based on the philosophy "FUN FOR EVERYONE". <br />
-              <br />
-              "FUN FOR EVERYONE" is a cornerstone of our organization. Our
-              programs are open to any child able to participate regardless of
-              race, religion, creed, sex or ability. Our mission is to raise
-              awareness in children about the importance of regular exercise and
-              how it will benefit their future.</template
-            >
-          </BaseContent>
+        <div class="md:flex">
+          <div class="container w-full md:h-full shrink-0 py-8">
+            <BaseContent>
+              <template #title
+                >“FUN FOR EVERYONE” <br />
+                -AbsoluteSport</template
+              >
+              <template #sub-1
+                >Service Provider to Parents, Schools, Councils and Sport
+                Coaches in West Sussex and Hampshire</template
+              >
+              <template #para-1
+                >Whether you're a parent seeking ways to help your children
+                become more active or a school or other organisation looking for
+                a provider of first-class sports coaching, mentoring or
+                training, AbsoluteSport is certified to help.</template
+              >
+              <template #para-2
+                >Our highly qualified and experienced team will provide
+                programmes and activities tailored to your exact
+                needs.</template
+              >
+              <template #para-3
+                >AbsoluteSport is dedicated to providing positive youth team
+                sports experiences through family and community involvement that
+                is based on the philosophy
+                <span class="text-accent">"FUN FOR EVERYONE"</span>.<br />
+                <br />
+                <span class="text-accent">"FUN FOR EVERYONE"</span> is a
+                cornerstone of our organization. Our programs are open to any
+                child able to participate regardless of race, religion, creed,
+                sex or ability. Our mission is to raise awareness in children
+                about the importance of regular exercise and how it will benefit
+                their future.</template
+              >
+            </BaseContent>
+          </div>
         </div>
       </div>
     </section>
