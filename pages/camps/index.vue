@@ -76,15 +76,16 @@ const nextCamps = computed(() => {
         <div
           class="container py-4 flex flex-col items-center justify-center overflow-hidden"
         >
-          <h2 class="font-play capitalize text-left">
+          <h3 class="font-play capitalize text-left">
             An AbsoluteSport blast!
-          </h2>
+          </h3>
           <p>
-            Take a sneak peek into a day in the life of our campee's. We only
+            Take a snplk peek into a day in the life of our campee's. We only
             show images with the parents permission.
           </p>
-          <br />
+          <p class="text-center py-40">Image carousel here</p>
           <!-- swiper -->
+          <p></p>
           <p>
             Take a sneak peek into a day in the life of our camp adventurer's.
             We only show images of children with their parents permission, of

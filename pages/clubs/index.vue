@@ -103,12 +103,13 @@ comments.value.forEach((record, index) => {
         <div
           class="container py-4 flex flex-col items-center justify-center overflow-hidden"
         >
-          <h2 class="font-play capitalize">An AbsoluteSport blast!</h2>
+          <h3 class="font-play capitalize">An AbsoluteSport blast!</h3>
           <p>
             Our clubs are designed with fun in mind. We deliver a variety of
             exciting sports and games to help build confidence, social skills
             and sportsmanship.
           </p>
+          <p class="text-center py-40">Image carousel here</p>
           <!-- swiper -->
           <p>
             Children attending our clubs feel extra prepared for upcoming school
@@ -172,6 +173,9 @@ comments.value.forEach((record, index) => {
             Testimonials from the schools we have worked with
           </h3>
           <!-- swiper  -->
+          <p class="text-center py-40">Testimonial carousel here</p>
+          <!-- swiper -->
+          <p></p>
           <div></div>
         </div>
         <div class="container py-4">
@@ -189,13 +193,13 @@ comments.value.forEach((record, index) => {
             can be rephrased to make sense for most sports
           </p>
 
-          <p class="tracking-wide">
+          <p>
             We offer parents an affordable avenue for their children to
-            experience a variety of sports in a fun and safe environment that is
-            not overly competitive but challenging enough to allow growth and
-            where they can be assured their child is receiving quality
-            instruction and support. If you would like to choose a club for your
-            child this upcoming term you can book them
+            experience a variety of sports in a fun and safe environment that
+            isn't overly competitive but challenging enough to allow growth and
+            where they can be assured of quality instruction and support. If you
+            would like to choose a club for your child this upcoming term you
+            can book them
             <NuxtLink to="camps/booking" class="font-bold underline"
               >here</NuxtLink
             >.
