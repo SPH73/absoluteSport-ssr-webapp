@@ -7,7 +7,6 @@ export default defineNuxtConfig({
   app: {
     pageTransition: { name: "page", mode: "out-in" },
   },
-  ssr: true,
   build: {
     transpile: [
       "@fortawesome/fontawesome-svg-core",
@@ -18,7 +17,7 @@ export default defineNuxtConfig({
       "swiper",
     ],
   },
-  modules: ["@nuxtjs/tailwindcss", "nuxt-swiper"],
+  modules: ["@nuxtjs/tailwindcss", "@vueuse/nuxt"],
   tailwindcss: {
     cssPath: "~/assets/css/tailwind.css",
     configPath: "tailwind.config",

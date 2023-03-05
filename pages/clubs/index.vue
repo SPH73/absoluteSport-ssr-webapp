@@ -3,7 +3,18 @@ const { error: listError, data: list } = await useFetch("/api/clubs/sportList");
 const { error: commentError, data: comments } = await useFetch(
   "/api/clubs/schoolTestimonials",
 );
+
+const clubImages = ref([]);
 // TODO get clubs images for carousel
+const imgs = [
+  "https://pixabay.com/photos/child-soccer-playing-kick-613199/",
+  "https://pixabay.com/photos/team-grass-cheer-field-game-sport-2444978/",
+  "https://pixabay.com/photos/youth-soccer-game-football-young-2436343/",
+  "https://pixabay.com/photos/boy-sport-football-soccer-7056003/",
+  "https://pixabay.com/photos/football-soccer-ball-running-5587398/",
+  "https://pixabay.com/photos/archery-boy-arrow-aiming-weapon-898001/",
+  "https://pixabay.com/photos/tennis-ball-child-sport-athletic-2096676/",
+];
 const slides = ref(
   Array.from({ length: 5 }, () => {
     const r = Math.floor(Math.random() * 256);
@@ -17,6 +28,7 @@ const slides = ref(
   }),
 );
 
+// console.log("imgs***", imgs);
 const sportList = ref([]);
 let activity = {};
 list.value.forEach((record, index) => {
@@ -43,11 +55,10 @@ comments.value.forEach((record, index) => {
     name: record.fields.name,
     designation: record.fields.designation,
     comment: record.fields.comment,
-    featured: record.fields.featured,
   };
   commentList.value.push(comment);
 });
-console.log("comments", commentList.value);
+// console.log("comments", commentList.value);
 </script>
 
 <template>
@@ -88,62 +99,28 @@ console.log("comments", commentList.value);
           </p>
           <p>You'll find an itinerary of upcoming clubs we run below.</p>
         </div>
+        <!-- images -->
         <div
-          class="container py-4 flex flex-col items-center justify-space-evenly"
+          class="container py-4 flex flex-col items-center justify-center overflow-hidden"
         >
           <h2 class="font-play capitalize">An AbsoluteSport blast!</h2>
-
           <p>
             Our clubs are designed with fun in mind. We deliver a variety of
             exciting sports and games to help build confidence, social skills
             and sportsmanship.
           </p>
-          <br />
-
+          <!-- swiper -->
           <p>
-            Children attending our clubs are extra prepared for up and coming
-            school sports tournaments.
+            Children attending our clubs feel extra prepared for upcoming school
+            sports tournaments.
           </p>
         </div>
       </div>
     </section>
-    <section id="testimonials">
-      <div id="carousel" class="inset-x-0 md:inset-x-5 bottom-0">
-        <!-- reviews -->
-        <Swiper
-          class="w-full md:w-3/4 lg:w-2/4 xl:w-1/3 bg-secondary rounded-xl border-4 border-white flex justify-center items center p-4"
-          :modules="[
-            SwiperAutoplay,
-            SwiperEffectCreative,
-            SwiperNavigation,
-            SwiperManipulation,
-            SwiperAutoplay,
-          ]"
-          :slides-per-view="1"
-          :loop="true"
-          :effect="'creative'"
-          :navigation="true"
-          :creative-effect="{
-            prev: {
-              shadow: false,
-              translate: ['-100%', 0, -1],
-            },
-            next: {
-              translate: ['100%', 0, 0],
-            },
-          }"
-          :autoplay="{
-            delay: 7000,
-            disableOnInteraction: true,
-          }"
-        >
-          <SwiperSlide
-            v-for="review in commentList"
-            :key="review.index"
-            class="p-4"
-            ><TestimonialItem :review="review" />
-          </SwiperSlide>
-        </Swiper>
+    <!-- testimonials -->
+    <section id="testimonials" class="">
+      <div class="">
+        <!-- swiper -->
       </div>
     </section>
     <section

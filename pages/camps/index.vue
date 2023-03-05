@@ -72,37 +72,19 @@ const nextCamps = computed(() => {
             are running below.
           </p>
         </div>
+        <!-- images -->
         <div
-          class="container py-4 flex flex-col items-center justify-space-evenly"
+          class="container py-4 flex flex-col items-center justify-center overflow-hidden"
         >
-          <h2 class="font-play capitalize">An AbsoluteSport blast!</h2>
-          <p>!!!Placeholder for Image carousel until images are ready</p>
+          <h2 class="font-play capitalize text-left">
+            An AbsoluteSport blast!
+          </h2>
           <p>
             Take a sneak peek into a day in the life of our campee's. We only
             show images with the parents permission.
           </p>
           <br />
-          <Swiper
-            class="swiper-cards"
-            :width="240"
-            :modules="[SwiperAutoplay, SwiperEffectCards]"
-            :slides-per-view="1"
-            :loop="true"
-            :effect="'cards'"
-            :autoplay="{
-              delay: 8000,
-              disableOnInteraction: true,
-            }"
-          >
-            <SwiperSlide
-              v-for="(slide, idx) in slides"
-              :key="idx"
-              :style="`background-color: ${slide.bg}; color: ${slide.color}; border: 4px solid white`"
-            >
-              {{ idx + 1 }}
-            </SwiperSlide>
-          </Swiper>
-          <p>Placeholder for Image carousel until images are ready</p>
+          <!-- swiper -->
           <p>
             Take a sneak peek into a day in the life of our camp adventurer's.
             We only show images of children with their parents permission, of
@@ -111,6 +93,7 @@ const nextCamps = computed(() => {
         </div>
       </div>
     </section>
+    <!-- Benefits -->
     <section
       class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 w-full mx-auto pt-8 px-8"
     >

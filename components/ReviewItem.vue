@@ -6,20 +6,21 @@ const snippet = computed(() => {
 </script>
 
 <template>
-  <div
-    class="text-light flex flex-col text-center items-center justify-center rounded-lg px-16 py-4"
-  >
-    <p class="text-xl text-light md:text-2xl tracking-wider max-w-prose">
-      {{ review.comment.length < 300 ? review.comment : snippet }}
-    </p>
-    <div>
+  <div class="text-light">
+    <div class="">
       <font-awesome-icon
         v-for="star in review.rating"
-        class="text-accent text-xl p-1"
+        class="text-accent text-xl px-1 py-0"
         :icon="['fas', 'star']"
       />
     </div>
-    <h5 class="text-xl tracking-wider">-&nbsp;{{ review.name }}&nbsp;-</h5>
+    <p class="text-sm text-light tracking-wider max-w-prose">
+      {{ review.comment.length < 300 ? review.comment : snippet }}
+    </p>
+
+    <h5 class="text-xl tracking-wider text-accent">
+      -&nbsp;{{ review.name }}&nbsp;-
+    </h5>
   </div>
 </template>
 

@@ -21,52 +21,19 @@ reviews.value.forEach((record, index) => {
 <template>
   <div>
     <section
-      class="bg-blend-overlay lg:bg-fixed bg-neutral-600 bg-[url('/img/hero_portrait_1920.webp')] md:bg-[url('/img/hero_landscape_1920.webp')] bg-center bg-no-repeat bg-cover w-full h-[90vh] md:h-[70vh] pt-10 pb-4 relative"
+      class="bg-blend-overlay lg:bg-fixed bg-neutral-600 bg-[url('/img/hero_portrait_1920.webp')] md:bg-[url('/img/hero_landscape_1920.webp')] bg-center bg-no-repeat bg-cover w-full h-[85vh] md:h-[70vh] pt-10 pb-4 relative"
     >
       <div class="max-w-7xl mx-auto">
-        <div class="container font-play py-4">
-          <h1 class="text-center md:text-left">
-            Fun, Laughter, Games and Exercise with AbsoluteSport
-          </h1>
-          <h2 class="text-center md:text-left">
+        <div class="container font-play py-4 text-center md:text-left">
+          <h1 class="">Fun, Laughter, Games and Exercise with AbsoluteSport</h1>
+          <h2 class="">
             Kids learn while having fun at our clubs, camps and parties
           </h2>
-          <div id="carousel" class="absolute inset-x-0 md:inset-x-5 bottom-0">
+          <div
+            id="carousel"
+            class="absolute inset-x-0 md:inset-x-5 bottom-0 backdrop-grayscale h-min h-96"
+          >
             <!-- reviews -->
-            <Swiper
-              class="w-full md:w-3/4 lg:w-2/4 xl:w-1/3 backdrop-grayscale rounded-xl flex justify-center items center p-4"
-              :modules="[
-                SwiperAutoplay,
-                SwiperEffectCreative,
-                SwiperNavigation,
-                SwiperManipulation,
-                SwiperAutoplay,
-              ]"
-              :slides-per-view="1"
-              :loop="true"
-              :effect="'creative'"
-              :navigation="true"
-              :creative-effect="{
-                prev: {
-                  shadow: false,
-                  translate: ['-100%', 0, -1],
-                },
-                next: {
-                  translate: ['100%', 0, 0],
-                },
-              }"
-              :autoplay="{
-                delay: 7000,
-                disableOnInteraction: true,
-              }"
-            >
-              <SwiperSlide
-                v-for="review in reviewList"
-                :key="review.index"
-                class="p-4"
-                ><ReviewItem :review="review" />
-              </SwiperSlide>
-            </Swiper>
           </div>
         </div>
       </div>
@@ -231,7 +198,6 @@ reviews.value.forEach((record, index) => {
               how it will benefit their future.</template
             >
           </BaseContent>
-          <!-- <p>Read more about AbsoluteSport -></p> -->
         </div>
       </div>
     </section>
