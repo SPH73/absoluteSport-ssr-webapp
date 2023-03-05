@@ -15,8 +15,7 @@
     "@tailwindcss/typography": "^0.5.8",
     "@vueuse/core": "^9.13.0",
     "@vueuse/nuxt": "^9.13.0",
-    "nuxt": "3.2.3",
-    "nuxt-use-motion": "^2.0.0-beta.11"
+    "nuxt": "3.2.3"
   },
   "dependencies": {
     "@fortawesome/fontawesome-svg-core": "^6.2.1",
