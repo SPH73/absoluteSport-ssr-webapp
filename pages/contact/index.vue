@@ -86,10 +86,10 @@ async function handleSubmit() {
     <BaseCard>
       <div class="mb-8">
         <h1 class="text-accent font-play capitalize">Let's Chat!</h1>
-        <p class="tracking-wide">
+        <p class="tracking-wide text-light">
           Got questions that we haven't answered in our FAQ's?
         </p>
-        <p class="tracking-wide">
+        <p class="tracking-wide text-light">
           We would love to hear from you so send us a message and we will
           endeavour to respond within one business day.
         </p>
