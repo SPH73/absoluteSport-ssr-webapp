@@ -117,12 +117,7 @@ comments.value.forEach((record, index) => {
         </div>
       </div>
     </section>
-    <!-- testimonials -->
-    <section id="testimonials" class="">
-      <div class="">
-        <!-- swiper -->
-      </div>
-    </section>
+    <!-- benefits -->
     <section
       class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 w-full mx-auto pt-8 px-8"
     >
@@ -170,112 +165,119 @@ comments.value.forEach((record, index) => {
         </template>
       </BaseBadge>
     </section>
-    <section class="max-w-7xl mx-auto">
-      <div class="container py-4">
-        <h3 class="font-play capitalize">
-          How we aim to improve sporting performance in chldren attending our
-          clubs
-        </h3>
-        <p>
-          Many elite performers identify a background in multi-sports. Physical
-          skills such as balance, running, catching, eye-hand coordination,
-          jumping etc., are required for a multitude of sports and sports
-          disciplines. Developing these vital skills in one sport will transfer
-          into another. For example, a great footballer will also have the
-          skills of a track and field athlete. This statement can be rephrased
-          to make sense for most sports
-        </p>
-
-        <p class="tracking-wide">
-          We offer parents an affordable avenue for their children to experience
-          a variety of sports in a fun and safe environment that is not overly
-          competitive but challenging enough to allow growth and where they can
-          be assured their child is receiving quality instruction and support.
-          If you would like to choose a club for your child this upcoming term
-          you can book them
-          <NuxtLink to="camps/booking" class="font-bold underline"
-            >here</NuxtLink
-          >.
-        </p>
-        <div class="py-4">
-          <h3 class="font-play capitalize">Upcoming Clubs</h3>
-          <p>
-            We coach a variety of sports and activities at our clubs and
-            wraparound care at Sidlesham Primary School, West Wittering Primary
-            School and Portfield Academy. These are updated regularly to keep
-            our clubs current and interesting.
-          </p>
-          <div>
-            <button class="btn-primary my-4 w-full md:w-fit">
-              <NuxtLink to="clubs/booking">book now</NuxtLink>
-            </button>
-          </div>
-          <table
-            v-for="activity in sportList"
-            class="table-auto border-separate border-spacing-2 border border-secondary text-light w-full text-2xl rounded-md mb-4"
-          >
-            <tbody>
-              <tr>
-                <th
-                  class="uppercase p-4 bg-secondary text-left text-accent border border-secondary p-4 w-2/5"
-                >
-                  Activity
-                </th>
-                <td
-                  class="bg-light text-dark border border-secondary p-4 w-3/5"
-                >
-                  {{ activity.sportName }}
-                </td>
-              </tr>
-              <tr>
-                <th
-                  class="uppercase p-4 bg-secondary text-left text-accent border border-secondary p-4"
-                >
-                  What you can expect
-                </th>
-                <td class="bg-light text-dark border border-secondary p-4">
-                  <span v-for="item in activity.intro">{{ item }},&nbsp;</span>
-                </td>
-              </tr>
-              <tr>
-                <th
-                  class="uppercase p-4 bg-secondary text-left text-accent border border-secondary p-4 w-2/5"
-                >
-                  Schools
-                </th>
-                <td
-                  class="bg-light text-dark border border-secondary p-4 w-3/5"
-                >
-                  <span v-for="item in activity.schoolList"
-                    >{{ item }},&nbsp;</span
-                  >
-                </td>
-              </tr>
-              <tr>
-                <th
-                  class="uppercase p-4 bg-secondary text-left text-accent border border-secondary p-4"
-                >
-                  Year groups
-                </th>
-                <td class="bg-light text-dark border border-secondary p-4">
-                  <span v-for="item in activity.yearRange"
-                    >{{ item }},&nbsp;</span
-                  >
-                </td>
-              </tr>
-              <tr>
-                <th
-                  class="uppercase p-4 bg-secondary text-left text-accent border border-secondary p-4"
-                >
-                  Sessions per booking
-                </th>
-                <td class="bg-light text-dark border border-secondary p-4">
-                  {{ activity.sessions }}
-                </td>
-              </tr>
-            </tbody>
-          </table>
+    <section class="w-full mx-auto">
+      <div class="grid grid-cols-1 md:grid-cols-2">
+        <div class="container py-4">
+          <h3 class="font-play capitalize">
+            Testimonials from the schools we have worked with
+          </h3>
+          <!-- swiper  -->
+          <div></div>
         </div>
+        <div class="container py-4">
+          <h3 class="font-play capitalize">
+            How we aim to improve sporting performance in chldren attending our
+            clubs
+          </h3>
+          <p>
+            Many elite performers identify a background in multi-sports.
+            Physical skills such as balance, running, catching, eye-hand
+            coordination, jumping etc., are required for a multitude of sports
+            and sports disciplines. Developing these vital skills in one sport
+            will transfer into another. For example, a great footballer will
+            also have the skills of a track and field athlete. This statement
+            can be rephrased to make sense for most sports
+          </p>
+
+          <p class="tracking-wide">
+            We offer parents an affordable avenue for their children to
+            experience a variety of sports in a fun and safe environment that is
+            not overly competitive but challenging enough to allow growth and
+            where they can be assured their child is receiving quality
+            instruction and support. If you would like to choose a club for your
+            child this upcoming term you can book them
+            <NuxtLink to="camps/booking" class="font-bold underline"
+              >here</NuxtLink
+            >.
+          </p>
+        </div>
+        <!-- testimonials -->
+        <div class="container py-4"></div>
+      </div>
+    </section>
+    <section class="max-w-7xl mx-auto">
+      <div class="py-4">
+        <h3 class="font-play capitalize">Upcoming Clubs</h3>
+        <p>
+          We coach a variety of sports and activities at our clubs and
+          wraparound care at Sidlesham Primary School, West Wittering Primary
+          School and Portfield Academy. These are updated regularly to keep our
+          clubs current and interesting.
+        </p>
+        <button class="btn-primary my-4 w-full md:w-fit">
+          <NuxtLink to="clubs/booking">book now</NuxtLink>
+        </button>
+        <table
+          v-for="activity in sportList"
+          class="table-auto border-separate border-spacing-2 border border-secondary text-light w-full text-2xl rounded-md mb-4"
+        >
+          <tbody>
+            <tr>
+              <th
+                class="uppercase p-4 bg-secondary text-left text-accent border border-secondary p-4 w-2/5"
+              >
+                Activity
+              </th>
+              <td class="bg-light text-dark border border-secondary p-4 w-3/5">
+                {{ activity.sportName }}
+              </td>
+            </tr>
+            <tr>
+              <th
+                class="uppercase p-4 bg-secondary text-left text-accent border border-secondary p-4"
+              >
+                What you can expect
+              </th>
+              <td class="bg-light text-dark border border-secondary p-4">
+                <span v-for="item in activity.intro">{{ item }},&nbsp;</span>
+              </td>
+            </tr>
+            <tr>
+              <th
+                class="uppercase p-4 bg-secondary text-left text-accent border border-secondary p-4 w-2/5"
+              >
+                Schools
+              </th>
+              <td class="bg-light text-dark border border-secondary p-4 w-3/5">
+                <span v-for="item in activity.schoolList"
+                  >{{ item }},&nbsp;</span
+                >
+              </td>
+            </tr>
+            <tr>
+              <th
+                class="uppercase p-4 bg-secondary text-left text-accent border border-secondary p-4"
+              >
+                Year groups
+              </th>
+              <td class="bg-light text-dark border border-secondary p-4">
+                <span v-for="item in activity.yearRange"
+                  >{{ item }},&nbsp;</span
+                >
+              </td>
+            </tr>
+            <tr>
+              <th
+                class="uppercase p-4 bg-secondary text-left text-accent border border-secondary p-4"
+              >
+                Sessions per booking
+              </th>
+              <td class="bg-light text-dark border border-secondary p-4">
+                {{ activity.sessions }}
+              </td>
+            </tr>
+          </tbody>
+        </table>
       </div>
     </section>
   </div>
