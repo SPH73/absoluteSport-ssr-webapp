@@ -26,6 +26,7 @@ onMounted(() => {
         <button
           @click="drawer"
           id="toggle"
+          aria-label="menu"
           aria-expanded="false"
           aria-controls="menu"
         >
@@ -42,10 +43,20 @@ onMounted(() => {
           class="flex space-x-8 text-3xl font-mulish uppercase text-secondary"
         >
           <li class="flex justify-items-center">
-            <NuxtLink to="/" class="pb-2 hover:font-bold"> Home </NuxtLink>
+            <NuxtLink
+              to="/"
+              class="pb-2 hover:font-bold"
+              aria-label="Navigate to the homepage"
+            >
+              Home
+            </NuxtLink>
           </li>
           <li class="flex justify-items-center">
-            <NuxtLink to="/clubs" class="hover:font-bold pb-2">
+            <NuxtLink
+              to="/clubs"
+              class="hover:font-bold pb-2"
+              aria-label="Navigate to the School clubs page"
+            >
               School Clubs
             </NuxtLink>
             <div v-if="isOpen">
@@ -62,7 +73,11 @@ onMounted(() => {
             </div>
           </li>
           <li class="flex justify-items-center">
-            <NuxtLink to="/camps" class="hover:font-bold pb-2">
+            <NuxtLink
+              to="/camps"
+              class="hover:font-bold pb-2"
+              aria-label="Navigate to the holiday activity camps page"
+            >
               Activity Camps
             </NuxtLink>
             <div v-if="isOpen">
@@ -79,7 +94,11 @@ onMounted(() => {
             </div>
           </li>
           <li class="flex justify-items-center">
-            <NuxtLink to="/parties" class="hover:font-bold pb-2">
+            <NuxtLink
+              to="/parties"
+              class="hover:font-bold pb-2"
+              aria-label="Navigate to the themed parties for kids page"
+            >
               Kids Parties
             </NuxtLink>
             <div v-if="isOpen">
@@ -96,12 +115,20 @@ onMounted(() => {
             </div>
           </li>
           <li class="flex justify-items-center">
-            <NuxtLink to="/football" class="hover:font-bold pb-2">
+            <NuxtLink
+              to="/football"
+              class="hover:font-bold pb-2"
+              aria-label="Navigate to the football academy page"
+            >
               Football Academy
             </NuxtLink>
           </li>
           <li class="flex items-center">
-            <NuxtLink to="/contact" class="hover:font-bold pb-2">
+            <NuxtLink
+              to="/contact"
+              class="hover:font-bold pb-2"
+              aria-label="Navigate to the contact page to send us a message using our message form"
+            >
               Contact
             </NuxtLink>
           </li>
@@ -152,7 +179,12 @@ onMounted(() => {
           class="divide-y divide-secondary font-mulish text-secondary uppercase text-2xl"
         >
           <li class="flex items-center">
-            <NuxtLink to="/" @click="isOpen = false" class="my-4 inline-block">
+            <NuxtLink
+              to="/"
+              @click="isOpen = false"
+              class="my-4 inline-block"
+              aria-label="Navigate to the homepage"
+            >
               Home</NuxtLink
             >
           </li>
@@ -161,6 +193,7 @@ onMounted(() => {
               to="/clubs"
               @click="isOpen = false"
               class="my-4 inline-block"
+              aria-label="Navigate to the School Clubs page"
             >
               School Clubs</NuxtLink
             >
@@ -174,6 +207,7 @@ onMounted(() => {
               to="/camps"
               @click="isOpen = false"
               class="my-4 inline-block"
+              aria-label="Navigate to the holiday activity camps page"
             >
               Activity Camps</NuxtLink
             >
@@ -187,6 +221,7 @@ onMounted(() => {
               to="/parties"
               @click="isOpen = false"
               class="my-4 inline-block"
+              aria-label="Navigate to the themed parties for kids page"
             >
               Kids Parties</NuxtLink
             >
@@ -200,6 +235,7 @@ onMounted(() => {
               to="/football"
               @click="isOpen = false"
               class="my-4 inline-block"
+              aria-label="Navigate to the football academy page"
             >
               Football Academy</NuxtLink
             >
@@ -209,6 +245,7 @@ onMounted(() => {
               to="/contact"
               @click="isOpen = false"
               class="my-4 inline-block"
+              aria-label="Navigate to the contact page to send us a message using our message form"
             >
               Contact</NuxtLink
             >
