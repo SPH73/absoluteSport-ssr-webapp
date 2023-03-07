@@ -16,17 +16,6 @@ reviews.value.forEach((record, index) => {
     reviewList.value.push(review);
   }
 });
-const slides = ref(
-  Array.from({ length: 10 }, () => {
-    const r = Math.floor(Math.random() * 256);
-    const g = Math.floor(Math.random() * 256);
-    const b = Math.floor(Math.random() * 256);
-    // Figure out contrast color for font
-    const contrast =
-      r * 0.299 + g * 0.587 + b * 0.114 > 186 ? "black" : "white";
-    return { bg: `rgb(${r}, ${g}, ${b})`, color: contrast };
-  }),
-);
 </script>
 
 <template>
@@ -46,7 +35,6 @@ const slides = ref(
           >
             <Swiper
               id="reviews"
-              class=""
               :modules="[
                 SwiperAutoplay,
                 SwiperEffectCreative,
@@ -75,7 +63,7 @@ const slides = ref(
               <SwiperSlide
                 v-for="review in reviewList"
                 :key="review.index"
-                class="min-h-[130px] h-fit px-20 py-8"
+                class="h-full min-h-[130px] h-fit px-20 py-8 flex justify-center items-center w-[80%] max-w-[428px]"
                 ><ReviewItem :review="review" />
               </SwiperSlide>
             </Swiper>
@@ -278,15 +266,6 @@ const slides = ref(
   </div>
 </template>
 <style>
-.swiper-slide {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100%;
-  /* min-height: fit-content; */
-  width: 80%;
-  max-width: 428px;
-}
 .swiper-wrapper {
   height: fit-content;
   min-height: fit-content;
