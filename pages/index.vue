@@ -16,6 +16,17 @@ reviews.value.forEach((record, index) => {
     reviewList.value.push(review);
   }
 });
+const slides = ref(
+  Array.from({ length: 10 }, () => {
+    const r = Math.floor(Math.random() * 256);
+    const g = Math.floor(Math.random() * 256);
+    const b = Math.floor(Math.random() * 256);
+    // Figure out contrast color for font
+    const contrast =
+      r * 0.299 + g * 0.587 + b * 0.114 > 186 ? "black" : "white";
+    return { bg: `rgb(${r}, ${g}, ${b})`, color: contrast };
+  }),
+);
 </script>
 
 <template>
@@ -31,10 +42,11 @@ reviews.value.forEach((record, index) => {
           </div>
           <div
             id="carousel"
-            class="absolute inset-x-0 bottom-0 backdrop-grayscale h-fit w-full md:w-3/4 lg:w-1/3 mx-auto my-auto min-h-600px text-center"
+            class="absolute inset-x-0 bottom-0 backdrop-grayscale backdrop-blur-sm h-fit flex justify-center items-center text-center max-w-[428px] m-auto"
           >
             <Swiper
-              class="h-full w-full min-h-full"
+              id="reviews"
+              class=""
               :modules="[
                 SwiperAutoplay,
                 SwiperEffectCreative,
@@ -56,14 +68,14 @@ reviews.value.forEach((record, index) => {
                 },
               }"
               :autoplay="{
-                delay: 7000,
+                delay: 5000,
                 disableOnInteraction: true,
               }"
             >
               <SwiperSlide
                 v-for="review in reviewList"
                 :key="review.index"
-                class="h-full w-full"
+                class="min-h-[130px] h-fit px-20 py-8"
                 ><ReviewItem :review="review" />
               </SwiperSlide>
             </Swiper>
@@ -265,3 +277,19 @@ reviews.value.forEach((record, index) => {
     </section>
   </div>
 </template>
+<style>
+.swiper-slide {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  /* min-height: fit-content; */
+  width: 80%;
+  max-width: 428px;
+}
+.swiper-wrapper {
+  height: fit-content;
+  min-height: fit-content;
+  max-height: 100vw;
+}
+</style>
