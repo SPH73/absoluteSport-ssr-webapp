@@ -17,7 +17,7 @@ const emit = defineEmits(["close"]);
     >
       <header class="bg-primary text-light w-full p-4">
         <slot name="header">
-          <h2 class="m-0">{{ title }}</h2>
+          <h2 class="m-0 font-play capitalize">{{ title }}</h2>
         </slot>
       </header>
       <section class="p-4">
