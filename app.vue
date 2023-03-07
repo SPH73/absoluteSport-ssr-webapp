@@ -3,6 +3,23 @@ useHead({
   titleTemplate: titleChunk => {
     return titleChunk ? `${titleChunk} - AbsoluteSport` : "AbsoluteSport";
   },
+  meta: [
+    {
+      name: "description",
+      content:
+        "We provide high quality football training with an F.A. qualified coach and talent scout.",
+    },
+    {
+      name: "og:description",
+      content:
+        "We provide high quality football training with an F.A. qualified coach and talent scout.",
+    },
+    {
+      property: "og:type",
+      content: "website",
+    },
+    // {property: "og:image", content: data.value.metaImage},
+  ],
 });
 </script>
 

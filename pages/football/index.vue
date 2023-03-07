@@ -12,7 +12,7 @@ useHead({
       content:
         "High quality football training with an F.A. qualified coach and talent scout.",
     },
-    // {property: "og:image", content: data.value.metaImage}
+    // {property: "og:image", content: data.value.metaImage},
   ],
 });
 const formData = ref({});
