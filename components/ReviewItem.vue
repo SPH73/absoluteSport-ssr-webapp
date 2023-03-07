@@ -6,7 +6,9 @@ const snippet = computed(() => {
 </script>
 
 <template>
-  <div class="text-light">
+  <div
+    class="text-light flex flex-col justify-center items-center mx-16 py-4 h-full"
+  >
     <div class="flex space-x-1">
       <font-awesome-icon
         v-for="star in review.rating"
@@ -14,7 +16,7 @@ const snippet = computed(() => {
         :icon="['fas', 'star']"
       />
     </div>
-    <p class="text-sm text-light tracking-wider max-w-prose">
+    <p class="text-md md:text-lg lg:text-xl text-light max-w-prose font-bold">
       {{ review.comment.length < 250 ? review.comment : snippet }}
     </p>
 

@@ -19,10 +19,9 @@ export default defineNuxtConfig({
       "@fortawesome/free-solid-svg-icons",
       "@fortawesome/free-regular-svg-icons",
       "@fortawesome/vue-fontawesome",
-      "swiper",
     ],
   },
-  modules: ["@nuxtjs/tailwindcss", "@vueuse/nuxt"],
+  modules: ["@nuxtjs/tailwindcss", "@vueuse/nuxt", "nuxt-swiper"],
   tailwindcss: {
     cssPath: "~/assets/css/tailwind.css",
     configPath: "tailwind.config",

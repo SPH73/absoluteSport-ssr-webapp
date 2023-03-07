@@ -31,10 +31,42 @@ reviews.value.forEach((record, index) => {
           </div>
           <div
             id="carousel"
-            class="flex justify-center items-center backdrop-grayscale w-full md:w-1/2 lg:w-1/3 h-fit absolute inset-x-0 bottom-0 text-center mx-auto"
+            class="absolute inset-x-0 bottom-0 backdrop-grayscale h-fit w-full md:w-3/4 lg:w-1/3 mx-auto my-auto min-h-600px text-center"
           >
-            <p class="text-light">Reviews carousel here!</p>
-            <!-- reviews -->
+            <Swiper
+              class="h-full w-full min-h-full"
+              :modules="[
+                SwiperAutoplay,
+                SwiperEffectCreative,
+                SwiperNavigation,
+                SwiperManipulation,
+                SwiperAutoplay,
+              ]"
+              :slides-per-view="1"
+              :loop="true"
+              :effect="'creative'"
+              :navigation="true"
+              :creative-effect="{
+                prev: {
+                  shadow: false,
+                  translate: ['-100%', 0, -1],
+                },
+                next: {
+                  translate: ['100%', 0, 0],
+                },
+              }"
+              :autoplay="{
+                delay: 7000,
+                disableOnInteraction: true,
+              }"
+            >
+              <SwiperSlide
+                v-for="review in reviewList"
+                :key="review.index"
+                class="h-full w-full"
+                ><ReviewItem :review="review" />
+              </SwiperSlide>
+            </Swiper>
           </div>
         </div>
       </div>
