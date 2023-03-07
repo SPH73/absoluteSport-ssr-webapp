@@ -80,7 +80,7 @@ const nextCamps = computed(() => {
             An AbsoluteSport blast!
           </h3>
           <p>
-            Take a snplk peek into a day in the life of our campee's. We only
+            Take a sneak peek into a day in the life of our campee's. We only
             show images with the parents permission.
           </p>
           <p class="text-center py-40">Image carousel here</p>
@@ -153,7 +153,7 @@ const nextCamps = computed(() => {
             >here</NuxtLink
           >.
         </p>
-        <p class="tracking-wide">
+        <p>
           As a service provider to the West Sussex Council we have a certain
           amount of places available for pupils receiving HAF benefit. If you
           would like to book an HAF place please provide your childs HAF ID for

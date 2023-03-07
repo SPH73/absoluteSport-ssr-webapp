@@ -105,9 +105,8 @@ comments.value.forEach((record, index) => {
         >
           <h3 class="font-play capitalize">An AbsoluteSport blast!</h3>
           <p>
-            Our clubs are designed with fun in mind. We deliver a variety of
-            exciting sports and games to help build confidence, social skills
-            and sportsmanship.
+            We deliver a variety of exciting sports and games to help build
+            confidence, social skills and sportsmanship.
           </p>
           <p class="text-center py-40">Image carousel here</p>
           <!-- swiper -->

@@ -79,8 +79,8 @@ content.value.forEach((record, index) => {
           the time of their lives!
         </p>
         <p>
-          We supply everything needed for an unforgettable kid's party - all
-          equipment and game props as well as prizes.
+          We supply everything needed for an unforgettable party - all equipment
+          and game props as well as prizes.
         </p>
         <ul class="bullets list-inside">
           <li class="thumb">

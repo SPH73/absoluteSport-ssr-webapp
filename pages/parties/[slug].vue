@@ -2,9 +2,13 @@
 const route = useRoute();
 let partyList = ref([]);
 const partySlug = ref(route.params.slug);
-const { data: parties, error, pending } = await useFetch("/api/parties/details");
+const {
+  data: parties,
+  error,
+  pending,
+} = await useFetch("/api/parties/details");
 
-parties.value.forEach((record) => {
+parties.value.forEach(record => {
   let party = {
     id: record.id,
     slug: record.fields.slug,
@@ -18,8 +22,8 @@ parties.value.forEach((record) => {
   };
   partyList.value.push(party);
 });
-const selectedParty = computed((partySlug) => {
-  return partyList.value.find((party) => party.slug === route.params.slug);
+const selectedParty = computed(partySlug => {
+  return partyList.value.find(party => party.slug === route.params.slug);
 });
 console.log("partyList***********", partyList.value);
 // add meta to Airtable
@@ -44,7 +48,7 @@ console.log("partyList***********", partyList.value);
 </script>
 
 <template>
-  <section class="flex flex-col justify-between items-stretch container">
+  <section class="flex flex-col justify-between items-stretch container py-8">
     <div v-if="error">{{ error }}</div>
     <div v-if="pending">
       <TheSpinner />
@@ -53,9 +57,9 @@ console.log("partyList***********", partyList.value);
       <div v-for="party in partyList" :key="party.id">
         <div v-if="party.slug === partySlug">
           <div>
-            <h2>{{ party.partyName }}</h2>
+            <h2 class="font-play capitalize">{{ party.partyName }}</h2>
           </div>
-          <h3>{{ party.descriptionHeading }}</h3>
+          <h3 class="font-play capitalize">{{ party.descriptionHeading }}</h3>
           <p>{{ party.descriptionP1 }}</p>
           <p v-html="party.descriptionP2"></p>
           <p v-html="party.descriptionP3"></p>
@@ -66,12 +70,16 @@ console.log("partyList***********", partyList.value);
       <div class="flex justify-between mt-8">
         <button class="btn-accent">
           <NuxtLink :to="{ name: 'parties-quote' }"
-            >Get A Quote &nbsp;<font-awesome-icon :icon="['fas', 'arrow-right']" />
+            >Get A Quote &nbsp;<font-awesome-icon
+              :icon="['fas', 'arrow-right']"
+            />
           </NuxtLink>
         </button>
         <button class="btn-accent">
           <NuxtLink :to="{ name: 'parties' }"
-            >All Parties &nbsp;<font-awesome-icon :icon="['fas', 'arrow-right']" />
+            >All Parties &nbsp;<font-awesome-icon
+              :icon="['fas', 'arrow-right']"
+            />
           </NuxtLink>
         </button>
       </div>
