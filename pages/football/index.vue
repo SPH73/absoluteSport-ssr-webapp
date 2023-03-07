@@ -1,4 +1,20 @@
 <script lang="ts" setup>
+useHead({
+  title: "Football Academy",
+  meta: [
+    {
+      name: "description",
+      content:
+        "We provide high quality football training with an F.A. qualified coach and talent scout.",
+    },
+    {
+      property: "og:description",
+      content:
+        "High quality football training with an F.A. qualified coach and talent scout.",
+    },
+    // {property: "og:image", content: data.value.metaImage}
+  ],
+});
 const formData = ref({});
 const firstName = ref({ val: "", isValid: true });
 const lastName = ref({ val: "", isValid: true });
@@ -76,7 +92,7 @@ async function subscribe() {
           Football academy.
         </p>
         <p>We hope to see you soon!</p>
-        <p class="font-play">Ben - Founder &amp; CEO - AbsoluteSport.</p>
+        <p class="font-play">Ben - Founder &amp; CEO</p>
       </div>
 
       <div id="message-from-coach" class="container py-4">
