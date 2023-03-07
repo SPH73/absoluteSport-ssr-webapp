@@ -64,7 +64,7 @@ reviews.value.forEach((record, index) => {
               <SwiperSlide
                 v-for="review in reviewList"
                 :key="review.index"
-                class="min-h-[200px] h-fit px-20 py-8 flex justify-center items-center w-[80%] max-w-[428px]"
+                class="min-h-[250px] h-fit px-20 py-8 flex justify-center items-center w-[80%] max-w-[428px]"
                 ><ReviewItem :review="review" />
               </SwiperSlide>
             </Swiper>
