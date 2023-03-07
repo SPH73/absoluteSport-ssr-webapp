@@ -59,8 +59,24 @@ async function subscribe() {
     <section class="max-w-7xl mx-auto">
       <div class="container py-4">
         <h2 class="font-play capitalize">Football Academy at AbsoluteSport</h2>
-        <p>Yes! AbsoluteSport is bringing you Football Academy this year!</p>
-        <p>Intro Coach Tom....</p>
+        <p>
+          Hello and welcome to our new Football Academy! We're super excited to
+          introduce our star football coach, Tom. With Tom's wealth of
+          experience and unique coaching style, we believe he will take our
+          players to new heights. We look forward to working with him and
+          achieving great success together.
+        </p>
+        <p>
+          We thank you for your interest in our Football Academy and if you've
+          not already done so, we would love to invite you to explore our
+          website to learn more about what we offer here at AbsoluteSport.
+          Before you do, please take a moment to read the message below from
+          Tom, where he shares some insights into his career and mission as a
+          football coach and highlights some key aspects of his vision for the
+          Football academy.
+        </p>
+        <p>We hope to see you soon!</p>
+        <p class="font-play">Ben - Founder &amp; CEO - AbsoluteSport.</p>
       </div>
 
       <div id="message-from-coach" class="container py-4">
@@ -71,7 +87,6 @@ async function subscribe() {
           sport for many years and have a passion for helping young players
           develop their skills and reach their full potential.
         </p>
-
         <p>
           I have worked with players of all ages and skill levels, teaching them
           the fundamentals of the game and helping them hone their skills. I
