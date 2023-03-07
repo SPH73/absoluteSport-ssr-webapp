@@ -100,17 +100,19 @@ reviews.value.forEach((record, index) => {
     </section>
     <section>
       <!-- Services -->
-      <div class="grid grid-cols-1 md:grid-cols-3 gap-8 w-full mx-auto p-8">
+      <div
+        class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 w-full mx-auto p-8"
+      >
         <BaseCard>
           <BaseContent>
-            <template #title>During School Term's</template>
-            <template #sub-1>Morning Clubs</template>
+            <template #title>School Clubs &amp; Wraparound Care</template>
+            <template #sub-1>Available to book during school term's</template>
             <template #para-1
-              >Our Morning Clubs at West Wittering and Sidlesham Primary Schools
-              are something that all the children love. We include many fun
-              sports like Fencing, Archery and Table Tennis.</template
+              >Our Morning Clubs at West Wittering Primary School, Sidlesham
+              Primary School and Portfield Academy are something that all the
+              children love. We include a variety of fun sports like fencing,
+              archery and table tennis.</template
             >
-            <template #sub-2>Afternoon Clubs</template>
             <template #para-2
               >After School Clubs give the children the perfect opportunity to
               learn a new sport or enhance their current skills in their
@@ -121,8 +123,8 @@ reviews.value.forEach((record, index) => {
         </BaseCard>
         <BaseCard>
           <BaseContent>
-            <template #title>During School Holiday's</template>
-            <template #sub-1>Sports & Activity Camps </template>
+            <template #title>Sports & Activity Camps</template>
+            <template #sub-1>Available to book each school holiday</template>
             <template #para-1
               >Our holiday clubs provide children with the opportunity to make
               new friendships outside of their school or classrooms and remain
@@ -142,8 +144,10 @@ reviews.value.forEach((record, index) => {
         </BaseCard>
         <BaseCard>
           <BaseContent>
-            <template #title>All year</template>
-            <template #sub-1>Themed Children's Parties</template>
+            <template #title>Themed Children's Parties</template>
+            <template #sub-1
+              >Our parties and entertainers are available all year</template
+            >
             <template #para-1
               >Are you looking for a fun-filled birthday party for your child?
               Great, then look no further!</template
@@ -157,6 +161,26 @@ reviews.value.forEach((record, index) => {
               the birthday boy or girl loves dancing then our Disco Party is
               sure to be a hit!</template
             >
+          </BaseContent>
+        </BaseCard>
+        <BaseCard>
+          <BaseContent>
+            <template #title>Football Academy</template>
+            <template #sub-1>Available to book every weekend.</template>
+            <template #para-1
+              >Come and join Coach Tom at our football academy training sessions
+              at Sidlesham Primary School and Portfield Primary
+              Academy!</template
+            >
+            <template #para-2
+              >Training sessions are split over two age groups; 5-8 years and
+              9-12 years old.</template
+            >
+            <template #para-3
+              >These training sessions involve technical and tactical drills to
+              enhance our budding footballer's abilities. All abilities are
+              welcome and catered for.
+            </template>
           </BaseContent>
         </BaseCard>
       </div>
