@@ -17,13 +17,18 @@ onMounted(() => {
 </script>
 
 <template>
-  <nav class="w-full bg-accent p-3 print:hidden">
+  <nav class="w-full bg-accent p-3 print:hidden" role="navigation">
     <div class="flex items-center justify-between">
       <!-- Header Logo -->
       <img src="/img/logo.webp" alt="Logo" class="w-64" />
       <!-- Mobile Menu Button -->
       <div class="lg:hidden">
-        <button @click="drawer">
+        <button
+          @click="drawer"
+          id="toggle"
+          aria-expanded="false"
+          aria-controls="menu"
+        >
           <font-awesome-icon
             :icon="['fas', 'bars']"
             class="text-secondary w-12 h-12"
@@ -36,10 +41,10 @@ onMounted(() => {
         <ul
           class="flex space-x-8 text-3xl font-mulish uppercase text-secondary"
         >
-          <div class="flex justify-items-center">
+          <li class="flex justify-items-center">
             <NuxtLink to="/" class="pb-2 hover:font-bold"> Home </NuxtLink>
-          </div>
-          <div class="flex justify-items-center">
+          </li>
+          <li class="flex justify-items-center">
             <NuxtLink to="/clubs" class="hover:font-bold pb-2">
               School Clubs
             </NuxtLink>
@@ -55,8 +60,8 @@ onMounted(() => {
                 class="text-secondary h-8 w-8 my-auto"
               />
             </div>
-          </div>
-          <div class="flex justify-items-center">
+          </li>
+          <li class="flex justify-items-center">
             <NuxtLink to="/camps" class="hover:font-bold pb-2">
               Activity Camps
             </NuxtLink>
@@ -72,8 +77,8 @@ onMounted(() => {
                 class="text-secondary h-8 w-8 my-auto"
               />
             </div>
-          </div>
-          <div class="flex justify-items-center">
+          </li>
+          <li class="flex justify-items-center">
             <NuxtLink to="/parties" class="hover:font-bold pb-2">
               Kids Parties
             </NuxtLink>
@@ -89,17 +94,17 @@ onMounted(() => {
                 class="text-secondary h-8 w-8 my-auto"
               />
             </div>
-          </div>
-          <div class="flex justify-items-center">
+          </li>
+          <li class="flex justify-items-center">
             <NuxtLink to="/football" class="hover:font-bold pb-2">
               Football Academy
             </NuxtLink>
-          </div>
-          <div class="flex items-center">
+          </li>
+          <li class="flex items-center">
             <NuxtLink to="/contact" class="hover:font-bold pb-2">
               Contact
             </NuxtLink>
-          </div>
+          </li>
         </ul>
       </div>
       <!-- Mobile Menu Transition background -->
@@ -143,14 +148,15 @@ onMounted(() => {
           <div><img src="/img/logo.webp" alt="Logo" class="w-48" /></div>
         </span>
         <ul
+          id="menu"
           class="divide-y divide-secondary font-mulish text-secondary uppercase text-2xl"
         >
-          <div class="flex items-center">
+          <li class="flex items-center">
             <NuxtLink to="/" @click="isOpen = false" class="my-4 inline-block">
               Home</NuxtLink
             >
-          </div>
-          <div class="flex items-center">
+          </li>
+          <li class="flex items-center">
             <NuxtLink
               to="/clubs"
               @click="isOpen = false"
@@ -162,8 +168,8 @@ onMounted(() => {
               :icon="['fas', 'angle-down']"
               class="text-secondary h-8 w-8 ml-auto"
             />
-          </div>
-          <div class="flex items-center">
+          </li>
+          <li class="flex items-center">
             <NuxtLink
               to="/camps"
               @click="isOpen = false"
@@ -175,8 +181,8 @@ onMounted(() => {
               :icon="['fas', 'angle-down']"
               class="text-secondary h-8 w-8 ml-auto"
             />
-          </div>
-          <div class="flex items-center">
+          </li>
+          <li class="flex items-center">
             <NuxtLink
               to="/parties"
               @click="isOpen = false"
@@ -188,8 +194,8 @@ onMounted(() => {
               :icon="['fas', 'angle-down']"
               class="text-secondary h-8 w-8 ml-auto"
             />
-          </div>
-          <div class="flex items-center">
+          </li>
+          <li class="flex items-center">
             <NuxtLink
               to="/football"
               @click="isOpen = false"
@@ -197,8 +203,8 @@ onMounted(() => {
             >
               Football Academy</NuxtLink
             >
-          </div>
-          <div class="flex items-center">
+          </li>
+          <li class="flex items-center">
             <NuxtLink
               to="/contact"
               @click="isOpen = false"
@@ -206,7 +212,7 @@ onMounted(() => {
             >
               Contact</NuxtLink
             >
-          </div>
+          </li>
         </ul>
         <div class="follow">
           <p class="font-mulish uppercase text-secondary text-2xl">connect:</p>
