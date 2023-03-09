@@ -1,4 +1,6 @@
-<script lang="ts" setup></script>
+<script lang="ts" setup>
+const year = new Date().getFullYear();
+</script>
 
 <template>
   <footer class="bg-dark text-light text-xl print:hidden" id="footer-container">
@@ -14,7 +16,9 @@
           <li>Company number: 11554323</li>
         </ul>
         <div id="copy-area">
-          <h5>© 2023 AbsoluteSport</h5>
+          <h4>
+            © <span>{{ year }}</span> AbsoluteSport
+          </h4>
         </div>
       </div>
       <div id="connect-area" class="flex flex-col pt-2">
