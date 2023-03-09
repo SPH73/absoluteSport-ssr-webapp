@@ -162,6 +162,7 @@ onMounted(() => {
       >
         <div class="close">
           <button
+            aria-label="close"
             class="absolute top-0 right-0 mt-4 mr-4"
             @click="isOpen = false"
           >
