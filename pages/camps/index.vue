@@ -1,18 +1,30 @@
 <script setup>
-const { error: listError, data: list } = await useFetch("/api/camps/campsList");
-// TODO get camps images for carousel
-const slides = ref(
-  Array.from({ length: 10 }, () => {
-    const r = Math.floor(Math.random() * 256);
-    const g = Math.floor(Math.random() * 256);
-    const b = Math.floor(Math.random() * 256);
-    // Figure out contrast color for font
-    const contrast =
-      r * 0.299 + g * 0.587 + b * 0.114 > 186 ? "black" : "white";
-
-    return { bg: `rgb(${r}, ${g}, ${b})`, color: contrast };
-  }),
+const { error: assetError, data: assets } = await useFetch(
+  "/api/carouselImages",
 );
+const { error: listError, data: list } = await useFetch("/api/camps/campsList");
+
+const campImages = ref([]);
+
+let images = [];
+let img = {};
+assets.value.forEach((asset, index) => {
+  if (asset.fields.segment === "camps") {
+    let imagesCarousel = asset.fields.images;
+    imagesCarousel.forEach(image => {
+      img = {
+        url: image.url,
+        id: image.id,
+        filename: image.filename,
+        width: image.width,
+        height: image.height,
+        size: image.size,
+        type: image.type,
+      };
+      campImages.value.push(img);
+    });
+  }
+});
 
 const campList = ref([]);
 let camp = {};
@@ -74,23 +86,47 @@ const nextCamps = computed(() => {
         </div>
         <!-- images -->
         <div
-          class="container py-4 flex flex-col items-center justify-center overflow-hidden"
+          class="px-8 md:container py-4 flex flex-col items-center justify-center overflow-hidden"
         >
           <h3 class="font-play capitalize text-left">
             An AbsoluteSport blast!
           </h3>
           <p>
-            Take a sneak peek into a day in the life of our campee's. We only
-            show images with the parents permission.
-          </p>
-          <p class="text-center py-40">Image carousel here</p>
-          <!-- swiper -->
-          <p></p>
-          <p>
-            Take a sneak peek into a day in the life of our camp adventurer's.
-            We only show images of children with their parents permission, of
+            Get a sneak peek into a day in the life of our camp adventurer's. We
+            only show images of children with their parents permission, of
             course!
           </p>
+          <Swiper
+            class="w-full h-full flex"
+            :modules="[SwiperAutoplay, SwiperEffectCreative]"
+            :slides-per-view="1"
+            :loop="true"
+            :effect="'creative'"
+            :autoplay="{
+              delay: 5000,
+              disableOnInteraction: true,
+            }"
+            :creative-effect="{
+              prev: {
+                shadow: false,
+                translate: ['-100%', 0, -1],
+              },
+              next: {
+                translate: ['100%', 0, 0],
+              },
+            }"
+          >
+            <SwiperSlide
+              v-for="img in campImages"
+              :key="img.id"
+              class="flex-auto"
+              ><img
+                :alt="img.filename"
+                :src="img.url"
+                class="border-4 border-white rounded-xl max-h-[350px] object-cover"
+              />
+            </SwiperSlide>
+          </Swiper>
         </div>
       </div>
     </section>
@@ -287,7 +323,10 @@ const nextCamps = computed(() => {
   justify-content: center;
   align-items: center;
   font-size: 18px;
-  height: 20vh;
+  height: auto;
+  min-height: fit-content;
+  width: auto;
+  min-width: fit-content;
   font-size: 4rem;
   font-weight: bold;
   font-family: "Roboto", sans-serif;
@@ -295,13 +334,5 @@ const nextCamps = computed(() => {
 .swiper-wrapper {
   min-width: 100vh;
   width: 100vh;
-}
-.swiper-cards {
-  width: 240px;
-  height: 240px;
-}
-.swiper-cards .swiper-slide {
-  border-radius: 6px;
-  border: 1px solid black;
 }
 </style>

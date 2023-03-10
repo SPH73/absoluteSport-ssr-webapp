@@ -1,20 +1,37 @@
 <script setup>
+const { error: assetError, data: assets } = await useFetch(
+  "/api/carouselImages",
+);
+console.log(assets.value);
 const { error: listError, data: list } = await useFetch("/api/clubs/sportList");
 const { error: commentError, data: comments } = await useFetch(
   "/api/clubs/schoolTestimonials",
 );
 
 const clubImages = ref([]);
-// TODO get clubs images for carousel
-const imgs = [
-  "https://pixabay.com/photos/child-soccer-playing-kick-613199/",
-  "https://pixabay.com/photos/team-grass-cheer-field-game-sport-2444978/",
-  "https://pixabay.com/photos/youth-soccer-game-football-young-2436343/",
-  "https://pixabay.com/photos/boy-sport-football-soccer-7056003/",
-  "https://pixabay.com/photos/football-soccer-ball-running-5587398/",
-  "https://pixabay.com/photos/archery-boy-arrow-aiming-weapon-898001/",
-  "https://pixabay.com/photos/tennis-ball-child-sport-athletic-2096676/",
-];
+let asset = {};
+let images = [];
+let img = {};
+assets.value.forEach((asset, index) => {
+  if (asset.fields.segment === "clubs") {
+    let imagesCarousel = asset.fields.images;
+    imagesCarousel.forEach(image => {
+      img = {
+        url: image.url,
+        id: image.id,
+        filename: image.filename,
+        width: image.width,
+        height: image.height,
+        size: image.size,
+        type: image.type,
+      };
+      clubImages.value.push(img);
+    });
+  }
+});
+
+console.log("club images***", clubImages.value);
+
 const slides = ref(
   Array.from({ length: 5 }, () => {
     const r = Math.floor(Math.random() * 256);
@@ -108,8 +125,38 @@ comments.value.forEach((record, index) => {
             We deliver a variety of exciting sports and games to help build
             confidence, social skills and sportsmanship.
           </p>
-          <p class="text-center py-40">Image carousel here</p>
           <!-- swiper -->
+          <Swiper
+            class="w-full h-full flex"
+            :modules="[SwiperAutoplay, SwiperEffectCreative]"
+            :slides-per-view="1"
+            :loop="true"
+            :effect="'creative'"
+            :autoplay="{
+              delay: 5000,
+              disableOnInteraction: true,
+            }"
+            :creative-effect="{
+              prev: {
+                shadow: false,
+                translate: ['-100%', 0, -1],
+              },
+              next: {
+                translate: ['100%', 0, 0],
+              },
+            }"
+          >
+            <SwiperSlide
+              v-for="img in clubImages"
+              :key="img.id"
+              class="flex-auto"
+              ><img
+                :alt="img.filename"
+                :src="img.url"
+                class="border-4 border-white rounded-xl max-h-[350px] object-cover"
+              />
+            </SwiperSlide>
+          </Swiper>
           <p>
             Children attending our clubs feel extra prepared for upcoming school
             sports tournaments.
@@ -286,4 +333,10 @@ comments.value.forEach((record, index) => {
   </div>
 </template>
 
-<style scoped></style>
+<style scoped>
+.swiper-wrapper {
+  height: fit-content;
+  min-height: fit-content;
+  max-height: 100vw;
+}
+</style>
