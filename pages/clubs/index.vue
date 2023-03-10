@@ -82,7 +82,7 @@ comments.value.forEach((record, index) => {
   <div class="my-8">
     <section class="w-full mx-auto">
       <div class="grid grid-cols-1 md:grid-cols-2">
-        <div class="container py-4">
+        <div class="px-8 md:container py-4">
           <h2 class="font-play capitalize">
             School Clubs &amp; Wraparound Care
           </h2>
@@ -118,7 +118,7 @@ comments.value.forEach((record, index) => {
         </div>
         <!-- images -->
         <div
-          class="container py-4 flex flex-col items-center justify-center overflow-hidden"
+          class="px-8 md:container py-4 flex flex-col items-center justify-center overflow-hidden"
         >
           <h3 class="font-play capitalize">An AbsoluteSport blast!</h3>
           <p>
@@ -214,7 +214,7 @@ comments.value.forEach((record, index) => {
     </section>
     <section class="w-full mx-auto">
       <div class="grid grid-cols-1 md:grid-cols-2">
-        <div class="container py-4">
+        <div class="px-8 md:container container py-4">
           <h3 class="font-play capitalize">
             Testimonials from the schools we have worked with
           </h3>
@@ -224,7 +224,7 @@ comments.value.forEach((record, index) => {
           <p></p>
           <div></div>
         </div>
-        <div class="container py-4">
+        <div class="px-8 md:container py-4">
           <h3 class="font-play capitalize">
             How we aim to improve sporting performance in chldren attending our
             clubs
@@ -252,11 +252,11 @@ comments.value.forEach((record, index) => {
           </p>
         </div>
         <!-- testimonials -->
-        <div class="container py-4"></div>
+        <div class="px-8 md:container py-4"></div>
       </div>
     </section>
     <section class="max-w-7xl mx-auto">
-      <div class="py-4">
+      <div class="px-8 md:container py-4">
         <h3 class="font-play capitalize">Upcoming Clubs</h3>
         <p>
           We coach a variety of sports and activities at our clubs and

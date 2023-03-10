@@ -54,7 +54,7 @@ const nextCamps = computed(() => {
   <div class="my-8">
     <section class="w-full mx-auto">
       <div class="grid grid-cols-1 md:grid-cols-2">
-        <div class="container py-4">
+        <div class="px-8 md:container py-4">
           <h2 class="font-play capitalize">Holiday Activity Camps</h2>
           <p>
             Who doesn’t love meeting a superhero, dressing up like a Pirate or
@@ -177,7 +177,7 @@ const nextCamps = computed(() => {
       </BaseBadge>
     </section>
     <section class="max-w-7xl mx-auto">
-      <div class="container py-4">
+      <div class="px-8 md:container py-4">
         <h3 class="font-play capitalize">
           Why not come and see how much fun we have during the school holidays?
         </h3>
