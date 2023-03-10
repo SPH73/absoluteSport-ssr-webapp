@@ -21,7 +21,7 @@ reviews.value.forEach((record, index) => {
 <template>
   <div>
     <section
-      class="flex flex-col bg-blend-overlay lg:bg-fixed bg-neutral-600 bg-[url('/img/hero_portrait_1920.webp')] md:bg-[url('/img/hero_landscape_1920.webp')] bg-center bg-no-repeat bg-cover w-full h-[100vh] min-h-[667px] md:h-[70vh] pt-10 pb-4 relative"
+      class="flex flex-col bg-blend-overlay lg:bg-fixed bg-neutral-600 bg-[url('/assets/images/hero_portrait_1920.webp')] md:bg-[url('/assets/images/hero_landscape_1920.webp')] bg-center bg-no-repeat bg-cover w-full h-[calc(92vh-91px)] min-h-[667px] md:h-[70vh] pt-10 pb-4 relative"
     >
       <div class="max-w-7xl mx-auto">
         <div class="container font-play py-4 text-center md:text-left">
@@ -221,9 +221,9 @@ reviews.value.forEach((record, index) => {
     <!-- About -->
     <section
       id="about"
-      class="bg-blend-overlay lg:bg-fixed bg-neutral-700 bg-[url('/img/home_about_portrait_1920.webp')] md:bg-[url('/img/home_about_landscape_1920.webp')] md:h-[70vh] bg-center bg-no-repeat bg-cover w-full py-8"
+      class="bg-blend-overlay lg:bg-fixed bg-neutral-700 bg-[url('/assets/images/home_about_portrait_1920.webp')] md:bg-[url('/assets/images/home_about_landscape_1920.webp')] h-[100vh] min-h-[667px] md:h-[70vh] bg-center bg-no-repeat bg-cover w-full py-8"
     >
-      <div class="max-w-7xl mx-auto">
+      <div class="max-w-7xl mx-auto font-bold">
         <div class="md:flex">
           <div class="container w-full md:h-full shrink-0 py-8">
             <BaseContent>
