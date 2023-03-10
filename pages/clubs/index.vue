@@ -214,12 +214,43 @@ comments.value.forEach((record, index) => {
     </section>
     <section class="w-full mx-auto">
       <div class="grid grid-cols-1 md:grid-cols-2">
-        <div class="px-8 md:container container py-4">
+        <div
+          class="px-8 md:container py-4 flex flex-col items-center justify-center overflow-hidden"
+        >
           <h3 class="font-play capitalize">
             Testimonials from the schools we have worked with
           </h3>
           <!-- swiper  -->
-          <p class="text-center py-40">Testimonial carousel here</p>
+          <Swiper
+            class="w-full max-w-[624px] h-auto"
+            :modules="[SwiperAutoplay, SwiperEffectCreative]"
+            :slides-per-view="1"
+            :loop="true"
+            :effect="'creative'"
+            :autoplay="{
+              delay: 5000,
+              disableOnInteraction: true,
+            }"
+            :creative-effect="{
+              prev: {
+                shadow: false,
+                translate: ['-100%', 0, -1],
+              },
+              next: {
+                translate: ['100%', 0, 0],
+              },
+            }"
+          >
+            <SwiperSlide
+              v-for="review in commentList"
+              :key="review.index"
+              class="flex-auto"
+              ><TestimonialItem
+                :review="review"
+                class="border-4 border-white rounded-xl bg-secondary"
+              />
+            </SwiperSlide>
+          </Swiper>
           <!-- swiper -->
           <p></p>
           <div></div>
@@ -251,8 +282,7 @@ comments.value.forEach((record, index) => {
             >.
           </p>
         </div>
-        <!-- testimonials -->
-        <div class="px-8 md:container py-4"></div>
+        a
       </div>
     </section>
     <section class="max-w-7xl mx-auto">
