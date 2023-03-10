@@ -127,7 +127,7 @@ comments.value.forEach((record, index) => {
           </p>
           <!-- swiper -->
           <Swiper
-            class="w-full h-full flex"
+            class="w-full max-w-[624px] h-auto"
             :modules="[SwiperAutoplay, SwiperEffectCreative]"
             :slides-per-view="1"
             :loop="true"
@@ -153,7 +153,7 @@ comments.value.forEach((record, index) => {
               ><img
                 :alt="img.filename"
                 :src="img.url"
-                class="border-4 border-white rounded-xl max-h-[350px] object-cover"
+                class="border-4 border-white rounded-xl object-cover object-center"
               />
             </SwiperSlide>
           </Swiper>
@@ -334,9 +334,14 @@ comments.value.forEach((record, index) => {
 </template>
 
 <style scoped>
-.swiper-wrapper {
-  height: fit-content;
+.swiper-slide {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 18px;
+  height: auto;
   min-height: fit-content;
-  max-height: 100vw;
+  width: auto;
+  min-width: fit-content;
 }
 </style>

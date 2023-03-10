@@ -97,7 +97,7 @@ const nextCamps = computed(() => {
             course!
           </p>
           <Swiper
-            class="w-full h-full flex"
+            class="w-full max-w-[624px] h-auto"
             :modules="[SwiperAutoplay, SwiperEffectCreative]"
             :slides-per-view="1"
             :loop="true"
@@ -119,11 +119,11 @@ const nextCamps = computed(() => {
             <SwiperSlide
               v-for="img in campImages"
               :key="img.id"
-              class="flex-auto"
+              class="flex-auto flex items-center justify-center"
               ><img
                 :alt="img.filename"
                 :src="img.url"
-                class="border-4 border-white rounded-xl max-h-[350px] object-cover"
+                class="border-4 border-white rounded-xl object-cover object-center"
               />
             </SwiperSlide>
           </Swiper>
@@ -327,12 +327,5 @@ const nextCamps = computed(() => {
   min-height: fit-content;
   width: auto;
   min-width: fit-content;
-  font-size: 4rem;
-  font-weight: bold;
-  font-family: "Roboto", sans-serif;
-}
-.swiper-wrapper {
-  min-width: 100vh;
-  width: 100vh;
 }
 </style>
