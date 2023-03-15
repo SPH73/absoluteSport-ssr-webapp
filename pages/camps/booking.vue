@@ -16,6 +16,8 @@ campsList.value.forEach((record, index) => {
     spaceAvailable: record.fields.spaceAvailable,
     status: record.fields.status,
     haf: record.fields.haf,
+    daysAvailable: record.fields.daysAvailable,
+    hafDays: record.fields.hafDays,
   };
   campOptions.value.push(camp);
 });

@@ -1,4 +1,5 @@
 <script setup>
+// retrieve data for haf pop up
 const { data: cms } = await useFetch("/api/cms");
 const content = ref([]);
 let element = {};
@@ -12,6 +13,7 @@ cms.value.forEach((record, index) => {
   };
   content.value.push(element);
 });
+// pop up when haf is selected
 const hafContent = computed(() => {
   return content.value.find(item => item.name === "haf");
 });
@@ -73,13 +75,13 @@ async function onSubmitParent() {
 }
 
 // child form data
-const title = "Pupil Premium Booking";
 const childName = ref({ val: "", isValid: true });
 const childSurname = ref({ val: "", isValid: true });
 const childAge = ref({ val: "select", isValid: true });
 
 const pupilPrem = ref(false);
 const ppIsChecked = ref(false);
+const title = "Pupil Premium Booking";
 watch(pupilPrem, () => {
   ppIsChecked.value = pupilPrem.value ? true : false;
 });
@@ -105,7 +107,7 @@ campLocList.value.forEach((record, index) => {
 
 const campLoc = ref({ val: "" });
 const filteredCamps = ref([]);
-
+const hafFilteredCamps = ref([]);
 const filterCampsByLoc = computed(() => {
   let loc = campLoc.value.val;
   return (filteredCamps.value = props.campsList.filter(
@@ -113,7 +115,17 @@ const filterCampsByLoc = computed(() => {
   ));
 });
 
+const filterCampsByHaf = computed(() => {
+  return (hafFilteredCamps.value = filteredCamps.value.filter(
+    camp => camp.haf === true,
+  ));
+});
+
 const campName = ref({ val: "select", isValid: true });
+const campWeekSelected = computed(() => {
+  return campName.value.val === "select" ? false : true;
+});
+
 const campDays = ref({ val: [], isValid: true });
 const numCampDays = ref(null);
 
@@ -125,9 +137,13 @@ watchEffect(() => {
   campLoc.value.val;
   filterCampsByLoc.value;
   filteredCamps.value;
+  filterCampsByHaf.value;
+  campName.value.val;
+  campWeekSelected;
   campDays.value.val;
   calculatedDays.value;
   numCampDays.value;
+  pupilPrem.value;
 });
 
 const campFormIsValid = ref(true);
@@ -227,7 +243,7 @@ const onAddBookingItem = () => {
     </p>
     <p class="text-light">
       Kindly use your unique payment reference when making payment so that we
-      can allocate it to the booking and confirm your child's place.
+      can allocate it to your booking and confirm your child's place.
     </p>
     <p class="text-light">
       TIP: Use the review booking details button at each stage of your booking
@@ -366,7 +382,7 @@ const onAddBookingItem = () => {
           class="grid grid-cols-1 md:grid-cols-2 gap-4 text-3xl w-full"
         >
           <div class="md:text-end" :class="{ invalid: !childName.isValid }">
-            <label>Name</label>
+            <label>First Name</label>
           </div>
           <div :class="{ invalid: !childName.isValid }">
             <input
@@ -538,6 +554,7 @@ const onAddBookingItem = () => {
             <label>Camp week</label>
           </div>
           <div
+            v-if="!pupilPrem"
             :class="{
               invalid: !campName.isValid,
             }"
@@ -553,13 +570,37 @@ const onAddBookingItem = () => {
               </option>
             </select>
           </div>
+          <div
+            v-if="pupilPrem"
+            :class="{
+              invalid: !campName.isValid,
+            }"
+          >
+            <select required v-model="campName.val" class="w-full p-2 rounded">
+              <option disabled value="select">Select a camp...</option>
+              <option
+                v-for="option in hafFilteredCamps"
+                :value="option.campName"
+                :key="option.id"
+              >
+                {{ option.campName }} £{{ option.pricePerDay }} p/day
+              </option>
+            </select>
+          </div>
         </div>
         <p class="text-light" v-else>
-          Please choose a camp location to display available camps
+          {{
+            !campLoc === "select"
+              ? "Sorry\, no camps available for your selection"
+              : "Please choose a camp location to display available camps"
+          }}
         </p>
 
         <!-- camp days -->
-        <div class="flex flex-row justify-between items-center pt-4">
+        <div
+          v-if="campWeekSelected"
+          class="flex flex-row justify-between items-center pt-4"
+        >
           <div class="flex flex-col items-center justify-end gap-4">
             <label for="mon">Mo</label>
             <input
@@ -741,6 +782,13 @@ const onAddBookingItem = () => {
             </div>
           </div>
         </div>
+        <p v-else class="text-light">
+          {{
+            campName !== "select"
+              ? "Choose a camp week to show available days"
+              : "Sorry, there are no days available for your selection."
+          }}
+        </p>
         <!-- /end camp details -->
         <p class="text-light" v-if="!campFormIsValid">
           Please add the missing fields and submit again.
