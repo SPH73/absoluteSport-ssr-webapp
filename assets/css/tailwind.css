@@ -49,7 +49,7 @@
     @apply bg-secondary text-accent px-3 py-2 rounded-md hover:bg-accent hover:text-secondary hover:border hover:border-secondary;
   }
   .btn-primary {
-    @apply bg-light border border-light text-primary px-3 py-2 rounded-md hover:bg-primary hover:text-light hover:border hover:border-light;
+    @apply bg-light border border-primary text-primary px-3 py-2 rounded-md hover:bg-primary hover:text-light hover:border hover:border-light;
   }
   .bullets {
     @apply mt-2 text-2xl max-w-5xl leading-10 text-dark;
