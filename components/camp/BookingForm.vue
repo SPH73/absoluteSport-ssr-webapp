@@ -32,10 +32,10 @@ async function showSteps() {
 
 // parent form data ****
 
-const enteredParentName = ref({ val: "Sue", isValid: true });
-const enteredMainContact = ref({ val: "07492727870", isValid: true });
-const enteredEmail = ref({ val: "pixie.sue@icloud.com", isValid: true });
-const acceptedTerms = ref({ val: true, isValid: true });
+const enteredParentName = ref({ val: "", isValid: true });
+const enteredMainContact = ref({ val: "", isValid: true });
+const enteredEmail = ref({ val: "", isValid: true });
+const acceptedTerms = ref({ val: false, isValid: true });
 const parentFormIsValid = ref(true);
 // const savedParent = ref({});
 
@@ -109,8 +109,6 @@ const campLoc = ref({ val: "" });
 const filteredCamps = ref([]);
 const hafFilteredCamps = ref([]);
 const campDetails = ref({});
-const availableDays = ref([]);
-const hafAvailableDays = ref([]);
 const filterCampsByLoc = computed(() => {
   let loc = campLoc.value.val;
   return (filteredCamps.value = props.campsList.filter(
@@ -126,6 +124,7 @@ const filterCampsByHaf = computed(() => {
 
 const campName = ref({ val: "select", isValid: true });
 const campWeekSelected = computed(() => {
+  campDaysSelected.value.val = [];
   return campName.value.val === "select" ? false : true;
 });
 
@@ -147,6 +146,7 @@ watch(findCampByRef, () => {
 
 watch(campName, () => {
   campWeekSelected = false;
+  campDaysSelected.value.val = [];
   campDetails.value = [];
   findCampByRef.value;
   return campDetails.value;
@@ -638,7 +638,7 @@ const onAddBookingItem = () => {
               <label>{{ day }}</label>
               <input
                 type="checkbox"
-                value="{{ day }}"
+                :value="day"
                 v-model="campDaysSelected.val"
                 class="absolute opacity-0 h-8 w-8 justify-self-end"
               />
@@ -681,7 +681,7 @@ const onAddBookingItem = () => {
               <label>{{ day }}</label>
               <input
                 type="checkbox"
-                value="{{ day }}"
+                :value="day"
                 v-model="campDaysSelected.val"
                 class="absolute opacity-0 h-8 w-8 justify-self-end"
               />
