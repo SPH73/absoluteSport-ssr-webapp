@@ -77,6 +77,7 @@ async function onSubmitParent() {
 // child form data
 const childName = ref({ val: "", isValid: true });
 const childSurname = ref({ val: "", isValid: true });
+const ageRange = [5, 6, 7, 8, 9, 10, 11, 12, 13, 14];
 const childAge = ref({ val: "select", isValid: true });
 
 const pupilPrem = ref(false);
@@ -238,6 +239,7 @@ const onAddBookingItem = () => {
   campLoc.value.val = "select";
   campName.value.val = "select";
   campDaysSelected.value.val = [];
+  campFormIsValid = true;
 };
 </script>
 
@@ -456,7 +458,7 @@ const onAddBookingItem = () => {
               class="w-full p-2 rounded"
             >
               <option disabled value="select">Select age at camp ...</option>
-              <option v-for="(n, i) in 14" :key="i" :value="n">
+              <option v-for="(n, i) in ageRange" :key="i" :value="n">
                 {{ n }}
               </option>
             </select>
