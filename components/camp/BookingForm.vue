@@ -108,8 +108,9 @@ campLocList.value.forEach((record, index) => {
 const campLoc = ref({ val: "" });
 const filteredCamps = ref([]);
 const hafFilteredCamps = ref([]);
-const campDetails = ref([]);
+const campDetails = ref({});
 const availableDays = ref([]);
+const hafAvailableDays = ref([]);
 const filterCampsByLoc = computed(() => {
   let loc = campLoc.value.val;
   return (filteredCamps.value = props.campsList.filter(
@@ -128,13 +129,27 @@ const campWeekSelected = computed(() => {
   return campName.value.val === "select" ? false : true;
 });
 
-// build checkbox from filtered camps
-watch(campWeekSelected, () => {
-  campDetails.value = filteredCamps.value.find(
-    camp => camp.campName === campName.value.val,
+const findCampByRef = computed(() => {
+  campDetails.value = props.campsList.find(
+    camp => camp.campRef === campName.value.val,
   );
-  availableDays.value = campDetails.value.daysAvailable;
-  return availableDays.value;
+});
+
+// build checkbox days from campRef
+
+watch(findCampByRef, () => {
+  campDetails.value = [];
+  console.log("camp details updated");
+  campDetails.value = props.campsList.find(
+    camp => camp.campRef === campName.value.val,
+  );
+});
+
+watch(campName, () => {
+  campWeekSelected = false;
+  campDetails.value = [];
+  findCampByRef.value;
+  return campDetails.value;
 });
 
 const campDaysSelected = ref({ val: [], isValid: true });
@@ -145,19 +160,20 @@ const calculatedDays = computed(() => {
 });
 
 watchEffect(() => {
+  pupilPrem.value;
   campLoc.value.val;
   filterCampsByLoc.value;
-  console.log("filteredCamps", filteredCamps.value);
+  console.log("watcheffect filteredCamps", filteredCamps.value);
   filterCampsByHaf.value;
-  console.log("haf filteredCamps", hafFilteredCamps.value);
-  console.log("camp details", campDetails.value);
-  console.log("avail days", availableDays.value);
-  campName.value.val;
-  campWeekSelected.value;
+  console.log("watcheffect haf filteredCamps", hafFilteredCamps.value);
+
+  console.log("camp name***", campName.value.val);
+  campWeekSelected;
+  console.log("filter camp by ref", findCampByRef.value);
+  console.log("watcheffect camp details", campDetails.value);
   campDaysSelected.value.val;
   calculatedDays.value;
   numCampDays.value;
-  pupilPrem.value;
 });
 
 const campFormIsValid = ref(true);
@@ -577,7 +593,7 @@ const onAddBookingItem = () => {
               <option disabled value="select">Select a camp...</option>
               <option
                 v-for="option in filteredCamps"
-                :value="option.campName"
+                :value="option.campRef"
                 :key="option.id"
               >
                 {{ option.campName }} £{{ option.pricePerDay }} p/day
@@ -594,7 +610,7 @@ const onAddBookingItem = () => {
               <option disabled value="select">Select a camp...</option>
               <option
                 v-for="option in hafFilteredCamps"
-                :value="option.campName"
+                :value="option.campRef"
                 :key="option.id"
               >
                 {{ option.campName }} £{{ option.pricePerDay }} p/day
@@ -609,47 +625,91 @@ const onAddBookingItem = () => {
               : "Select a location to show available camp weeks."
           }}
         </p>
-
-        <!-- camp days haf-->
-        <div
-          v-if="availableDays.length"
-          class="flex flex-row justify-between items-center pt-4"
-        >
+        <div v-if="campWeekSelected">
+          <!-- camp days !haf-->
           <div
-            v-for="day in availableDays"
-            class="flex flex-col items-center justify-end gap-4"
+            v-if="!pupilPrem"
+            class="flex flex-row justify-between items-center pt-4"
           >
-            <label>{{ day }}</label>
-            <input
-              type="checkbox"
-              value="{{ day }}"
-              v-model="campDaysSelected.val"
-              class="absolute opacity-0 h-8 w-8 justify-self-end"
-            />
             <div
-              class="bg-white rounded-md w-8 h-8 flex flex-shrink-0 justify-center items-center"
-              :class="{
-                invalid: !campDaysSelected.isValid,
-              }"
+              v-for="day in campDetails.daysAvailable"
+              class="flex flex-col items-center justify-end gap-4"
             >
-              <svg
-                class="fill-current hidden w-5 h-5 pointer-events-none"
-                version="1.1"
-                viewBox="0 0 17 12"
-                xmlns="http://www.w3.org/2000/svg"
+              <label>{{ day }}</label>
+              <input
+                type="checkbox"
+                value="{{ day }}"
+                v-model="campDaysSelected.val"
+                class="absolute opacity-0 h-8 w-8 justify-self-end"
+              />
+              <div
+                class="bg-white rounded-md w-8 h-8 flex flex-shrink-0 justify-center items-center"
+                :class="{
+                  invalid: !campDaysSelected.isValid,
+                }"
               >
-                <g fill="none" fill-rule="evenodd">
-                  <g
-                    transform="translate(-9 -11)"
-                    fill="#F88425"
-                    fill-rule="nonzero"
-                  >
-                    <path
-                      d="m25.576 11.414c0.56558 0.55188 0.56558 1.4439 0 1.9961l-9.404 9.176c-0.28213 0.27529-0.65247 0.41385-1.0228 0.41385-0.37034 0-0.74068-0.13855-1.0228-0.41385l-4.7019-4.588c-0.56584-0.55188-0.56584-1.4442 0-1.9961 0.56558-0.55214 1.4798-0.55214 2.0456 0l3.679 3.5899 8.3812-8.1779c0.56558-0.55214 1.4798-0.55214 2.0456 0z"
-                    />
+                <svg
+                  class="fill-current hidden w-5 h-5 pointer-events-none"
+                  version="1.1"
+                  viewBox="0 0 17 12"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <g fill="none" fill-rule="evenodd">
+                    <g
+                      transform="translate(-9 -11)"
+                      fill="#F88425"
+                      fill-rule="nonzero"
+                    >
+                      <path
+                        d="m25.576 11.414c0.56558 0.55188 0.56558 1.4439 0 1.9961l-9.404 9.176c-0.28213 0.27529-0.65247 0.41385-1.0228 0.41385-0.37034 0-0.74068-0.13855-1.0228-0.41385l-4.7019-4.588c-0.56584-0.55188-0.56584-1.4442 0-1.9961 0.56558-0.55214 1.4798-0.55214 2.0456 0l3.679 3.5899 8.3812-8.1779c0.56558-0.55214 1.4798-0.55214 2.0456 0z"
+                      />
+                    </g>
                   </g>
-                </g>
-              </svg>
+                </svg>
+              </div>
+            </div>
+          </div>
+          <!-- camp days haf-->
+          <div
+            v-if="pupilPrem"
+            class="flex flex-row justify-between items-center pt-4"
+          >
+            <div
+              v-for="day in campDetails.hafDays"
+              class="flex flex-col items-center justify-end gap-4"
+            >
+              <label>{{ day }}</label>
+              <input
+                type="checkbox"
+                value="{{ day }}"
+                v-model="campDaysSelected.val"
+                class="absolute opacity-0 h-8 w-8 justify-self-end"
+              />
+              <div
+                class="bg-white rounded-md w-8 h-8 flex flex-shrink-0 justify-center items-center"
+                :class="{
+                  invalid: !campDaysSelected.isValid,
+                }"
+              >
+                <svg
+                  class="fill-current hidden w-5 h-5 pointer-events-none"
+                  version="1.1"
+                  viewBox="0 0 17 12"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <g fill="none" fill-rule="evenodd">
+                    <g
+                      transform="translate(-9 -11)"
+                      fill="#F88425"
+                      fill-rule="nonzero"
+                    >
+                      <path
+                        d="m25.576 11.414c0.56558 0.55188 0.56558 1.4439 0 1.9961l-9.404 9.176c-0.28213 0.27529-0.65247 0.41385-1.0228 0.41385-0.37034 0-0.74068-0.13855-1.0228-0.41385l-4.7019-4.588c-0.56584-0.55188-0.56584-1.4442 0-1.9961 0.56558-0.55214 1.4798-0.55214 2.0456 0l3.679 3.5899 8.3812-8.1779c0.56558-0.55214 1.4798-0.55214 2.0456 0z"
+                      />
+                    </g>
+                  </g>
+                </svg>
+              </div>
             </div>
           </div>
         </div>
