@@ -228,7 +228,7 @@ comments.value.forEach((record, index) => {
             :loop="true"
             :effect="'creative'"
             :autoplay="{
-              delay: 5000,
+              delay: 7000,
               disableOnInteraction: true,
             }"
             :creative-effect="{
@@ -251,9 +251,6 @@ comments.value.forEach((record, index) => {
               />
             </SwiperSlide>
           </Swiper>
-          <!-- swiper -->
-          <p></p>
-          <div></div>
         </div>
         <div class="px-8 md:container py-4">
           <h3 class="font-play capitalize">
