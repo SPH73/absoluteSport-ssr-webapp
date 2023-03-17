@@ -13,7 +13,7 @@ export default defineEventHandler(async () => {
   if (!assets) {
     throw Error("Unable to fetch assets");
   }
-  console.log("airtable assets", assets);
+  // console.log("airtable assets", assets);
 
   return assets;
 });

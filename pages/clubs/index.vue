@@ -1,4 +1,24 @@
 <script setup>
+useHead({
+  title: "Highly recommended school clubs provider in West Sussex and Hampshire",
+  meta: [
+    {
+      name: "description",
+      content:
+        "We deliver morning and after-school sports clubs and wraparound care across West Sussex, focusing on developing new skills and healthy habits for life.",
+    },
+    {
+      property: "og:description",
+      content:
+        "We deliver morning and after-school sports clubs and wraparound care across West Sussex, focusing on developing new skills and healthy habits for life.",
+    },
+    // {
+    //   property: "og:image",
+    //   content: selectedParty.value.thumbnail[0].thumbnails.large.url,
+    // },
+    // { name: "twitter:card", content: `summary_large_image` },
+  ],
+});
 const { error: assetError, data: assets } = await useFetch("/api/carouselImages");
 console.log(assets.value);
 const { error: listError, data: list } = await useFetch("/api/clubs/sportList");
@@ -15,34 +35,17 @@ assets.value.forEach((asset, index) => {
     let imagesCarousel = asset.fields.images;
     imagesCarousel.forEach((image) => {
       img = {
-        url: image.url,
+        url: image.thumbnails.large.url,
         id: image.id,
         filename: image.filename,
-        width: image.width,
-        height: image.height,
-        size: image.size,
-        type: image.type,
+        width: image.thumbnails.large.width,
+        height: image.thumbnails.large.height,
       };
       clubImages.value.push(img);
     });
   }
 });
 
-console.log("club images***", clubImages.value);
-
-const slides = ref(
-  Array.from({ length: 5 }, () => {
-    const r = Math.floor(Math.random() * 256);
-    const g = Math.floor(Math.random() * 256);
-    const b = Math.floor(Math.random() * 256);
-    // Figure out contrast color for font
-    const contrast = r * 0.299 + g * 0.587 + b * 0.114 > 186 ? "black" : "white";
-
-    return { bg: `rgb(${r}, ${g}, ${b})`, color: contrast };
-  })
-);
-
-// console.log("imgs***", imgs);
 const sportList = ref([]);
 let activity = {};
 list.value.forEach((record, index) => {
@@ -57,7 +60,6 @@ list.value.forEach((record, index) => {
   };
   sportList.value.push(activity);
 });
-// console.log("sportList", sportList.value);
 
 const commentList = ref([]);
 let comment = {};
@@ -72,14 +74,15 @@ comments.value.forEach((record, index) => {
   };
   commentList.value.push(comment);
 });
-// console.log("comments", commentList.value);
 </script>
 
 <template>
   <div class="my-8">
     <section class="w-full mx-auto">
       <div class="grid grid-cols-1 md:grid-cols-2">
-        <div class="px-8 md:container py-4">
+        <div
+          class="px-8 md:container py-4 flex flex-col items-center justify-center overflow-hidden"
+        >
           <h2 class="font-play capitalize">School Clubs &amp; Wraparound Care</h2>
           <p>
             Our clubs and wraparound care are designed with children at the fore. We aim
