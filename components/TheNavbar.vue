@@ -59,7 +59,7 @@ onMounted(() => {
             >
               School Clubs
             </NuxtLink>
-            <div v-if="isOpen">
+            <!-- <div v-if="isOpen">
               <font-awesome-icon
                 :icon="['fas', 'angle-up']"
                 class="text-secondary h-8 w-8 my-auto"
@@ -70,7 +70,7 @@ onMounted(() => {
                 :icon="['fas', 'angle-down']"
                 class="text-secondary h-8 w-8 my-auto"
               />
-            </div>
+            </div> -->
           </li>
           <li class="flex justify-items-center">
             <NuxtLink
@@ -80,7 +80,7 @@ onMounted(() => {
             >
               Activity Camps
             </NuxtLink>
-            <div v-if="isOpen">
+            <!-- <div v-if="isOpen">
               <font-awesome-icon
                 :icon="['fas', 'angle-up']"
                 class="text-secondary h-8 w-8 my-auto"
@@ -91,7 +91,7 @@ onMounted(() => {
                 :icon="['fas', 'angle-down']"
                 class="text-secondary h-8 w-8 my-auto"
               />
-            </div>
+            </div> -->
           </li>
           <li class="flex justify-items-center">
             <NuxtLink
@@ -101,7 +101,7 @@ onMounted(() => {
             >
               Kids Parties
             </NuxtLink>
-            <div v-if="isOpen">
+            <!-- <div v-if="isOpen">
               <font-awesome-icon
                 :icon="['fas', 'angle-up']"
                 class="text-secondary h-8 w-8 my-auto"
@@ -112,7 +112,7 @@ onMounted(() => {
                 :icon="['fas', 'angle-down']"
                 class="text-secondary h-8 w-8 my-auto"
               />
-            </div>
+            </div> -->
           </li>
           <li class="flex justify-items-center">
             <NuxtLink
@@ -166,10 +166,10 @@ onMounted(() => {
             class="absolute top-0 right-0 mt-4 mr-4"
             @click="isOpen = false"
           >
-            <font-awesome-icon
+            <!-- <font-awesome-icon
               :icon="['fas', 'xmark']"
               class="text-secondary h-12 w12"
-            />
+            /> -->
           </button>
         </div>
         <span @click="isOpen = false" class="flex w-full items-center p-4">
@@ -198,10 +198,10 @@ onMounted(() => {
             >
               School Clubs</NuxtLink
             >
-            <font-awesome-icon
+            <!-- <font-awesome-icon
               :icon="['fas', 'angle-down']"
               class="text-secondary h-8 w-8 ml-auto"
-            />
+            /> -->
           </li>
           <li class="flex items-center">
             <NuxtLink
@@ -212,10 +212,10 @@ onMounted(() => {
             >
               Activity Camps</NuxtLink
             >
-            <font-awesome-icon
+            <!-- <font-awesome-icon
               :icon="['fas', 'angle-down']"
               class="text-secondary h-8 w-8 ml-auto"
-            />
+            /> -->
           </li>
           <li class="flex items-center">
             <NuxtLink
@@ -226,10 +226,10 @@ onMounted(() => {
             >
               Kids Parties</NuxtLink
             >
-            <font-awesome-icon
+            <!-- <font-awesome-icon
               :icon="['fas', 'angle-down']"
               class="text-secondary h-8 w-8 ml-auto"
-            />
+            /> -->
           </li>
           <li class="flex items-center">
             <NuxtLink
