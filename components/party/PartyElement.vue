@@ -30,11 +30,6 @@ defineProps(["partyDetails"]);
           party details &nbsp;<font-awesome-icon :icon="['fas', 'arrow-right']" />
         </NuxtLink>
       </button>
-      <button class="btn-accent hidden md:block lg:hidden xl:block">
-        <NuxtLink :to="{ name: 'parties-quote' }" :ref="party.partyRef">
-          get a quote &nbsp;<font-awesome-icon :icon="['fas', 'arrow-right']" />
-        </NuxtLink>
-      </button>
     </div>
   </div>
 </template>
