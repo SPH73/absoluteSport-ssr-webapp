@@ -1,11 +1,9 @@
 <script setup>
-const { error: assetError, data: assets } = await useFetch(
-  "/api/carouselImages",
-);
+const { error: assetError, data: assets } = await useFetch("/api/carouselImages");
 console.log(assets.value);
 const { error: listError, data: list } = await useFetch("/api/clubs/sportList");
 const { error: commentError, data: comments } = await useFetch(
-  "/api/clubs/schoolTestimonials",
+  "/api/clubs/schoolTestimonials"
 );
 
 const clubImages = ref([]);
@@ -15,7 +13,7 @@ let img = {};
 assets.value.forEach((asset, index) => {
   if (asset.fields.segment === "clubs") {
     let imagesCarousel = asset.fields.images;
-    imagesCarousel.forEach(image => {
+    imagesCarousel.forEach((image) => {
       img = {
         url: image.url,
         id: image.id,
@@ -38,11 +36,10 @@ const slides = ref(
     const g = Math.floor(Math.random() * 256);
     const b = Math.floor(Math.random() * 256);
     // Figure out contrast color for font
-    const contrast =
-      r * 0.299 + g * 0.587 + b * 0.114 > 186 ? "black" : "white";
+    const contrast = r * 0.299 + g * 0.587 + b * 0.114 > 186 ? "black" : "white";
 
     return { bg: `rgb(${r}, ${g}, ${b})`, color: contrast };
-  }),
+  })
 );
 
 // console.log("imgs***", imgs);
@@ -83,36 +80,32 @@ comments.value.forEach((record, index) => {
     <section class="w-full mx-auto">
       <div class="grid grid-cols-1 md:grid-cols-2">
         <div class="px-8 md:container py-4">
-          <h2 class="font-play capitalize">
-            School Clubs &amp; Wraparound Care
-          </h2>
+          <h2 class="font-play capitalize">School Clubs &amp; Wraparound Care</h2>
           <p>
-            Our clubs and wraparound care are designed with children at the
-            fore. We aim to ensure that each child is supported as an individual
-            whilst encouraging them to engage within a group. This provides them
-            a safe environment to improve their self-confidence and social
-            interaction alongside their teams and as individuals; skills that
-            reach far beyond school and sports to other areas of their lives.
+            Our clubs and wraparound care are designed with children at the fore. We aim
+            to ensure that each child is supported as an individual whilst encouraging
+            them to engage within a group. This provides them a safe environment to
+            improve their self-confidence and social interaction alongside their teams and
+            as individuals; skills that reach far beyond school and sports to other areas
+            of their lives.
           </p>
           <p>
-            The parents of children attending our clubs report that their
-            children enjoy a greater sense of well-being and concentration due
-            to the extra opportunities to spend time being active.
+            The parents of children attending our clubs report that their children enjoy a
+            greater sense of well-being and concentration due to the extra opportunities
+            to spend time being active.
           </p>
           <p>
-            Our clubs are suitable for children of all levels of ability/skill.
-            Regular practice promotes muscle memory, which results in positive
-            self-esteem from improving their game. In addition, children learn
-            the art of effective strategising and planning through team sports
-            and again, these skills will be highly beneficial for the children
-            to establish during their primary years.
+            Our clubs are suitable for children of all levels of ability/skill. Regular
+            practice promotes muscle memory, which results in positive self-esteem from
+            improving their game. In addition, children learn the art of effective
+            strategising and planning through team sports and again, these skills will be
+            highly beneficial for the children to establish during their primary years.
           </p>
           <p>
-            Research on the topic suggests that extra-curricular sports and
-            activities play a positive role in significantly improving soft
-            skills for those children who regularly attend, such as
-            independence, teamwork, communication, problem-solving as well as
-            fitting in with their peers.
+            Research on the topic suggests that extra-curricular sports and activities
+            play a positive role in significantly improving soft skills for those children
+            who regularly attend, such as independence, teamwork, communication,
+            problem-solving as well as fitting in with their peers.
           </p>
           <p>You'll find an itinerary of upcoming clubs we run below.</p>
         </div>
@@ -122,8 +115,8 @@ comments.value.forEach((record, index) => {
         >
           <h3 class="font-play capitalize">An AbsoluteSport blast!</h3>
           <p>
-            We deliver a variety of exciting sports and games to help build
-            confidence, social skills and sportsmanship.
+            We deliver a variety of exciting sports and games to help build confidence,
+            social skills and sportsmanship.
           </p>
           <!-- swiper -->
           <Swiper
@@ -146,10 +139,7 @@ comments.value.forEach((record, index) => {
               },
             }"
           >
-            <SwiperSlide
-              v-for="img in clubImages"
-              :key="img.id"
-              class="flex-auto"
+            <SwiperSlide v-for="img in clubImages" :key="img.id" class="flex-auto"
               ><img
                 :alt="img.filename"
                 :src="img.url"
@@ -158,8 +148,8 @@ comments.value.forEach((record, index) => {
             </SwiperSlide>
           </Swiper>
           <p>
-            Children attending our clubs feel extra prepared for upcoming school
-            sports tournaments.
+            Children attending our clubs feel extra prepared for upcoming school sports
+            tournaments.
           </p>
         </div>
       </div>
@@ -174,9 +164,8 @@ comments.value.forEach((record, index) => {
         </template>
         <template #heading> Physical </template>
         <template #details>
-          Encourages a healthy lifestyle outside of the school curriculum which
-          is physically beneficial for primary children and lowers the risk of
-          obesity
+          Encourages a healthy lifestyle outside of the school curriculum which is
+          physically beneficial for primary children and lowers the risk of obesity
         </template>
       </BaseBadge>
       <BaseBadge>
@@ -185,9 +174,8 @@ comments.value.forEach((record, index) => {
         </template>
         <template #heading>Mental</template>
         <template #details>
-          Physical activity and increased exercise can, to an extent, aid in
-          lowering the chance of an individual suffering from depression and
-          anxiety
+          Physical activity and increased exercise can, to an extent, aid in lowering the
+          chance of an individual suffering from depression and anxiety
         </template>
       </BaseBadge>
       <BaseBadge>
@@ -196,8 +184,8 @@ comments.value.forEach((record, index) => {
         </template>
         <template #heading>Emotional </template>
         <template #details>
-          Develop skills in sports and attending extra-curricular enrichment
-          activities helps build confidence and self-esteem
+          Develop skills in sports and attending extra-curricular enrichment activities
+          helps build confidence and self-esteem
         </template>
       </BaseBadge>
       <BaseBadge>
@@ -206,9 +194,9 @@ comments.value.forEach((record, index) => {
         </template>
         <template #heading>Social</template>
         <template #details>
-          The opportunity to interact with new people, develop interpersonal
-          skills and learn from each other; discourages anti-social behaviours
-          and encourages trust and friendship
+          The opportunity to interact with new people, develop interpersonal skills and
+          learn from each other; discourages anti-social behaviours and encourages trust
+          and friendship
         </template>
       </BaseBadge>
     </section>
@@ -254,42 +242,35 @@ comments.value.forEach((record, index) => {
         </div>
         <div class="px-8 md:container py-4">
           <h3 class="font-play capitalize">
-            How we aim to improve sporting performance in chldren attending our
-            clubs
+            How we aim to improve sporting performance in chldren attending our clubs
           </h3>
           <p>
-            Many elite performers identify a background in multi-sports.
-            Physical skills such as balance, running, catching, eye-hand
-            coordination, jumping etc., are required for a multitude of sports
-            and sports disciplines. Developing these vital skills in one sport
-            will transfer into another. For example, a great footballer will
-            also have the skills of a track and field athlete. This statement
-            can be rephrased to make sense for most sports
+            Many elite performers identify a background in multi-sports. Physical skills
+            such as balance, running, catching, eye-hand coordination, jumping etc., are
+            required for a multitude of sports and sports disciplines. Developing these
+            vital skills in one sport will transfer into another. For example, a great
+            footballer will also have the skills of a track and field athlete. This
+            statement can be rephrased to make sense for most sports
           </p>
 
           <p>
-            We offer parents an affordable avenue for their children to
-            experience a variety of sports in a fun and safe environment that
-            isn't overly competitive but challenging enough to allow growth and
-            where they can be assured of quality instruction and support. If you
-            would like to choose a club for your child this upcoming term you
-            can book them
-            <NuxtLink to="camps/booking" class="font-bold underline"
-              >here</NuxtLink
-            >.
+            We offer parents an affordable avenue for their children to experience a
+            variety of sports in a fun and safe environment that isn't overly competitive
+            but challenging enough to allow growth and where they can be assured of
+            quality instruction and support. If you would like to choose a club for your
+            child this upcoming term you can book them
+            <NuxtLink to="camps/booking" class="font-bold underline">here</NuxtLink>.
           </p>
         </div>
-        a
       </div>
     </section>
     <section class="max-w-7xl mx-auto">
       <div class="px-8 md:container py-4">
         <h3 class="font-play capitalize">Upcoming Clubs</h3>
         <p>
-          We coach a variety of sports and activities at our clubs and
-          wraparound care at Sidlesham Primary School, West Wittering Primary
-          School and Portfield Academy. These are updated regularly to keep our
-          clubs current and interesting.
+          We coach a variety of sports and activities at our clubs and wraparound care at
+          Sidlesham Primary School, West Wittering Primary School and Portfield Academy.
+          These are updated regularly to keep our clubs current and interesting.
         </p>
         <button class="btn-primary my-4 w-full md:w-fit">
           <NuxtLink to="clubs/booking">book now</NuxtLink>
@@ -326,9 +307,7 @@ comments.value.forEach((record, index) => {
                 Schools
               </th>
               <td class="bg-light text-dark border border-secondary p-4 w-3/5">
-                <span v-for="item in activity.schoolList"
-                  >{{ item }},&nbsp;</span
-                >
+                <span v-for="item in activity.schoolList">{{ item }},&nbsp;</span>
               </td>
             </tr>
             <tr>
@@ -338,9 +317,7 @@ comments.value.forEach((record, index) => {
                 Year groups
               </th>
               <td class="bg-light text-dark border border-secondary p-4">
-                <span v-for="item in activity.yearRange"
-                  >{{ item }},&nbsp;</span
-                >
+                <span v-for="item in activity.yearRange">{{ item }},&nbsp;</span>
               </td>
             </tr>
             <tr>
