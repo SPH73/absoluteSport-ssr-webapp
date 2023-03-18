@@ -1,4 +1,23 @@
 <script setup>
+useHead({
+  title: "School Clubs, Holiday Camps & Themed Parties in West Sussex and Hampshire",
+  meta: [
+    {
+      name: "description",
+      content:
+        "For first-class sports coaching, camps & parties, our highly qualified & experienced team will tailor fun, engaging programmes & activities to your exact needs.",
+    },
+    {
+      property: "og:description",
+      content:
+        "Get your kids active with our fun and engaging, themed Activity Camps to children aged 5-14 that will keep your kids laughing this school holiday!",
+    },
+    {
+      property: "og:type",
+      content: "website",
+    },
+  ],
+});
 const { error, data: content } = await useFetch("/api/parties/details");
 const partyDetails = ref([]);
 let party = {};

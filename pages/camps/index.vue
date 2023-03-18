@@ -13,11 +13,10 @@ useHead({
       content:
         "Get your kids active with our fun and engaging, themed Activity Camps to children aged 5-14 that will keep your kids laughing this school holiday!",
     },
-    // {
-    //   property: "og:image",
-    //   content: selectedParty.value.thumbnail[0].thumbnails.large.url,
-    // },
-    // { name: "twitter:card", content: `summary_large_image` },
+    {
+      property: "og:type",
+      content: "website",
+    },
   ],
 });
 const { error: assetError, data: assets } = await useFetch("/api/carouselImages");

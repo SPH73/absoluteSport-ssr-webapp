@@ -12,11 +12,10 @@ useHead({
       content:
         "We deliver morning and after-school sports clubs and wraparound care across West Sussex, focusing on developing new skills and healthy habits for life.",
     },
-    // {
-    //   property: "og:image",
-    //   content: selectedParty.value.thumbnail[0].thumbnails.large.url,
-    // },
-    // { name: "twitter:card", content: `summary_large_image` },
+    {
+      property: "og:type",
+      content: "website",
+    },
   ],
 });
 const { error: assetError, data: assets } = await useFetch("/api/carouselImages");

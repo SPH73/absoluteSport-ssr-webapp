@@ -1,4 +1,40 @@
 <script setup>
+useHead({
+  title: "School Clubs, Holiday Camps & Themed Parties in West Sussex and Hampshire",
+  meta: [
+    {
+      name: "description",
+      content:
+        "For first-class sports coaching, camps & parties, our highly qualified & experienced team will tailor fun, engaging programmes & activities to your exact needs.",
+    },
+    {
+      property: "og:description",
+      content:
+        "Get your kids active with our fun and engaging, themed Activity Camps to children aged 5-14 that will keep your kids laughing this school holiday!",
+    },
+    {
+      property: "og:type",
+      content: "website",
+    },
+    // TODO
+    // {
+    //   property: "og:image",
+    //   content: "url...",
+    // },
+    // {
+    //   property: "og:image:width",
+    //   content: "1200",
+    // },
+    // {
+    //   property: "og:image:height",
+    //   content: "630",
+    // },
+    // {
+    //   name: "twitter:card",
+    //   content: `summary_large_image`,
+    // },
+  ],
+});
 const { error, pending, data: reviews } = await useFetch("/api/reviews");
 const reviewList = ref([]);
 let review = {};
