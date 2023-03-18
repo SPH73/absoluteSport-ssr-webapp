@@ -4,25 +4,30 @@
 
 @font-face {
   font-family: "Play-Bold";
-  src: url("/fonts/Play-Bold.ttf");
+  src: url("/fonts/Play-Bold.woff2") format("woff2");
+  font-display: swap;
 }
 
 @font-face {
   font-family: "Mulish-Semibold";
-  src: url("/fonts/Mulish-SemiBold.ttf");
+  src: url("/fonts/Mulish-SemiBold.woff2") format("woff2");
+  font-display: swap;
 }
 
 @font-face {
   font-family: "Inter-Bold";
-  src: url("/fonts/Inter-Bold.ttf");
+  src: url("/fonts/Inter-Bold.woff2") format("woff2");
+  font-display: swap;
 }
 @font-face {
   font-family: "Inter-Medium";
-  src: url("/fonts/Inter-Medium.ttf");
+  src: url("/fonts/Inter-Medium.woff2") format("woff2");
+  font-display: swap;
 }
 @font-face {
   font-family: "Inter-Regular";
-  src: url("/fonts/Inter-Regular.ttf");
+  src: url("/fonts/Inter-Regular.woff2") format("woff2");
+  font-display: swap;
 }
 
 @layer base {
