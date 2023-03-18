@@ -1,15 +1,19 @@
 <script setup>
-const { data: parties, error, pending } = await useFetch("/api/parties/details");
 const route = useRoute();
+const {
+  data: parties,
+  error,
+  pending,
+} = await useFetch("/api/parties/details");
 const partySlug = ref(route.params.slug);
 let partyList = ref([]);
 
-parties.value.forEach((record) => {
+parties.value.forEach(record => {
   if (record.fields.slug === route.params.slug) {
     let imagesCarousel = record.fields.imagesCarousel;
     let img = {};
     let images = [];
-    imagesCarousel.forEach((image) => {
+    imagesCarousel.forEach(image => {
       img = {
         url: image.thumbnails.large.url,
         id: image.id,
@@ -36,8 +40,8 @@ parties.value.forEach((record) => {
     partyList.value.push(party);
   }
 });
-const selectedParty = computed((partySlug) => {
-  return partyList.value.find((party) => party.slug === route.params.slug);
+const selectedParty = computed(partySlug => {
+  return partyList.value.find(party => party.slug === route.params.slug);
 });
 
 useHead({
@@ -56,6 +60,12 @@ useHead({
     //   content: selectedParty.value.thumbnail[0].thumbnails.large.url,
     // },
     // { name: "twitter:card", content: `summary_large_image` },
+  ],
+  link: [
+    {
+      rel: "canonical",
+      href: "https://www.absolutesport.org/" + route.path,
+    },
   ],
 });
 </script>

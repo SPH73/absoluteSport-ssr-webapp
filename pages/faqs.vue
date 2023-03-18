@@ -1,4 +1,12 @@
 <script setup>
+useHead({
+  link: [
+    {
+      rel: "canonical",
+      href: "https://www.absolutesport.org/faq's",
+    },
+  ],
+});
 const { data: fList, error, pending } = await useFetch("/api/faqs");
 const faqList = ref([]);
 let faq = {};
@@ -40,18 +48,18 @@ const clearFilters = () => {
   hideFaqList();
 };
 
-const selectTag = (tag) => {
+const selectTag = tag => {
   return (selectedTag.value = tag);
 };
 
 const matchingFAQs = computed(() => {
   clearTag();
-  return faqList.value.filter((faq) => faq.question.includes(search.value));
+  return faqList.value.filter(faq => faq.question.includes(search.value));
 });
 // watch(matchingFAQs, () => console.log(matchingFAQs.value));
 const filteredFAQs = computed(() => {
   clearInput();
-  return faqList.value.filter((faq) => faq.tags.includes(selectedTag.value));
+  return faqList.value.filter(faq => faq.tags.includes(selectedTag.value));
 });
 </script>
 <template>
@@ -59,7 +67,9 @@ const filteredFAQs = computed(() => {
     <section class="bg-secondary flex flex-col justify-center items-center">
       <div class="max-w-6xl my-8">
         <h2 class="font-play text-4xl">Frequently Asked Question's</h2>
-        <p class="text-light">Filter by search or tag or browse the list of FAQ's</p>
+        <p class="text-light">
+          Filter by search or tag or browse the list of FAQ's
+        </p>
         <input
           class="w-full h-12 rounded-full py-2 pl-9 pr-3 placeholder:italic placeholder:text-slate-400"
           type="text"
@@ -87,11 +97,15 @@ const filteredFAQs = computed(() => {
             <TheSpinner></TheSpinner>
           </div> -->
         <div class="btn-group mt-4">
-          <button class="btn-accent mr-4" @click="clearFilters">Clear All</button>
+          <button class="btn-accent mr-4" @click="clearFilters">
+            Clear All
+          </button>
           <button class="btn-accent" v-if="showFaqs" @click="hideFaqList">
             Hide All
           </button>
-          <button class="btn-accent" v-else @click="showFaqList">Show All</button>
+          <button class="btn-accent" v-else @click="showFaqList">
+            Show All
+          </button>
         </div>
       </div>
     </section>
@@ -110,7 +124,10 @@ const filteredFAQs = computed(() => {
             <FaqInputSearch :matchingFAQs="matchingFAQs" />
           </div>
           <div v-else>
-            <p>Try a typing a different search term or phrase or use search by tag...</p>
+            <p>
+              Try a typing a different search term or phrase or use search by
+              tag...
+            </p>
           </div>
         </div>
       </transition>
