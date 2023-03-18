@@ -85,9 +85,8 @@ reviews.value.forEach((record, index) => {
             Qualified, insured, first aid trained & DBS checked staff
           </template>
           <template #details>
-            We ensure that all staff are appropriately qualified and
-            experienced. Each member holds an enhanced DBS check and valid first
-            aid certificate.
+            We ensure that all staff are appropriately qualified and experienced. Each
+            member holds an enhanced DBS check and valid first aid certificate.
           </template>
         </BaseBadge>
         <BaseBadge>
@@ -96,11 +95,11 @@ reviews.value.forEach((record, index) => {
           </template>
           <template #heading> Warm and friendly team of coaches </template>
           <template #details>
-            At the heart of the selection process when recruiting our coaches is
-            the qualities required for working with children. Our enthusiastic
-            team demonstrate patience and a postive attitude as well as the
-            dedication towards helping the children get the most out of each
-            session we deliver at our clubs, camps and parties.
+            At the heart of the selection process when recruiting our coaches is the
+            qualities required for working with children. Our enthusiastic team
+            demonstrate patience and a postive attitude as well as the dedication towards
+            helping the children get the most out of each session we deliver at our clubs,
+            camps and parties.
           </template>
         </BaseBadge>
         <BaseBadge>
@@ -111,10 +110,9 @@ reviews.value.forEach((record, index) => {
             Top-of-range equipment for a variety of sports and activities
           </template>
           <template #details>
-            We ensure that children are exposed to a variety of sports so that
-            they have a fair opportunity of finding a sport they are both
-            interested in and excel at, often continuing on to participate at a
-            higher level.
+            We ensure that children are exposed to a variety of sports so that they have a
+            fair opportunity of finding a sport they are both interested in and excel at,
+            often continuing on to participate at a higher level.
           </template>
         </BaseBadge>
         <BaseBadge>
@@ -123,10 +121,9 @@ reviews.value.forEach((record, index) => {
           </template>
           <template #heading> First-class programme delivery </template>
           <template #details>
-            Our sports-based programmes are designed to meet the national
-            curriculum. They support growth for the individual and group by
-            providing fun but challenging sessions that encourage social
-            interaction and team camaraderie.
+            Our sports-based programmes are designed to meet the national curriculum. They
+            support growth for the individual and group by providing fun but challenging
+            sessions that encourage social interaction and team camaraderie.
           </template>
         </BaseBadge>
       </section>
@@ -141,16 +138,15 @@ reviews.value.forEach((record, index) => {
             <template #title>School Clubs &amp; Wraparound Care</template>
             <template #sub-1>Available to book during school term's</template>
             <template #para-1
-              >Our Morning Clubs at West Wittering Primary School, Sidlesham
-              Primary School and Portfield Academy are something that all the
-              children love. We include a variety of fun sports like fencing,
-              archery and table tennis.</template
+              >Our Morning Clubs at West Wittering Primary School, Sidlesham Primary
+              School and Portfield Academy are something that all the children love. We
+              include a variety of fun sports like fencing, archery and table
+              tennis.</template
             >
             <template #para-2
-              >After School Clubs give the children the perfect opportunity to
-              learn a new sport or enhance their current skills in their
-              favourite sports. We do a wide range of clubs with KS1 and KS2
-              children.</template
+              >After School Clubs give the children the perfect opportunity to learn a new
+              sport or enhance their current skills in their favourite sports. We do a
+              wide range of clubs with KS1 and KS2 children.</template
             >
           </BaseContent>
         </BaseCard>
@@ -159,15 +155,14 @@ reviews.value.forEach((record, index) => {
             <template #title>Sports & Activity Camps</template>
             <template #sub-1>Available to book each school holiday</template>
             <template #para-1
-              >Our holiday clubs provide children with the opportunity to make
-              new friendships outside of their school or classrooms and remain
-              mentally and physically active while having a great time
-              together.</template
+              >Our holiday clubs provide children with the opportunity to make new
+              friendships outside of their school or classrooms and remain mentally and
+              physically active while having a great time together.</template
             >
             <template #para-2
-              >Working parent's have the peace of mind that their children are
-              engaging in social and sports activities that boost their
-              confidence and skills in a safe and fun environment.
+              >Working parent's have the peace of mind that their children are engaging in
+              social and sports activities that boost their confidence and skills in a
+              safe and fun environment.
             </template>
             <template #para-3
               >Come and find out how much fun we have during the school
@@ -182,17 +177,17 @@ reviews.value.forEach((record, index) => {
               >Our parties and entertainers are available all year</template
             >
             <template #para-1
-              >Are you looking for a fun-filled birthday party for your child?
-              Great, then look no further!</template
+              >Are you looking for a fun-filled birthday party for your child? Great, then
+              look no further!</template
             >
             <template #para-2
-              >Our parties are guaranteed to keep all the children engaged from
-              the first minute.</template
+              >Our parties are guaranteed to keep all the children engaged from the first
+              minute.</template
             >
             <template #para-3
-              >Choose our Football Frenzy Party, our AbsoluteSport Party or, if
-              the birthday boy or girl loves dancing then our Disco Party is
-              sure to be a hit!</template
+              >Choose our Football Frenzy Party, our AbsoluteSport Party or, if the
+              birthday boy or girl loves dancing then our Disco Party is sure to be a
+              hit!</template
             >
           </BaseContent>
         </BaseCard>
@@ -201,18 +196,17 @@ reviews.value.forEach((record, index) => {
             <template #title>Football Academy</template>
             <template #sub-1>Available to book every weekend.</template>
             <template #para-1
-              >Come and join Coach Tom at our football academy training sessions
-              at Sidlesham Primary School and Portfield Primary
-              Academy!</template
+              >Come and join Coach Tom at our football academy training sessions at
+              Sidlesham Primary School and Portfield Primary Academy!</template
             >
             <template #para-2
-              >Training sessions are split over two age groups; 5-8 years and
-              9-12 years old.</template
+              >Training sessions are split over two age groups; 5-8 years and 9-12 years
+              old.</template
             >
             <template #para-3
-              >These training sessions involve technical and tactical drills to
-              enhance our budding footballer's abilities. All abilities are
-              welcome and catered for.
+              >These training sessions involve technical and tactical drills to enhance
+              our budding footballer's abilities. All abilities are welcome and catered
+              for.
             </template>
           </BaseContent>
         </BaseCard>
@@ -232,32 +226,30 @@ reviews.value.forEach((record, index) => {
                 -AbsoluteSport</template
               >
               <template #sub-1
-                >Service Provider to Parents, Schools, Councils and Sport
-                Coaches in West Sussex and Hampshire</template
+                >Service Provider to Parents, Schools, Councils and Sport Coaches in West
+                Sussex and Hampshire</template
               >
               <template #para-1
-                >Whether you're a parent seeking ways to help your children
-                become more active or a school or other organisation looking for
-                a provider of first-class sports coaching, mentoring or
-                training, AbsoluteSport is certified to help.</template
+                >Whether you're a parent seeking ways to help your children become more
+                active or a school or other organisation looking for a provider of
+                first-class sports coaching, mentoring or training, AbsoluteSport is
+                certified to help.</template
               >
               <template #para-2
-                >Our highly qualified and experienced team will provide
-                programmes and activities tailored to your exact
-                needs.</template
+                >Our highly qualified and experienced team will provide programmes and
+                activities tailored to your exact needs.</template
               >
               <template #para-3
-                >AbsoluteSport is dedicated to providing positive youth team
-                sports experiences through family and community involvement that
-                is based on the philosophy
-                <span class="text-accent">"FUN FOR EVERYONE"</span>.<br />
+                >AbsoluteSport is dedicated to providing positive youth team sports
+                experiences through family and community involvement that is based on the
+                philosophy
+                <span class="text-accent font-play">"FUN FOR EVERYONE"</span>.<br />
                 <br />
-                <span class="text-accent">"FUN FOR EVERYONE"</span> is a
-                cornerstone of our organization. Our programs are open to any
-                child able to participate regardless of race, religion, creed,
-                sex or ability. Our mission is to raise awareness in children
-                about the importance of regular exercise and how it will benefit
-                their future.</template
+                <span class="text-accent font-play">"FUN FOR EVERYONE"</span> is a
+                cornerstone of our organization. Our programs are open to any child able
+                to participate regardless of race, religion, creed, sex or ability. Our
+                mission is to raise awareness in children about the importance of regular
+                exercise and how it will benefit their future.</template
               >
             </BaseContent>
           </div>
