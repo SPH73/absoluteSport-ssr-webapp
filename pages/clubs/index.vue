@@ -28,7 +28,7 @@ useHead({
 const { error: assetError, data: assets } = await useFetch(
   "/api/carouselImages",
 );
-console.log(assets.value);
+
 const { error: listError, data: list } = await useFetch("/api/clubs/sportList");
 const { error: commentError, data: comments } = await useFetch(
   "/api/clubs/schoolTestimonials",
