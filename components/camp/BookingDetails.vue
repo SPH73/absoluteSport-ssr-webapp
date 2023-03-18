@@ -15,7 +15,7 @@ const emit = defineEmits([
   "handleConfirmBooking",
   "handleCancelBooking",
 ]);
-const removeBookingItem = item => {
+const removeBookingItem = (item) => {
   emit("handleRemoveBookingItem", item);
 };
 const confirmBooking = () => {
@@ -26,10 +26,7 @@ const cancelBooking = () => {
 };
 // computed cost
 const amountDue = computed(() => {
-  return props.campBooking.reduce(
-    (total, curr) => (total = total + curr.price),
-    0,
-  );
+  return props.campBooking.reduce((total, curr) => (total = total + curr.price), 0);
 });
 </script>
 
@@ -41,8 +38,7 @@ const amountDue = computed(() => {
         <li>
           <p class="text-light"><strong class="text-accent">Step 1</strong></p>
           <p class="text-light">
-            To start your booking process, please add and save parent/guardian's
-            details.
+            To start your booking process, please add and save parent/guardian's details.
           </p>
         </li>
       </ul>
@@ -117,11 +113,11 @@ const amountDue = computed(() => {
       </table>
     </div>
     <div v-if="amountDue > 0">
-      <p class="text-light">Please make payment to:</p>
-      <p class="text-light">AbsoluteSport</p>
-      <p class="text-light">Account number:</p>
-      <p class="text-light">Sort Code:</p>
-      <p class="text-light">Beneficiary refernece: {{ props.paymentRef }}</p>
+      <p class="tracking-wide">Payment is by bank transfer to:</p>
+      <p class="tracking-wide">Account Name: ABSOLUTESPORT</p>
+      <p class="tracking-wide">Account Number: 36771585</p>
+      <p class="tracking-wide">Sort Code: 09-01-29</p>
+      <p class="tracking-wide">Beneficiary Reference: {{ props.paymentRef }}</p>
     </div>
     <div v-if="props.campBooking.length">
       <h3>Camp Bookings</h3>
@@ -139,9 +135,7 @@ const amountDue = computed(() => {
             >
               {{ index + 1 }}:&nbsp;Camp Booked
             </th>
-            <td
-              class="bg-light text-dark border border-secondary p-4 w-3/5 mt-8"
-            >
+            <td class="bg-light text-dark border border-secondary p-4 w-3/5 mt-8">
               {{ booking.campName }}&nbsp;<span class="cursor-pointer"
                 ><strong class="text-secondary">[X&nbsp;Remove]</strong></span
               >
@@ -175,9 +169,7 @@ const amountDue = computed(() => {
               Days attending
             </th>
             <td class="bg-light text-dark border border-secondary p-4">
-              <span v-for="day in booking.daysBooked" :key="day">
-                {{ day }},&nbsp;
-              </span>
+              <span v-for="day in booking.daysBooked" :key="day"> {{ day }},&nbsp; </span>
             </td>
           </tr>
           <tr>
@@ -194,12 +186,8 @@ const amountDue = computed(() => {
       </table>
 
       <div class="btn-group mt-4">
-        <button class="btn-accent mr-4" @click="confirmBooking">
-          Confirm Booking
-        </button>
-        <button class="btn-accent" @click="cancelBooking">
-          Cancel Booking
-        </button>
+        <button class="btn-accent mr-4" @click="confirmBooking">Confirm Booking</button>
+        <button class="btn-accent" @click="cancelBooking">Cancel Booking</button>
       </div>
     </div>
     <div v-else>
@@ -211,8 +199,8 @@ const amountDue = computed(() => {
         <li>
           <p class="text-light"><strong class="text-accent">Step 3</strong></p>
           <p class="text-light">
-            ... select a camp week and tick the camp days they will be
-            attending. Save by clicking
+            ... select a camp week and tick the camp days they will be attending. Save by
+            clicking
             <span class="text-accent">"Save To Booking"</span>.
           </p>
         </li>
@@ -220,8 +208,8 @@ const amountDue = computed(() => {
           <p class="text-light"><strong class="text-accent">Step 4</strong></p>
           <p class="text-light">
             Continue repeating
-            <span class="text-accent">Steps 2 & 3 </span> for this child and any
-            siblings for each camp week you wish to book.
+            <span class="text-accent">Steps 2 & 3 </span> for this child and any siblings
+            for each camp week you wish to book.
           </p>
         </li>
       </ul>
@@ -229,11 +217,11 @@ const amountDue = computed(() => {
         <li>
           <p class="text-light"><strong class="text-accent">Step 5</strong></p>
           <p class="text-light">
-            Once you have added all required camp weeks for each child and
-            confirmed the details are correct, click
-            <span class="text-accent">"Confirm Booking" </span> to send us your
-            booking. That's it, you are done and your booking is reserved.
-            Please remember to make your payment to confirm your camp bookings!
+            Once you have added all required camp weeks for each child and confirmed the
+            details are correct, click
+            <span class="text-accent">"Confirm Booking" </span> to send us your booking.
+            That's it, you are done and your booking is reserved. Please remember to make
+            your payment to confirm your camp bookings!
           </p>
         </li>
       </ul>
@@ -242,24 +230,22 @@ const amountDue = computed(() => {
           <p class="text-light"><strong class="text-accent">TIP</strong></p>
           <p class="text-light">
             You can remove individual bookings by clicking
-            <span class="text-accent">"[X Remove]"</span> next to each camp
-            booking or click
-            <span class="text-accent">"Cancel Booking" </span>to start again.
+            <span class="text-accent">"[X Remove]"</span> next to each camp booking or
+            click <span class="text-accent">"Cancel Booking" </span>to start again.
           </p>
           <p class="text-accent font-bold">
-            Kindly take note: Camp places are reserved on receipt of booking
-            request but will only be secured on receipt of payment as we operate
-            on a first
-            <em>paid</em> first served basis. We apologise for any inconvenience
-            this may cause and encourage you to make payment promptly to avoid
-            losing your reservation.
+            Kindly take note: Camp places are reserved on receipt of booking request but
+            will only be secured on receipt of payment as we operate on a first
+            <em>paid</em> first served basis. We apologise for any inconvenience this may
+            cause and encourage you to make payment promptly to avoid losing your
+            reservation.
           </p>
         </li>
       </ul>
     </div>
   </div>
   <p class="text-light">
-    If you experience any difficulties with booking or need assistance, please
-    contact us for help.
+    If you experience any difficulties with booking or need assistance, please contact us
+    for help.
   </p>
 </template>

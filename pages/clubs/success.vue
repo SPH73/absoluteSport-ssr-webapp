@@ -2,9 +2,6 @@
 const route = useRoute();
 const data = ref(route.query);
 const paymentRef = ref(route.query.paymentRef);
-
-// const date = ref(route.query.bookingDate);
-// console.log("success****", data.value);
 </script>
 
 <template>
@@ -15,9 +12,9 @@ const paymentRef = ref(route.query.paymentRef);
         Thank you for reserving your child a place in our AbsoluteSport school clubs.
       </p>
       <p class="tracking-wide">Payment is by bank transfer to:</p>
-      <p class="tracking-wide">Account Name:</p>
-      <p class="tracking-wide">Account Number:</p>
-      <p class="tracking-wide">Sort Code:</p>
+      <p class="tracking-wide">Account Name: ABSOLUTESPORT</p>
+      <p class="tracking-wide">Account Number: 36771585</p>
+      <p class="tracking-wide">Sort Code: 09-01-29</p>
       <p class="tracking-wide">Beneficiary Reference: {{ data.paymentRef }}</p>
       <div class="pb-4">
         <h3 class="font-play capitalize">Club Booking Summary</h3>

@@ -15,6 +15,11 @@ console.log("success****", data.value);
         reference provided when making payment to ensure it is correctly allocated to your
         booking.
       </p>
+      <p class="tracking-wide">Payment is by bank transfer to:</p>
+      <p class="tracking-wide">Account Name: ABSOLUTESPORT</p>
+      <p class="tracking-wide">Account Number: 36771585</p>
+      <p class="tracking-wide">Sort Code: 09-01-29</p>
+      <p class="tracking-wide">Beneficiary Reference: {{ paymentRef }}</p>
       <div class="pb-4">
         <h3 class="font-play capitalize">Booking Summary</h3>
         <p>Below is a summary of your booking to save or print for your records.</p>
