@@ -86,13 +86,13 @@ useHead({
             </div>
             <div class="self-start mb-20">
               <div>
-                <h2 class="font-play capitalize">
+                <h1 class="font-play capitalize">
                   {{ selectedParty.partyName }}
-                </h2>
+                </h1>
 
-                <h3 class="font-play capitalize">
+                <h2 class="font-play capitalize">
                   {{ selectedParty.descriptionHeading }}
-                </h3>
+                </h2>
                 <p>{{ selectedParty.descriptionP1 }}</p>
                 <p v-html="selectedParty.descriptionP2"></p>
                 <div v-html="selectedParty.descriptionP3"></div>

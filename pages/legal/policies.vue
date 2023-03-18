@@ -17,14 +17,16 @@ policies.value.forEach((record, index) => {
 
 <template>
   <div class="container py-4">
-    <h2 class="font-play capitalize">Policies and Procedures</h2>
+    <h1 class="font-play capitalize">Policies and Procedures</h1>
     <p>
-      The nature of caring for children requires us to have strict policies and procedures
-      in place that ensure the children are protected at all times and cover pupil
-      welfare, safeguarding, recruitment, behaviour, and discrimination amongst many
-      others.
+      The nature of caring for children requires us to have strict policies and
+      procedures in place that ensure the children are protected at all times
+      and cover pupil welfare, safeguarding, recruitment, behaviour, and
+      discrimination amongst many others.
     </p>
-    <p>These policies and procedures are vital to protect both staff and pupils.</p>
+    <p>
+      These policies and procedures are vital to protect both staff and pupils.
+    </p>
     <div v-for="doc in policyList" class="text-2xl text-light">
       <div>
         <NuxtLink :to="doc.link" target="_blank" rel="noopener">

@@ -66,7 +66,7 @@ const filteredFAQs = computed(() => {
   <div>
     <section class="bg-secondary flex flex-col justify-center items-center">
       <div class="max-w-6xl my-8">
-        <h2 class="font-play text-4xl">Frequently Asked Question's</h2>
+        <h1 class="font-play text-4xl">Frequently Asked Question's</h1>
         <p class="text-light">
           Filter by search or tag or browse the list of FAQ's
         </p>
@@ -93,9 +93,6 @@ const filteredFAQs = computed(() => {
             </p>
           </div>
         </div>
-        <!-- <div v-else>
-            <TheSpinner></TheSpinner>
-          </div> -->
         <div class="btn-group mt-4">
           <button class="btn-accent mr-4" @click="clearFilters">
             Clear All

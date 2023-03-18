@@ -9,13 +9,13 @@ console.log("success****", data.value);
 <template>
   <div class="max-w-7xl mx-auto print:bg-light print:text-dark">
     <div class="container py-8">
-      <h2 class="font-play">Success!</h2>
+      <h1 class="font-play">Success!</h1>
       <p class="tracking-wide text-dark">
         Thank you, we have received your party booking enquiry and will be in
         contact soon!
       </p>
       <div class="pb-4">
-        <h3 class="font-play capitalize">Your enquiry</h3>
+        <h2 class="font-play capitalize">Your enquiry</h2>
         <p class="text-dark">
           Below is a summary of your enquiry to save or print for your records.
         </p>

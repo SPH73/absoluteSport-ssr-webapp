@@ -83,7 +83,7 @@ async function subscribe() {
   <div class="my-8">
     <section class="max-w-7xl mx-auto">
       <div class="container py-4">
-        <h2 class="font-play capitalize">Football Academy at AbsoluteSport</h2>
+        <h1 class="font-play capitalize">Football Academy at AbsoluteSport</h1>
         <p>
           Hello and welcome to our new Football Academy! We're super excited to
           introduce our star football coach, Tom. With Tom's wealth of
@@ -105,7 +105,7 @@ async function subscribe() {
       </div>
 
       <div id="message-from-coach" class="container py-4">
-        <h3 class="font-play">A message from your Football Academy Coach</h3>
+        <h2 class="font-play">A message from your Football Academy Coach</h2>
         <p>
           My name is Coach Tom and I am a dedicated and experienced F.A
           qualified football coach and talent scout. I have been involved in the

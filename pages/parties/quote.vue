@@ -155,11 +155,11 @@ async function handleSubmit() {
     <BaseCard>
       <div>
         <h1 class="text-accent font-play capitalize">party booking enquiry</h1>
-        <p class="tracking-wide">
+        <p class="text-light">
           We cover West Sussex and Hampshire, however we may also be able to
           accomodate parties beyond with an additional travel charge.
         </p>
-        <p class="tracking-wide">
+        <p class="text-light">
           We recommend at least 2 weeks advance booking to secure your preferred
           date and time. If you have an urgent request please get in touch and
           we&#39;ll do our best to grant your wish. You can also read our
@@ -167,6 +167,7 @@ async function handleSubmit() {
         </p>
       </div>
       <form @submit.prevent="handleSubmit">
+        <h2 class="text-accent font-play captitalize">Party Details</h2>
         <h3 class="text-accent">Parent/Guardian Details</h3>
         <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-3xl w-full">
           <div

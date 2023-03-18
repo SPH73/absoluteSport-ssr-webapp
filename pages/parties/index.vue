@@ -61,19 +61,17 @@ content.value.forEach((record, index) => {
   <div class="my-8">
     <section class="max-w-7xl mx-auto">
       <div class="container py-4">
-        <h2 class="font-play capitalize">Themed Kids Parties</h2>
-        <div>
-          <p>
-            At AbsoluteSport we offer 3 different Themed Birthday Parties. Our
-            coaches and entertainters all ensure that the children attending the
-            party will have an absolute blast of a time. We aim to keep all
-            parties stress free by tailoring the entire process around you and
-            your child's needs. If you have something more specific in mind than
-            what is listed here on the site, please do contact us and we will be
-            more than happy to help assist in creating the ideal party for your
-            child.
-          </p>
-        </div>
+        <h1 class="font-play capitalize">Themed Kids Parties</h1>
+        <p>
+          At AbsoluteSport we offer 3 different Themed Birthday Parties. Our
+          coaches and entertainters all ensure that the children attending the
+          party will have an absolute blast of a time. We aim to keep all
+          parties stress free by tailoring the entire process around you and
+          your child's needs. If you have something more specific in mind than
+          what is listed here on the site, please do contact us and we will be
+          more than happy to help assist in creating the ideal party for your
+          child.
+        </p>
       </div>
     </section>
     <section>
@@ -86,9 +84,9 @@ content.value.forEach((record, index) => {
     </section>
     <section class="max-w-7xl mx-auto">
       <div class="container py-4">
-        <h3 class="font-play capitalize">
+        <h2 class="font-play capitalize">
           why choose AbsoluteSport as your party entertainer?
-        </h3>
+        </h2>
         <p>
           We are very proud of our stellar 5 star reviews as they do say a lot
           about us (we've only received 5 star reviews!), but for some of the

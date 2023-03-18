@@ -91,9 +91,9 @@ comments.value.forEach((record, index) => {
         <div
           class="px-8 md:container py-4 flex flex-col items-center justify-center overflow-hidden"
         >
-          <h2 class="font-play capitalize">
+          <h1 class="font-play capitalize">
             School Clubs &amp; Wraparound Care
-          </h2>
+          </h1>
           <p>
             Our clubs and wraparound care are designed with children at the
             fore. We aim to ensure that each child is supported as an individual
@@ -128,7 +128,7 @@ comments.value.forEach((record, index) => {
         <div
           class="px-8 md:container py-4 flex flex-col items-center justify-center overflow-hidden"
         >
-          <h3 class="font-play capitalize">An AbsoluteSport blast!</h3>
+          <h2 class="font-play capitalize">An AbsoluteSport blast!</h2>
           <p>
             We deliver a variety of exciting sports and games to help build
             confidence, social skills and sportsmanship.
