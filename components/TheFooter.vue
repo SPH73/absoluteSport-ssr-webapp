@@ -75,7 +75,7 @@ const year = new Date().getFullYear();
       </div>
 
       <div id="legal-area" class="flex flex-col pt-2">
-        <h5 class="mt-2 mb-4 text-accent">LEGAL &#38; SITE MAP</h5>
+        <h5 class="mt-2 mb-4 text-accent">LEGAL</h5>
         <NuxtLink
           to="https://docs.google.com/document/d/12DXvOXiAUBYBcFtsjq6ei398QyFPxPdn/edit?usp=sharing&ouid=105789957608846293341&rtpof=true&sd=true"
           target="_blank"
@@ -96,7 +96,6 @@ const year = new Date().getFullYear();
         <NuxtLink :to="{ name: 'legal-policies' }" class="py-2"
           >Policies &amp; Procedures</NuxtLink
         >
-        <NuxtLink to="/" class="py-2">Site Map</NuxtLink>
       </div>
     </div>
     <div class="grid gap-4 justify-center">
