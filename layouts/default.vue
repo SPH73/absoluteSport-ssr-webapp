@@ -1,4 +1,13 @@
 <script setup>
+const route = useRoute();
+useHead(() => {
+  link: [
+    {
+      rel: "canonical",
+      href: "https://www.absolutesport.org" + route.path,
+    },
+  ];
+});
 const { data: cms } = await useFetch("/api/cms");
 const content = ref([]);
 let element = {};
@@ -13,7 +22,7 @@ cms.value.forEach((record, index) => {
   content.value.push(element);
 });
 const tickerContent = computed(() => {
-  return content.value.find(item => item.name === "ticker");
+  return content.value.find((item) => item.name === "ticker");
 });
 </script>
 
