@@ -1,4 +1,19 @@
 <script lang="ts" setup>
+useHead({
+  title: `Contact message success`,
+  meta: [
+    {
+      name: "robots",
+      content: "noindex",
+    },
+  ],
+  link: [
+    {
+      rel: "canonical",
+      href: "https://www.absolutesport.org/contact/success",
+    },
+  ],
+});
 const route = useRoute();
 const data = ref(route.query);
 const enqRef = ref(route.query.enqRef);
@@ -15,7 +30,9 @@ console.log("success****", data.value);
       </p>
       <div class="pb-4">
         <h3 class="font-play capitalize">Your enquiry</h3>
-        <p>Below is a summary of your enquiry to save or print for your records.</p>
+        <p>
+          Below is a summary of your enquiry to save or print for your records.
+        </p>
         <p>
           This is the reference number for your enquiry:
           <span class="font-play">{{ enqRef }}</span
@@ -90,7 +107,10 @@ console.log("success****", data.value);
         </div>
       </div>
       <div class="print:hidden">
-        <BaseButton class="btn-secondary my-4 w-full md:w-fit" onclick="window.print()">
+        <BaseButton
+          class="btn-secondary my-4 w-full md:w-fit"
+          onclick="window.print()"
+        >
           Print this page
         </BaseButton>
       </div>

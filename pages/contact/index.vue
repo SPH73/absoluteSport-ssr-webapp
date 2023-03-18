@@ -1,4 +1,19 @@
 <script setup>
+useHead({
+  title: `Contact us`,
+  meta: [
+    {
+      name: "robots",
+      content: "noindex",
+    },
+  ],
+  link: [
+    {
+      rel: "canonical",
+      href: "https://www.absolutesport.org/contact",
+    },
+  ],
+});
 // form data
 const formData = ref({});
 const firstName = ref({ val: "", isValid: true });

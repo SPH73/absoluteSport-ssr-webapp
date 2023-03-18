@@ -1,4 +1,19 @@
 <script lang="ts" setup>
+useHead({
+  title: `School clubs booking request`,
+  meta: [
+    {
+      name: "robots",
+      content: "noindex",
+    },
+  ],
+  link: [
+    {
+      rel: "canonical",
+      href: "https://www.absolutesport.org/clubs/success",
+    },
+  ],
+});
 const route = useRoute();
 const data = ref(route.query);
 const paymentRef = ref(route.query.paymentRef);
@@ -9,7 +24,8 @@ const paymentRef = ref(route.query.paymentRef);
     <div class="container py-8">
       <h2 class="font-play">Success!</h2>
       <p class="tracking-wide">
-        Thank you for reserving your child a place in our AbsoluteSport school clubs.
+        Thank you for reserving your child a place in our AbsoluteSport school
+        clubs.
       </p>
       <p class="tracking-wide">Payment is by bank transfer to:</p>
       <p class="tracking-wide">Account Name: ABSOLUTESPORT</p>
@@ -18,7 +34,9 @@ const paymentRef = ref(route.query.paymentRef);
       <p class="tracking-wide">Beneficiary Reference: {{ data.paymentRef }}</p>
       <div class="pb-4">
         <h3 class="font-play capitalize">Club Booking Summary</h3>
-        <p>Below is a summary of your booking to save or print for your records.</p>
+        <p>
+          Below is a summary of your booking to save or print for your records.
+        </p>
         <p>
           Please use your payment reference
           <span class="font-play">{{ paymentRef }} </span>
@@ -162,7 +180,10 @@ const paymentRef = ref(route.query.paymentRef);
         </div>
       </div>
       <div class="print:hidden">
-        <button class="btn-primary my-4 w-full md:w-fit" onclick="window.print()">
+        <button
+          class="btn-primary my-4 w-full md:w-fit"
+          onclick="window.print()"
+        >
           Print this page
         </button>
       </div>

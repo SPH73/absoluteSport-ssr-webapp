@@ -1,4 +1,19 @@
 <script setup>
+useHead({
+  title: `Holiday camps booking request`,
+  meta: [
+    {
+      name: "robots",
+      content: "noindex",
+    },
+  ],
+  link: [
+    {
+      rel: "canonical",
+      href: "https://www.absolutesport.org/camps/booking",
+    },
+  ],
+});
 // fetched camps
 const { data: campsList, error } = await useFetch("/api/camps/campsList");
 let camp = {};

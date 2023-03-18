@@ -1,4 +1,19 @@
 <script lang="ts" setup>
+useHead({
+  title: `Camps booking success`,
+  meta: [
+    {
+      name: "robots",
+      content: "noindex",
+    },
+  ],
+  link: [
+    {
+      rel: "canonical",
+      href: "https://www.absolutesport.org/camps/success",
+    },
+  ],
+});
 const route = useRoute();
 const data = ref(route.query);
 const paymentRef = ref(route.query.paymentRef);
@@ -11,9 +26,9 @@ console.log("success****", data.value);
     <div class="container py-8">
       <h2 class="font-play">Success!</h2>
       <p class="tracking-wide">
-        Thank you, we have received your booking. If applicable, please use the payment
-        reference provided when making payment to ensure it is correctly allocated to your
-        booking.
+        Thank you, we have received your booking. If applicable, please use the
+        payment reference provided when making payment to ensure it is correctly
+        allocated to your booking.
       </p>
       <p class="tracking-wide">Payment is by bank transfer to:</p>
       <p class="tracking-wide">Account Name: ABSOLUTESPORT</p>
@@ -22,11 +37,13 @@ console.log("success****", data.value);
       <p class="tracking-wide">Beneficiary Reference: {{ paymentRef }}</p>
       <div class="pb-4">
         <h3 class="font-play capitalize">Booking Summary</h3>
-        <p>Below is a summary of your booking to save or print for your records.</p>
+        <p>
+          Below is a summary of your booking to save or print for your records.
+        </p>
         <p>
           This is the payment reference number:
-          <span class="font-play">{{ paymentRef }} </span>. Please include it in any
-          correspondence for this booking.
+          <span class="font-play">{{ paymentRef }} </span>. Please include it in
+          any correspondence for this booking.
         </p>
         <div>
           <h3 class="font-play capitalize">Your details:</h3>
@@ -40,7 +57,9 @@ console.log("success****", data.value);
                 >
                   Booking Date
                 </th>
-                <td class="bg-light text-dark border border-secondary p-4 w-3/5">
+                <td
+                  class="bg-light text-dark border border-secondary p-4 w-3/5"
+                >
                   {{ date }}
                 </td>
               </tr>
@@ -82,26 +101,38 @@ console.log("success****", data.value);
           >
             <tbody>
               <tr>
-                <th class="uppercase p-4 bg-secondary text-left text-accent p-4 w-2/5">
+                <th
+                  class="uppercase p-4 bg-secondary text-left text-accent p-4 w-2/5"
+                >
                   Children
                 </th>
-                <td class="bg-light text-dark border border-secondary p-4 w-3/5">
+                <td
+                  class="bg-light text-dark border border-secondary p-4 w-3/5"
+                >
                   <span v-for="child in data.children">{{ child }}</span>
                 </td>
               </tr>
               <tr>
-                <th class="uppercase p-4 bg-secondary text-left text-accent p-4 w-2/5">
+                <th
+                  class="uppercase p-4 bg-secondary text-left text-accent p-4 w-2/5"
+                >
                   Amount Due
                 </th>
-                <td class="bg-light text-dark border border-secondary p-4 w-3/5">
+                <td
+                  class="bg-light text-dark border border-secondary p-4 w-3/5"
+                >
                   £{{ data.amountDue }}
                 </td>
               </tr>
               <tr>
-                <th class="uppercase p-4 bg-secondary text-left text-accent p-4 w-2/5">
+                <th
+                  class="uppercase p-4 bg-secondary text-left text-accent p-4 w-2/5"
+                >
                   Booking Status
                 </th>
-                <td class="bg-light text-dark border border-secondary p-4 w-3/5">
+                <td
+                  class="bg-light text-dark border border-secondary p-4 w-3/5"
+                >
                   {{ data.status }}
                 </td>
               </tr>
@@ -110,7 +141,10 @@ console.log("success****", data.value);
         </div>
       </div>
       <div class="print:hidden">
-        <BaseButton class="btn-secondary my-4 w-full md:w-fit" onclick="window.print()">
+        <BaseButton
+          class="btn-secondary my-4 w-full md:w-fit"
+          onclick="window.print()"
+        >
           Print this page
         </BaseButton>
       </div>
