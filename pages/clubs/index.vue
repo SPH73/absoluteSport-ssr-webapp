@@ -303,7 +303,7 @@ comments.value.forEach((record, index) => {
         </button>
         <table
           v-for="activity in sportList"
-          class="table-auto border-separate border-spacing-2 border border-secondary text-light w-full text-2xl rounded-md mb-4"
+          class="table-fixed border-separate border-spacing-2 border border-secondary text-light w-full text-2xl rounded-md mb-4 whitespace-pre-wrap"
         >
           <tbody>
             <tr>
@@ -316,14 +316,16 @@ comments.value.forEach((record, index) => {
                 {{ activity.sportName }}
               </td>
             </tr>
-            <tr>
+            <tr class="">
               <th
                 class="uppercase bg-secondary text-left text-accent border border-secondary p-4 w-2/5"
               >
                 What you can expect
               </th>
-              <td class="bg-light text-dark border border-secondary p-4 w-3/5">
-                <span v-for="item in activity.intro">{{ item }},&nbsp;</span>
+              <td
+                class="bg-light text-dark border border-secondary p-4 w-3/5 break-words"
+              >
+                <span v-for="item in activity.intro">{{ item }} &nbsp;</span>
               </td>
             </tr>
             <tr>
