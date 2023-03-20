@@ -308,7 +308,7 @@ comments.value.forEach((record, index) => {
           <tbody>
             <tr>
               <th
-                class="uppercase p-4 bg-secondary text-left text-accent border border-secondary p-4 w-2/5"
+                class="uppercase bg-secondary text-left text-accent border border-secondary p-4 w-2/5"
               >
                 Activity
               </th>
@@ -318,17 +318,17 @@ comments.value.forEach((record, index) => {
             </tr>
             <tr>
               <th
-                class="uppercase p-4 bg-secondary text-left text-accent border border-secondary p-4"
+                class="uppercase bg-secondary text-left text-accent border border-secondary p-4 w-2/5"
               >
                 What you can expect
               </th>
-              <td class="bg-light text-dark border border-secondary p-4">
+              <td class="bg-light text-dark border border-secondary p-4 w-3/5">
                 <span v-for="item in activity.intro">{{ item }},&nbsp;</span>
               </td>
             </tr>
             <tr>
               <th
-                class="uppercase p-4 bg-secondary text-left text-accent border border-secondary p-4 w-2/5"
+                class="uppercase bg-secondary text-left text-accent border border-secondary p-4 w-2/5"
               >
                 Schools
               </th>
@@ -340,11 +340,11 @@ comments.value.forEach((record, index) => {
             </tr>
             <tr>
               <th
-                class="uppercase p-4 bg-secondary text-left text-accent border border-secondary p-4"
+                class="uppercase bg-secondary text-left text-accent border border-secondary p-4 w-2/5"
               >
                 Year groups
               </th>
-              <td class="bg-light text-dark border border-secondary p-4">
+              <td class="bg-light text-dark border border-secondary p-4 w-3/5">
                 <span v-for="item in activity.yearRange"
                   >{{ item }},&nbsp;</span
                 >
@@ -352,11 +352,11 @@ comments.value.forEach((record, index) => {
             </tr>
             <tr>
               <th
-                class="uppercase p-4 bg-secondary text-left text-accent border border-secondary p-4"
+                class="uppercase bg-secondary text-left text-accent border border-secondary p-4 w-2/5"
               >
                 Sessions per booking
               </th>
-              <td class="bg-light text-dark border border-secondary p-4">
+              <td class="bg-light text-dark border border-secondary p-4 w-3/5">
                 {{ activity.sessions }}
               </td>
             </tr>
