@@ -20,8 +20,8 @@ const snippet = computed(() => {
       {{ review.comment.length < 315 ? review.comment : snippet }}
     </p>
 
-    <h5 class="text-xl tracking-wider text-accent">
+    <h3 class="text-[0.8em] tracking-widest text-accent">
       -&nbsp;{{ review.name }}&nbsp;-
-    </h5>
+    </h3>
   </div>
 </template>
