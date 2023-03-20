@@ -275,11 +275,14 @@ async function handleSubmitClubBooking() {
       <h2 class="text-accent font-play">School Clubs Booking Form</h2>
       <p class="text-light">
         We currently run school clubs at Sidlesham Primary School, West
-        Witterings Primary School and Portfield Academy in West Sussex.
+        Wittering Primary School and Portfield Academy in West Sussex.
       </p>
       <p class="text-light">
-        Clubs run for 6 weeks and will be need to will need to be paid in a
-        block booking for all weeks.
+        Clubs will need to be paid in a block booking for all weeks.
+      </p>
+      <p>
+        Block booking lengths may vary due to bank holiday's and school
+        closures.
       </p>
       <p class="text-light">
         Morning School Clubs have a maximum capacity of 12 children.
