@@ -280,7 +280,7 @@ async function handleSubmitClubBooking() {
       <p class="text-light">
         Clubs will need to be paid in a block booking for all weeks.
       </p>
-      <p>
+      <p class="text-light">
         Block booking lengths may vary due to bank holiday's and school
         closures.
       </p>
