@@ -336,7 +336,7 @@ comments.value.forEach((record, index) => {
               </th>
               <td class="bg-light text-dark border border-secondary p-4 w-3/5">
                 <span v-for="item in activity.schoolList"
-                  >{{ item }},&nbsp;</span
+                  >{{ item }} &nbsp;</span
                 >
               </td>
             </tr>
@@ -348,7 +348,7 @@ comments.value.forEach((record, index) => {
               </th>
               <td class="bg-light text-dark border border-secondary p-4 w-3/5">
                 <span v-for="item in activity.yearRange"
-                  >{{ item }},&nbsp;</span
+                  >{{ item }} &nbsp;</span
                 >
               </td>
             </tr>
