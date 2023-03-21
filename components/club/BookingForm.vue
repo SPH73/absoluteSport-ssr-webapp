@@ -299,7 +299,7 @@ async function handleSubmitClubBooking() {
       <p class="text-light">
         Please complete the booking form to reserve a place for your child at
         one of the many clubs we run at our schools. We will email confirmation
-        to your privided email address once we receive payment into our bank and
+        to your provided email address once we receive payment into our bank and
         your child&#39;s place will then be confirmed for the term. Please use
         the booking reference provided when you make payment so that we can
         allocate it correctly to all the clubs included in your booking.
