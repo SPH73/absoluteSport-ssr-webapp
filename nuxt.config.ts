@@ -21,12 +21,7 @@ export default defineNuxtConfig({
       "@fortawesome/vue-fontawesome",
     ],
   },
-  modules: [
-    "@nuxtjs/tailwindcss",
-    "@vueuse/nuxt",
-    "nuxt-swiper",
-    "nuxt-security",
-  ],
+  modules: ["@nuxtjs/tailwindcss", "@vueuse/nuxt", "nuxt-swiper"],
   tailwindcss: {
     cssPath: "~/assets/css/tailwind.css",
     configPath: "tailwind.config",
@@ -37,7 +32,6 @@ export default defineNuxtConfig({
     private: {
       atApiKey: process.env.AT_API_KEY,
       mcApiKey: process.env.MC_API_KEY,
-      gcSandboxAccessToken: process.env.GC_SANDBOX_ACCESS_TOKEN,
     },
     public: {
       atBaseId: process.env.AT_BASE_ID,
