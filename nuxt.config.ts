@@ -21,7 +21,12 @@ export default defineNuxtConfig({
       "@fortawesome/vue-fontawesome",
     ],
   },
-  modules: ["@nuxtjs/tailwindcss", "@vueuse/nuxt", "nuxt-swiper"],
+  modules: [
+    "@nuxtjs/tailwindcss",
+    "@vueuse/nuxt",
+    "nuxt-swiper",
+    "nuxt-security",
+  ],
   tailwindcss: {
     cssPath: "~/assets/css/tailwind.css",
     configPath: "tailwind.config",
