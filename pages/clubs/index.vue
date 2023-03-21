@@ -65,6 +65,7 @@ list.value.forEach((record, index) => {
     yearRange: record.fields.yearRange,
     schoolList: record.fields.schoolList,
     sessions: record.fields.sessions,
+    startDate: record.fields.startDate,
   };
   sportList.value.push(activity);
 });
@@ -360,6 +361,16 @@ comments.value.forEach((record, index) => {
               </th>
               <td class="bg-light text-dark border border-secondary p-4 w-3/5">
                 {{ activity.sessions }}
+              </td>
+            </tr>
+            <tr>
+              <th
+                class="uppercase bg-secondary text-left text-accent border border-secondary p-4 w-2/5"
+              >
+                Start Date
+              </th>
+              <td class="bg-light text-dark border border-secondary p-4 w-3/5">
+                {{ activity.startDate }}
               </td>
             </tr>
           </tbody>
