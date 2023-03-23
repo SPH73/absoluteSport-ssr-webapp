@@ -126,7 +126,7 @@ onMounted(() => {
               </li>
             </ul>
           </li>
-          <div class="dropdown" aria-haspopup="true">
+          <li class="dropdown" aria-haspopup="true">
             <span
               >Kids parties&nbsp;<font-awesome-icon
                 :icon="['fas', 'angle-down']"
@@ -152,7 +152,7 @@ onMounted(() => {
                 </NuxtLink>
               </li>
             </ul>
-          </div>
+          </li>
           <li class="flex justify-items-center">
             <NuxtLink
               to="/football"
