@@ -146,7 +146,7 @@ onMounted(() => {
                 <NuxtLink
                   to="/parties/quote"
                   class="hover:font-bold pb-2"
-                  aria-label="Navigate to the themed parties for kids page"
+                  aria-label="Navigate to the party quote form"
                 >
                   Get A Quote
                 </NuxtLink>
@@ -244,7 +244,7 @@ onMounted(() => {
               to="/clubs/upcoming"
               @click="isOpen = false"
               class="my-4 inline-block"
-              aria-label="Navigate to the School Clubs page"
+              aria-label="Navigate to the upcoming clubs page"
             >
               View upcoming Clubs</NuxtLink
             >
@@ -254,7 +254,7 @@ onMounted(() => {
               to="/clubs/booking"
               @click="isOpen = false"
               class="my-4 inline-block"
-              aria-label="Navigate to the School Clubs page"
+              aria-label="Navigate to clubs booking form"
             >
               Book upcoming Clubs</NuxtLink
             >
@@ -274,9 +274,19 @@ onMounted(() => {
               to="/camps/upcoming"
               @click="isOpen = false"
               class="my-4 inline-block"
-              aria-label="Navigate to the holiday activity camps page"
+              aria-label="Navigate to the upcoming camps page"
             >
               View current &amp; upcoming Camps</NuxtLink
+            >
+          </li>
+          <li class="flex items-center">
+            <NuxtLink
+              to="/camps/booking"
+              @click="isOpen = false"
+              class="my-4 inline-block"
+              aria-label="Navigate to camps booking form"
+            >
+              Book upcoming Camps</NuxtLink
             >
           </li>
           <li class="flex items-center">
@@ -294,7 +304,7 @@ onMounted(() => {
               to="/parties/quote"
               @click="isOpen = false"
               class="my-4 inline-block"
-              aria-label="Navigate to the themed parties for kids page"
+              aria-label="Navigate party quote form"
             >
               Get a party quote</NuxtLink
             >
@@ -323,25 +333,37 @@ onMounted(() => {
         <div class="follow">
           <p class="font-mulish uppercase text-secondary text-2xl">connect:</p>
           <div class="social flex space-x-5 mt-4">
-            <NuxtLink to="https://www.linkedin.com/in/ben-blakeley-b2600522b/">
+            <NuxtLink
+              to="https://www.linkedin.com/in/ben-blakeley-b2600522b/"
+              aria-label="Connect with us on linkedin"
+            >
               <font-awesome-icon
                 :icon="['fab', 'linkedin']"
                 class="text-secondary h-12 w12"
               />
             </NuxtLink>
-            <NuxtLink to="https://www.facebook.com/AbsoluteSport.AS">
+            <NuxtLink
+              to="https://www.facebook.com/AbsoluteSport.AS"
+              aria-label="Connect with us on facebook"
+            >
               <font-awesome-icon
                 :icon="['fab', 'facebook']"
                 class="text-secondary h-12 w12"
               />
             </NuxtLink>
-            <NuxtLink to="https://www.instagram.com/absolutesport2211/">
+            <NuxtLink
+              to="https://www.instagram.com/absolutesport2211/"
+              aria-label="Connect with us on instagram"
+            >
               <font-awesome-icon
                 :icon="['fab', 'instagram']"
                 class="text-secondary h-12 w12"
               />
             </NuxtLink>
-            <NuxtLink to="https://api.whatsapp.com/send?phone=447540309658">
+            <NuxtLink
+              to="https://api.whatsapp.com/send?phone=447540309658"
+              aria-label="Connect with us on whatsapp chat"
+            >
               <font-awesome-icon
                 :icon="['fab', 'whatsapp']"
                 class="text-secondary h-12 w12"
