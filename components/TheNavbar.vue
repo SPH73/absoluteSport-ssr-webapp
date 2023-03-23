@@ -52,7 +52,14 @@ onMounted(() => {
             </NuxtLink>
           </li>
           <div class="dropdown">
-            <span>School Clubs</span>
+            <span
+              >School Clubs
+              <font-awesome-icon
+                :icon="['fas', 'angle-down']"
+                class="text-secondary h-8 w-8 my-auto"
+              />
+            </span>
+
             <div class="dropdown-content">
               <li class="flex justify-items-center">
                 <NuxtLink
@@ -62,18 +69,6 @@ onMounted(() => {
                 >
                   About Our Clubs
                 </NuxtLink>
-                <!-- <div v-if="isOpen">
-              <font-awesome-icon
-                :icon="['fas', 'angle-up']"
-                class="text-secondary h-8 w-8 my-auto"
-              />
-            </div>
-            <div v-else>
-              <font-awesome-icon
-                :icon="['fas', 'angle-down']"
-                class="text-secondary h-8 w-8 my-auto"
-              />
-            </div> -->
               </li>
               <li class="flex justify-items-center">
                 <NuxtLink
@@ -83,18 +78,6 @@ onMounted(() => {
                 >
                   Our Upcoming Clubs
                 </NuxtLink>
-                <!-- <div v-if="isOpen">
-              <font-awesome-icon
-                :icon="['fas', 'angle-up']"
-                class="text-secondary h-8 w-8 my-auto"
-              />
-            </div>
-            <div v-else>
-              <font-awesome-icon
-                :icon="['fas', 'angle-down']"
-                class="text-secondary h-8 w-8 my-auto"
-              />
-            </div> -->
               </li>
               <li class="flex justify-items-center">
                 <NuxtLink
@@ -104,23 +87,15 @@ onMounted(() => {
                 >
                   Book Our Clubs
                 </NuxtLink>
-                <!-- <div v-if="isOpen">
-              <font-awesome-icon
-                :icon="['fas', 'angle-up']"
-                class="text-secondary h-8 w-8 my-auto"
-              />
-            </div>
-            <div v-else>
-              <font-awesome-icon
-                :icon="['fas', 'angle-down']"
-                class="text-secondary h-8 w-8 my-auto"
-              />
-            </div> -->
               </li>
             </div>
           </div>
           <div class="dropdown">
-            <span>Activity Camps</span>
+            <span
+              >Activity Camps&nbsp;<font-awesome-icon
+                :icon="['fas', 'angle-down']"
+                class="text-secondary h-8 w-8 my-auto"
+            /></span>
             <div class="dropdown-content">
               <li class="flex justify-items-center">
                 <NuxtLink
@@ -130,18 +105,6 @@ onMounted(() => {
                 >
                   About Our Camps
                 </NuxtLink>
-                <!-- <div v-if="isOpen">
-              <font-awesome-icon
-                :icon="['fas', 'angle-up']"
-                class="text-secondary h-8 w-8 my-auto"
-              />
-            </div>
-            <div v-else>
-              <font-awesome-icon
-                :icon="['fas', 'angle-down']"
-                class="text-secondary h-8 w-8 my-auto"
-              />
-            </div> -->
               </li>
               <li class="flex justify-items-center">
                 <NuxtLink
@@ -151,18 +114,6 @@ onMounted(() => {
                 >
                   Our Upcoming Camps
                 </NuxtLink>
-                <!-- <div v-if="isOpen">
-              <font-awesome-icon
-                :icon="['fas', 'angle-up']"
-                class="text-secondary h-8 w-8 my-auto"
-              />
-            </div>
-            <div v-else>
-              <font-awesome-icon
-                :icon="['fas', 'angle-down']"
-                class="text-secondary h-8 w-8 my-auto"
-              />
-            </div> -->
               </li>
               <li class="flex justify-items-center">
                 <NuxtLink
@@ -172,23 +123,15 @@ onMounted(() => {
                 >
                   Book our Camps
                 </NuxtLink>
-                <!-- <div v-if="isOpen">
-              <font-awesome-icon
-                :icon="['fas', 'angle-up']"
-                class="text-secondary h-8 w-8 my-auto"
-              />
-            </div>
-            <div v-else>
-              <font-awesome-icon
-                :icon="['fas', 'angle-down']"
-                class="text-secondary h-8 w-8 my-auto"
-              />
-            </div> -->
               </li>
             </div>
           </div>
           <div class="dropdown">
-            <span>Kids parties</span>
+            <span
+              >Kids parties&nbsp;<font-awesome-icon
+                :icon="['fas', 'angle-down']"
+                class="text-secondary h-8 w-8 my-auto"
+            /></span>
             <div class="dropdown-content">
               <li class="flex justify-items-center">
                 <NuxtLink
@@ -198,18 +141,6 @@ onMounted(() => {
                 >
                   About our Parties
                 </NuxtLink>
-                <!-- <div v-if="isOpen">
-              <font-awesome-icon
-                :icon="['fas', 'angle-up']"
-                class="text-secondary h-8 w-8 my-auto"
-              />
-            </div>
-            <div v-else>
-              <font-awesome-icon
-                :icon="['fas', 'angle-down']"
-                class="text-secondary h-8 w-8 my-auto"
-              />
-            </div> -->
               </li>
               <li class="flex justify-items-center">
                 <NuxtLink
@@ -219,18 +150,6 @@ onMounted(() => {
                 >
                   Get A Quote
                 </NuxtLink>
-                <!-- <div v-if="isOpen">
-              <font-awesome-icon
-                :icon="['fas', 'angle-up']"
-                class="text-secondary h-8 w-8 my-auto"
-              />
-            </div>
-            <div v-else>
-              <font-awesome-icon
-                :icon="['fas', 'angle-down']"
-                class="text-secondary h-8 w-8 my-auto"
-              />
-            </div> -->
               </li>
             </div>
           </div>
