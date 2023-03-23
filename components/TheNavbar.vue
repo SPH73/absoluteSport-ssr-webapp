@@ -51,7 +51,7 @@ onMounted(() => {
               Home
             </NuxtLink>
           </li>
-          <div class="dropdown">
+          <li class="dropdown" aria-haspopup="true">
             <span
               >School Clubs
               <font-awesome-icon
@@ -60,7 +60,7 @@ onMounted(() => {
               />
             </span>
 
-            <div class="dropdown-content">
+            <ul class="dropdown-content">
               <li class="flex justify-items-center">
                 <NuxtLink
                   to="/clubs"
@@ -88,15 +88,15 @@ onMounted(() => {
                   Book Our Clubs
                 </NuxtLink>
               </li>
-            </div>
-          </div>
-          <div class="dropdown">
+            </ul>
+          </li>
+          <li class="dropdown" aria-haspopup="true">
             <span
               >Activity Camps&nbsp;<font-awesome-icon
                 :icon="['fas', 'angle-down']"
                 class="text-secondary h-8 w-8 my-auto"
             /></span>
-            <div class="dropdown-content">
+            <ul class="dropdown-content">
               <li class="flex justify-items-center">
                 <NuxtLink
                   to="/camps"
@@ -124,15 +124,15 @@ onMounted(() => {
                   Book our Camps
                 </NuxtLink>
               </li>
-            </div>
-          </div>
-          <div class="dropdown">
+            </ul>
+          </li>
+          <div class="dropdown" aria-haspopup="true">
             <span
               >Kids parties&nbsp;<font-awesome-icon
                 :icon="['fas', 'angle-down']"
                 class="text-secondary h-8 w-8 my-auto"
             /></span>
-            <div class="dropdown-content">
+            <ul class="dropdown-content">
               <li class="flex justify-items-center">
                 <NuxtLink
                   to="/parties"
@@ -151,7 +151,7 @@ onMounted(() => {
                   Get A Quote
                 </NuxtLink>
               </li>
-            </div>
+            </ul>
           </div>
           <li class="flex justify-items-center">
             <NuxtLink
