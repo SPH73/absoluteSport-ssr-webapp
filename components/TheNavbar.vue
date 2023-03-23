@@ -60,7 +60,7 @@ onMounted(() => {
               />
             </span>
 
-            <ul class="dropdown-content">
+            <ul class="dropdown-content" aria-label="submenu">
               <li class="flex justify-items-center">
                 <NuxtLink
                   to="/clubs"
@@ -96,7 +96,7 @@ onMounted(() => {
                 :icon="['fas', 'angle-down']"
                 class="text-secondary h-8 w-8 my-auto"
             /></span>
-            <ul class="dropdown-content">
+            <ul class="dropdown-content" aria-label="submenu">
               <li class="flex justify-items-center">
                 <NuxtLink
                   to="/camps"
@@ -132,7 +132,7 @@ onMounted(() => {
                 :icon="['fas', 'angle-down']"
                 class="text-secondary h-8 w-8 my-auto"
             /></span>
-            <ul class="dropdown-content">
+            <ul class="dropdown-content" aria-label="submenu">
               <li class="flex justify-items-center">
                 <NuxtLink
                   to="/parties"
