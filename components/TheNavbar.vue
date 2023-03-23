@@ -322,7 +322,7 @@ onMounted(() => {
           </li>
           <li class="flex items-center">
             <NuxtLink
-              to="/clubs"
+              to="/clubs/upcoming"
               @click="isOpen = false"
               class="my-4 inline-block"
               aria-label="Navigate to the School Clubs page"
