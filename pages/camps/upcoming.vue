@@ -57,14 +57,17 @@ const nextCamps = computed(() => {
   <div class="my-8">
     <div class="max-w-7xl mx-auto">
       <div class="px-8 md:container py-4">
-        <h3 class="font-play capitalize">
+        <h1 class="font-play capitalize">
           Why not come and see how much fun we have during the school holidays?
-        </h3>
+        </h1>
         <p>
           We run Holiday Activity Camps at Sidlesham Primary School and
           Portfield Primary Academy throughout the year. Places often fill up
           quickly so please reserve a place for your child as soon as possible
-          <NuxtLink to="camps/booking" class="font-bold underline"
+          <NuxtLink
+            aria-label="book camps"
+            to="camps/booking"
+            class="font-bold underline"
             >here</NuxtLink
           >.
         </p>
@@ -76,16 +79,18 @@ const nextCamps = computed(() => {
           it from your child's school. E.g. HAF123456
         </p>
         <div v-if="currentCamps.length" class="py-4">
-          <h3 class="font-play capitalize">Current Camps</h3>
+          <h2 class="font-play capitalize">Current Camps</h2>
           <p>We are taking bookings now!</p>
           <div>
             <button class="btn-primary my-4 w-full md:w-fit">
-              <nuxt-link to="/camps/booking">Book Now</nuxt-link>
+              <nuxt-link to="/camps/booking" aria-label="book camps"
+                >Book Now</nuxt-link
+              >
             </button>
           </div>
           <table
             v-for="camp in currentCamps"
-            class="table-auto border-separate border-spacing-2 border border-secondary text-light w-full text-2xl rounded-md mb-4"
+            class="table-auto border-separate border-spacing-2 border border-light text-light w-full text-2xl rounded-md mb-4"
           >
             <tbody>
               <tr>
@@ -94,9 +99,7 @@ const nextCamps = computed(() => {
                 >
                   Camp
                 </th>
-                <td
-                  class="bg-light text-dark border border-secondary p-4 w-3/5"
-                >
+                <td class="bg-light text-dark border border-light p-4 w-3/5">
                   {{ camp.campName }}
                 </td>
               </tr>
@@ -106,7 +109,7 @@ const nextCamps = computed(() => {
                 >
                   Date
                 </th>
-                <td class="bg-light text-dark border border-secondary p-4">
+                <td class="bg-light text-dark border border-light p-4">
                   {{ camp.campDate }}
                 </td>
               </tr>
@@ -116,9 +119,7 @@ const nextCamps = computed(() => {
                 >
                   Camp Location
                 </th>
-                <td
-                  class="bg-light text-dark border border-secondary p-4 w-3/5"
-                >
+                <td class="bg-light text-dark border border-light p-4 w-3/5">
                   {{ camp.locRef }}
                 </td>
               </tr>
@@ -128,7 +129,7 @@ const nextCamps = computed(() => {
                 >
                   Space Available
                 </th>
-                <td class="bg-light text-dark border border-secondary p-4">
+                <td class="bg-light text-dark border border-light p-4">
                   {{ camp.spaceAvailable }}
                 </td>
               </tr>
@@ -145,7 +146,7 @@ const nextCamps = computed(() => {
         </div>
         <table
           v-for="camp in nextCamps"
-          class="table-auto border-separate border-spacing-2 border border-secondary text-light w-full text-2xl rounded-md mb-4"
+          class="table-auto border-separate border-spacing-2 border border-light text-light w-full text-2xl rounded-md mb-4"
         >
           <tbody>
             <tr>
@@ -154,7 +155,7 @@ const nextCamps = computed(() => {
               >
                 Camp
               </th>
-              <td class="bg-light text-dark border border-secondary p-4 w-3/5">
+              <td class="bg-light text-dark border border-light p-4 w-3/5">
                 {{ camp.campName }}
               </td>
             </tr>
@@ -164,7 +165,7 @@ const nextCamps = computed(() => {
               >
                 Date
               </th>
-              <td class="bg-light text-dark border border-secondary p-4">
+              <td class="bg-light text-dark border border-light p-4">
                 {{ camp.campDate }}
               </td>
             </tr>
@@ -174,7 +175,7 @@ const nextCamps = computed(() => {
               >
                 Camp Location
               </th>
-              <td class="bg-light text-dark border border-secondary p-4 w-3/5">
+              <td class="bg-light text-dark border border-light p-4 w-3/5">
                 {{ camp.locRef }}
               </td>
             </tr>
@@ -185,7 +186,7 @@ const nextCamps = computed(() => {
               >
                 Maximum Capacity
               </th>
-              <td class="bg-light text-dark border border-secondary p-4">
+              <td class="bg-light text-dark border border-light p-4">
                 {{ camp.spaceAvailable }}
               </td>
             </tr>

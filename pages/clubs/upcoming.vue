@@ -48,7 +48,9 @@ list.value.forEach((record, index) => {
   <div class="my-8">
     <div class="max-w-7xl mx-auto">
       <div class="px-8 md:container py-4">
-        <h3 class="font-play capitalize">Upcoming Clubs</h3>
+        <h1 class="font-play capitalize">
+          Upcoming AbsoluteSport School Clubs
+        </h1>
         <p>
           We coach a variety of sports and activities at our clubs and
           wraparound care at Sidlesham Primary School, West Wittering Primary
@@ -56,11 +58,13 @@ list.value.forEach((record, index) => {
           keep our clubs current and interesting.
         </p>
         <button class="btn-primary my-4 w-full md:w-fit">
-          <NuxtLink to="clubs/booking">book now</NuxtLink>
+          <NuxtLink to="clubs/booking" aria-label="book clubs"
+            >book now</NuxtLink
+          >
         </button>
         <table
           v-for="activity in sportList"
-          class="table-fixed border-separate border-spacing-2 border border-secondary text-light w-full text-2xl rounded-md mb-4 whitespace-pre-wrap"
+          class="table-fixed border-separate border-spacing-2 border border-light text-light w-full text-2xl rounded-md mb-4 whitespace-pre-wrap"
         >
           <tbody>
             <tr>
@@ -69,7 +73,7 @@ list.value.forEach((record, index) => {
               >
                 Activity
               </th>
-              <td class="bg-light text-dark border border-secondary p-4 w-3/5">
+              <td class="bg-light text-dark border border-light p-4 w-3/5">
                 {{ activity.sportName }}
               </td>
             </tr>
@@ -80,7 +84,7 @@ list.value.forEach((record, index) => {
                 What you can expect
               </th>
               <td
-                class="bg-light text-dark border border-secondary p-4 w-3/5 break-words"
+                class="bg-light text-dark border border-light p-4 w-3/5 break-words"
               >
                 <span v-for="item in activity.intro">{{ item }} &nbsp;</span>
               </td>
@@ -91,7 +95,7 @@ list.value.forEach((record, index) => {
               >
                 Schools
               </th>
-              <td class="bg-light text-dark border border-secondary p-4 w-3/5">
+              <td class="bg-light text-dark border border-light p-4 w-3/5">
                 <span v-for="item in activity.schoolList"
                   >{{ item }} &nbsp;</span
                 >
@@ -103,7 +107,7 @@ list.value.forEach((record, index) => {
               >
                 Year groups
               </th>
-              <td class="bg-light text-dark border border-secondary p-4 w-3/5">
+              <td class="bg-light text-dark border border-light p-4 w-3/5">
                 <span v-for="item in activity.yearRange"
                   >{{ item }} &nbsp;</span
                 >
@@ -115,7 +119,7 @@ list.value.forEach((record, index) => {
               >
                 Sessions per booking
               </th>
-              <td class="bg-light text-dark border border-secondary p-4 w-3/5">
+              <td class="bg-light text-dark border border-light p-4 w-3/5">
                 {{ activity.sessions }}
               </td>
             </tr>
@@ -125,7 +129,7 @@ list.value.forEach((record, index) => {
               >
                 Start Date
               </th>
-              <td class="bg-light text-dark border border-secondary p-4 w-3/5">
+              <td class="bg-light text-dark border border-light p-4 w-3/5">
                 {{ activity.startDate }}
               </td>
             </tr>

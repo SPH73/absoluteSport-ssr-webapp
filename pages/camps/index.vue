@@ -109,7 +109,10 @@ const nextCamps = computed(() => {
           <p>
             You'll find an up-to-date list of the current and upcoming camps we
             are running
-            <NuxtLink to="camps/upcoming" class="font-bold underline"
+            <NuxtLink
+              aria-label="view upcoming camps"
+              to="camps/upcoming"
+              class="font-bold underline"
               >here</NuxtLink
             >.
           </p>
@@ -178,7 +181,7 @@ const nextCamps = computed(() => {
         <template #icon>
           <font-awesome-icon :icon="['fas', 'paintbrush']" />
         </template>
-        <template #heading>Arts & Crafts</template>
+        <template #heading>Arts &amp; Crafts</template>
         <template #details>
           Your children's imaginations will run wild with our creative arts and
           crafts and thrilling science experiments sessions!
@@ -205,144 +208,6 @@ const nextCamps = computed(() => {
           sessions include many fun sports from football to dodgeball!
         </template>
       </BaseBadge>
-    </section>
-    <section class="max-w-7xl mx-auto">
-      <div class="px-8 md:container py-4">
-        <h3 class="font-play capitalize">
-          Why not come and see how much fun we have during the school holidays?
-        </h3>
-        <p>
-          We run Holiday Activity Camps at Sidlesham Primary School and
-          Portfield Academy throughout the year. Places often fill up quickly so
-          please reserve a place for your child as soon as possible
-          <NuxtLink to="camps/booking" class="font-bold underline"
-            >here</NuxtLink
-          >.
-        </p>
-        <p>
-          As a service provider to the West Sussex Council we have a certain
-          amount of places available for pupils receiving HAF benefit. If you
-          would like to book an HAF place please provide your childs HAF ID for
-          the booking to succeed. If you aren't sure what it is you can request
-          it from your child's school. E.g. HAF123456
-        </p>
-        <div v-if="currentCamps.length" class="py-4">
-          <h3 class="font-play capitalize">Current Camps</h3>
-          <p>We have opened bookings now!</p>
-          <div>
-            <button class="btn-primary my-4 w-full md:w-fit">
-              <nuxt-link to="/camps/booking">Book Now</nuxt-link>
-            </button>
-          </div>
-          <table
-            v-for="camp in currentCamps"
-            class="table-auto border-separate border-spacing-2 border border-secondary text-light w-full text-2xl rounded-md mb-4"
-          >
-            <tbody>
-              <tr>
-                <th
-                  class="uppercase p-4 bg-secondary text-left text-accent border border-secondary p-4 w-2/5"
-                >
-                  Camp
-                </th>
-                <td
-                  class="bg-light text-dark border border-secondary p-4 w-3/5"
-                >
-                  {{ camp.campName }}
-                </td>
-              </tr>
-              <tr>
-                <th
-                  class="uppercase p-4 bg-secondary text-left text-accent border border-secondary p-4"
-                >
-                  Date
-                </th>
-                <td class="bg-light text-dark border border-secondary p-4">
-                  {{ camp.campDate }}
-                </td>
-              </tr>
-              <tr>
-                <th
-                  class="uppercase p-4 bg-secondary text-left text-accent border border-secondary p-4 w-2/5"
-                >
-                  Camp Location
-                </th>
-                <td
-                  class="bg-light text-dark border border-secondary p-4 w-3/5"
-                >
-                  {{ camp.locRef }}
-                </td>
-              </tr>
-              <tr>
-                <th
-                  class="uppercase p-4 bg-secondary text-left text-accent border border-secondary p-4"
-                >
-                  Space Available
-                </th>
-                <td class="bg-light text-dark border border-secondary p-4">
-                  {{ camp.spaceAvailable }}
-                </td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-        <div class="py-4">
-          <h3 class="font-play capitalize">Upcoming Camps</h3>
-          <p>
-            As we approach each holdiday we will open up for bookings. You can
-            select the weeks you wish to book while space is available and add
-            them all to a single booking and payment on our booking page.
-          </p>
-        </div>
-        <table
-          v-for="camp in nextCamps"
-          class="table-auto border-separate border-spacing-2 border border-secondary text-light w-full text-2xl rounded-md mb-4"
-        >
-          <tbody>
-            <tr>
-              <th
-                class="uppercase p-4 bg-secondary text-left text-accent border border-secondary p-4 w-2/5"
-              >
-                Camp
-              </th>
-              <td class="bg-light text-dark border border-secondary p-4 w-3/5">
-                {{ camp.campName }}
-              </td>
-            </tr>
-            <tr>
-              <th
-                class="uppercase p-4 bg-secondary text-left text-accent border border-secondary p-4"
-              >
-                Date
-              </th>
-              <td class="bg-light text-dark border border-secondary p-4">
-                {{ camp.campDate }}
-              </td>
-            </tr>
-            <tr>
-              <th
-                class="uppercase p-4 bg-secondary text-left text-accent border border-secondary p-4 w-2/5"
-              >
-                Camp Location
-              </th>
-              <td class="bg-light text-dark border border-secondary p-4 w-3/5">
-                {{ camp.locRef }}
-              </td>
-            </tr>
-
-            <tr>
-              <th
-                class="uppercase p-4 bg-secondary text-left text-accent border border-secondary p-4"
-              >
-                Maximum Capacity
-              </th>
-              <td class="bg-light text-dark border border-secondary p-4">
-                {{ camp.spaceAvailable }}
-              </td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
     </section>
   </div>
 </template>
