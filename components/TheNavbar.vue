@@ -51,15 +51,18 @@ onMounted(() => {
               Home
             </NuxtLink>
           </li>
-          <li class="flex justify-items-center">
-            <NuxtLink
-              to="/clubs"
-              class="hover:font-bold pb-2"
-              aria-label="Navigate to the School clubs page"
-            >
-              School Clubs
-            </NuxtLink>
-            <!-- <div v-if="isOpen">
+          <div class="dropdown">
+            <span>School Clubs</span>
+            <div class="dropdown-content">
+              <li class="flex justify-items-center">
+                <NuxtLink
+                  to="/clubs"
+                  class="hover:font-bold pb-2"
+                  aria-label="Navigate to the School clubs page"
+                >
+                  About Our Clubs
+                </NuxtLink>
+                <!-- <div v-if="isOpen">
               <font-awesome-icon
                 :icon="['fas', 'angle-up']"
                 class="text-secondary h-8 w-8 my-auto"
@@ -71,16 +74,16 @@ onMounted(() => {
                 class="text-secondary h-8 w-8 my-auto"
               />
             </div> -->
-          </li>
-          <li class="flex justify-items-center">
-            <NuxtLink
-              to="/camps"
-              class="hover:font-bold pb-2"
-              aria-label="Navigate to the holiday activity camps page"
-            >
-              Activity Camps
-            </NuxtLink>
-            <!-- <div v-if="isOpen">
+              </li>
+              <li class="flex justify-items-center">
+                <NuxtLink
+                  to="/clubs/upcoming"
+                  class="hover:font-bold pb-2"
+                  aria-label="Navigate to the School clubs page"
+                >
+                  Our Upcoming Clubs
+                </NuxtLink>
+                <!-- <div v-if="isOpen">
               <font-awesome-icon
                 :icon="['fas', 'angle-up']"
                 class="text-secondary h-8 w-8 my-auto"
@@ -92,16 +95,16 @@ onMounted(() => {
                 class="text-secondary h-8 w-8 my-auto"
               />
             </div> -->
-          </li>
-          <li class="flex justify-items-center">
-            <NuxtLink
-              to="/parties"
-              class="hover:font-bold pb-2"
-              aria-label="Navigate to the themed parties for kids page"
-            >
-              Kids Parties
-            </NuxtLink>
-            <!-- <div v-if="isOpen">
+              </li>
+              <li class="flex justify-items-center">
+                <NuxtLink
+                  to="/clubs/booking"
+                  class="hover:font-bold pb-2"
+                  aria-label="Navigate to the School clubs page"
+                >
+                  Book Our Clubs
+                </NuxtLink>
+                <!-- <div v-if="isOpen">
               <font-awesome-icon
                 :icon="['fas', 'angle-up']"
                 class="text-secondary h-8 w-8 my-auto"
@@ -113,7 +116,124 @@ onMounted(() => {
                 class="text-secondary h-8 w-8 my-auto"
               />
             </div> -->
-          </li>
+              </li>
+            </div>
+          </div>
+          <div class="dropdown">
+            <span>Activity Camps</span>
+            <div class="dropdown-content">
+              <li class="flex justify-items-center">
+                <NuxtLink
+                  to="/camps"
+                  class="hover:font-bold pb-2"
+                  aria-label="Navigate to the holiday activity camps page"
+                >
+                  About Our Camps
+                </NuxtLink>
+                <!-- <div v-if="isOpen">
+              <font-awesome-icon
+                :icon="['fas', 'angle-up']"
+                class="text-secondary h-8 w-8 my-auto"
+              />
+            </div>
+            <div v-else>
+              <font-awesome-icon
+                :icon="['fas', 'angle-down']"
+                class="text-secondary h-8 w-8 my-auto"
+              />
+            </div> -->
+              </li>
+              <li class="flex justify-items-center">
+                <NuxtLink
+                  to="/camps/upcoming"
+                  class="hover:font-bold pb-2"
+                  aria-label="Navigate to the holiday activity camps page"
+                >
+                  Our Upcoming Camps
+                </NuxtLink>
+                <!-- <div v-if="isOpen">
+              <font-awesome-icon
+                :icon="['fas', 'angle-up']"
+                class="text-secondary h-8 w-8 my-auto"
+              />
+            </div>
+            <div v-else>
+              <font-awesome-icon
+                :icon="['fas', 'angle-down']"
+                class="text-secondary h-8 w-8 my-auto"
+              />
+            </div> -->
+              </li>
+              <li class="flex justify-items-center">
+                <NuxtLink
+                  to="/camps/booking"
+                  class="hover:font-bold pb-2"
+                  aria-label="Navigate to the holiday activity camps page"
+                >
+                  Book our Camps
+                </NuxtLink>
+                <!-- <div v-if="isOpen">
+              <font-awesome-icon
+                :icon="['fas', 'angle-up']"
+                class="text-secondary h-8 w-8 my-auto"
+              />
+            </div>
+            <div v-else>
+              <font-awesome-icon
+                :icon="['fas', 'angle-down']"
+                class="text-secondary h-8 w-8 my-auto"
+              />
+            </div> -->
+              </li>
+            </div>
+          </div>
+          <div class="dropdown">
+            <span>Kids parties</span>
+            <div class="dropdown-content">
+              <li class="flex justify-items-center">
+                <NuxtLink
+                  to="/parties"
+                  class="hover:font-bold pb-2"
+                  aria-label="Navigate to the themed parties for kids page"
+                >
+                  About our Parties
+                </NuxtLink>
+                <!-- <div v-if="isOpen">
+              <font-awesome-icon
+                :icon="['fas', 'angle-up']"
+                class="text-secondary h-8 w-8 my-auto"
+              />
+            </div>
+            <div v-else>
+              <font-awesome-icon
+                :icon="['fas', 'angle-down']"
+                class="text-secondary h-8 w-8 my-auto"
+              />
+            </div> -->
+              </li>
+              <li class="flex justify-items-center">
+                <NuxtLink
+                  to="/parties/quote"
+                  class="hover:font-bold pb-2"
+                  aria-label="Navigate to the themed parties for kids page"
+                >
+                  Get A Quote
+                </NuxtLink>
+                <!-- <div v-if="isOpen">
+              <font-awesome-icon
+                :icon="['fas', 'angle-up']"
+                class="text-secondary h-8 w-8 my-auto"
+              />
+            </div>
+            <div v-else>
+              <font-awesome-icon
+                :icon="['fas', 'angle-down']"
+                class="text-secondary h-8 w-8 my-auto"
+              />
+            </div> -->
+              </li>
+            </div>
+          </div>
           <li class="flex justify-items-center">
             <NuxtLink
               to="/football"
@@ -166,10 +286,10 @@ onMounted(() => {
             class="absolute top-0 right-0 mt-4 mr-4"
             @click="isOpen = false"
           >
-            <!-- <font-awesome-icon
+            <font-awesome-icon
               :icon="['fas', 'xmark']"
               class="text-secondary h-12 w12"
-            /> -->
+            />
           </button>
         </div>
         <span @click="isOpen = false" class="flex w-full items-center p-4">
@@ -189,6 +309,7 @@ onMounted(() => {
               Home</NuxtLink
             >
           </li>
+
           <li class="flex items-center">
             <NuxtLink
               to="/clubs"
@@ -196,12 +317,28 @@ onMounted(() => {
               class="my-4 inline-block"
               aria-label="Navigate to the School Clubs page"
             >
-              School Clubs</NuxtLink
+              Our School Clubs</NuxtLink
             >
-            <!-- <font-awesome-icon
-              :icon="['fas', 'angle-down']"
-              class="text-secondary h-8 w-8 ml-auto"
-            /> -->
+          </li>
+          <li class="flex items-center">
+            <NuxtLink
+              to="/clubs"
+              @click="isOpen = false"
+              class="my-4 inline-block"
+              aria-label="Navigate to the School Clubs page"
+            >
+              View upcoming Clubs</NuxtLink
+            >
+          </li>
+          <li class="flex items-center">
+            <NuxtLink
+              to="/clubs/booking"
+              @click="isOpen = false"
+              class="my-4 inline-block"
+              aria-label="Navigate to the School Clubs page"
+            >
+              Book upcoming Clubs</NuxtLink
+            >
           </li>
           <li class="flex items-center">
             <NuxtLink
@@ -212,10 +349,16 @@ onMounted(() => {
             >
               Activity Camps</NuxtLink
             >
-            <!-- <font-awesome-icon
-              :icon="['fas', 'angle-down']"
-              class="text-secondary h-8 w-8 ml-auto"
-            /> -->
+          </li>
+          <li class="flex items-center">
+            <NuxtLink
+              to="/camps/upcoming"
+              @click="isOpen = false"
+              class="my-4 inline-block"
+              aria-label="Navigate to the holiday activity camps page"
+            >
+              View current &amp; upcoming Camps</NuxtLink
+            >
           </li>
           <li class="flex items-center">
             <NuxtLink
@@ -226,10 +369,16 @@ onMounted(() => {
             >
               Kids Parties</NuxtLink
             >
-            <!-- <font-awesome-icon
-              :icon="['fas', 'angle-down']"
-              class="text-secondary h-8 w-8 ml-auto"
-            /> -->
+          </li>
+          <li class="flex items-center">
+            <NuxtLink
+              to="/parties/quote"
+              @click="isOpen = false"
+              class="my-4 inline-block"
+              aria-label="Navigate to the themed parties for kids page"
+            >
+              Get a party quote</NuxtLink
+            >
           </li>
           <li class="flex items-center">
             <NuxtLink
@@ -290,5 +439,23 @@ onMounted(() => {
 .router-link-active,
 .router-link-exact-active {
   border-bottom: solid 0.3rem rgb(248 132 37);
+}
+.dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: rgb(246 236 73);
+  min-width: 295px;
+  box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+  padding: 12px 16px;
+  z-index: 1;
+}
+
+.dropdown:hover .dropdown-content {
+  display: block;
 }
 </style>

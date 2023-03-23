@@ -29,7 +29,6 @@ const { error: assetError, data: assets } = await useFetch(
   "/api/carouselImages",
 );
 
-const { error: listError, data: list } = await useFetch("/api/clubs/sportList");
 const { error: commentError, data: comments } = await useFetch(
   "/api/clubs/schoolTestimonials",
 );
@@ -52,22 +51,6 @@ assets.value.forEach((asset, index) => {
       clubImages.value.push(img);
     });
   }
-});
-
-const sportList = ref([]);
-let activity = {};
-list.value.forEach((record, index) => {
-  activity = {
-    index: index + 1,
-    id: record.id,
-    sportName: record.fields.sportName,
-    intro: record.fields.intro,
-    yearRange: record.fields.yearRange,
-    schoolList: record.fields.schoolList,
-    sessions: record.fields.sessions,
-    startDate: record.fields.startDate,
-  };
-  sportList.value.push(activity);
 });
 
 const commentList = ref([]);
@@ -263,7 +246,7 @@ comments.value.forEach((record, index) => {
         </div>
         <div class="px-8 md:container py-4">
           <h3 class="font-play capitalize">
-            How we aim to improve sporting performance in chldren attending our
+            How we aim to improve sporting performance in children attending our
             clubs
           </h3>
           <p>
@@ -288,93 +271,6 @@ comments.value.forEach((record, index) => {
             >.
           </p>
         </div>
-      </div>
-    </section>
-    <section class="max-w-7xl mx-auto">
-      <div class="px-8 md:container py-4">
-        <h3 class="font-play capitalize">Upcoming Clubs</h3>
-        <p>
-          We coach a variety of sports and activities at our clubs and
-          wraparound care at Sidlesham Primary School, West Wittering Primary
-          School and Portfield Academy. These are updated regularly to keep our
-          clubs current and interesting.
-        </p>
-        <button class="btn-primary my-4 w-full md:w-fit">
-          <NuxtLink to="clubs/booking">book now</NuxtLink>
-        </button>
-        <table
-          v-for="activity in sportList"
-          class="table-fixed border-separate border-spacing-2 border border-secondary text-light w-full text-2xl rounded-md mb-4 whitespace-pre-wrap"
-        >
-          <tbody>
-            <tr>
-              <th
-                class="uppercase bg-secondary text-left text-accent border border-secondary p-4 w-2/5"
-              >
-                Activity
-              </th>
-              <td class="bg-light text-dark border border-secondary p-4 w-3/5">
-                {{ activity.sportName }}
-              </td>
-            </tr>
-            <tr class="">
-              <th
-                class="uppercase bg-secondary text-left text-accent border border-secondary p-4 w-2/5"
-              >
-                What you can expect
-              </th>
-              <td
-                class="bg-light text-dark border border-secondary p-4 w-3/5 break-words"
-              >
-                <span v-for="item in activity.intro">{{ item }} &nbsp;</span>
-              </td>
-            </tr>
-            <tr>
-              <th
-                class="uppercase bg-secondary text-left text-accent border border-secondary p-4 w-2/5"
-              >
-                Schools
-              </th>
-              <td class="bg-light text-dark border border-secondary p-4 w-3/5">
-                <span v-for="item in activity.schoolList"
-                  >{{ item }} &nbsp;</span
-                >
-              </td>
-            </tr>
-            <tr>
-              <th
-                class="uppercase bg-secondary text-left text-accent border border-secondary p-4 w-2/5"
-              >
-                Year groups
-              </th>
-              <td class="bg-light text-dark border border-secondary p-4 w-3/5">
-                <span v-for="item in activity.yearRange"
-                  >{{ item }} &nbsp;</span
-                >
-              </td>
-            </tr>
-            <tr>
-              <th
-                class="uppercase bg-secondary text-left text-accent border border-secondary p-4 w-2/5"
-              >
-                Sessions per booking
-              </th>
-              <td class="bg-light text-dark border border-secondary p-4 w-3/5">
-                {{ activity.sessions }}
-              </td>
-            </tr>
-            <tr>
-              <th
-                class="uppercase bg-secondary text-left text-accent border border-secondary p-4 w-2/5"
-              >
-                Start Date
-              </th>
-              <td class="bg-light text-dark border border-secondary p-4 w-3/5">
-                {{ activity.startDate }}
-              </td>
-            </tr>
-          </tbody>
-        </table>
       </div>
     </section>
   </div>

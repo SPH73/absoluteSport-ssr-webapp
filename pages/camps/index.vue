@@ -7,7 +7,7 @@ useHead({
     {
       name: "description",
       content:
-        "Get your kids active with our fun and engaging, themed Activity Camps to children aged 5-14 that will keep your kids laughing this school holiday!",
+        "Get your kids active with our fun and engaging, themed Activity Camps for children aged 5-14 years that will keep your kids laughing this school holiday!",
     },
     {
       property: "og:description",
@@ -108,7 +108,10 @@ const nextCamps = computed(() => {
           </p>
           <p>
             You'll find an up-to-date list of the current and upcoming camps we
-            are running below.
+            are running
+            <NuxtLink to="camps/upcoming" class="font-bold underline"
+              >here</NuxtLink
+            >.
           </p>
         </div>
         <!-- images -->
