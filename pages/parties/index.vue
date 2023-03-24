@@ -43,7 +43,7 @@ content.value.forEach((record, index) => {
         {
           id: record.fields.thumbnail[0].id,
           filename: record.fields.thumbnail[0].filename,
-          thumbnail: record.fields.thumbnail[0].thumbnails.large.url,
+          thumbnail: record.fields.thumbnail[0].url,
         },
       ],
     };

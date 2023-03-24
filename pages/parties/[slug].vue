@@ -15,11 +15,11 @@ parties.value.forEach(record => {
     let images = [];
     imagesCarousel.forEach(image => {
       img = {
-        url: image.thumbnails.large.url,
+        url: image.url,
         id: image.id,
         filename: image.filename,
-        width: image.thumbnails.large.width,
-        height: image.thumbnails.large.height,
+        width: image.width,
+        height: image.height,
       };
       images.push(img);
     });
