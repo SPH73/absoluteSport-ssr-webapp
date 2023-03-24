@@ -71,6 +71,7 @@ const formIsValid = ref(true);
 const clubDetails = ref([]);
 const bookingSummary = ref([]);
 const paymentSummary = ref({});
+const years = ["R", "1", "2", "3", "4", "5", "6"];
 
 // calculate cost of all clubs
 const calculateCost = computed(() => {
@@ -104,15 +105,15 @@ watch(calculateCost, () => {
 
 // build checkbox list from year & school selection
 const filteredSchoolClubs = computed(() => {
-  let yearGroup = enteredYearGroup.value.val.toString();
+  let group = enteredYearGroup.value.val;
   let schoolRef = selectedSchool.value.val;
   filteredClubs.value = clubOptions.value.filter(el => {
-    return el.yearRange.includes(yearGroup) && el.schoolName === schoolRef;
+    return el.yearRange.includes(group) && el.schoolName === schoolRef;
   });
 });
 
 watchEffect(() => {
-  enteredYearGroup.value.val.toString();
+  enteredYearGroup.value.val;
   selectedSchool.value.val;
   filteredSchoolClubs.value;
   filteredClubs.value;
@@ -423,9 +424,8 @@ async function handleSubmitClubBooking() {
           <div :class="{ invalid: !enteredYearGroup.isValid }">
             <select v-model="enteredYearGroup.val" class="w-full p-2 rounded">
               <option disabled value="select">Select year...</option>
-              <option v-for="(n, i) in 6" :key="i" :value="n">
-                {{ n }}
-              </option>
+
+              <option v-for="year in years">{{ year }}</option>
             </select>
           </div>
           <div v-if="schoolError">
@@ -568,7 +568,7 @@ async function handleSubmitClubBooking() {
             </svg>
           </div>
         </div>
-        <p v-if="!formIsValid" class="text-xl">
+        <p v-if="!formIsValid" class="text-2xl text-light">
           One or more fields are invalid and/or at least one club selection is
           required. Please correct the errors and submit again.
         </p>
