@@ -40,18 +40,18 @@ useHead({
       rel: "canonical",
       href: "https://www.absolutesport.org/",
     },
-    {
-      rel: "preload",
-      href: `https://res.cloudinary.com/asimages/image/upload/v1679601944/webapp/hero_portrait_1920.webp`,
-      as: "image",
-      media: "(max-width: 1279px)",
-    },
-    {
-      rel: "preload",
-      href: `https://res.cloudinary.com/asimages/image/upload/v1679601944/webapp/hero_landscape_1920.webp`,
-      as: "image",
-      media: "(min-width: 1280px)",
-    },
+    // {
+    //   rel: "preload",
+    //   href: `https://res.cloudinary.com/asimages/image/upload/v1679601944/webapp/hero_portrait_1920.webp`,
+    //   as: "image",
+    //   media: "(max-width: 1279px)",
+    // },
+    // {
+    //   rel: "preload",
+    //   href: `https://res.cloudinary.com/asimages/image/upload/v1679601944/webapp/hero_landscape_1920.webp`,
+    //   as: "image",
+    //   media: "(min-width: 1280px)",
+    // },
   ],
 });
 const { error, pending, data: reviews } = await useFetch("/api/reviews");
