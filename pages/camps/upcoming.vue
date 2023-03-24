@@ -1,6 +1,4 @@
 <script setup>
-const year = new Date().getFullYear();
-const route = useRoute();
 useHead({
   title: `Upcoming AbsoluteSport Holiday Activity Camps`,
   meta: [
