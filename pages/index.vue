@@ -40,6 +40,18 @@ useHead({
       rel: "canonical",
       href: "https://www.absolutesport.org/",
     },
+    {
+      rel: "preload",
+      href: `https://res.cloudinary.com/asimages/image/upload/v1679601944/webapp/hero_portrait_1920.webp`,
+      as: "image",
+      media: "(max-width: 1279px)",
+    },
+    {
+      rel: "preload",
+      href: `https://res.cloudinary.com/asimages/image/upload/v1679601944/webapp/hero_landscape_1920.webp`,
+      as: "image",
+      media: "(min-width: 1280px)",
+    },
   ],
 });
 const { error, pending, data: reviews } = await useFetch("/api/reviews");
@@ -63,8 +75,21 @@ reviews.value.forEach((record, index) => {
 
 <template>
   <div>
+    <NuxtImg
+      provider="cloudinary"
+      src="/webapp/hero_landscape_1920.webp"
+      preload
+      class="hidden"
+    />
+    <NuxtImg
+      provider="cloudinary"
+      src="/webapp/hero_portrait_1920.webp"
+      preload
+      class="hidden"
+    />
     <section
-      class="flex flex-col bg-blend-overlay lg:bg-fixed bg-neutral-600 bg-[url('/assets/images/hero_portrait_1920.webp')] md:bg-[url('/assets/images/hero_landscape_1920.webp')] bg-center bg-no-repeat bg-cover w-full h-[calc(92vh-91px)] min-h-[667px] md:h-[70vh] pt-10 pb-4 relative"
+      id="hero"
+      class="flex flex-col bg-blend-overlay lg:bg-fixed bg-neutral-600 bg-[url('https://res.cloudinary.com/asimages/image/upload/w_768/webapp/hero_portrait_1920.webp')] md:bg-[url('https://res.cloudinary.com/asimages/image/upload/w_1920/webapp/hero_landscape_1920.webp')] bg-center bg-no-repeat bg-cover w-full h-[calc(92vh-91px)] min-h-[667px] md:h-[70vh] pt-10 pb-4 relative"
     >
       <div class="max-w-7xl mx-auto">
         <div class="container font-play py-4 text-center md:text-left">
@@ -264,7 +289,7 @@ reviews.value.forEach((record, index) => {
     <!-- About -->
     <section
       id="about"
-      class="bg-blend-overlay lg:bg-fixed bg-neutral-700 bg-[url('/assets/images/home_about_portrait_1920.webp')] md:bg-[url('/assets/images/home_about_landscape_1920.webp')] h-[100vh] min-h-[667px] md:h-[70vh] bg-center bg-no-repeat bg-cover w-full py-8"
+      class="bg-blend-overlay lg:bg-fixed bg-neutral-700 bg-[url('https://res.cloudinary.com/asimages/image/upload/v1679601944/webapp/home_about_portrait_1920.webp')] md:bg-[url('https://res.cloudinary.com/asimages/image/upload/v1679601944/webapp/home_about_landscape_1920.webp')] h-[100vh] min-h-[667px] md:h-[70vh] bg-center bg-no-repeat bg-cover w-full py-8"
     >
       <div class="max-w-7xl mx-auto font-bold">
         <div class="md:flex">

@@ -20,7 +20,13 @@ onMounted(() => {
   <nav class="w-full bg-accent p-3 print:hidden" role="navigation">
     <div class="flex items-center justify-between">
       <!-- Header Logo -->
-      <img src="/img/logo.webp" alt="Logo" class="w-64" />
+      <NuxtImg
+        provider="cloudinary"
+        src="/webapp/logo.webp"
+        alt="Logo"
+        width="256"
+        class="w-64"
+      />
       <!-- Mobile Menu Button -->
       <div class="lg:hidden">
         <button
@@ -212,7 +218,13 @@ onMounted(() => {
           </button>
         </div>
         <span @click="isOpen = false" class="flex w-full items-center p-4">
-          <div><img src="/img/logo.webp" alt="Logo" class="w-48" /></div>
+          <NuxtImg
+            provider="cloudinary"
+            src="/webapp/logo.webp"
+            alt="Logo"
+            class="w-48"
+            width="224"
+          />
         </span>
         <ul
           id="menu"

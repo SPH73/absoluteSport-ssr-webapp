@@ -4,11 +4,14 @@ export default defineNuxtConfig({
   alias: {
     "@": resolve(__dirname, "/"),
   },
+  routeRules: {
+    "/api/**": { cors: true },
+  },
   app: {
     pageTransition: { name: "page", mode: "out-in" },
     head: {
       htmlAttrs: {
-        lang: "en",
+        lang: "en-GB",
       },
     },
   },
@@ -21,7 +24,25 @@ export default defineNuxtConfig({
       "@fortawesome/vue-fontawesome",
     ],
   },
-  modules: ["@nuxtjs/tailwindcss", "@vueuse/nuxt", "nuxt-swiper"],
+  modules: [
+    "@nuxtjs/tailwindcss",
+    "@vueuse/nuxt",
+    "nuxt-swiper",
+    "@nuxt/image-edge",
+    // "nuxt-security",
+  ],
+  image: {
+    cloudinary: {
+      baseURL: `https://res.cloudinary.com/${process.env.CLOUD_NAME}/image/upload/`,
+    },
+  },
+  // security: {
+  //   headers: {
+  //     contentSecurityPolicy: {
+  //       "img-src": ["'self'", "https://v5.airtableusercontent.com/"],
+  //     },
+  //   },
+  // },
   tailwindcss: {
     cssPath: "~/assets/css/tailwind.css",
     configPath: "tailwind.config",

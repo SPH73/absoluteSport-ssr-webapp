@@ -9,7 +9,13 @@ const year = new Date().getFullYear();
     >
       <div class="mt-4 flex flex-col">
         <NuxtLink to="/" class=""
-          ><img src="/img/logo.webp" alt="Logo" class="w-64" />
+          ><NuxtImg
+            provider="cloudinary"
+            src="/webapp/logo.webp"
+            alt="Logo"
+            width="256px"
+            class="w-64"
+          />
         </NuxtLink>
         <ul class="list-none">
           <li>ABSOLUTESPORT.AS LTD</li>
