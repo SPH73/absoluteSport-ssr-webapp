@@ -206,8 +206,8 @@ async function confirmBooking() {
   });
 
   payId.value = resPay.id;
-  console.log("resPay*****", resPay.id);
-  console.log("payId*****", payId.value);
+  // console.log("resPay*****", resPay.id);
+  // console.log("payId*****", payId.value);
 
   const summary = ref([]);
   for (let campItem of campBooking.value) {
@@ -216,11 +216,11 @@ async function confirmBooking() {
       body: campItem,
     });
     bookId.value = resBook.id;
-    console.log("resBook*****", resBook.fields);
-    console.log("bookId*****", bookId.value);
+    // console.log("resBook*****", resBook.fields);
+    // console.log("bookId*****", bookId.value);
     summary.value.push(resBook.fields);
   }
-  console.log("booking summary*****", summary.value);
+  // console.log("booking summary*****", summary.value);
 
   if (payId && bookId) {
     success.value = true;

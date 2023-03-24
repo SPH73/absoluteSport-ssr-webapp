@@ -27,11 +27,14 @@ const paymentRef = ref(route.query.paymentRef);
         Thank you for reserving your child a place in our AbsoluteSport school
         clubs.
       </p>
-      <p class="tracking-wide">Payment is by bank transfer to:</p>
-      <p class="tracking-wide">Account Name: ABSOLUTESPORT</p>
-      <p class="tracking-wide">Account Number: 36771585</p>
-      <p class="tracking-wide">Sort Code: 09-01-29</p>
-      <p class="tracking-wide">Beneficiary Reference: {{ data.paymentRef }}</p>
+      <p>Payment is by bank transfer to:</p>
+      <p>Account Name: ABSOLUTESPORT</p>
+      <p>Account Number: 36771585</p>
+      <p>Sort Code: 09-01-29</p>
+      <p>
+        Beneficiary Reference:
+        <span class="font-play">{{ data.paymentRef }}</span>
+      </p>
       <div class="pb-4">
         <h3 class="font-play capitalize">Club Booking Summary</h3>
         <p>

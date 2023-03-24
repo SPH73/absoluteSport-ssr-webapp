@@ -18,23 +18,25 @@ const route = useRoute();
 const data = ref(route.query);
 const paymentRef = ref(route.query.paymentRef);
 const date = ref(route.query.bookingDate);
-console.log("success****", data.value);
+// console.log("success****", data.value);
 </script>
 
 <template>
   <div class="max-w-7xl mx-auto print:bg-light print:text-dark">
     <div class="container py-8">
       <h2 class="font-play">Success!</h2>
-      <p class="tracking-wide">
+      <p>
         Thank you, we have received your booking. If applicable, please use the
         payment reference provided when making payment to ensure it is correctly
         allocated to your booking.
       </p>
-      <p class="tracking-wide">Payment is by bank transfer to:</p>
-      <p class="tracking-wide">Account Name: ABSOLUTESPORT</p>
-      <p class="tracking-wide">Account Number: 36771585</p>
-      <p class="tracking-wide">Sort Code: 09-01-29</p>
-      <p class="tracking-wide">Beneficiary Reference: {{ paymentRef }}</p>
+      <p>Payment is by bank transfer to:</p>
+      <p>Account Name: ABSOLUTESPORT</p>
+      <p>Account Number: 36771585</p>
+      <p>Sort Code: 09-01-29</p>
+      <p>
+        Beneficiary Reference: <span class="font-play">{{ paymentRef }}</span>
+      </p>
       <div class="pb-4">
         <h3 class="font-play capitalize">Booking Summary</h3>
         <p>

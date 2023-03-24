@@ -113,11 +113,14 @@ const amountDue = computed(() => {
       </table>
     </div>
     <div v-if="amountDue > 0">
-      <p class="tracking-wide">Payment is by bank transfer to:</p>
-      <p class="tracking-wide">Account Name: ABSOLUTESPORT</p>
-      <p class="tracking-wide">Account Number: 36771585</p>
-      <p class="tracking-wide">Sort Code: 09-01-29</p>
-      <p class="tracking-wide">Beneficiary Reference: {{ props.paymentRef }}</p>
+      <p class="text-light">Payment is by bank transfer to:</p>
+      <p class="text-light">Account Name: ABSOLUTESPORT</p>
+      <p class="text-light">Account Number: 36771585</p>
+      <p class="text-light">Sort Code: 09-01-29</p>
+      <p class="text-light">
+        Beneficiary Reference:
+        <span class="font-play">{{ props.paymentRef }}</span>
+      </p>
     </div>
     <div v-if="props.campBooking.length">
       <h3>Camp Bookings</h3>
@@ -208,8 +211,8 @@ const amountDue = computed(() => {
           <p class="text-light"><strong class="text-accent">Step 4</strong></p>
           <p class="text-light">
             Continue repeating
-            <span class="text-accent">Steps 2 & 3 </span> for this child and any siblings
-            for each camp week you wish to book.
+            <span class="text-accent">Steps 2 &amp; 3 </span> for this child and any
+            siblings for each camp week you wish to book.
           </p>
         </li>
       </ul>
