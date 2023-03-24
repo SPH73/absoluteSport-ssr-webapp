@@ -61,7 +61,7 @@ const year = new Date().getFullYear();
           rel="nopener"
           >Instagram
         </NuxtLink>
-        <NuxtLink to="/#about" :external="false" class="py-2"
+        <NuxtLink to="/#about" :external="false" class="py-2 text-2xl"
           >About Us</NuxtLink
         >
       </div>

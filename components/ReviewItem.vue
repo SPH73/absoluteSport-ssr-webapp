@@ -16,11 +16,11 @@ const snippet = computed(() => {
         :icon="['fas', 'star']"
       />
     </div>
-    <p class="text-lg md:text-xl lg:text-2xl text-light max-w-prose font-bold">
+    <p class="text-2xl text-light tracking-widest max-w-prose font-bold">
       {{ review.comment.length < 315 ? review.comment : snippet }}
     </p>
 
-    <h3 class="text-[0.8em] tracking-widest text-accent">
+    <h3 class="text-[0.9em] tracking-widest text-accent">
       -&nbsp;{{ review.name }}&nbsp;-
     </h3>
   </div>
