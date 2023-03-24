@@ -32,19 +32,23 @@ const year = new Date().getFullYear();
       </div>
       <div id="connect-area" class="flex flex-col pt-2">
         <h5 class="mt-2 mb-4 text-accent">CONNECT WITH US</h5>
-        <NuxtLink to="tel:07540309658" class="py-2">Phone</NuxtLink>
-        <NuxtLink to="sms:07540309658" class="py-2"> Text Message</NuxtLink>
-        <NuxtLink :to="{ name: 'contact' }" class="py-2">Message Form</NuxtLink>
+        <NuxtLink to="tel:07540309658" class="py-2 text-2xl">Phone</NuxtLink>
+        <NuxtLink to="sms:07540309658" class="py-2 text-2xl">
+          Text Message</NuxtLink
+        >
+        <NuxtLink :to="{ name: 'contact' }" class="py-2 text-2xl"
+          >Message Form</NuxtLink
+        >
         <NuxtLink
           to="https://www.facebook.com/AbsoluteSport.AS"
-          class="py-2"
+          class="py-2 text-2xl"
           target="_blank"
           rel="noopener"
           >FaceBook
         </NuxtLink>
         <NuxtLink
           to="https://www.linkedin.com/in/ben-blakeley-b2600522b/"
-          class="py-2"
+          class="py-2 text-2xl"
           target="_blank"
           rel="noopener"
         >
@@ -52,7 +56,7 @@ const year = new Date().getFullYear();
         >
         <NuxtLink
           to="https://www.instagram.com/absolutesport2211/"
-          class="py-2"
+          class="py-2 text-2xl"
           target="_blank"
           rel="nopener"
           >Instagram
@@ -67,42 +71,45 @@ const year = new Date().getFullYear();
 
         <NuxtLink
           :to="{ name: 'clubs' }"
-          class="py-2"
+          class="py-2 text-2xl"
           aria-label="navigate to school clubs page"
           >School Clubs</NuxtLink
         >
         <NuxtLink
           :to="{ name: 'clubs-booking' }"
-          class="py-2"
+          class="py-2 text-2xl"
           aria-label="navigate to clubs booking form"
           >Book School Clubs</NuxtLink
         >
         <NuxtLink
           :to="{ name: 'parties' }"
-          class="py-2"
+          class="py-2 text-2xl"
           aria-label="navigate to themed kids parties page"
           >Kids Parties</NuxtLink
         >
         <NuxtLink
           :to="{ name: 'parties-quote' }"
-          class="py-2"
+          class="py-2 text-2xl"
           aria-label="navigate to party quote form"
           >Request A Party Quote</NuxtLink
         >
         <NuxtLink
           :to="{ name: 'camps' }"
-          class="py-2"
+          class="py-2 text-2xl"
           aria-label="navigate to holiday activty camps page"
           >Holiday Activity Camps</NuxtLink
         >
         <NuxtLink
           :to="{ name: 'camps-booking' }"
-          class="py-2"
+          class="py-2 text-2xl"
           aria-label="navigate to camp booking form"
           >Book Upcoming Camps</NuxtLink
         >
 
-        <NuxtLink to="/faqs" class="py-2" aria-label="navigate to faq's page"
+        <NuxtLink
+          to="/faqs"
+          class="py-2 text-2xl"
+          aria-label="navigate to faq's page"
           >FAQ's</NuxtLink
         >
       </div>
@@ -113,25 +120,25 @@ const year = new Date().getFullYear();
           to="https://docs.google.com/document/d/12DXvOXiAUBYBcFtsjq6ei398QyFPxPdn/edit?usp=sharing&ouid=105789957608846293341&rtpof=true&sd=true"
           target="_blank"
           rel="noopener"
-          class="py-2"
+          class="py-2 text-2xl"
           aria-label="go to our privacy policy"
           >Privacy Policy</NuxtLink
         >
         <NuxtLink
           to="https://drive.google.com/file/d/1QTrpRtfwlY5G-23Oj6donEVr_-3Dnno8/view?usp=share_link"
-          class="py-2"
+          class="py-2 text-2xl"
           aria-label="go to our disclaimer policy"
           >Disclaimer</NuxtLink
         >
         <NuxtLink
           to="https://drive.google.com/file/d/1PuZYI5EWZAS5eQCnE8PcAyAYEK-XZC0x/view?usp=share_link"
-          class="py-2"
+          class="py-2 text-2xl"
           aria-label="go to our term's &amp; conditions"
           >T's &amp; C's</NuxtLink
         >
         <NuxtLink
           :to="{ name: 'legal-policies' }"
-          class="py-2"
+          class="py-2 text-2xl"
           aria-label="navigate to our list of policies &amp; procedures"
           >Policies &amp; Procedures</NuxtLink
         >
@@ -187,7 +194,7 @@ const year = new Date().getFullYear();
           /></NuxtLink>
         </div>
       </div>
-      <div id="recog-area" class="text-center my-8">
+      <div id="recog-area" class="text-center my-8 text-2xl">
         <NuxtLink
           to="https://designdevelophost.co.uk"
           target="_blank"
