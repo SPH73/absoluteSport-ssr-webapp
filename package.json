@@ -27,6 +27,7 @@
     "@fortawesome/vue-fontawesome": "^3.0.2",
     "@mailchimp/mailchimp_marketing": "^3.0.80",
     "airtable": "^0.11.6",
+    "gocardless-nodejs": "^3.11.0",
     "md5": "^2.3.0",
     "nuxt-security": "^0.13.0",
     "nuxt-swiper": "^1.0.1"

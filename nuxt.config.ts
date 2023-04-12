@@ -53,6 +53,7 @@ export default defineNuxtConfig({
     private: {
       atApiKey: process.env.AT_API_KEY,
       mcApiKey: process.env.MC_API_KEY,
+      gcAccessToken: process.env.GC_ACCESS_TOKEN,
     },
     public: {
       atBaseId: process.env.AT_BASE_ID,

@@ -19,6 +19,45 @@ const data = ref(route.query);
 const paymentRef = ref(route.query.paymentRef);
 const date = ref(route.query.bookingDate);
 // console.log("success****", data.value);
+
+const amount = Number(data.value.amountDue) * 100;
+const paymentRequest = ref(false);
+const paymentCreated = ref(false);
+let paymentURL: string | undefined;
+const payNow = async () => {
+  const details = {
+    paymentRef: paymentRef.value,
+    amount: amount,
+    description: `AbsoluteSport Holiday Camps : bookings payment: ${paymentRef.value}`,
+  };
+  console.log("pay now details", details);
+  const createdBillingRequest = await $fetch("/api/gocardless/billing-request", {
+    method: "post",
+    body: details,
+  });
+  console.log("billing request res*****", createdBillingRequest);
+  if (createdBillingRequest) {
+    paymentRequest.value = true;
+    const paymentDetails = {
+      id: createdBillingRequest,
+      paymentRef: paymentRef.value,
+      amount: data.value.amountDue,
+    };
+    console.log("paymentDetails", paymentDetails);
+    const createdBillingRequestFlow = await $fetch(
+      "/api/gocardless/billing-request-flow",
+      {
+        method: "post",
+        body: paymentDetails,
+      }
+    );
+    console.log("billing request flow payment url", createdBillingRequestFlow);
+    if (createdBillingRequestFlow) {
+      paymentCreated.value = true;
+      paymentURL = createdBillingRequestFlow.authorisation_url;
+    }
+  }
+};
 </script>
 
 <template>
@@ -26,26 +65,72 @@ const date = ref(route.query.bookingDate);
     <div class="container py-8">
       <h2 class="font-play">Success!</h2>
       <p>
-        Thank you, we have received your booking. If applicable, please use the
-        payment reference provided when making payment to ensure it is correctly
-        allocated to your booking.
+        Thank you, for reserving your child/ren a place in an upcoming AbsoluteSport
+        Holiday Activity camp.
       </p>
-      <p>Payment is by bank transfer to:</p>
+      <h3>Payment options:</h3>
+      <p>1: Instant Secure Payment</p>
+      <p>
+        Using the Instant Payment method confirms your reservation immediately and is the
+        recommended payment method.
+      </p>
+      <p>
+        Click the <span class="font-play"> Request Pay Now </span> button to create a
+        billing request.
+      </p>
+      <p>
+        Once the billing request has been created the button will change to
+        <span class="font-play"> Pay Now</span>.
+      </p>
+      <p>
+        Click <span class="font-play"> Pay Now </span> to be securely redirected to our
+        payment processor <span class="font-play"> GoCardless</span>. Your bank will ask
+        you to authorise the payment.
+      </p>
+      <p>
+        When your payment has been taken, you will receive a confirmation email for your
+        records from <span class="font-play"> GoCardless</span>.
+      </p>
+      <!-- instnt payment buttons -->
+      <button
+        v-if="paymentRequest === false"
+        class="btn-secondary print:hidden"
+        @click="payNow"
+      >
+        Request Pay Now
+      </button>
+      <button v-if="paymentCreated === true" class="btn-secondary print:hidden">
+        <NuxtLink :to="paymentURL" target="_blank"> Pay Now </NuxtLink>
+      </button>
+
+      <!-- bank transfter -->
+      <p>2: Pay by bank transfer</p>
+      <p>
+        If you are unable to connect to your bank or haven't set up internet banking you
+        can still pay via bank transfer. We will confirm your booking is secured on
+        receipt of the funds in our account.
+      </p>
+      <p>
+        Please ensure you use the payment reference provided and send us the bank payment
+        confirmation via email.
+      </p>
       <p>Account Name: ABSOLUTESPORT</p>
       <p>Account Number: 36771585</p>
       <p>Sort Code: 09-01-29</p>
       <p>
-        Beneficiary Reference: <span class="font-play">{{ paymentRef }}</span>
+        Beneficiary Reference:
+        <span class="font-play">{{ paymentRef }}</span>
       </p>
+
       <div class="pb-4">
         <h3 class="font-play capitalize">Booking Summary</h3>
         <p>
-          Below is a summary of your booking to save or print for your records.
+          Below is a summary of your booking. Please save or print it for your records.
         </p>
         <p>
           This is the payment reference number:
-          <span class="font-play">{{ paymentRef }} </span>. Please include it in
-          any correspondence for this booking.
+          <span class="font-play">{{ paymentRef }} </span>. Please include it in any
+          correspondence for this booking.
         </p>
         <div>
           <h3 class="font-play capitalize">Your details:</h3>
@@ -59,9 +144,7 @@ const date = ref(route.query.bookingDate);
                 >
                   Booking Date
                 </th>
-                <td
-                  class="bg-light text-dark border border-secondary p-4 w-3/5"
-                >
+                <td class="bg-light text-dark border border-secondary p-4 w-3/5">
                   {{ date }}
                 </td>
               </tr>
@@ -103,38 +186,26 @@ const date = ref(route.query.bookingDate);
           >
             <tbody>
               <tr>
-                <th
-                  class="uppercase p-4 bg-secondary text-left text-accent p-4 w-2/5"
-                >
+                <th class="uppercase p-4 bg-secondary text-left text-accent p-4 w-2/5">
                   Children
                 </th>
-                <td
-                  class="bg-light text-dark border border-secondary p-4 w-3/5"
-                >
+                <td class="bg-light text-dark border border-secondary p-4 w-3/5">
                   <span v-for="child in data.children">{{ child }}</span>
                 </td>
               </tr>
               <tr>
-                <th
-                  class="uppercase p-4 bg-secondary text-left text-accent p-4 w-2/5"
-                >
+                <th class="uppercase p-4 bg-secondary text-left text-accent p-4 w-2/5">
                   Amount Due
                 </th>
-                <td
-                  class="bg-light text-dark border border-secondary p-4 w-3/5"
-                >
+                <td class="bg-light text-dark border border-secondary p-4 w-3/5">
                   £{{ data.amountDue }}
                 </td>
               </tr>
               <tr>
-                <th
-                  class="uppercase p-4 bg-secondary text-left text-accent p-4 w-2/5"
-                >
+                <th class="uppercase p-4 bg-secondary text-left text-accent p-4 w-2/5">
                   Booking Status
                 </th>
-                <td
-                  class="bg-light text-dark border border-secondary p-4 w-3/5"
-                >
+                <td class="bg-light text-dark border border-secondary p-4 w-3/5">
                   {{ data.status }}
                 </td>
               </tr>
@@ -143,10 +214,7 @@ const date = ref(route.query.bookingDate);
         </div>
       </div>
       <div class="print:hidden">
-        <BaseButton
-          class="btn-secondary my-4 w-full md:w-fit"
-          onclick="window.print()"
-        >
+        <BaseButton class="btn-secondary my-4 w-full md:w-fit" onclick="window.print()">
           Print this page
         </BaseButton>
       </div>
