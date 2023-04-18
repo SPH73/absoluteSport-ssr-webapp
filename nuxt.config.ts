@@ -22,6 +22,7 @@ export default defineNuxtConfig({
       "@fortawesome/free-solid-svg-icons",
       "@fortawesome/free-regular-svg-icons",
       "@fortawesome/vue-fontawesome",
+      "gocardless-nodejs",
     ],
   },
   modules: [
