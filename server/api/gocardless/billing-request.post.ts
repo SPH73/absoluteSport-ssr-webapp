@@ -22,6 +22,6 @@ export default defineEventHandler(async data => {
     return billingRequest.id;
   } catch (error) {
     console.error("billing request error message", error);
-    return;
+    return console.error;
   }
 });

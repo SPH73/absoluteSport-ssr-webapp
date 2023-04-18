@@ -31,10 +31,13 @@ const payNow = async () => {
     description: `AbsoluteSport Holiday Camps : bookings payment: ${paymentRef.value}`,
   };
   console.log("pay now details", details);
-  const createdBillingRequest = await $fetch("/api/gocardless/billing-request", {
-    method: "post",
-    body: details,
-  });
+  const createdBillingRequest = await $fetch(
+    "/api/gocardless/billing-request",
+    {
+      method: "post",
+      body: details,
+    },
+  );
   console.log("billing request res*****", createdBillingRequest);
   if (createdBillingRequest) {
     paymentRequest.value = true;
@@ -49,13 +52,17 @@ const payNow = async () => {
       {
         method: "post",
         body: paymentDetails,
-      }
+      },
     );
     console.log("billing request flow payment url", createdBillingRequestFlow);
     if (createdBillingRequestFlow) {
       paymentCreated.value = true;
       paymentURL = createdBillingRequestFlow.authorisation_url;
     }
+  } else {
+    alert(
+      "Unfortunately, we are experiencing problems with instant payments. Kindly use the pay by bank transfer option. We are aware of the problem and apologise for any inconvenience while we resolve the issue!",
+    );
   }
 };
 </script>
@@ -65,31 +72,31 @@ const payNow = async () => {
     <div class="container py-8">
       <h2 class="font-play">Success!</h2>
       <p>
-        Thank you, for reserving your child/ren a place in an upcoming AbsoluteSport
-        Holiday Activity camp.
+        Thank you, for reserving your child/ren a place in an upcoming
+        AbsoluteSport Holiday Activity camp.
       </p>
       <h3>Payment options:</h3>
       <p>1: Instant Secure Payment</p>
       <p>
-        Using the Instant Payment method confirms your reservation immediately and is the
-        recommended payment method.
+        Using the Instant Payment method confirms your reservation immediately
+        and is the recommended payment method.
       </p>
       <p>
-        Click the <span class="font-play"> Request Pay Now </span> button to create a
-        billing request.
+        Click the <span class="font-play"> Request Pay Now </span> button to
+        create a billing request.
       </p>
       <p>
         Once the billing request has been created the button will change to
         <span class="font-play"> Pay Now</span>.
       </p>
       <p>
-        Click <span class="font-play"> Pay Now </span> to be securely redirected to our
-        payment processor <span class="font-play"> GoCardless</span>. Your bank will ask
-        you to authorise the payment.
+        Click <span class="font-play"> Pay Now </span> to be securely redirected
+        to our payment processor <span class="font-play"> GoCardless</span>.
+        Your bank will ask you to authorise the payment.
       </p>
       <p>
-        When your payment has been taken, you will receive a confirmation email for your
-        records from <span class="font-play"> GoCardless</span>.
+        When your payment has been taken, you will receive a confirmation email
+        for your records from <span class="font-play"> GoCardless</span>.
       </p>
       <!-- instnt payment buttons -->
       <button
@@ -106,13 +113,13 @@ const payNow = async () => {
       <!-- bank transfter -->
       <p>2: Pay by bank transfer</p>
       <p>
-        If you are unable to connect to your bank or haven't set up internet banking you
-        can still pay via bank transfer. We will confirm your booking is secured on
-        receipt of the funds in our account.
+        If you are unable to connect to your bank or haven't set up internet
+        banking you can still pay via bank transfer. We will confirm your
+        booking is secured on receipt of the funds in our account.
       </p>
       <p>
-        Please ensure you use the payment reference provided and send us the bank payment
-        confirmation via email.
+        Please ensure you use the payment reference provided and send us the
+        bank payment confirmation via email.
       </p>
       <p>Account Name: ABSOLUTESPORT</p>
       <p>Account Number: 36771585</p>
@@ -125,12 +132,13 @@ const payNow = async () => {
       <div class="pb-4">
         <h3 class="font-play capitalize">Booking Summary</h3>
         <p>
-          Below is a summary of your booking. Please save or print it for your records.
+          Below is a summary of your booking. Please save or print it for your
+          records.
         </p>
         <p>
           This is the payment reference number:
-          <span class="font-play">{{ paymentRef }} </span>. Please include it in any
-          correspondence for this booking.
+          <span class="font-play">{{ paymentRef }} </span>. Please include it in
+          any correspondence for this booking.
         </p>
         <div>
           <h3 class="font-play capitalize">Your details:</h3>
@@ -144,7 +152,9 @@ const payNow = async () => {
                 >
                   Booking Date
                 </th>
-                <td class="bg-light text-dark border border-secondary p-4 w-3/5">
+                <td
+                  class="bg-light text-dark border border-secondary p-4 w-3/5"
+                >
                   {{ date }}
                 </td>
               </tr>
@@ -186,26 +196,38 @@ const payNow = async () => {
           >
             <tbody>
               <tr>
-                <th class="uppercase p-4 bg-secondary text-left text-accent p-4 w-2/5">
+                <th
+                  class="uppercase p-4 bg-secondary text-left text-accent p-4 w-2/5"
+                >
                   Children
                 </th>
-                <td class="bg-light text-dark border border-secondary p-4 w-3/5">
+                <td
+                  class="bg-light text-dark border border-secondary p-4 w-3/5"
+                >
                   <span v-for="child in data.children">{{ child }}</span>
                 </td>
               </tr>
               <tr>
-                <th class="uppercase p-4 bg-secondary text-left text-accent p-4 w-2/5">
+                <th
+                  class="uppercase p-4 bg-secondary text-left text-accent p-4 w-2/5"
+                >
                   Amount Due
                 </th>
-                <td class="bg-light text-dark border border-secondary p-4 w-3/5">
+                <td
+                  class="bg-light text-dark border border-secondary p-4 w-3/5"
+                >
                   £{{ data.amountDue }}
                 </td>
               </tr>
               <tr>
-                <th class="uppercase p-4 bg-secondary text-left text-accent p-4 w-2/5">
+                <th
+                  class="uppercase p-4 bg-secondary text-left text-accent p-4 w-2/5"
+                >
                   Booking Status
                 </th>
-                <td class="bg-light text-dark border border-secondary p-4 w-3/5">
+                <td
+                  class="bg-light text-dark border border-secondary p-4 w-3/5"
+                >
                   {{ data.status }}
                 </td>
               </tr>
@@ -214,7 +236,10 @@ const payNow = async () => {
         </div>
       </div>
       <div class="print:hidden">
-        <BaseButton class="btn-secondary my-4 w-full md:w-fit" onclick="window.print()">
+        <BaseButton
+          class="btn-secondary my-4 w-full md:w-fit"
+          onclick="window.print()"
+        >
           Print this page
         </BaseButton>
       </div>
