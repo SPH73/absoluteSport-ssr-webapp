@@ -57,6 +57,8 @@ const payNow = async () => {
       paymentCreated.value = true;
       paymentURL = createdBillingRequestFlow.authorisation_url;
     }
+  } else {
+    instantPayment.value = false;
   }
 };
 </script>
@@ -84,7 +86,7 @@ const payNow = async () => {
         <h3>Payment options:</h3>
         <p>1: Instant Secure Payment</p>
         <p>
-          This option confirms your reservation immediately and is the recommended payment
+          This option confirms your booking immediately and is the recommended payment
           method.
         </p>
         <p>
@@ -128,7 +130,7 @@ const payNow = async () => {
         Please ensure you use the payment reference provided and email us the bank payment
         confirmation.
       </p>
-      <p>
+      <p class="font-inter-bold">
         Your booking status will be updated to paid on receipt of the funds in our
         account.
       </p>
@@ -141,16 +143,16 @@ const payNow = async () => {
       </p>
 
       <div class="pb-4">
-        <h3 class="font-play capitalize print:text-dark">Booking Summary</h3>
+        <h3 class="font-play capitalize print:text-dark">Camps Booking Summary</h3>
         <p>
           This is the payment reference number:
           <span class="font-play">{{ paymentRef }} </span>. Please include it in any
-          correspondence for this booking.
+          correspondence relating to this booking.
         </p>
         <div>
           <h3 class="font-play capitalize print:text-dark">Your details:</h3>
           <table
-            class="table-auto border-separate border-spacing-2 border border-secondary text-light w-full text-2xl rounded-md"
+            class="table-auto border-separate border-spacing-2 border border-light print:border-secondary text-light w-full text-2xl rounded-md"
           >
             <tbody>
               <tr>
@@ -159,7 +161,9 @@ const payNow = async () => {
                 >
                   Booking Date
                 </th>
-                <td class="bg-light text-dark border border-secondary p-4 w-3/5">
+                <td
+                  class="bg-light text-dark border border-light print:border-secondary p-4 w-3/5"
+                >
                   {{ date }}
                 </td>
               </tr>
