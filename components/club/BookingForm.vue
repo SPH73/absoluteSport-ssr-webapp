@@ -27,6 +27,7 @@ clubList.value.forEach((record, index) => {
   };
   clubOptions.value.push(club);
 });
+// console.log('ClubList',clubOptions.value)
 
 let school = {};
 const schoolOptions = ref([]);
@@ -34,20 +35,13 @@ schoolList.value.forEach((record, index) => {
   school = {
     index: index + 1,
     id: record.id,
-    clubName: record.fields.campName,
-    yearRange: record.fields.yearRange,
-    clubRef: record.fields.clubRef,
     schoolName: record.fields.schoolName,
     schoolRef: record.fields.schoolRef,
-    startDate: record.fields.startDate,
-    endDate: record.fields.endDate,
-    pricePerSession: record.fields.pricePerSession,
-    termCost: record.fields.termCost,
-    spaceAvailable: record.fields.spaceAvailable,
     status: record.fields.status,
   };
   schoolOptions.value.push(school);
 });
+  // console.log('SchoolList',schoolOptions.value);
 
 const enteredParentName = ref({ val: "", isValid: true });
 const enteredEmail = ref({ val: "", isValid: true });
@@ -114,12 +108,18 @@ const filteredSchoolClubs = computed(() => {
 
 watchEffect(() => {
   enteredYearGroup.value.val;
+  // console.log("enteredYearGroup", enteredYearGroup.value.val);
   selectedSchool.value.val;
+  // console.log("selectedSchool", selectedSchool.value.val);
   filteredSchoolClubs.value;
   filteredClubs.value;
+  // console.log("filteredClubs", filteredClubs.value);
   checkedClubs.value;
+  // console.log("checkedClubs", checkedClubs.value);
   clubDetails.value;
+  // console.log("clubDetails", clubDetails.value);
   cost.value;
+  // console.log("cost", cost.value);
 });
 
 const validateForm = () => {
