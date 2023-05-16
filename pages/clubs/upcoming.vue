@@ -39,6 +39,7 @@ list.value.forEach((record, index) => {
     schoolList: record.fields.schoolList,
     sessions: record.fields.sessions,
     startDate: record.fields.startDate,
+    endDate: record.fields.endDate,
   };
   sportList.value.push(activity);
 });
@@ -127,10 +128,20 @@ list.value.forEach((record, index) => {
               <th
                 class="uppercase bg-secondary text-left text-accent border border-secondary p-4 w-2/5"
               >
-                Start Date
+                Week commencing
               </th>
               <td class="bg-light text-dark border border-light p-4 w-3/5">
                 {{ activity.startDate }}
+              </td>
+            </tr>
+            <tr>
+              <th
+                class="uppercase bg-secondary text-left text-accent border border-secondary p-4 w-2/5"
+              >
+               Ending
+              </th>
+              <td class="bg-light text-dark border border-light p-4 w-3/5">
+                {{ activity.endDate }}
               </td>
             </tr>
           </tbody>
