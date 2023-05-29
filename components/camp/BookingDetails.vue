@@ -51,7 +51,7 @@ const amountDue = computed(() => {
         <tbody>
           <tr>
             <th
-              class="uppercase p-4 bg-secondary text-left text-accent border border-secondary p-4"
+              class="uppercase p-4 bg-secondary text-left text-accent border border-secondary"
             >
               Your Name
             </th>
@@ -61,7 +61,7 @@ const amountDue = computed(() => {
           </tr>
           <tr>
             <th
-              class="uppercase p-4 bg-secondary text-left text-accent border border-secondary p-4"
+              class="uppercase p-4 bg-secondary text-left text-accent border border-secondary"
             >
               Contact Number
             </th>
@@ -71,7 +71,7 @@ const amountDue = computed(() => {
           </tr>
           <tr>
             <th
-              class="uppercase p-4 bg-secondary text-left text-accent border border-secondary p-4"
+              class="uppercase p-4 bg-secondary text-left text-accent border border-secondary"
             >
               Email
             </th>
@@ -81,7 +81,7 @@ const amountDue = computed(() => {
           </tr>
           <tr>
             <th
-              class="uppercase p-4 bg-secondary text-left text-accent border border-secondary p-4 w-2/5"
+              class="uppercase p-4 bg-secondary text-left text-accent border border-secondary w-2/5"
             >
               Booking Date
             </th>
@@ -91,7 +91,7 @@ const amountDue = computed(() => {
           </tr>
           <tr>
             <th
-              class="uppercase p-4 bg-secondary text-left text-accent border border-secondary p-4 w-2/5"
+              class="uppercase p-4 bg-secondary text-left text-accent border border-secondary w-2/5"
             >
               Total Amount Due
             </th>
@@ -101,7 +101,7 @@ const amountDue = computed(() => {
           </tr>
           <tr v-if="amountDue > 0">
             <th
-              class="uppercase p-4 bg-secondary text-left text-accent border border-secondary p-4 w-2/5"
+              class="uppercase p-4 bg-secondary text-left text-accent border border-secondary w-2/5"
             >
               Payment Reference
             </th>
@@ -134,7 +134,7 @@ const amountDue = computed(() => {
         >
           <tr>
             <th
-              class="uppercase p-4 bg-secondary text-left text-accent border border-secondary p-4 w-2/5 mt-8"
+              class="uppercase p-4 bg-secondary text-left text-accent border border-secondary w-2/5 mt-8"
             >
               {{ index + 1 }}:&nbsp;Camp Booked
             </th>
@@ -146,7 +146,7 @@ const amountDue = computed(() => {
           </tr>
           <tr>
             <th
-              class="uppercase p-4 bg-secondary text-left text-accent border border-secondary p-4 w-2/5"
+              class="uppercase p-4 bg-secondary text-left text-accent border border-secondary w-2/5"
             >
               Camp Location
             </th>
@@ -156,7 +156,7 @@ const amountDue = computed(() => {
           </tr>
           <tr>
             <th
-              class="uppercase p-4 bg-secondary text-left text-accent border border-secondary p-4"
+              class="uppercase p-4 bg-secondary text-left text-accent border border-secondary"
             >
               Child
             </th>
@@ -167,7 +167,7 @@ const amountDue = computed(() => {
           </tr>
           <tr>
             <th
-              class="uppercase p-4 bg-secondary text-left text-accent border border-secondary p-4"
+              class="uppercase p-4 bg-secondary text-left text-accent border border-secondary"
             >
               Days attending
             </th>
@@ -177,7 +177,7 @@ const amountDue = computed(() => {
           </tr>
           <tr>
             <th
-              class="uppercase p-4 bg-secondary text-left text-accent border border-secondary p-4"
+              class="uppercase p-4 bg-secondary text-left text-accent border border-secondary"
             >
               Booking Cost
             </th>

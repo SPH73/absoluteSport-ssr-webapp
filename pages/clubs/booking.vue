@@ -19,5 +19,3 @@ useHead({
 <template>
   <ClubBookingForm></ClubBookingForm>
 </template>
-
-<style scoped></style>

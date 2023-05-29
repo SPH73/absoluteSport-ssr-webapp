@@ -581,5 +581,3 @@ async function handleSubmitClubBooking() {
     </div>
   </BaseCard>
 </template>
-
-<style scoped></style>
