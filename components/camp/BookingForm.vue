@@ -75,6 +75,7 @@ async function onSubmitParent() {
 }
 
 // child form data
+const campFormIsValid = ref(true);
 const childName = ref({ val: "", isValid: true });
 const childSurname = ref({ val: "", isValid: true });
 const ageRange = [5, 6, 7, 8, 9, 10, 11, 12, 13, 14];
@@ -175,7 +176,6 @@ watchEffect(() => {
   numCampDays.value;
 });
 
-const campFormIsValid = ref(true);
 
 // camp form **
 // validation
@@ -406,7 +406,6 @@ const onAddBookingItem = () => {
       <form @submit.prevent="onAddBookingItem">
         <!-- child details -->
         <h3>2: Child Details</h3>
-
         <div
           id="child-details"
           class="grid grid-cols-1 md:grid-cols-2 gap-4 text-3xl w-full"
