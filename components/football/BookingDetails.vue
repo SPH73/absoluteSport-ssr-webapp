@@ -5,12 +5,28 @@ const props = defineProps([
   "academyBooking",
 ]);
 
-console.log("savedParent ", props.savedParent);
+console.log("props academyBooking ", props.academyBooking);
+
+// events
+const emit = defineEmits([
+  "handleRemoveBookingItem",
+  "handleConfirmBooking",
+  "handleCancelBooking",
+]);
+const removeBookingItem = (item) => {
+  emit("handleRemoveBookingItem", item);
+};
+const confirmBooking = () => {
+  emit("handleConfirmBooking");
+};
+const cancelBooking = () => {
+  emit("handleCancelBooking");
+};
 
 // computed cost
-// const amountDue = computed(() => {
-//   return props.academyBooking.reduce((total, curr) => (total = total + curr.price), 0);
-// });
+const amountDue = computed(() => {
+  return props.academyBooking.reduce((total, curr) => (total = total + curr.termCost), 0);
+});
 </script>
 
 <template>
@@ -27,7 +43,6 @@ console.log("savedParent ", props.savedParent);
       </ul>
     </div>
     <div v-else>
-      <!-- v-else -->
       <h3>Parent/Guardian Payment Details</h3>
       <table class="table-auto border-separate border-spacing-2 border border-light w-full text-2xl rounded-md">
         <tbody>
@@ -68,7 +83,7 @@ console.log("savedParent ", props.savedParent);
               Total Amount Due
             </th>
             <td class="bg-light text-dark border border-secondary p-4 w-3/5">
-              <strong>£ amountDue</strong>
+              <strong>£ {{amountDue}}</strong>
             </td>
           </tr>
           <tr >
@@ -82,8 +97,7 @@ console.log("savedParent ", props.savedParent);
         </tbody>
       </table>
     </div>
-    <div  >
-      <!-- v-if="amountDue > 0" -->
+    <div  v-if="amountDue > 0">
       <p class="text-light">Payment is by bank transfer to:</p>
       <p class="text-light">Account Name: ABSOLUTESPORT</p>
       <p class="text-light">Account Number: 36771585</p>
@@ -93,29 +107,20 @@ console.log("savedParent ", props.savedParent);
         <span class="font-play">{{savedParent.paymentRef}}</span>
       </p>
     </div>
-    <div>
-      <!-- v-if="props.academyBooking.length" -->
+    <div v-if="props.academyBooking.length">
       <h3>Football Academy Bookings</h3>
-      <p class="text-accent">Bookings added here when academyBookings is populated</p>
       <table class="table-auto border-separate border-spacing-2 border border-light w-full text-2xl rounded-md mt-8">
-        <tbody 
-          @click="removeBookingItem(booking.bookingRef)">
-          <!-- v-for="(booking, index) in props.academyBooking" :key="booking.bookingRef" -->
+        <tbody  v-for="(booking, index) in props.academyBooking"
+            :key="booking.bookingRef"
+            @click="removeBookingItem(booking.bookingRef)"
+         >
           <tr>
             <th class="uppercase p-4 bg-secondary text-left text-accent border border-secondary w-2/5 mt-8">
-              index + 1:&nbsp;Bookings
+              {{index + 1}}:&nbsp;Bookings
             </th>
             <td class="bg-light text-dark border border-secondary p-4 w-3/5 mt-8">
-              academyName&nbsp;<span class="cursor-pointer"><strong
+              {{booking.academyRef}}&nbsp;<span class="cursor-pointer"><strong
                   class="text-secondary">[X&nbsp;Remove]</strong></span>
-            </td>
-          </tr>
-          <tr>
-            <th class="uppercase p-4 bg-secondary text-left text-accent border border-secondary w-2/5">
-              Academy Venue
-            </th>
-            <td class="bg-light text-dark border border-secondary p-4 w-3/5">
-              venue
             </td>
           </tr>
           <tr>
@@ -123,8 +128,15 @@ console.log("savedParent ", props.savedParent);
               Child
             </th>
             <td class="bg-light text-dark border border-secondary p-4">
-              childName
-              childName (childNamey/o)
+              {{ booking.childName }} ({{ booking.age }}y/o)
+            </td>
+          </tr>
+          <tr>
+            <th class="uppercase p-4 bg-secondary text-left text-accent border border-secondary">
+              Academy 
+            </th>
+            <td class="bg-light text-dark border border-secondary p-4">
+              {{ booking.academy }}
             </td>
           </tr>
           <tr>
@@ -132,19 +144,19 @@ console.log("savedParent ", props.savedParent);
               Booking Cost
             </th>
             <td class="bg-light text-dark border border-secondary p-4">
-              £ calculated price
+              £ {{booking.termCost}}
             </td>
           </tr>
         </tbody>
       </table>
 
       <div class="btn-group mt-4">
-        <button class="btn-accent mr-4" >Confirm Booking</button>
-        <button class="btn-accent" >Cancel Booking</button>
+        <button class="btn-accent mr-4" @click="confirmBooking" >Confirm Booking</button>
+        <button class="btn-accent" @click="cancelBooking">Cancel Booking</button>
       </div>
     </div>
+    <div v-else>
     <!-- v-else -->
-    <div>
       <ul>
         <li>
           <p class="text-light"><strong class="text-accent">Step 2</strong></p>

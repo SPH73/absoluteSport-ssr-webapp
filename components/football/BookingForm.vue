@@ -24,17 +24,13 @@ academyList.value.forEach((record, index) => {
   academyOptions.value.push(academy);
 });
 
-const emit = defineEmits(["save-parent","booking-item-added", "show-steps", "parent-submitted"]);
+const emit = defineEmits(["show-steps", "save-parent",  "parent-submitted", "save-child", "booking-item-added", 'childlist-updated', 'booking-item-removed', 'booking-cancelled']);
 
 async function showSteps() {
   emit("show-steps");
 }
 
-// console.log('AcademyOptions Array', academyOptions.value)
-const createPaymentRef = () => {
-  paymentRef.value = Date.now().toString(36);
-};
-const academyBooking = ref([]);
+
 
 // parent details
 const enteredParentName = ref("");
@@ -45,6 +41,12 @@ const savedParent = ref({});
 const parentAdded = ref(false);
 const date = new Date().toLocaleString("en-GB");
 
+const createPaymentRef = () => {
+  paymentRef.value = Date.now().toString(36);
+};
+const createBookingRef = () => {
+  bookingRef.value = Date.now().toString(24);
+};
 
 
 const handleSaveParent = (name, contact, email, saved) => {
@@ -52,7 +54,7 @@ const handleSaveParent = (name, contact, email, saved) => {
   enteredContact.value = contact;
   enteredEmail.value = email;
   parentAdded.value = saved;
-createPaymentRef();
+  createPaymentRef();
   savedParent.value = {
     parentName: enteredParentName.value,
     mainPhone: enteredContact.value,
@@ -64,7 +66,6 @@ createPaymentRef();
   console.log("BookingForm Saved Parent obj: ", savedParent.value);
   emit("save-parent", savedParent.value);
   emit("parent-submitted");
-
 };
 
 
@@ -74,58 +75,73 @@ const childSurname = ref("");
 const childAge = ref(null);
 const medicalConditions = ref("");
 const selectedVenue = ref("");
+const confirmedPhoto = ref(null);
+const bookingRef = ref(null);
+const academyDetails = ref({});
 const savedChild = ref({});
-const filteredAcademies = ref([]);
-const academyDetails = ref([]);
 
-const filterAcademiesByVenue = computed(() => {
-  let venue = savedChild.value.venueRef;
-  return (academyDetails.value = academyOptions.value.filter(
-    option => option.venueRef === venue,
+const findAcademy = () => {
+  let age = String(childAge.value);
+  let venue = selectedVenue.value;
+  return (academyDetails.value = academyOptions.value.find(
+    option => option.ageGroup.includes(age) && option.venueRef === venue
   ));
-});
+};
+// booking details
+// const academyBooking = ref([]);
+// const childList = ref([]);
 
-const filterAcademiesByAge = computed(() => {
-  let age = childAge.value;
-  return (filteredAcademies.value = filteredAcademies.value.filter(
-    option => option.ageGroup.includes(age)
-  ));
-});
 watchEffect(() => {
-  console.log("academy options: ", academyOptions.value);
-  console.log('childAge',childAge.value);
-  console.log('seelctedVenue',selectedVenue.value);
-  filterAcademiesByVenue.value;
-  filterAcademiesByAge.value;
-  console.log('filtered academies',filteredAcademies.value);
-  console.log('AcademyDetails',academyDetails.value)
+  academyOptions.value
+  // console.log(" watch booking form  academy options: ", academyOptions.value);
+  childAge.value
+  // console.log(' watch booking form childAge',childAge.value);
+  selectedVenue.value
+  // console.log(' watch booking form  selectedVenue',selectedVenue.value);
+  academyDetails.value
+  // console.log('watch booking form academyDetails',academyDetails.value)
+  // academyBooking.value
+  // console.log('watch booking form academyBooking', academyBooking.value)
+  // childList.value
+  // console.log('watch booking form childList', childList.value)
   });
 
-const childList = ref([]);
 
-const handleBookingItemAdded = (name, surname, medical, age, venue ) => {
+
+const handleBookingItemAdded = (name, surname, medical, age, venue, photos ) => {
     childName.value = name,
     childSurname.value = surname,
     medicalConditions.value = medical,
     childAge.value = age,
     selectedVenue.value = venue,
-
+    confirmedPhoto.value = photos,
+    createBookingRef();
+    findAcademy();
     savedChild.value = {
+      surname: childSurname.value,
       childName: childName.value,
-      childSurname: childSurname.value,
+      parentName: enteredParentName.value,
+      email: enteredEmail.value,
+      mobile: enteredContact.value,
       medicalConditions: medicalConditions.value,
-      childAge: childAge.value,
+      age: childAge.value,
+      confirmedPhoto: confirmedPhoto.value,
       venue: selectedVenue.value,
-      parentName: savedParent.value.parentName,
+      time: academyDetails.value.sessionTime,
+      academyRef: academyDetails.value.academyRef,
+      academy: academyDetails.value.academyName,
+      venue: academyDetails.value.venueRef,
+      sessions: academyDetails.value.numSessions,
+      termCost: academyDetails.value.termCost,
+      startDate: academyDetails.value.startDate,
+      endDate: academyDetails.value.endDate,
+      status: academyDetails.value.status,
+      bookingRef: bookingRef.value,
     };
-    console.log("Saved Child: ", savedChild.value);
-    academyBooking.value.push(savedChild.value);
-    console.log("academyBooking: ", academyBooking.value);
-      if (!childList.value.includes(name)) {
-    childList.value.push(name);
-  }
-  console.log('childList array: ',childList.value)
-  
+    console.log("BookingForm Saved Child Obj: ", savedChild.value);
+    // academyBooking.value.push(savedChild.value);
+    // console.log("BookingForm academyBooking Obj: ", academyBooking.value);
+    emit("booking-item-added", savedChild.value);  
 }
 </script>
 
@@ -134,20 +150,17 @@ const handleBookingItemAdded = (name, surname, medical, age, venue ) => {
     <div id="text">
       <h1 class="text-accent font-play capitalize">football academy bookings</h1>
       <p class="text-light">
-        We run Holiday Activity Camps at Sidlesham Primary School and Portfield
+        We run our Football Academy coaching sessions at Sidlesham Primary School and Portfield
         Primary Academy throughout the year.
       </p>
-      <p class="text-light">
-        If you are booking a HAF place please have your child's HAF ID handy. If
-        you aren't sure what it is you can request it from your child's school.
-      </p>
+      <p class="text-light">Sessions are booked in blocks of 6 sessions at a time.</p>
       <p class="text-light">
         Kindly use your unique payment reference when making payment so that we
-        can allocate it to your booking and confirm your child's place.
+        can allocate it to your booking and confirm your child(ren)'s place.
       </p>
       <p class="text-light">
         TIP: Use the review booking details button at each stage of your booking
-        to check your booking items.
+        to check your booking is correct.
       </p>
       <p v-if="!parentAdded" class="cursor-pointer">
         <font-awesome-icon
@@ -159,7 +172,7 @@ const handleBookingItemAdded = (name, surname, medical, age, venue ) => {
         >
       </p>
     </div>
-    <FootballParentForm  @parent-submitted="handleSaveParent"></FootballParentForm>
+    <FootballParentForm  @parent-submitted="handleSaveParent" :parent-added="parentAdded"></FootballParentForm>
     <FootballChildForm @booking-item-added="handleBookingItemAdded"></FootballChildForm>
   </div>
 </template>

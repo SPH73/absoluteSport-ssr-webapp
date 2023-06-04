@@ -4,10 +4,10 @@ const emit = defineEmits([
   "parent-submitted",
 ]);
 
-const enteredParentName = ref({ val: "Sue Holder", isValid: true });
-const enteredContact = ref({ val: "07492727870", isValid: true });
-const enteredEmail = ref({ val: "susanpholder@gmail.com", isValid: true });
-const acceptedTerms = ref({ val: true, isValid: true });
+const enteredParentName = ref({ val: "", isValid: true });
+const enteredContact = ref({ val: "", isValid: true });
+const enteredEmail = ref({ val: "", isValid: true });
+const acceptedTerms = ref({ val: false, isValid: true });
 const parentAdded = ref(false);
 const parentFormIsValid = ref(true);
 
@@ -53,11 +53,11 @@ async function onSubmitParent() {
 
 <template>
   <div>
-    <h3>Parent Details</h3>
+    <h3>1. Parent Details</h3>
       <div v-if="parentAdded">
-        <p class="text-accent">Parent Details saved successfully!</p>
+        <p class="text-accent">Details saved successfully!</p>
       </div>
-      <div id="parent-details" v-if="!parentAdded">
+      <div id="academy-parent-details" v-if="!parentAdded">
         <form @submit.prevent="onSubmitParent" >
           <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-3xl w-full">
             <div

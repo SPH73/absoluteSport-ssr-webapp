@@ -12,33 +12,8 @@ venueList.value.forEach((record, index) => {
   };
   venueOptions.value.push(venue);
 });
-// console.log('VenueOptions Array', venueOptions.value)
-// // fetch academyList from api
-// const {data: academyList, error: academyError} = await useFetch('/api/football/academyList')
-// const academyOptions = ref([])
-// let academy = {}
-// academyList.value.forEach((record, index) => {
-//   academy = {
-//     index: index + 1,
-//     academyName: record.fields.academyName,
-//     ageGroup: record.fields.ageGroup,
-//     sessionTime: record.fields.sessionTime,
-//     sessionDuration: record.fields.sessionDuration,
-//     academyRef: record.fields.academyRef,
-//     venueRef: record.fields.venueRef,
-//     numSessions: record.fields.numSessions,
-//     pricePerSession: record.fields.pricePerSession,
-//     termCost: record.fields.termCost,
-//     spaceAvailable: record.fields.spaceAvailable,
-//     startDate: record.fields.startDate,
-//     endDate: record.fields.endDate,
-//     status: record.fields.status,
-//   };
-//   academyOptions.value.push(academy);
-// });
 
-// console.log('AcademyOptions Array', academyOptions.value)
-
+const props = defineProps(['parentAdded'])
 const emit = defineEmits(["booking-item-added"])
 
 const childName = ref({ val: "Nate", isValid: true });
@@ -71,9 +46,9 @@ const childFormIsValid = ref(true);
       childAge.value.isValid = false;
       childFormIsValid.value = false;
     }
-      if (selectedVenue.value.val === "select") {
-    selectedVenue.value.isValid = false;
-    parentFormIsValid.value = false;
+    if (selectedVenue.value.val === "select") {
+      selectedVenue.value.isValid = false;
+      childFormIsValid.value = false;
   }
   };
 
@@ -88,13 +63,12 @@ const onAddBookingItem = () => {
     "booking-item-added",
     childName.value.val,
     childSurname.value.val,
-    childAge.value.val,
     enteredMedical.value.val,
+    childAge.value.val,
     selectedVenue.value.val,
     confirmedPhoto.value,
 
   );
-  console.log("child form valid");
   // reset after each booking is added
   childName.value.val = "";
   childAge.value.val = "select";
@@ -104,9 +78,9 @@ const onAddBookingItem = () => {
 </script>
 
 <template>
-  <div>
+  <div id="academy-child-details">
     <form @submit.prevent="onAddBookingItem">
-    <h3>Booking Details</h3>
+    <h3>2. Booking Details</h3>
       <div
         id="child-details"
         class="grid grid-cols-1 md:grid-cols-2 gap-4 text-3xl w-full"
@@ -191,7 +165,7 @@ const onAddBookingItem = () => {
         <option disabled value="select">Choose a venue...</option>
         <option
           v-for="option in venueOptions"
-          :value="option.venueName"
+          :value="option.venueRef"
           :key="option.id"
         >
           {{ option.venueName }}
