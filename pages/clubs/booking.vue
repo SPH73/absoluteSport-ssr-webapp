@@ -1,6 +1,6 @@
 <script lang="ts" setup>
 useHead({
-  title: `School club booking request`,
+  title: `School clubs booking request`,
   meta: [
     {
       name: "robots",
