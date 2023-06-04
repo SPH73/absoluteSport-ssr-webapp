@@ -13,12 +13,12 @@ venueList.value.forEach((record, index) => {
   venueOptions.value.push(venue);
 });
 
-const props = defineProps(['parentAdded'])
+const props = defineProps(['parent-added'])
 const emit = defineEmits(["booking-item-added"])
 
-const childName = ref({ val: "Nate", isValid: true });
-const childSurname = ref({ val: "Holder", isValid: true });
-const enteredMedical = ref({ val: "N", isValid: true });
+const childName = ref({ val: "", isValid: true });
+const childSurname = ref({ val: "", isValid: true });
+const enteredMedical = ref({ val: "", isValid: true });
 const ages = [5, 6, 7, 8, 9, 10, 11, 12];
 const childAge = ref({ val: "select", isValid: true });
 const selectedVenue = ref({ val: "select", isValid: true });
@@ -78,7 +78,7 @@ const onAddBookingItem = () => {
 </script>
 
 <template>
-  <div id="academy-child-details">
+  <div id="academy-child-details" v-if="props.parentAdded">
     <form @submit.prevent="onAddBookingItem">
     <h3>2. Booking Details</h3>
       <div

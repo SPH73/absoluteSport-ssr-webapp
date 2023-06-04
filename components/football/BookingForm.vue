@@ -139,8 +139,6 @@ const handleBookingItemAdded = (name, surname, medical, age, venue, photos ) => 
       bookingRef: bookingRef.value,
     };
     console.log("BookingForm Saved Child Obj: ", savedChild.value);
-    // academyBooking.value.push(savedChild.value);
-    // console.log("BookingForm academyBooking Obj: ", academyBooking.value);
     emit("booking-item-added", savedChild.value);  
 }
 </script>
@@ -173,7 +171,7 @@ const handleBookingItemAdded = (name, surname, medical, age, venue, photos ) => 
       </p>
     </div>
     <FootballParentForm  @parent-submitted="handleSaveParent" :parent-added="parentAdded"></FootballParentForm>
-    <FootballChildForm @booking-item-added="handleBookingItemAdded"></FootballChildForm>
+    <FootballChildForm @booking-item-added="handleBookingItemAdded" :parent-added="parentAdded"></FootballChildForm>
   </div>
 </template>
 
