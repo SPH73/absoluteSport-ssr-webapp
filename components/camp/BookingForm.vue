@@ -37,7 +37,6 @@ const enteredMainContact = ref({ val: "", isValid: true });
 const enteredEmail = ref({ val: "", isValid: true });
 const acceptedTerms = ref({ val: false, isValid: true });
 const parentFormIsValid = ref(true);
-// const savedParent = ref({});
 
 // parent form validation
 const validateParentForm = () => {
@@ -107,7 +106,7 @@ campLocList.value.forEach((record, index) => {
   locationOptions.value.push(location);
 });
 
-const campLoc = ref({ val: "" });
+const campLoc = ref({ val: "select" });
 const filteredCamps = ref([]);
 const hafFilteredCamps = ref([]);
 const campDetails = ref({});
@@ -208,13 +207,15 @@ const validateCampForm = () => {
     campDaysSelected.value.isValid = false;
     campFormIsValid.value = false;
   }
+  if (numCampDays.value === null) {
+    campDaysSelected.value.isValid = false;
+    campFormIsValid.value = false;
+  }
 };
 // submission
 const onAddBookingItem = () => {
   validateCampForm();
-  if (!campFormIsValid) {
-    return;
-  }
+  if (campFormIsValid) {
   emit(
     "camp-booking-added",
     childName.value.val,
@@ -234,10 +235,11 @@ const onAddBookingItem = () => {
   childAge.value.val = "select";
   pupilPrem.value = false;
   hafID.value.val = "";
-  campLoc.value.val = "select";
+  // campLoc.value.val = "select";
   campName.value.val = "select";
   campDaysSelected.value.val = [];
-  campFormIsValid = true;
+  }
+  return
 };
 </script>
 
@@ -291,7 +293,7 @@ const onAddBookingItem = () => {
   </div>
   <div id="forms" class="my-2">
     <h3>1: Parent/Guardian Details</h3>
-    <div id="parent-details" v-if="!parentAdded">
+    <div id="camp-parent-details" v-if="!parentAdded">
       <form @submit.prevent="onSubmitParent">
         <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-3xl w-full">
           <div
@@ -713,13 +715,13 @@ const onAddBookingItem = () => {
           </div>
         </div>
         <p v-if="!campWeekSelected" class="text-light">
-          Select a camp week to show available days
+          Select a camp week to show available days.
         </p>
         <!-- /end camp details -->
         <p class="text-light" v-if="!campFormIsValid">
           Please add the missing fields and submit again.
         </p>
-        <div class="md:flex md:justify-end">
+        <div class="md:flex md:justify-end" v-show="numCampDays > 0">
           <button class="btn-accent my-4 w-full md:w-fit">
             Save to booking
           </button>
