@@ -18,7 +18,7 @@ const route = useRoute();
 const data = ref(route.query);
 const paymentRef = ref(route.query.paymentRef);
 const date = ref(route.query.bookingDate);
-console.log("success****", data.value);
+console.log("success****", data.value.summary);
 
 const amount = Number(data.value.amountDue) * 100;
 const instantPayment = ref(true);
@@ -136,7 +136,7 @@ const payNow = async () => {
       </p>
 
       <div class="pb-4">
-        <h3 class="font-play capitalize print:text-dark">Camps Booking Summary</h3>
+        <h3 class="font-play capitalize print:text-dark">Booking Summary</h3>
         <p>
           This is the payment reference number:
           <span class="font-play">{{ paymentRef }} </span>. Please include it in any
@@ -180,6 +180,33 @@ const payNow = async () => {
                   {{ data.email }}
                 </td>
               </tr>
+               <tr>
+                  <th
+                    class="uppercase p-4 bg-secondary border border-secondary text-left text-accent print:text-dark w-2/5">
+                    Children
+                  </th>
+                  <td class="bg-light text-dark border border-secondary p-4 w-3/5">
+                    <span v-for="child in data.children">{{ child }} </span>
+                  </td>
+                </tr>
+                 <tr>
+                  <th
+                    class="uppercase p-4 bg-secondary border border-secondary text-left text-accent print:text-dark w-2/5">
+                    Amount Due
+                  </th>
+                  <td class="bg-light text-dark border border-secondary p-4 w-3/5">
+                    {{ data.amountDue }}
+                  </td>
+                </tr>
+                <tr>
+                  <th
+                    class="uppercase p-4 bg-secondary border border-secondary text-left text-accent print:text-dark w-2/5">
+                    Booking Status
+                  </th>
+                  <td class="bg-light text-dark border border-secondary p-4 w-3/5">
+                    {{ data.status }}
+                  </td>
+                </tr>
             </tbody>
           </table>
           <h3 class="font-play capitalize print:text-dark">Booking details:</h3>
@@ -189,30 +216,39 @@ const payNow = async () => {
               <tr>
                 <th
                   class="uppercase p-4 bg-secondary border border-secondary text-left text-accent print:text-dark w-2/5">
-                  Children
+                 Bookings Qty
                 </th>
                 <td class="bg-light text-dark border border-secondary p-4 w-3/5">
-                  <span v-for="child in data.children">{{ child }}</span>
+                 {{data.numBookings }}
                 </td>
               </tr>
               <tr>
-                <th
-                  class="uppercase p-4 bg-secondary border border-secondary text-left text-accent print:text-dark w-2/5">
-                  Amount Due
-                </th>
-                <td class="bg-light text-dark border border-secondary p-4 w-3/5">
-                  £{{ data.amountDue }}
-                </td>
-              </tr>
-              <tr>
-                <th
-                  class="uppercase p-4 bg-secondary border border-secondary text-left text-accent print:text-dark w-2/5">
-                  Booking Status
-                </th>
-                <td class="bg-light text-dark border border-secondary p-4 w-3/5">
-                  {{ data.status }}
-                </td>
-              </tr>
+                  <th
+                    class="uppercase p-4 bg-secondary border border-secondary text-left text-accent print:text-dark w-2/5">
+                   Start Date
+                  </th>
+                  <td class="bg-light text-dark border border-secondary p-4 w-3/5">
+                   {{ data.startDate }}
+                  </td>
+                </tr>
+                <tr>
+                    <th
+                      class="uppercase p-4 bg-secondary border border-secondary text-left text-accent print:text-dark w-2/5">
+                     End Date
+                    </th>
+                    <td class="bg-light text-dark border border-secondary p-4 w-3/5">
+                     {{ data.endDate }}
+                    </td>
+                  </tr>
+                  <tr>
+                      <th
+                        class="uppercase p-4 bg-secondary border border-secondary text-left text-accent print:text-dark w-2/5">
+                       Sessions per booking
+                      </th>
+                      <td class="bg-light text-dark border border-secondary p-4 w-3/5">
+                       {{ data.sessions }}
+                      </td>
+                    </tr>
             </tbody>
           </table>
         </div>

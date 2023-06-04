@@ -170,14 +170,18 @@ const confirmBooking = async () => {
     router.replace({
       path: "/football/success",
       query: {
-        name: parentName.value,
-        phone: contact.value,
-        email: enteredEmail.value,
+        name: savedParent.value.parentName,
+        phone: savedParent.value.mainPhone,
+        email: savedParent.value.email,
         children: childList.value,
-        paymentRef: paymentRef.value,
+        paymentRef: savedParent.value.paymentRef,
         amountDue: totalCost.value,
         bookingDate: date,
         status: totalCost.value > 0 ? "awaiting payment" : "paid",
+        numBookings: academyBooking.value.length,
+        startDate: academyBooking.value[0].startDate,
+        endDate: academyBooking.value[0].endDate,
+        sessions: academyBooking.value[0].sessions,
       },
     });
   }
