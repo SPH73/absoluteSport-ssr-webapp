@@ -175,7 +175,8 @@ onMounted(() => {
                   About our Football Academy
                 </NuxtLink>
               </li>
-              <li class="flex justify-items-center">
+              <!-- hide until main page content is ready -->
+              <!-- <li class="flex justify-items-center">
                   <NuxtLink
                     to="/football/meet-coach-tom"
                     class="hover:font-bold pb-2"
@@ -183,7 +184,7 @@ onMounted(() => {
                   >
                     Meet Coach Tom
                   </NuxtLink>
-                </li>
+                </li> -->
               <li class="flex justify-items-center">
                 <NuxtLink
                   to="/football/booking"
@@ -359,7 +360,8 @@ onMounted(() => {
                 Our Football Academy</NuxtLink
               >
           </li>
-          <li class="flex items-center">
+          <!-- hide until main page content is ready -->
+          <!-- <li class="flex items-center">
             <NuxtLink
               to="/football/meet-coach-Tom"
               @click="isOpen = false"
@@ -368,7 +370,7 @@ onMounted(() => {
             >
               Our Football Coach</NuxtLink
             >
-          </li>
+          </li> -->
           <li class="flex items-center">
             <NuxtLink
               to="/football/booking"
