@@ -18,7 +18,7 @@ const route = useRoute();
 const data = ref(route.query);
 const paymentRef = ref(route.query.paymentRef);
 const date = ref(route.query.bookingDate);
-console.log("success****", data.value.summary);
+// console.log("success****", data.value);
 
 const amount = Number(data.value.amountDue) * 100;
 const instantPayment = ref(true);
@@ -68,7 +68,7 @@ const payNow = async () => {
     <div class="container py-8">
       <h2 class="font-play print:text-dark">Success!</h2>
       <p>
-        Thank you, for reserving your child/ren a place in an upcoming
+        Thank you, for reserving your child/ren a place in an
         <span class="font-play"> AbsoluteSport Football Academy</span>. We look
         forward to seeing you!
       </p>
@@ -186,7 +186,7 @@ const payNow = async () => {
                     Children
                   </th>
                   <td class="bg-light text-dark border border-secondary p-4 w-3/5">
-                    <span v-for="child in data.children">{{ child }} </span>
+                    <span v-for="child in data.children">{{ child }}, </span>
                   </td>
                 </tr>
                  <tr>
@@ -195,7 +195,7 @@ const payNow = async () => {
                     Amount Due
                   </th>
                   <td class="bg-light text-dark border border-secondary p-4 w-3/5">
-                    {{ data.amountDue }}
+                    £{{ data.amountDue }}
                   </td>
                 </tr>
                 <tr>
