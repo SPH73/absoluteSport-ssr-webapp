@@ -1,21 +1,25 @@
 <script lang="ts" setup>
 useHead({
-  title: "Football Academy",
+  title: "Meet Coach Tom - Our Football Academy FA Qualified Coach",
   meta: [
-    {
-      name: "description",
-      content:
-        "We provide high quality football training with an F.A. qualified coach and talent scout.",
+    // {
+    //   name: "description",
+    //   content:
+    //     "We provide high quality football training with an F.A. qualified coach and talent scout.",
+    // },
+   {
+      name: "robots",
+      content: "noindex",
     },
-    {
-      property: "og:description",
-      content:
-        "High quality football training with an F.A. qualified coach and talent scout.",
-    },
-    {
-      property: "og:type",
-      content: "website",
-    },
+    // {
+    //   property: "og:description",
+    //   content:
+    //     "High quality football training with an F.A. qualified coach and talent scout.",
+    // },
+    // {
+    //   property: "og:type",
+    //   content: "website",
+    // },
   ],
   link: [
     {

@@ -1,13 +1,11 @@
 <script setup>
 const props = defineProps([
   "parentAdded",
-  "parentName",
-  "mainContact",
-  "email",
-  "paymentRef",
-  "bookingDate",
-  "campBooking",
+  "savedParent",
+  "academyBooking",
 ]);
+
+console.log("props academyBooking ", props.academyBooking);
 
 // events
 const emit = defineEmits([
@@ -24,9 +22,10 @@ const confirmBooking = () => {
 const cancelBooking = () => {
   emit("handleCancelBooking");
 };
+
 // computed cost
 const amountDue = computed(() => {
-  return props.campBooking.reduce((total, curr) => (total = total + curr.price), 0);
+  return props.academyBooking.reduce((total, curr) => (total = total + curr.termCost), 0);
 });
 </script>
 
@@ -45,155 +44,119 @@ const amountDue = computed(() => {
     </div>
     <div v-else>
       <h3>Parent/Guardian Payment Details</h3>
-      <table
-        class="table-auto border-separate border-spacing-2 border border-light w-full text-2xl rounded-md"
-      >
+      <table class="table-auto border-separate border-spacing-2 border border-light w-full text-2xl rounded-md">
         <tbody>
           <tr>
-            <th
-              class="uppercase p-4 bg-secondary text-left text-accent border border-secondary"
-            >
+            <th class="uppercase p-4 bg-secondary text-left text-accent border border-secondary">
               Your Name
             </th>
             <td class="bg-light text-dark border border-secondary p-4">
-              {{ props.parentName }}
+              {{savedParent.parentName}}
             </td>
           </tr>
           <tr>
-            <th
-              class="uppercase p-4 bg-secondary text-left text-accent border border-secondary"
-            >
+            <th class="uppercase p-4 bg-secondary text-left text-accent border border-secondary">
               Contact Number
             </th>
             <td class="bg-light text-dark border border-secondary p-4">
-              {{ props.mainContact }}
+              {{ savedParent.mainPhone }}
             </td>
           </tr>
           <tr>
-            <th
-              class="uppercase p-4 bg-secondary text-left text-accent border border-secondary"
-            >
+            <th class="uppercase p-4 bg-secondary text-left text-accent border border-secondary">
               Email
             </th>
             <td class="bg-light text-dark border border-secondary p-4">
-              {{ props.email }}
+              {{ savedParent.email }}
             </td>
           </tr>
           <tr>
-            <th
-              class="uppercase p-4 bg-secondary text-left text-accent border border-secondary w-2/5"
-            >
+            <th class="uppercase p-4 bg-secondary text-left text-accent border border-secondary w-2/5">
               Booking Date
             </th>
             <td class="bg-light text-dark border border-secondary p-4 w-3/5">
-              {{ props.bookingDate }}
+              {{savedParent.bookingDate}}
             </td>
           </tr>
           <tr>
-            <th
-              class="uppercase p-4 bg-secondary text-left text-accent border border-secondary w-2/5"
-            >
+            <th class="uppercase p-4 bg-secondary text-left text-accent border border-secondary w-2/5">
               Total Amount Due
             </th>
             <td class="bg-light text-dark border border-secondary p-4 w-3/5">
-              <strong>£{{ amountDue }}</strong>
+              <strong>£ {{amountDue}}</strong>
             </td>
           </tr>
-          <tr v-if="amountDue > 0">
-            <th
-              class="uppercase p-4 bg-secondary text-left text-accent border border-secondary w-2/5"
-            >
+          <tr >
+            <th class="uppercase p-4 bg-secondary text-left text-accent border border-secondary w-2/5">
               Payment Reference
             </th>
             <td class="bg-light text-dark border border-secondary p-4 w-3/5">
-              <strong>{{ props.paymentRef }}</strong>
+              <strong>{{ savedParent.paymentRef }}</strong>
             </td>
           </tr>
         </tbody>
       </table>
     </div>
-    <div v-if="amountDue > 0">
+    <div  v-if="amountDue > 0">
       <p class="text-light">Payment is by bank transfer to:</p>
       <p class="text-light">Account Name: ABSOLUTESPORT</p>
       <p class="text-light">Account Number: 36771585</p>
       <p class="text-light">Sort Code: 09-01-29</p>
       <p class="text-light">
         Beneficiary Reference:
-        <span class="font-play">{{ props.paymentRef }}</span>
+        <span class="font-play">{{savedParent.paymentRef}}</span>
       </p>
     </div>
-    <div v-if="props.campBooking.length">
-      <h3>Camp Bookings</h3>
-      <table
-        class="table-auto border-separate border-spacing-2 border border-light w-full text-2xl rounded-md mt-8"
-      >
-        <tbody
-          v-for="(booking, index) in props.campBooking"
-          :key="booking.bookingRef"
-          @click="removeBookingItem(booking.bookingRef)"
-        >
+    <div v-if="props.academyBooking.length">
+      <h3>Football Academy Bookings</h3>
+      <table class="table-auto border-separate border-spacing-2 border border-light w-full text-2xl rounded-md mt-8">
+        <tbody  v-for="(booking, index) in props.academyBooking"
+            :key="booking.bookingRef"
+            @click="removeBookingItem(booking.bookingRef)"
+         >
           <tr>
-            <th
-              class="uppercase p-4 bg-secondary text-left text-accent border border-secondary w-2/5 mt-8"
-            >
-              {{ index + 1 }}:&nbsp;Camp Booked
+            <th class="uppercase p-4 bg-secondary text-left text-accent border border-secondary w-2/5 mt-8">
+              {{index + 1}}:&nbsp;Bookings
             </th>
             <td class="bg-light text-dark border border-secondary p-4 w-3/5 mt-8">
-              {{ booking.campName }}&nbsp;<span class="cursor-pointer"
-                ><strong class="text-secondary">[X&nbsp;Remove]</strong></span
-              >
+              {{booking.academyRef}}&nbsp;<span class="cursor-pointer"><strong
+                  class="text-secondary">[X&nbsp;Remove]</strong></span>
             </td>
           </tr>
           <tr>
-            <th
-              class="uppercase p-4 bg-secondary text-left text-accent border border-secondary w-2/5"
-            >
-              Camp Location
-            </th>
-            <td class="bg-light text-dark border border-secondary p-4 w-3/5">
-              {{ booking.location }}
-            </td>
-          </tr>
-          <tr>
-            <th
-              class="uppercase p-4 bg-secondary text-left text-accent border border-secondary"
-            >
+            <th class="uppercase p-4 bg-secondary text-left text-accent border border-secondary">
               Child
             </th>
             <td class="bg-light text-dark border border-secondary p-4">
-              {{ booking.childName }}
-              {{ booking.childSurname }} ({{ booking.childAge }}y/o at camp)
+              {{ booking.childName }} ({{ booking.age }}y/o)
             </td>
           </tr>
           <tr>
-            <th
-              class="uppercase p-4 bg-secondary text-left text-accent border border-secondary"
-            >
-              Days attending
+            <th class="uppercase p-4 bg-secondary text-left text-accent border border-secondary">
+              Academy 
             </th>
             <td class="bg-light text-dark border border-secondary p-4">
-              <span v-for="day in booking.daysBooked" :key="day"> {{ day }},&nbsp; </span>
+              {{ booking.academy }}
             </td>
           </tr>
           <tr>
-            <th
-              class="uppercase p-4 bg-secondary text-left text-accent border border-secondary"
-            >
+            <th class="uppercase p-4 bg-secondary text-left text-accent border border-secondary">
               Booking Cost
             </th>
             <td class="bg-light text-dark border border-secondary p-4">
-              £{{ booking.price }}
+              £ {{booking.termCost}}
             </td>
           </tr>
         </tbody>
       </table>
 
       <div class="btn-group mt-4">
-        <button class="btn-accent mr-4" @click="confirmBooking">Confirm Booking</button>
+        <button class="btn-accent mr-4" @click="confirmBooking" >Confirm Booking</button>
         <button class="btn-accent" @click="cancelBooking">Cancel Booking</button>
       </div>
     </div>
     <div v-else>
+    <!-- v-else -->
       <ul>
         <li>
           <p class="text-light"><strong class="text-accent">Step 2</strong></p>
@@ -202,17 +165,17 @@ const amountDue = computed(() => {
         <li>
           <p class="text-light"><strong class="text-accent">Step 3</strong></p>
           <p class="text-light">
-            ... select a camp week and tick the camp days they will be attending. Save by
+            ... save by
             clicking
-            <span class="text-accent">"Save To Booking"</span>.
+            <span class="text-accent">"Add Child"</span>.
           </p>
         </li>
         <li>
           <p class="text-light"><strong class="text-accent">Step 4</strong></p>
           <p class="text-light">
             Continue repeating
-            <span class="text-accent">Steps 2 &amp; 3 </span> for this child and any
-            siblings for each camp week you wish to book.
+            <span class="text-accent">Steps 2 &amp; 3 </span> for any
+            siblings you wish to book sessions for.
           </p>
         </li>
       </ul>
@@ -220,7 +183,7 @@ const amountDue = computed(() => {
         <li>
           <p class="text-light"><strong class="text-accent">Step 5</strong></p>
           <p class="text-light">
-            Once you have added all required camp weeks for each child and confirmed the
+            Once you have added all children and confirmed the
             details are correct, click
             <span class="text-accent">"Confirm Booking" </span> to send us your booking.
             That's it, you are done and your booking is reserved. Please remember to make
@@ -237,7 +200,7 @@ const amountDue = computed(() => {
             click <span class="text-accent">"Cancel Booking" </span>to start again.
           </p>
           <p class="text-accent font-bold">
-            Kindly take note: Camp places are reserved on receipt of booking request but
+            Kindly take note: Places are reserved on receipt of booking request but
             will only be secured on receipt of payment as we operate on a first
             <em>paid</em> first served basis. We apologise for any inconvenience this may
             cause and encourage you to make payment promptly to avoid losing your

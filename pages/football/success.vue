@@ -1,6 +1,6 @@
 <script lang="ts" setup>
 useHead({
-  title: `Camps reservation success`,
+  title: `Footbll Academy reservation success`,
   meta: [
     {
       name: "robots",
@@ -10,7 +10,7 @@ useHead({
   link: [
     {
       rel: "canonical",
-      href: "https://www.absolutesport.org/camps/success",
+      href: "https://www.absolutesport.org/football/success",
     },
   ],
 });
@@ -18,7 +18,7 @@ const route = useRoute();
 const data = ref(route.query);
 const paymentRef = ref(route.query.paymentRef);
 const date = ref(route.query.bookingDate);
-console.log("success****", data.value);
+// console.log("success****", data.value);
 
 const amount = Number(data.value.amountDue) * 100;
 const instantPayment = ref(true);
@@ -29,7 +29,7 @@ const payNow = async () => {
   const details = {
     paymentRef: paymentRef.value,
     amount: amount,
-    description: `AbsoluteSport Holiday Camps : bookings payment: ${paymentRef.value}`,
+    description: `AbsoluteSport Football Academy : payment ref: ${paymentRef.value}`,
   };
   console.log("pay now details", details);
   const createdBillingRequest = await $fetch("/api/gocardless/billing-request", {
@@ -68,18 +68,15 @@ const payNow = async () => {
     <div class="container py-8">
       <h2 class="font-play print:text-dark">Success!</h2>
       <p>
-        Thank you, for reserving your child/ren a place in an upcoming
-        <span class="font-play"> AbsoluteSport Holiday Activity Camp</span>. We look
+        Thank you, for reserving your child/ren a place in an
+        <span class="font-play"> AbsoluteSport Football Academy</span>. We look
         forward to seeing you!
       </p>
       <p class="font-inter-medium print:hidden">
         This page is printer friendly! We suggest printing it or saving it as a PDF for
         future reference before closing the page.
       </p>
-      <button
-        class="btn-accent my-2 w-full md:w-fit print:hidden"
-        onclick="window.print()"
-      >
+      <button class="btn-accent my-2 w-full md:w-fit print:hidden" onclick="window.print()">
         Print this page
       </button>
       <div v-if="instantPayment" class="print:hidden">
@@ -107,11 +104,7 @@ const payNow = async () => {
           for your records from<span class="font-play"> GoCardless</span>.
         </p>
         <!-- instnt payment buttons -->
-        <button
-          v-if="paymentRequest === false"
-          class="btn-secondary print:hidden"
-          @click="payNow"
-        >
+        <button v-if="paymentRequest === false" class="btn-secondary print:hidden" @click="payNow">
           Request Pay Now
         </button>
         <button v-if="paymentCreated === true" class="btn-secondary print:hidden">
@@ -143,7 +136,7 @@ const payNow = async () => {
       </p>
 
       <div class="pb-4">
-        <h3 class="font-play capitalize print:text-dark">Camps Booking Summary</h3>
+        <h3 class="font-play capitalize print:text-dark">Booking Summary</h3>
         <p>
           This is the payment reference number:
           <span class="font-play">{{ paymentRef }} </span>. Please include it in any
@@ -152,25 +145,19 @@ const payNow = async () => {
         <div>
           <h3 class="font-play capitalize print:text-dark">Your details:</h3>
           <table
-            class="table-auto border-separate border-spacing-2 border border-light print:border-secondary text-light w-full text-2xl rounded-md"
-          >
+            class="table-auto border-separate border-spacing-2 border border-light print:border-secondary text-light w-full text-2xl rounded-md">
             <tbody>
               <tr>
                 <th
-                  class="uppercase p-4 bg-secondary text-left text-accent print:text-dark border border-secondary  w-2/5"
-                >
+                  class="uppercase p-4 bg-secondary text-left text-accent print:text-dark border border-secondary w-2/5">
                   Booking Date
                 </th>
-                <td
-                  class="bg-light text-dark border border-light print:border-secondary p-4 w-3/5"
-                >
+                <td class="bg-light text-dark border border-light print:border-secondary p-4 w-3/5">
                   {{ date }}
                 </td>
               </tr>
               <tr>
-                <th
-                  class="uppercase p-4 bg-secondary text-left text-accent print:text-dark border border-secondary"
-                >
+                <th class="uppercase p-4 bg-secondary text-left text-accent print:text-dark border border-secondary">
                   Your Name
                 </th>
                 <td class="bg-light text-dark border border-secondary p-4">
@@ -178,9 +165,7 @@ const payNow = async () => {
                 </td>
               </tr>
               <tr>
-                <th
-                  class="uppercase p-4 bg-secondary text-left text-accent print:text-dark border border-secondary"
-                >
+                <th class="uppercase p-4 bg-secondary text-left text-accent print:text-dark border border-secondary">
                   Phone
                 </th>
                 <td class="bg-light text-dark border border-secondary p-4">
@@ -188,52 +173,82 @@ const payNow = async () => {
                 </td>
               </tr>
               <tr>
-                <th
-                  class="uppercase p-4 bg-secondary text-left text-accent print:text-dark border border-secondary"
-                >
+                <th class="uppercase p-4 bg-secondary text-left text-accent print:text-dark border border-secondary">
                   Email
                 </th>
                 <td class="bg-light text-dark border border-secondary p-4">
                   {{ data.email }}
                 </td>
               </tr>
+               <tr>
+                  <th
+                    class="uppercase p-4 bg-secondary border border-secondary text-left text-accent print:text-dark w-2/5">
+                    Children
+                  </th>
+                  <td class="bg-light text-dark border border-secondary p-4 w-3/5">
+                    <span v-for="child in data.children">{{ child }}, </span>
+                  </td>
+                </tr>
+                 <tr>
+                  <th
+                    class="uppercase p-4 bg-secondary border border-secondary text-left text-accent print:text-dark w-2/5">
+                    Amount Due
+                  </th>
+                  <td class="bg-light text-dark border border-secondary p-4 w-3/5">
+                    £{{ data.amountDue }}
+                  </td>
+                </tr>
+                <tr>
+                  <th
+                    class="uppercase p-4 bg-secondary border border-secondary text-left text-accent print:text-dark w-2/5">
+                    Booking Status
+                  </th>
+                  <td class="bg-light text-dark border border-secondary p-4 w-3/5">
+                    {{ data.status }}
+                  </td>
+                </tr>
             </tbody>
           </table>
           <h3 class="font-play capitalize print:text-dark">Booking details:</h3>
           <table
-            class="table-auto border-separate border-spacing-2 border border-secondary text-light w-full text-2xl rounded-md"
-          >
+            class="table-auto border-separate border-spacing-2 border border-secondary text-light w-full text-2xl rounded-md">
             <tbody>
               <tr>
                 <th
-                  class="uppercase p-4 bg-secondary border border-secondary text-left text-accent print:text-dark w-2/5"
-                >
-                  Children
+                  class="uppercase p-4 bg-secondary border border-secondary text-left text-accent print:text-dark w-2/5">
+                 Bookings Qty
                 </th>
                 <td class="bg-light text-dark border border-secondary p-4 w-3/5">
-                  <span v-for="child in data.children">{{ child }}</span>
+                 {{data.numBookings }}
                 </td>
               </tr>
               <tr>
-                <th
-                  class="uppercase p-4 bg-secondary border border-secondary text-left text-accent print:text-dark w-2/5"
-                >
-                  Amount Due
-                </th>
-                <td class="bg-light text-dark border border-secondary p-4 w-3/5">
-                  £{{ data.amountDue }}
-                </td>
-              </tr>
-              <tr>
-                <th
-                  class="uppercase p-4 bg-secondary border border-secondary text-left text-accent print:text-dark w-2/5"
-                >
-                  Booking Status
-                </th>
-                <td class="bg-light text-dark border border-secondary p-4 w-3/5">
-                  {{ data.status }}
-                </td>
-              </tr>
+                  <th
+                    class="uppercase p-4 bg-secondary border border-secondary text-left text-accent print:text-dark w-2/5">
+                   Start Date
+                  </th>
+                  <td class="bg-light text-dark border border-secondary p-4 w-3/5">
+                   {{ data.startDate }}
+                  </td>
+                </tr>
+                <tr>
+                    <th
+                      class="uppercase p-4 bg-secondary border border-secondary text-left text-accent print:text-dark w-2/5">
+                     End Date
+                    </th>
+                    <td class="bg-light text-dark border border-secondary p-4 w-3/5">
+                     {{ data.endDate }}
+                    </td>
+                  </tr>
+                  <tr>
+                      <th
+                        class="uppercase p-4 bg-secondary border border-secondary text-left text-accent print:text-dark w-2/5">
+                       Sessions per booking
+                      </th>
+                      <td class="bg-light text-dark border border-secondary p-4 w-3/5">
+                       {{ data.sessions }}
+                      </td>
+                    </tr>
             </tbody>
           </table>
         </div>

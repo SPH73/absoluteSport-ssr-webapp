@@ -155,7 +155,7 @@ const payNow = async () => {
             <tbody>
               <tr>
                 <th
-                  class="uppercase p-4 bg-light text-left text-secondary border border-light print:border-secondary p-4 w-2/5"
+                  class="uppercase p-4 bg-light text-left text-secondary border border-light print:border-secondary w-2/5"
                 >
                   Payment Reference
                 </th>
@@ -167,7 +167,7 @@ const payNow = async () => {
               </tr>
               <tr>
                 <th
-                  class="uppercase p-4 bg-light text-left text-secondary border border-light print:border-secondary p-4 w-2/5"
+                  class="uppercase p-4 bg-light text-left text-secondary border border-light print:border-secondary w-2/5"
                 >
                   Booking Date
                 </th>
@@ -179,7 +179,7 @@ const payNow = async () => {
               </tr>
               <tr>
                 <th
-                  class="uppercase p-4 bg-light text-left text-secondary border border-light print:border-secondary p-4 w-2/5"
+                  class="uppercase p-4 bg-light text-left text-secondary border border-light print:border-secondary w-2/5"
                 >
                   Your Name
                 </th>
@@ -191,7 +191,7 @@ const payNow = async () => {
               </tr>
               <tr>
                 <th
-                  class="uppercase p-4 bg-light text-left text-secondary border border-light print:border-secondary p-4 w-2/5"
+                  class="uppercase p-4 bg-light text-left text-secondary border border-light print:border-secondary w-2/5"
                 >
                   Phone
                 </th>
@@ -203,7 +203,7 @@ const payNow = async () => {
               </tr>
               <tr>
                 <th
-                  class="uppercase p-4 bg-light text-left text-secondary border border-light print:border-secondary p-4 w-2/5"
+                  class="uppercase p-4 bg-light text-left text-secondary border border-light print:border-secondary w-2/5"
                 >
                   Email
                 </th>
@@ -222,19 +222,19 @@ const payNow = async () => {
             <tbody>
               <tr>
                 <th
-                  class="uppercase p-4 bg-light text-left text-secondary border border-light print:border-secondary p-4 w-2/5"
+                  class="uppercase p-4 bg-light text-left text-secondary border border-light print:border-secondary w-2/5"
                 >
                   First Name
                 </th>
                 <td
                   class="bg-light text-dark border border-light print:border-secondary p-4 w-3/5"
                 >
-                  {{ data.childName }} {{ data.surname }}
+                  {{ data.childName }}
                 </td>
               </tr>
               <tr>
                 <th
-                  class="uppercase p-4 bg-light text-left text-secondary border border-light print:border-secondary p-4 w-2/5"
+                  class="uppercase p-4 bg-light text-left text-secondary border border-light print:border-secondary w-2/5"
                 >
                   Surname
                 </th>
@@ -246,7 +246,7 @@ const payNow = async () => {
               </tr>
               <tr>
                 <th
-                  class="uppercase p-4 bg-light text-left text-secondary border border-light print:border-secondary p-4 w-2/5"
+                  class="uppercase p-4 bg-light text-left text-secondary border border-light print:border-secondary w-2/5"
                 >
                   Medical Conditions
                 </th>
@@ -258,7 +258,7 @@ const payNow = async () => {
               </tr>
               <tr>
                 <th
-                  class="uppercase p-4 bg-light text-left text-secondary border border-light print:border-secondary p-4 w-2/5"
+                  class="uppercase p-4 bg-light text-left text-secondary border border-light print:border-secondary w-2/5"
                 >
                   School
                 </th>
@@ -270,7 +270,7 @@ const payNow = async () => {
               </tr>
               <tr>
                 <th
-                  class="uppercase p-4 bg-light text-left text-secondary border border-light print:border-secondary p-4 w-2/5"
+                  class="uppercase p-4 bg-light text-left text-secondary border border-light print:border-secondary w-2/5"
                 >
                   Year Group
                 </th>
@@ -282,7 +282,7 @@ const payNow = async () => {
               </tr>
               <tr>
                 <th
-                  class="uppercase p-4 bg-light text-left text-secondary border border-light print:border-secondary p-4 w-2/5"
+                  class="uppercase p-4 bg-light text-left text-secondary border border-light print:border-secondary w-2/5"
                 >
                   Clubs Booked
                 </th>
@@ -294,7 +294,7 @@ const payNow = async () => {
               </tr>
               <tr>
                 <th
-                  class="uppercase p-4 bg-light text-left text-secondary border border-light print:border-secondary p-4 w-2/5"
+                  class="uppercase p-4 bg-light text-left text-secondary border border-light print:border-secondary w-2/5"
                 >
                   Amount Due
                 </th>

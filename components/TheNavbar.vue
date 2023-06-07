@@ -159,14 +159,42 @@ onMounted(() => {
               </li>
             </ul>
           </li>
-          <li class="flex justify-items-center">
-            <NuxtLink
-              to="/football"
-              class="hover:font-bold pb-2"
-              aria-label="Navigate to the football academy page"
-            >
-              Football Academy
-            </NuxtLink>
+          <li class="dropdown" aria-haspopup="true">
+            <span
+              >Football Academy&nbsp;<font-awesome-icon
+                :icon="['fas', 'angle-down']"
+                class="text-secondary h-8 w-8 my-auto"
+            /></span>
+            <ul class="dropdown-content" aria-label="submenu">
+              <li class="flex justify-items-center">
+                <NuxtLink
+                  to="/football"
+                  class="hover:font-bold pb-2"
+                  aria-label="Navigate to the themed parties for kids page"
+                >
+                  About our Football Academy
+                </NuxtLink>
+              </li>
+              <!-- hide until main page content is ready -->
+              <!-- <li class="flex justify-items-center">
+                  <NuxtLink
+                    to="/football/meet-coach-tom"
+                    class="hover:font-bold pb-2"
+                    aria-label="Navigate to the party quote form"
+                  >
+                    Meet Coach Tom
+                  </NuxtLink>
+                </li> -->
+              <li class="flex justify-items-center">
+                <NuxtLink
+                  to="/football/booking"
+                  class="hover:font-bold pb-2"
+                  aria-label="Navigate to the party quote form"
+                >
+                  Book our Football Academy
+                </NuxtLink>
+              </li>
+            </ul>
           </li>
           <li class="flex items-center">
             <NuxtLink
@@ -321,14 +349,36 @@ onMounted(() => {
               Get a party quote</NuxtLink
             >
           </li>
+          
           <li class="flex items-center">
+              <NuxtLink
+                to="/football"
+                @click="isOpen = false"
+                class="my-4 inline-block"
+                aria-label="Navigate to the football academy page"
+              >
+                Our Football Academy</NuxtLink
+              >
+          </li>
+          <!-- hide until main page content is ready -->
+          <!-- <li class="flex items-center">
             <NuxtLink
-              to="/football"
+              to="/football/meet-coach-Tom"
               @click="isOpen = false"
               class="my-4 inline-block"
               aria-label="Navigate to the football academy page"
             >
-              Football Academy</NuxtLink
+              Our Football Coach</NuxtLink
+            >
+          </li> -->
+          <li class="flex items-center">
+            <NuxtLink
+              to="/football/booking"
+              @click="isOpen = false"
+              class="my-4 inline-block"
+              aria-label="Navigate to the football academy page"
+            >
+              Book Football Coaching</NuxtLink
             >
           </li>
           <li class="flex items-center">
