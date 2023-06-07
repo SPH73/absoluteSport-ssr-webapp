@@ -187,7 +187,7 @@ const amountDue = computed(() => {
             details are correct, click
             <span class="text-accent">"Confirm Booking" </span> to send us your booking.
             That's it, you are done and your booking is reserved. Please remember to make
-            your payment to confirm your camp bookings!
+            your payment to confirm your football academy bookings!
           </p>
         </li>
       </ul>
@@ -196,7 +196,7 @@ const amountDue = computed(() => {
           <p class="text-light"><strong class="text-accent">TIP</strong></p>
           <p class="text-light">
             You can remove individual bookings by clicking
-            <span class="text-accent">"[X Remove]"</span> next to each camp booking or
+            <span class="text-accent">"[X Remove]"</span> next to each booking or
             click <span class="text-accent">"Cancel Booking" </span>to start again.
           </p>
           <p class="text-accent font-bold">
