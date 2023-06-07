@@ -1,6 +1,6 @@
 <script lang="ts" setup>
 useHead({
-  title: "Football Academy",
+  title: "Meet Coach Tom - Our Football Academy FA Qualified Coach",
   meta: [
     // {
     //   name: "description",
