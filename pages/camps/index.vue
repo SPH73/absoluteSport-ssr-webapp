@@ -94,10 +94,8 @@ const nextCamps = computed(() => {
             friendships and life-long memories.
           </p>
           <p>
-            Our camps are suitable for children of all abilities aged between 5
-            and 14 and provide an opportunity to stay active throughout the
-            school holidays by participating in a wide range of fun, exciting
-            sports, games and science and art projects.
+            Our camps are suitable for children of all abilities between 5 and 14 years old and run from 09:00 - 17:00 each day. The camps provide an opportunity for the children to stay active throughout the school holidays by participating in a wide range of fun, exciting sports, games and art projects. 
+
           </p>
           <p>
             Our camps are structured and delivered by our coaches trained in
