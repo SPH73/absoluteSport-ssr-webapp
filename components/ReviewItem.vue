@@ -7,7 +7,7 @@ const snippet = computed(() => {
 
 <template>
   <div
-    class="text-light flex flex-col justify-center items-center h-full my-12 h-full"
+    class="text-light flex flex-col justify-center items-center h-full my-12"
   >
     <div class="flex space-x-1">
       <font-awesome-icon

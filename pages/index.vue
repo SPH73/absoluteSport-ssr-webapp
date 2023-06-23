@@ -233,9 +233,7 @@ reviews.value.forEach((record, index) => {
               together.</template
             >
             <template #para-2
-              >Working parent's have the peace of mind that their children are
-              engaging in social and sports activities that boost their
-              confidence and skills in a safe and fun environment.
+              >Working parent's have the peace of mind that their children are engaging in social and sports activities that boost their confidence and skills in a safe and fun environment. Camps run from 09:00 - 17:00 each day.
             </template>
             <template #para-3
               >Come and find out how much fun we have during the school
