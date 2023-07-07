@@ -26,6 +26,7 @@ useHead({
 });
 
 const { error: listError, data: list } = await useFetch("/api/camps/campsList");
+const { error: locsError, data: locs } = await useFetch("/api/camps/campLocList");
 
 const campList = ref([]);
 let camp = {};
@@ -42,12 +43,42 @@ list.value.forEach((record, index) => {
   };
   campList.value.push(camp);
 });
+console.log(campList.value)
+
+const locList = ref([]);
+let loc = {};
+locs.value.forEach((record, index) => {
+  loc = {
+    index: index + 1,
+    id: record.id,
+    locationName: record.fields.locationName,
+    locRef: record.fields.locRef,
+    schoolBadge: record.fields.schoolBadge,
+  };
+  locList.value.push(loc);
+});
+
+console.log(locList.value);
 const currentCamps = computed(() => {
-  return campList.value.filter(camp => camp.status.includes("current"));
+  return campList.value.filter(camp => camp.locRef === selectedLocation.value && camp.status === "current");
 });
 
 const nextCamps = computed(() => {
   return campList.value.filter(camp => camp.status === "next");
+});
+
+const selectedImage = ref(null);
+const selectedLocation = ref(null);
+
+
+const handleImageClick = (image) => {
+  selectedImage.value = image
+  selectedLocation.value = image.filename.split(' ')[0]
+  console.log(selectedLocation.value)
+  
+};
+watchEffect(() => {
+   console.log('watched location',selectedLocation.value)
 });
 </script>
 
@@ -76,8 +107,13 @@ const nextCamps = computed(() => {
           the booking to succeed. If you aren't sure what it is you can request
           it from your child's school. E.g. HAF123456
         </p>
-        <div v-if="currentCamps.length" class="py-4">
-          <h2 class="font-play capitalize">Current Camps</h2>
+        <div class="grid grid-cols-4 gap-4 mt-8">
+          <div v-for="items in locList" class="flex justify-center">
+            <img v-for="image in items.schoolBadge" :key="image.id" :src="image.url" :alt="image.filename" @click="handleImageClick(image)" class="border-4 border-secondary border-solid cursor-pointer w-28 block">
+          </div>
+        </div>
+        <div v-if="selectedImage" class="py-4">
+          <h2 class="font-play capitalize">Current Camps <span v-if="selectedImage">for {{selectedLocation}} </span></h2>
           <p>We are taking bookings now!</p>
           <div>
             <button class="btn-primary my-4 w-full md:w-fit">
@@ -93,7 +129,7 @@ const nextCamps = computed(() => {
             <tbody>
               <tr>
                 <th
-                  class="uppercase p-4 bg-secondary text-left text-accent border border-secondary p-4 w-2/5"
+                  class="uppercase p-4 bg-secondary text-left text-accent border border-secondary w-2/5"
                 >
                   Camp
                 </th>
@@ -103,7 +139,7 @@ const nextCamps = computed(() => {
               </tr>
               <tr>
                 <th
-                  class="uppercase p-4 bg-secondary text-left text-accent border border-secondary p-4"
+                  class="uppercase p-4 bg-secondary text-left text-accent border border-secondary"
                 >
                   Date
                 </th>
@@ -113,7 +149,7 @@ const nextCamps = computed(() => {
               </tr>
               <tr>
                 <th
-                  class="uppercase p-4 bg-secondary text-left text-accent border border-secondary p-4 w-2/5"
+                  class="uppercase p-4 bg-secondary text-left text-accent border border-secondary w-2/5"
                 >
                   Camp Location
                 </th>
@@ -123,7 +159,7 @@ const nextCamps = computed(() => {
               </tr>
               <tr>
                 <th
-                  class="uppercase p-4 bg-secondary text-left text-accent border border-secondary p-4"
+                  class="uppercase p-4 bg-secondary text-left text-accent border border-secondary"
                 >
                   Space Available
                 </th>
@@ -137,10 +173,11 @@ const nextCamps = computed(() => {
         <div class="py-4">
           <h3 class="font-play capitalize">Upcoming Camps</h3>
           <p>
-            As we approach each holdiday we will open up for bookings. You can
+            As we approach each holiday we will open up for bookings. You can
             select the weeks you wish to book while space is available and add
-            them all to a single booking and payment on our booking page.
+            them all to a single booking and payment on our booking page. 
           </p>
+          <p><span class="font-play">TIP: </span>Use the school badge to select the location you wish to view upcoming camps for.</p>
         </div>
         <table
           v-for="camp in nextCamps"
@@ -149,7 +186,7 @@ const nextCamps = computed(() => {
           <tbody>
             <tr>
               <th
-                class="uppercase p-4 bg-secondary text-left text-accent border border-secondary p-4 w-2/5"
+                class="uppercase p-4 bg-secondary text-left text-accent border border-secondary w-2/5"
               >
                 Camp
               </th>
@@ -159,7 +196,7 @@ const nextCamps = computed(() => {
             </tr>
             <tr>
               <th
-                class="uppercase p-4 bg-secondary text-left text-accent border border-secondary p-4"
+                class="uppercase p-4 bg-secondary text-left text-accent border border-secondary"
               >
                 Date
               </th>
@@ -169,7 +206,7 @@ const nextCamps = computed(() => {
             </tr>
             <tr>
               <th
-                class="uppercase p-4 bg-secondary text-left text-accent border border-secondary p-4 w-2/5"
+                class="uppercase p-4 bg-secondary text-left text-accent border border-secondary w-2/5"
               >
                 Camp Location
               </th>
@@ -180,7 +217,7 @@ const nextCamps = computed(() => {
 
             <tr>
               <th
-                class="uppercase p-4 bg-secondary text-left text-accent border border-secondary p-4"
+                class="uppercase p-4 bg-secondary text-left text-accent border border-secondary"
               >
                 Maximum Capacity
               </th>
