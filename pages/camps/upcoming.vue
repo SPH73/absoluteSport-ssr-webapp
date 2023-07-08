@@ -60,6 +60,7 @@ locs.value.forEach((record, index) => {
 
 console.log(locList.value);
 const currentCamps = computed(() => {
+  // return campList.value.filter(camp => camp.locationName.includes(selectedLocation.value) && camp.status === "current");
   return campList.value.filter(camp => camp.locRef === selectedLocation.value && camp.status === "current");
 });
 
@@ -74,6 +75,10 @@ const selectedLocation = ref(null);
 const handleImageClick = (image) => {
   selectedImage.value = image
   selectedLocation.value = image.filename.split(' ')[0]
+  if(selectedLocation.value === "Great"){
+    return selectedLocation.value = "Great Ballard"
+  }
+  else selectedLocation.value = selectedLocation.value
   console.log(selectedLocation.value)
   
 };
@@ -90,8 +95,7 @@ watchEffect(() => {
           Why not come and see how much fun we have during the school holidays?
         </h1>
         <p>
-          We run Holiday Activity Camps at Sidlesham Primary School and
-          Portfield Primary Academy throughout the year. Places often fill up
+          We run Holiday Activity Camps at several local West Sussex and Hampshire schools (see badges below) throughout the year. Places often fill up
           quickly so please reserve a place for your child as soon as possible
           <NuxtLink
             aria-label="book camps"
@@ -177,7 +181,7 @@ watchEffect(() => {
             select the weeks you wish to book while space is available and add
             them all to a single booking and payment on our booking page. 
           </p>
-          <p><span class="font-play">TIP: </span>Use the school badge to select the location you wish to view upcoming camps for.</p>
+          <p><span class="font-play">TIP: </span>Click or tap a school badge to select the location you wish to view upcoming camps for.</p>
         </div>
         <table
           v-for="camp in nextCamps"
