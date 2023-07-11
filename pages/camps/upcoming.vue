@@ -95,15 +95,18 @@ watchEffect(() => {
           Why not come and see how much fun we have during the school holidays?
         </h1>
         <p>
-          We run Holiday Activity Camps at several local West Sussex and Hampshire schools (see badges below) throughout the year. Places often fill up
-          quickly so please reserve a place for your child as soon as possible
-          <NuxtLink
+          We run Holiday Activity Camps at several local West Sussex and Hampshire schools (see badges below), throughout the year. </p>
+          <p>
+          Places often fill up
+          quickly so please reserve a place for your child(ren) as soon as possible. Simply select any weeks you wish to book while space is available and add
+              them all to a single booking and payment on our camp booking page          <NuxtLink
             aria-label="book camps"
             to="camps/booking"
-            class="font-bold underline"
+            class="font-play underline"
             >here</NuxtLink
           >.
         </p>
+
         <p>
           As a service provider to the West Sussex Council we have a certain
           amount of places available for pupils receiving HAF benefit. If you
@@ -111,6 +114,15 @@ watchEffect(() => {
           the booking to succeed. If you aren't sure what it is you can request
           it from your child's school. E.g. HAF123456
         </p>
+        <p>
+          As we approach each holiday, we update this page when we are accepting bookings for the current camps. You can also always view any upcoming camps for your preferred location below after clicking on a badge.
+        </p>
+        <p>
+          If you have any questions please don't hesitate to
+          <NuxtLink aria-label="contact us" to="/contact" class="font-play underline"
+            >contact us</NuxtLink
+          >
+       </p> 
         <div class="grid grid-cols-4 gap-4 mt-8">
           <div v-for="items in locList" class="flex justify-center">
             <img v-for="image in items.schoolBadge" :key="image.id" :src="image.url" :alt="image.filename" @click="handleImageClick(image)" class="border-4 border-secondary border-solid cursor-pointer aspect-square block">
@@ -176,11 +188,7 @@ watchEffect(() => {
         </div>
         <div class="py-4">
           <h3 class="font-play capitalize">Upcoming Camps</h3>
-          <p>
-            As we approach each holiday we will open up for bookings. You can
-            select the weeks you wish to book while space is available and add
-            them all to a single booking and payment on our booking page. 
-          </p>
+          
           <p><span class="font-play">TIP: </span>Click or tap a school badge to select the location you wish to view upcoming camps for.</p>
         </div>
         <table
