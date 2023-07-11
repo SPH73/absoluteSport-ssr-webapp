@@ -114,12 +114,6 @@ const nextCamps = computed(() => {
               >here</NuxtLink
             >.
           </p>
-          <p class="text-left">
-            If you have any questions please don't hesitate to
-            <NuxtLink aria-label="contact us" to="/contact" class="font-play underline"
-              >contact us</NuxtLink
-            >
-         </p>
         </div>
         <!-- images -->
         <div
