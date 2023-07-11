@@ -94,9 +94,9 @@ const nextCamps = computed(() => {
             friendships and life-long memories.
           </p>
           <p>
-            Our camps are suitable for children of all abilities between 5 and 14 years old and run from 09:00 - 17:00 each day. The camps provide an opportunity for the children to stay active throughout the school holidays by participating in a wide range of fun, exciting sports, games and art projects. 
-
+            Our camps are suitable for children of all abilities between 5 and 14 years old and run from 09:00 - 17:00 each day and the price varies from £25 - £35 accross our camp locations.  
           </p>
+          <p>The camps provide an opportunity for the children to stay active throughout the school holidays by participating in a wide range of fun, exciting sports, games and art projects.</p>
           <p>
             Our camps are structured and delivered by our coaches trained in
             coaching children in sports. The team will ensure that your child
@@ -105,12 +105,12 @@ const nextCamps = computed(() => {
             confidence).
           </p>
           <p>
-            You'll find an up-to-date list of the current and upcoming camps we
-            are running
+            You'll find more information and an up-to-date list of the current and upcoming camps we
+            are running on our "upcoming camps" page
             <NuxtLink
               aria-label="view upcoming camps"
               to="camps/upcoming"
-              class="font-bold underline"
+              class="font-play underline"
               >here</NuxtLink
             >.
           </p>
