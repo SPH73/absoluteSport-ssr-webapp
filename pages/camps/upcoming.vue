@@ -65,7 +65,7 @@ const currentCamps = computed(() => {
 });
 
 const nextCamps = computed(() => {
-  return campList.value.filter(camp => camp.status === "next");
+  return campList.value.filter(camp => camp.locRef === selectedLocation.value && camp.status === "upcoming");
 });
 
 const selectedImage = ref(null);
@@ -113,7 +113,7 @@ watchEffect(() => {
         </p>
         <div class="grid grid-cols-4 gap-4 mt-8">
           <div v-for="items in locList" class="flex justify-center">
-            <img v-for="image in items.schoolBadge" :key="image.id" :src="image.url" :alt="image.filename" @click="handleImageClick(image)" class="border-4 border-secondary border-solid cursor-pointer w-28 block">
+            <img v-for="image in items.schoolBadge" :key="image.id" :src="image.url" :alt="image.filename" @click="handleImageClick(image)" class="border-4 border-secondary border-solid cursor-pointer aspect-square block">
           </div>
         </div>
         <div v-if="selectedImage" class="py-4">
