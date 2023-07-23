@@ -8,7 +8,6 @@ cms.value.forEach((record, index) => {
     name: record.fields.element,
     content: record.fields.content,
     display: record.fields.display,
-    modified: record.fields.lastUpdated,
   };
   content.value.push(element);
 });

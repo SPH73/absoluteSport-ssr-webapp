@@ -66,6 +66,7 @@ const clubDetails = ref([]);
 const bookingSummary = ref([]);
 const paymentSummary = ref({});
 const years = ["R", "1", "2", "3", "4", "5", "6"];
+const submitDisabled = ref(false);
 
 // calculate cost of all clubs
 const calculateCost = computed(() => {
@@ -178,6 +179,7 @@ async function handleSubmitClubBooking() {
   if (!formIsValid.value) {
     return;
   }
+  submitDisabled.value = true;
   createPaymentRef();
 
   clubPayment.value = {
@@ -573,7 +575,7 @@ async function handleSubmitClubBooking() {
           required. Please correct the errors and submit again.
         </p>
         <div class="md:flex md:justify-end">
-          <button class="btn-accent my-4 w-full md:w-fit">
+          <button class="btn-accent my-4 w-full md:w-fit" :disabled="submitDisabled===true">
             Submit Booking
           </button>
         </div>

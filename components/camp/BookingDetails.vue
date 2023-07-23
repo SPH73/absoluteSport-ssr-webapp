@@ -9,6 +9,7 @@ const props = defineProps([
   "campBooking",
 ]);
 
+const submitDisabled = ref(false);
 // events
 const emit = defineEmits([
   "handleRemoveBookingItem",
@@ -20,6 +21,7 @@ const removeBookingItem = (item) => {
 };
 const confirmBooking = () => {
   emit("handleConfirmBooking");
+  submitDisabled.value = true;
 };
 const cancelBooking = () => {
   emit("handleCancelBooking");
@@ -189,7 +191,7 @@ const amountDue = computed(() => {
       </table>
 
       <div class="btn-group mt-4">
-        <button class="btn-accent mr-4" @click="confirmBooking">Confirm Booking</button>
+        <button class="btn-accent mr-4" @click="confirmBooking" :disabled="submitDisabled">Confirm Booking</button>
         <button class="btn-accent" @click="cancelBooking">Cancel Booking</button>
       </div>
     </div>

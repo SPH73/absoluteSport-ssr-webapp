@@ -60,7 +60,6 @@ locs.value.forEach((record, index) => {
 
 console.log(locList.value);
 const currentCamps = computed(() => {
-  // return campList.value.filter(camp => camp.locationName.includes(selectedLocation.value) && camp.status === "current");
   return campList.value.filter(camp => camp.locRef === selectedLocation.value && camp.status === "current");
 });
 
@@ -129,6 +128,7 @@ watchEffect(() => {
           </div>
         </div>
         <div v-if="selectedImage" class="py-4">
+        <div v-if="currentCamps.length">
           <h2 class="font-play capitalize">Current Camps <span v-if="selectedImage">for {{selectedLocation}} </span></h2>
           <p>We are taking bookings now!</p>
           <div>
@@ -137,6 +137,10 @@ watchEffect(() => {
                 >Book Now</nuxt-link
               >
             </button>
+          </div>
+          </div>
+          <div v-else>
+            <p>We are sorry for any inconveniece caused but we do not have any camps to show you for your selected location at the moment. This may be due to a change in program or they are booked to capacity.</p>
           </div>
           <table
             v-for="camp in currentCamps"
