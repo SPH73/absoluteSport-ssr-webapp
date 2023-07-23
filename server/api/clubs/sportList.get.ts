@@ -9,7 +9,7 @@ export default defineEventHandler(async event => {
 
   const records = await table
     .select({
-      filterByFormula: 'AND(display = "true")',
+      filterByFormula: 'NOT(display = "false")',
       sort: [{ field: "sportName", direction: "asc" }],
     })
     .firstPage();
