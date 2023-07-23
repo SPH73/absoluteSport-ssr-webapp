@@ -103,7 +103,7 @@ watchEffect(() => {
             </div>
         </div>
          <button class="btn-primary my-4 w-full md:w-fit">
-            <NuxtLink to="clubs/booking" aria-label="book clubs"
+            <NuxtLink to="/clubs/booking" aria-label="book clubs"
               >book now</NuxtLink
             >
           </button>
