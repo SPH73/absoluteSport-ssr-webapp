@@ -419,6 +419,36 @@ onMounted(() => {
           </li>
           <li class="flex items-center">
             <NuxtLink
+              to="/experiences"
+              @click="isOpen = false"
+              class="my-4 inline-block"
+              aria-label="Navigate to the experiences page"
+            >
+              Experiences</NuxtLink
+            >
+          </li>
+          <li class="flex items-center">
+            <NuxtLink
+              to="/experiences/upcoming"
+              @click="isOpen = false"
+              class="my-4 inline-block"
+              aria-label="Navigate to the upcoming camps page"
+            >
+              View upcoming Experiences</NuxtLink
+            >
+          </li>
+          <li class="flex items-center">
+            <NuxtLink
+              to="/experiences/booking"
+              @click="isOpen = false"
+              class="my-4 inline-block"
+              aria-label="Navigate to experiences booking form"
+            >
+              Book upcoming Experiences</NuxtLink
+            >
+          </li>
+          <li class="flex items-center">
+            <NuxtLink
               to="/contact"
               @click="isOpen = false"
               class="my-4 inline-block"
