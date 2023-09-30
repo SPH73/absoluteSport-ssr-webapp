@@ -10,7 +10,7 @@ watch(isOpen, function handler(isOpen) {
   }
 });
 onMounted(() => {
-  document.addEventListener("keydown", e => {
+  document.addEventListener("keydown", (e) => {
     if (e.key === "Enter" && isOpen.value) isOpen.value = !isOpen.value;
   });
 });
@@ -170,7 +170,7 @@ onMounted(() => {
                 <NuxtLink
                   to="/football"
                   class="hover:font-bold pb-2"
-                  aria-label="Navigate to the themed parties for kids page"
+                  aria-label="Navigate to the football academy page"
                 >
                   About our Football Academy
                 </NuxtLink>
@@ -180,7 +180,7 @@ onMounted(() => {
                   <NuxtLink
                     to="/football/meet-coach-tom"
                     class="hover:font-bold pb-2"
-                    aria-label="Navigate to the party quote form"
+                    aria-label="Navigate to the meet our football coach page"
                   >
                     Meet Coach Tom
                   </NuxtLink>
@@ -189,9 +189,45 @@ onMounted(() => {
                 <NuxtLink
                   to="/football/booking"
                   class="hover:font-bold pb-2"
-                  aria-label="Navigate to the party quote form"
+                  aria-label="Navigate to the football academy booking form"
                 >
                   Book our Football Academy
+                </NuxtLink>
+              </li>
+            </ul>
+          </li>
+          <li class="dropdown" aria-haspopup="true">
+            <span
+              >Experiences&nbsp;<font-awesome-icon
+                :icon="['fas', 'angle-down']"
+                class="text-secondary h-8 w-8 my-auto"
+            /></span>
+            <ul class="dropdown-content" aria-label="submenu">
+              <li class="flex justify-items-center">
+                <NuxtLink
+                  to="/experiences"
+                  class="hover:font-bold pb-2"
+                  aria-label="Navigate to our expeiences information page"
+                >
+                  About our Experiences
+                </NuxtLink>
+              </li>
+              <li class="flex justify-items-center">
+                <NuxtLink
+                  to="/experiences/upcoming"
+                  class="hover:font-bold pb-2"
+                  aria-label="Navigate to the upcoming experiences page"
+                >
+                  Upcoming Experiences
+                </NuxtLink>
+              </li>
+              <li class="flex justify-items-center">
+                <NuxtLink
+                  to="/experiences/booking"
+                  class="hover:font-bold pb-2"
+                  aria-label="Navigate to the experiences booking page"
+                >
+                  Book an Experience
                 </NuxtLink>
               </li>
             </ul>
@@ -349,16 +385,16 @@ onMounted(() => {
               Get a party quote</NuxtLink
             >
           </li>
-          
+
           <li class="flex items-center">
-              <NuxtLink
-                to="/football"
-                @click="isOpen = false"
-                class="my-4 inline-block"
-                aria-label="Navigate to the football academy page"
-              >
-                Our Football Academy</NuxtLink
-              >
+            <NuxtLink
+              to="/football"
+              @click="isOpen = false"
+              class="my-4 inline-block"
+              aria-label="Navigate to the football academy page"
+            >
+              Our Football Academy</NuxtLink
+            >
           </li>
           <!-- hide until main page content is ready -->
           <!-- <li class="flex items-center">

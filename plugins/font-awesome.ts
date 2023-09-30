@@ -51,6 +51,9 @@ import {
   faBrain,
   faFaceLaughBeam,
   faPeopleGroup,
+  faBullseye,
+  faCrosshairs,
+  faClipboardQuestion,
 } from "@fortawesome/free-solid-svg-icons";
 import {
   faLinkedin,
@@ -59,7 +62,7 @@ import {
   faWhatsapp,
 } from "@fortawesome/free-brands-svg-icons";
 
-export default defineNuxtPlugin(nuxtApp => {
+export default defineNuxtPlugin((nuxtApp) => {
   library.add(
     faArrowUpRightFromSquare,
     faCircleInfo,
@@ -115,6 +118,9 @@ export default defineNuxtPlugin(nuxtApp => {
     faLightbulb,
     faMagnifyingGlassArrowRight,
     faSurprise,
+    faClipboardQuestion,
+    faBullseye,
+    faCrosshairs
   );
   nuxtApp.vueApp.component("font-awesome-icon", FontAwesomeIcon);
 });
