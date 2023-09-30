@@ -81,7 +81,7 @@ const nextCamps = computed(() => {
           class="px-8 md:container py-4 flex flex-col items-center justify-center overflow-hidden"
         >
           <h2 class="font-play capitalize">
-            Experience Events with AbsoluteSport
+            Experience Day Events with AbsoluteSport
           </h2>
           <p>
             Description1 Lorem, ipsum dolor sit amet consectetur adipisicing
