@@ -260,7 +260,7 @@ watchEffect(() => {
                 Date & Time
               </th>
               <td class="bg-light text-dark border border-light p-4">
-                {{ exp.expDate }}
+                {{ exp.expDateTime }}
               </td>
             </tr>
             <tr>
