@@ -183,9 +183,8 @@ const nextCamps = computed(() => {
         </template>
         <template #heading>Archery</template>
         <template #details>
-          Archery badge Lorem ipsum dolor sit amet consectetur adipisicing elit.
-          Neque porro perferendis quidem iusto quasi vel veritatis mollitia odit
-          modi illum?
+          In Archery Tag, you're not just a participant; you're a warrior, a
+          marksman, and a guardian of your team's honour.
         </template>
       </BaseBadge>
       <BaseBadge>
@@ -194,9 +193,9 @@ const nextCamps = computed(() => {
         </template>
         <template #heading>Laser Tag</template>
         <template #details>
-          laser Tag Content Lorem ipsum dolor sit, amet consectetur adipisicing
-          elit. Commodi beatae dolor suscipit, voluptate cupiditate incidunt
-          consequatur cumque facere totam voluptas.</template
+          Get ready to unleash your inner warrior, outmaneuver your rivals, and
+          immerse yourself in an adrenaline-fueled adventure like no
+          other.</template
         >
       </BaseBadge>
       <BaseBadge>
@@ -205,20 +204,20 @@ const nextCamps = computed(() => {
         </template>
         <template #heading>Quests</template>
         <template #details>
-          Quests Lorem ipsum dolor sit amet consectetur adipisicing elit. Esse
-          accusantium vitae rem quos, excepturi quaerat, laboriosam at sed
-          corrupti fugit voluptatum nostrum laudantium illo labore.</template
+          our quest awaits, and within its unfolding chapters, you may just
+          discover the hero you were always meant to be. The adventure begins
+          now!</template
         >
       </BaseBadge>
       <BaseBadge>
         <template #icon>
           <font-awesome-icon :icon="['fas', 'question']" />
         </template>
-        <template #heading>Other</template>
+        <template #heading>Adventure Themed Parties</template>
         <template #details>
-          Other content Lorem ipsum dolor sit amet consectetur adipisicing elit.
-          Vel ratione possimus accusamus at fugit dicta blanditiis quasi beatae
-          repellat aspernatur.</template
+          Our children's themed parties are a portal to a magical universe where
+          every detail is carefully crafted to enchant, entertain and bring
+          smiles to young faces.</template
         >
       </BaseBadge>
     </section>
