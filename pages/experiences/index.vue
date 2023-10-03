@@ -204,7 +204,7 @@ const nextCamps = computed(() => {
         </template>
         <template #heading>Quests</template>
         <template #details>
-          our quest awaits, and within its unfolding chapters, you may just
+          Your quest awaits, and within its unfolding chapters, you may just
           discover the hero you were always meant to be. The adventure begins
           now!</template
         >
