@@ -1,9 +1,9 @@
 <script setup>
 const { data: clubList, error: clubError } = await useFetch(
-  "/api/clubs/clubsList",
+  "/api/clubs/clubsList"
 );
 const { data: schoolList, error: schoolError } = await useFetch(
-  "/api/clubs/schoolList",
+  "/api/clubs/schoolList"
 );
 
 let club = {};
@@ -27,7 +27,7 @@ clubList.value.forEach((record, index) => {
   };
   clubOptions.value.push(club);
 });
-console.log('ClubList',clubOptions.value)
+console.log("ClubList", clubOptions.value);
 
 let school = {};
 const schoolOptions = ref([]);
@@ -41,7 +41,7 @@ schoolList.value.forEach((record, index) => {
   };
   schoolOptions.value.push(school);
 });
-  console.log('SchoolList',schoolOptions.value);
+console.log("SchoolList", schoolOptions.value);
 
 const enteredParentName = ref({ val: "", isValid: true });
 const enteredEmail = ref({ val: "", isValid: true });
@@ -71,7 +71,9 @@ const submitDisabled = ref(false);
 // calculate cost of all clubs
 const calculateCost = computed(() => {
   for (club of checkedClubs.value.val) {
-    clubDetails.value = filteredClubs.value.find(item => item.clubRef === club);
+    clubDetails.value = filteredClubs.value.find(
+      (item) => item.clubRef === club
+    );
     cost.value += clubDetails.value.termCost;
   }
   return cost.value;
@@ -86,7 +88,9 @@ const clearCost = () => {
 watch(checkedClubs, () => {
   cost.value = 0;
   for (club of checkedClubs.value.val) {
-    clubDetails.value = filteredClubs.value.find(item => item.clubRef === club);
+    clubDetails.value = filteredClubs.value.find(
+      (item) => item.clubRef === club
+    );
     cost.value += clubDetails.value.termCost;
   }
   return cost.value;
@@ -102,7 +106,7 @@ watch(calculateCost, () => {
 const filteredSchoolClubs = computed(() => {
   let group = enteredYearGroup.value.val;
   let schoolRef = selectedSchool.value.val;
-  filteredClubs.value = clubOptions.value.filter(el => {
+  filteredClubs.value = clubOptions.value.filter((el) => {
     return el.yearRange.includes(group) && el.schoolName === schoolRef;
   });
 });
@@ -169,7 +173,7 @@ const validateForm = () => {
 const createPaymentRef = () => {
   paymentRef.value = Date.now().toString(36);
 };
-const createBookingRef = club => {
+const createBookingRef = (club) => {
   bookingRef.value = `${paymentRef.value}-${club}`;
 };
 
@@ -211,7 +215,7 @@ async function handleSubmitClubBooking() {
     for (let club of checkedClubs.value.val) {
       createBookingRef(club);
       clubDetails.value = filteredClubs.value.find(
-        item => item.clubRef === club,
+        (item) => item.clubRef === club
       );
 
       clubBooking.value = {
@@ -506,11 +510,15 @@ async function handleSubmitClubBooking() {
           </div>
         </div>
         <div v-else>
-          <p
-            class="text-light"
-            v-if="enteredYearGroup !== 'select' || selectedSchool !== 'select'"
-          >
-            Sorry, there are no clubs available for your selections.
+          <p class="text-light" v-if="!enteredYearGroup && !selectedSchool">
+            Sorry, there are no clubs to display for your selections. Kindly
+            refer to our
+            <NuxtLink to="/clubs/upcoming"
+              ><span class="font-play underline cursor-pointer"
+                >upcoming clubs</span
+              ></NuxtLink
+            >
+            page for more info.
           </p>
           <p class="text-light" v-else>
             Select a year group and school to load clubs...
@@ -575,7 +583,10 @@ async function handleSubmitClubBooking() {
           required. Please correct the errors and submit again.
         </p>
         <div class="md:flex md:justify-end">
-          <button class="btn-accent my-4 w-full md:w-fit" :disabled="submitDisabled===true">
+          <button
+            class="btn-accent my-4 w-full md:w-fit"
+            :disabled="submitDisabled === true"
+          >
             Submit Booking
           </button>
         </div>
