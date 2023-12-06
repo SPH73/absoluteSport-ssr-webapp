@@ -38,10 +38,12 @@ cms.value.forEach((record, index) => {
   };
   content.value.push(element);
 });
-console.log('content', content.value)
+console.log("content", content.value);
 
 const { error: listError, data: list } = await useFetch("/api/clubs/sportList");
-const { error: schoolError, data: schoolList } = await useFetch("/api/clubs/schoolList");
+const { error: schoolError, data: schoolList } = await useFetch(
+  "/api/clubs/schoolList"
+);
 
 const sportList = ref([]);
 let activity = {};
@@ -60,7 +62,7 @@ list.value.forEach((record, index) => {
   };
   sportList.value.push(activity);
 });
-console.log('SportList', sportList.value)
+console.log("SportList", sportList.value);
 
 let school = {};
 const schoolOptions = ref([]);
@@ -72,39 +74,60 @@ schoolList.value.forEach((record, index) => {
     schoolRef: record.fields.schoolRef,
     status: record.fields.status,
     schoolBadge: record.fields.schoolBadge,
+    bookings: record.fields.bookings,
   };
   schoolOptions.value.push(school);
 });
-console.log('SchoolList', schoolOptions.value);
+console.log("SchoolList", schoolOptions.value);
 
 const currentClubs = computed(() => {
-  return sportList.value.filter(sport => sport.schoolList === selectedSchool.value && sport.display === true);
+  return sportList.value.filter(
+    (sport) =>
+      sport.schoolList === selectedSchool.value && sport.display === true
+  );
 });
 
 const selectedImage = ref(null);
 const selectedSchool = ref(null);
 
+const schoolBookings = computed(() => {
+  return schoolOptions.value.filter(
+    (school) =>
+      school.schoolName === selectedSchool.value &&
+      school.bookings === undefined
+  );
+});
 
 const handleImageClick = (image) => {
-  selectedImage.value = image
-  selectedSchool.value = image.filename.split('.')[0]
-
+  selectedImage.value = image;
+  selectedSchool.value = image.filename.split(".")[0];
 };
-const insetDays = ref(null)
-const strikeDays = ref(null)
+const insetDays = ref(null);
+const strikeDays = ref(null);
 const currentInset = computed(() => {
-  return insetDays.value = content.value.filter(cms => cms.school === selectedSchool.value && cms.name === 'inset days' && cms.display === true);
+  return (insetDays.value = content.value.filter(
+    (cms) =>
+      cms.school === selectedSchool.value &&
+      cms.name === "inset days" &&
+      cms.display === true
+  ));
 });
 
 const currentStrike = computed(() => {
-  return strikeDays.value = content.value.filter(cms => cms.school === selectedSchool.value && cms.name === 'strike days' && cms.display === true);
+  return (strikeDays.value = content.value.filter(
+    (cms) =>
+      cms.school === selectedSchool.value &&
+      cms.name === "strike days" &&
+      cms.display === true
+  ));
 });
 watchEffect(() => {
-  console.log('selectedImage', selectedImage.value)
-  console.log('selectedSchool', selectedSchool.value)
-  console.log('currentClubs', currentClubs.value)
-  console.log('currentInset', currentInset.value)
-  console.log('currentStrike', currentStrike.value)
+  console.log("selectedImage", selectedImage.value);
+  console.log("selectedSchool", selectedSchool.value);
+  console.log("currentClubs", currentClubs.value);
+  console.log("currentInset", currentInset.value);
+  console.log("currentStrike", currentStrike.value);
+  console.log("schoolBookings", schoolBookings.value);
 });
 </script>
 
@@ -117,19 +140,31 @@ watchEffect(() => {
         </h1>
         <p>
           We coach a variety of sports and activities at our clubs and
-          wraparound care at West Wittering primary, Portfield Primary Academy, Sidlesham Primary and Yapton Primary.
-          These are updated regularly to keep our clubs current and interesting.
+          wraparound care at schools around the West Sussex and Hampshire as
+          displayed below. Our programmes are updated regularly to keep our
+          clubs current and interesting.
         </p>
         <p>All of our clubs will be starting on the set date advertised.</p>
-        <p>School strike days are beyond our control and therefore are not refundable. However, any days that
-          AbsoluteSport cancels due to unforseen circumstances will be refunded.</p>
-        <p>Please select a school badge to view the currently available clubs for your child's school including
-          information about any planned strike days or inset days.</p>
+        <p>
+          School strike days are beyond our control and therefore are not
+          refundable. However, any days that AbsoluteSport cancels due to
+          unforseen circumstances will be refunded.
+        </p>
+        <p>
+          Please select a school badge to view the currently available clubs for
+          your child's school including information about any planned strike
+          days or inset days.
+        </p>
         <div class="grid grid-cols-4 gap-4 my-8">
           <div v-for="items in schoolOptions" class="flex justify-center">
-            <img v-for="image in items.schoolBadge" :key="image.id" :src="image.url" :alt="image.filename"
+            <img
+              v-for="image in items.schoolBadge"
+              :key="image.id"
+              :src="image.url"
+              :alt="image.filename"
               @click="handleImageClick(image)"
-              class="border-4 border-secondary border-solid cursor-pointer aspect-square block">
+              class="border-4 border-secondary border-solid cursor-pointer aspect-square block"
+            />
           </div>
         </div>
         <div v-if="selectedImage" class="my-8">
@@ -152,13 +187,19 @@ watchEffect(() => {
           <h3 class="font-play capitalize">Currently available Clubs</h3>
           <div v-if="currentClubs.length">
             <button class="btn-primary my-4 w-full md:w-fit">
-              <NuxtLink to="/clubs/booking" aria-label="book clubs">book now</NuxtLink>
+              <NuxtLink to="/clubs/booking" aria-label="book clubs"
+                >book now</NuxtLink
+              >
             </button>
-            <table v-for="activity in currentClubs"
-              class="table-fixed border-separate border-spacing-2 border border-light text-light w-full text-2xl rounded-md mb-4 whitespace-pre-wrap">
+            <table
+              v-for="activity in currentClubs"
+              class="table-fixed border-separate border-spacing-2 border border-light text-light w-full text-2xl rounded-md mb-4 whitespace-pre-wrap"
+            >
               <tbody>
                 <tr>
-                  <th class="uppercase bg-secondary text-left text-accent border border-secondary p-4 w-2/5">
+                  <th
+                    class="uppercase bg-secondary text-left text-accent border border-secondary p-4 w-2/5"
+                  >
                     Activity
                   </th>
                   <td class="bg-light text-dark border border-light p-4 w-3/5">
@@ -166,15 +207,23 @@ watchEffect(() => {
                   </td>
                 </tr>
                 <tr class="">
-                  <th class="uppercase bg-secondary text-left text-accent border border-secondary p-4 w-2/5">
+                  <th
+                    class="uppercase bg-secondary text-left text-accent border border-secondary p-4 w-2/5"
+                  >
                     What you can expect
                   </th>
-                  <td class="bg-light text-dark border border-light p-4 w-3/5 break-words">
-                    <span v-for="item in activity.intro">{{ item }} &nbsp;</span>
+                  <td
+                    class="bg-light text-dark border border-light p-4 w-3/5 break-words"
+                  >
+                    <span v-for="item in activity.intro"
+                      >{{ item }} &nbsp;</span
+                    >
                   </td>
                 </tr>
                 <tr>
-                  <th class="uppercase bg-secondary text-left text-accent border border-secondary p-4 w-2/5">
+                  <th
+                    class="uppercase bg-secondary text-left text-accent border border-secondary p-4 w-2/5"
+                  >
                     School
                   </th>
                   <td class="bg-light text-dark border border-light p-4 w-3/5">
@@ -182,15 +231,21 @@ watchEffect(() => {
                   </td>
                 </tr>
                 <tr>
-                  <th class="uppercase bg-secondary text-left text-accent border border-secondary p-4 w-2/5">
+                  <th
+                    class="uppercase bg-secondary text-left text-accent border border-secondary p-4 w-2/5"
+                  >
                     Year groups
                   </th>
                   <td class="bg-light text-dark border border-light p-4 w-3/5">
-                    <span v-for="item in activity.yearRange">{{ item }} &nbsp;</span>
+                    <span v-for="item in activity.yearRange"
+                      >{{ item }} &nbsp;</span
+                    >
                   </td>
                 </tr>
                 <tr>
-                  <th class="uppercase bg-secondary text-left text-accent border border-secondary p-4 w-2/5">
+                  <th
+                    class="uppercase bg-secondary text-left text-accent border border-secondary p-4 w-2/5"
+                  >
                     Sessions per booking
                   </th>
                   <td class="bg-light text-dark border border-light p-4 w-3/5">
@@ -198,7 +253,9 @@ watchEffect(() => {
                   </td>
                 </tr>
                 <tr>
-                  <th class="uppercase bg-secondary text-left text-accent border border-secondary p-4 w-2/5">
+                  <th
+                    class="uppercase bg-secondary text-left text-accent border border-secondary p-4 w-2/5"
+                  >
                     Week commencing
                   </th>
                   <td class="bg-light text-dark border border-light p-4 w-3/5">
@@ -206,7 +263,9 @@ watchEffect(() => {
                   </td>
                 </tr>
                 <tr>
-                  <th class="uppercase bg-secondary text-left text-accent border border-secondary p-4 w-2/5">
+                  <th
+                    class="uppercase bg-secondary text-left text-accent border border-secondary p-4 w-2/5"
+                  >
                     Ending
                   </th>
                   <td class="bg-light text-dark border border-light p-4 w-3/5">
@@ -216,10 +275,20 @@ watchEffect(() => {
               </tbody>
             </table>
           </div>
+          <div v-else-if="schoolBookings">
+            <p>
+              This school handles their club bookings directly. Kindly refer to
+              the school website or school office for more information and to
+              make bookings.
+            </p>
+          </div>
           <div v-else>
-            <p>We are sorry for any inconveniece caused but we don't have any current clubs to display for your selected
-              school. This could be due to various reasons such as school holidays, a change in the school programme or
-              they are booked to capacity.</p>
+            <p>
+              We are sorry for any inconveniece caused but we don't have any
+              current clubs to display for your selected school. This could be
+              due to various reasons such as school holidays, a change in the
+              school programme or they are booked to capacity.
+            </p>
           </div>
         </div>
       </div>

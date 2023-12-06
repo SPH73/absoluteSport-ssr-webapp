@@ -1,6 +1,6 @@
 import Airtable from "airtable";
 
-export default defineEventHandler(async event => {
+export default defineEventHandler(async (event) => {
   const { atApiKey } = useRuntimeConfig().private;
   const { atBaseId } = useRuntimeConfig().public;
   const base = new Airtable({ apiKey: atApiKey }).base(atBaseId);
@@ -16,6 +16,6 @@ export default defineEventHandler(async event => {
   if (!records) {
     throw Error("Unable to fetch list");
   }
-  // console.log("airtable sportList", records);
+  console.log("api sportList", records);
   return records;
 });
