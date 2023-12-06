@@ -281,8 +281,13 @@ async function handleSubmitClubBooking() {
     <div id="text">
       <h2 class="text-accent font-play">School Clubs Booking Form</h2>
       <p class="text-light">
-        We currently run school clubs at Sidlesham Primary School, West
-        Wittering Primary School and Portfield Academy in West Sussex.
+        Please complete the booking form to reserve a place for your child at
+        one of the many clubs we run at our schools in West Sussex and
+        Hampshire. We will email confirmation to your provided email address
+        once we receive payment into our bank and your child&#39;s place will
+        then be confirmed for the term. Please use the booking reference
+        provided when you make payment so that we can allocate it correctly to
+        all the clubs included in your booking.
       </p>
       <p class="text-light">
         Clubs will need to be paid in a block booking for all weeks.
@@ -303,17 +308,15 @@ async function handleSubmitClubBooking() {
         convenience. We apologise for any disappointment and recommend booking
         as soon as possible.
       </p>
+
       <p class="text-light">
-        Please complete the booking form to reserve a place for your child at
-        one of the many clubs we run at our schools. We will email confirmation
-        to your provided email address once we receive payment into our bank and
-        your child&#39;s place will then be confirmed for the term. Please use
-        the booking reference provided when you make payment so that we can
-        allocate it correctly to all the clubs included in your booking.
-      </p>
-      <p class="text-light">
-        Please refer to our FAQ&#39;s for more info or contact us if you have
-        additional questions.
+        Please refer to our
+        <NuxtLink to="/faqs"
+          ><span class="cursor-pointer font-play underline"
+            >FAQ&#39;s</span
+          ></NuxtLink
+        >
+        for more info or contact us if you have additional questions.
       </p>
     </div>
     <div id="form">
@@ -510,18 +513,15 @@ async function handleSubmitClubBooking() {
           </div>
         </div>
         <div v-else>
-          <p class="text-light" v-if="!enteredYearGroup && !selectedSchool">
-            Sorry, there are no clubs to display for your selections. Kindly
-            refer to our
+          <p class="text-light">
+            If there are no clubs to display for your selected school and school
+            year, kindly refer to our
             <NuxtLink to="/clubs/upcoming"
               ><span class="font-play underline cursor-pointer"
                 >upcoming clubs</span
               ></NuxtLink
             >
             page for more info.
-          </p>
-          <p class="text-light" v-else>
-            Select a year group and school to load clubs...
           </p>
         </div>
         <div class="flex flex-col">
