@@ -26,11 +26,11 @@ useHead({
   ],
 });
 const { error: assetError, data: assets } = await useFetch(
-  "/api/carouselImages",
+  "/api/carouselImages"
 );
 
 const { error: commentError, data: comments } = await useFetch(
-  "/api/clubs/schoolTestimonials",
+  "/api/clubs/schoolTestimonials"
 );
 
 const clubImages = ref([]);
@@ -40,7 +40,7 @@ let img = {};
 assets.value.forEach((asset, index) => {
   if (asset.fields.segment === "clubs") {
     let imagesCarousel = asset.fields.images;
-    imagesCarousel.forEach(image => {
+    imagesCarousel.forEach((image) => {
       img = {
         url: image.thumbnails.large.url,
         id: image.id,
@@ -106,7 +106,12 @@ comments.value.forEach((record, index) => {
             independence, teamwork, communication, problem-solving as well as
             fitting in with their peers.
           </p>
-          <p>You'll find an itinerary of upcoming clubs we run below.</p>
+          <p>
+            You'll find an itinerary of upcoming clubs
+            <span class="font-play font-bold underline"
+              ><NuxtLink to="/clubs/upcoming">here</NuxtLink></span
+            >.
+          </p>
         </div>
         <!-- images -->
         <div

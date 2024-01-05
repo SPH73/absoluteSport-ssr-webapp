@@ -11,7 +11,7 @@
     "postinstall": "nuxt prepare"
   },
   "devDependencies": {
-    "@nuxt/image-edge": "^1.0.0-27991759.1a5eea1",
+    "@nuxt/image-edge": "^1.1.0-28383619.a7ecaf9",
     "@nuxtjs/tailwindcss": "^6.6.6",
     "@tailwindcss/typography": "^0.5.9",
     "@vueuse/nuxt": "^10.1.0",
@@ -26,7 +26,7 @@
     "@fortawesome/vue-fontawesome": "^3.0.3",
     "@mailchimp/mailchimp_marketing": "^3.0.80",
     "airtable": "^0.11.6",
-    "gocardless-nodejs": "^3.12.0",
+    "gocardless-nodejs": "^3.19.0",
     "md5": "^2.3.0",
     "nuxt-swiper": "^1.1.0"
   }
