@@ -250,7 +250,7 @@ async function confirmBooking() {
 <template>
   <div class="md:container p-2">
     <BaseCard>
-      <div class="button-container">
+      <!-- <div class="button-container">
         <div class="btn-group">
           <button
             class="btn-accent"
@@ -267,7 +267,7 @@ async function confirmBooking() {
             <span>⟻&nbsp;</span> Back To Booking Form
           </button>
         </div>
-      </div>
+      </div> -->
       <KeepAlive>
         <CampBookingForm
           v-if="selectedTab === 'CampForm'"
