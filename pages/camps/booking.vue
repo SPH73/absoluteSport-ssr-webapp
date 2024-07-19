@@ -37,11 +37,11 @@ campsList.value.forEach((record, index) => {
   campOptions.value.push(camp);
 });
 const currentCamps = computed(() => {
-  return campOptions.value.filter(camp => camp.status.includes("current"));
+  return campOptions.value.filter((camp) => camp.status.includes("current"));
 });
 // keep alive
 const selectedTab = ref("CampForm");
-const setSelectedTab = tab => {
+const setSelectedTab = (tab) => {
   selectedTab.value = tab;
 };
 
@@ -109,7 +109,7 @@ const handleAddCampBookingItem = (
   loc,
   camp,
   days,
-  num,
+  num
 ) => {
   createBookingRef();
   childName.value = name;
@@ -128,7 +128,7 @@ const handleAddCampBookingItem = (
   }
 
   const findCamp = computed(() => {
-    return campOptions.value.find(camp => camp.locRef === campLoc.value);
+    return campOptions.value.find((camp) => camp.locRef === campLoc.value);
   });
 
   watchEffect(() => {
@@ -172,13 +172,13 @@ const numChildren = computed(() => {
 const totalCost = computed(() => {
   return campBooking.value.reduce(
     (total, curr) => (total = total + curr.price),
-    0,
+    0
   );
 });
 
-const removeItem = item => {
+const removeItem = (item) => {
   campBooking.value = campBooking.value.filter(
-    booking => booking.bookingRef !== item,
+    (booking) => booking.bookingRef !== item
   );
 };
 
@@ -257,7 +257,7 @@ async function confirmBooking() {
             v-show="selectedTab === 'CampForm'"
             @click="selectedTab = 'CampBookingDetails'"
           >
-            Review Booking Details <span>&nbsp;⟼</span>
+            Review Booking Process <span>&nbsp;⟼</span>
           </button>
           <button
             class="btn-accent"
@@ -294,6 +294,24 @@ async function confirmBooking() {
           @handleConfirmBooking="confirmBooking"
         ></CampBookingDetails>
       </KeepAlive>
+      <div class="button-container">
+        <div class="btn-group">
+          <button
+            class="btn-accent"
+            v-show="selectedTab === 'CampForm'"
+            @click="selectedTab = 'CampBookingDetails'"
+          >
+            Review Booking Details <span>&nbsp;⟼</span>
+          </button>
+          <button
+            class="btn-accent"
+            v-show="selectedTab === 'CampBookingDetails'"
+            @click="selectedTab = 'CampForm'"
+          >
+            <span>⟻&nbsp;</span> Back To Booking Form
+          </button>
+        </div>
+      </div>
     </BaseCard>
   </div>
 </template>
