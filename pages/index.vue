@@ -57,7 +57,7 @@ useHead({
 const { error, pending, data: reviews } = await useFetch("/api/reviews");
 const reviewList = ref([]);
 let review = {};
-// console.log("reviewsList", reviews.value);
+console.log("reviewsList", reviews.value);
 reviews.value.forEach((record, index) => {
   if (record.fields.featured) {
     review = {
@@ -199,70 +199,75 @@ reviews.value.forEach((record, index) => {
         </BaseBadge>
       </section>
     </section>
-    <section>
-      <!-- Services -->
-      <div
-        class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 w-full mx-auto p-8"
-      >
-        <BaseCard>
-          <BaseContent>
-            <template #title>School Clubs &amp; Wraparound Care</template>
-            <template #sub-1>Available to book during school term's</template>
-            <template #para-1
-              >Our Morning Clubs at West Wittering Primary School, Sidlesham
-              Primary School and Portfield Academy are something that all the
-              children love. We include a variety of fun sports like fencing,
-              archery and table tennis.</template
-            >
-            <template #para-2
-              >After School Clubs give the children the perfect opportunity to
-              learn a new sport or enhance their current skills in their
-              favourite sports. We do a wide range of clubs with KS1 and KS2
-              children.</template
-            >
-          </BaseContent>
-        </BaseCard>
-        <BaseCard>
-          <BaseContent>
-            <template #title>Sports & Activity Camps</template>
-            <template #sub-1>Available to book each school holiday</template>
-            <template #para-1
-              >Our holiday clubs provide children with the opportunity to make
-              new friendships outside of their school or classrooms and remain
-              mentally and physically active while having a great time
-              together.</template
-            >
-            <template #para-2
-              >Working parents have the peace of mind that their children are engaging in social and sports activities that boost their confidence and skills in a safe and fun environment. Camps run from 09:00 - 17:00 each day.
-            </template>
-            <template #para-3
-              >Come and find out how much fun we have during the school
-              holidays!</template
-            >
-          </BaseContent>
-        </BaseCard>
-        <BaseCard>
-          <BaseContent>
-            <template #title>Themed Children's Parties</template>
-            <template #sub-1
-              >Our parties and entertainers are available all year</template
-            >
-            <template #para-1
-              >Are you looking for a fun-filled birthday party for your child?
-              Great, then look no further!</template
-            >
-            <template #para-2
-              >Our parties are guaranteed to keep all the children engaged from
-              the first minute.</template
-            >
-            <template #para-3
-              >Choose our Football Frenzy Party, our AbsoluteSport Party or, if
-              the birthday boy or girl loves dancing then our Disco Party is
-              sure to be a hit!</template
-            >
-          </BaseContent>
-        </BaseCard>
-        <BaseCard>
+    <!-- Services -->
+    <section
+      class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-3 gap-8 w-full mx-auto pt-8 px-8 mt-10"
+    >
+      <!-- <div
+        class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-3 gap-8 w-full mx-auto p-8"
+      > -->
+      <BaseCard>
+        <BaseContent>
+          <template #title>School Clubs &amp; Wraparound Care</template>
+          <template #sub-1>Available to book during school term's</template>
+          <template #para-1
+            >Our Morning Clubs at our various West Sussex and Hampshire schools
+            are something that all the children love. We include a variety of
+            fun sports like fencing, archery and table tennis as well as the
+            more common clubs like football and multi-sports.</template
+          >
+          <template #para-2
+            >After School Clubs give the children the perfect opportunity to
+            learn a new sport or enhance their current skills in their favourite
+            sports. We do a wide range of clubs with KS1 and KS2
+            children.</template
+          >
+        </BaseContent>
+      </BaseCard>
+      <BaseCard>
+        <BaseContent>
+          <template #title>Sports & Activity Camps</template>
+          <template #sub-1>Available to book each school holiday</template>
+          <template #para-1
+            >Our holiday clubs provide children with the opportunity to make new
+            friendships outside of their school or classrooms and remain
+            mentally and physically active while having a great time
+            together.</template
+          >
+          <template #para-2
+            >Working parents have the peace of mind that their children are
+            engaging in social and sports activities that boost their confidence
+            and skills in a safe and fun environment. Camps run from 09:00 -
+            17:00 each day.
+          </template>
+          <template #para-3
+            >Come and find out how much fun we have during the school
+            holidays!</template
+          >
+        </BaseContent>
+      </BaseCard>
+      <BaseCard>
+        <BaseContent>
+          <template #title>Themed Children's Parties</template>
+          <template #sub-1
+            >Our parties and entertainers are available all year</template
+          >
+          <template #para-1
+            >Are you looking for a fun-filled birthday party for your child?
+            Great, then look no further!</template
+          >
+          <template #para-2
+            >Our parties are guaranteed to keep all the children engaged from
+            the first minute.</template
+          >
+          <template #para-3
+            >Choose our Football Frenzy Party, our AbsoluteSport Party or, if
+            the birthday boy or girl loves dancing then our Disco Party is sure
+            to be a hit!</template
+          >
+        </BaseContent>
+      </BaseCard>
+      <!-- <BaseCard>
           <BaseContent>
             <template #title>Football Academy</template>
             <template #sub-1>Available to book every weekend.</template>
@@ -281,10 +286,10 @@ reviews.value.forEach((record, index) => {
               welcome and catered for.
             </template>
           </BaseContent>
-        </BaseCard>
-      </div>
+        </BaseCard> -->
+      <!-- </div> -->
+      <!-- About -->
     </section>
-    <!-- About -->
     <section
       id="about"
       class="bg-blend-overlay lg:bg-fixed bg-neutral-700 bg-[url('https://res.cloudinary.com/asimages/image/upload/v1679601944/webapp/home_about_portrait_1920.webp')] md:bg-[url('https://res.cloudinary.com/asimages/image/upload/v1679601944/webapp/home_about_landscape_1920.webp')] h-[100vh] min-h-[667px] md:h-[70vh] bg-center bg-no-repeat bg-cover w-full py-8"
