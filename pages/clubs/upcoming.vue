@@ -181,9 +181,6 @@ watchEffect(() => {
           </div>
           <p v-else>No information to display</p>
 
-          <!-- <h3>Upcoming Teacher Strike Days</h3>
-          <p v-if="currentStrike.length">CMS content</p>
-          <p v-else>No information to display</p> -->
           <h3 class="font-play capitalize">Currently available Clubs</h3>
           <div v-if="currentClubs.length">
             <button class="btn-primary my-4 w-full md:w-fit">

@@ -15,7 +15,7 @@ cms.value.forEach((record, index) => {
 });
 // pop up when haf is selected
 const hafContent = computed(() => {
-  return content.value.find((item) => item.name === "haf");
+  return content.value.find(item => item.name === "haf");
 });
 // fetched data / props ****
 const { data: campLocList, error } = await useFetch("/api/camps/campLocList");
@@ -69,7 +69,7 @@ async function onSubmitParent() {
     enteredParentName.value.val,
     enteredMainContact.value.val,
     enteredEmail.value.val,
-    acceptedTerms.value.val
+    acceptedTerms.value.val,
   );
 }
 
@@ -113,13 +113,13 @@ const campDetails = ref({});
 const filterCampsByLoc = computed(() => {
   let loc = campLoc.value.val;
   return (filteredCamps.value = props.campsList.filter(
-    (camp) => camp.locRef === loc
+    camp => camp.locRef === loc,
   ));
 });
 
 const filterCampsByHaf = computed(() => {
   return (hafFilteredCamps.value = filteredCamps.value.filter(
-    (camp) => camp.haf === true
+    camp => camp.haf === true,
   ));
 });
 
@@ -131,7 +131,7 @@ const campWeekSelected = computed(() => {
 
 const findCampByRef = computed(() => {
   campDetails.value = props.campsList.find(
-    (camp) => camp.campRef === campName.value.val
+    camp => camp.campRef === campName.value.val,
   );
 });
 
@@ -140,7 +140,7 @@ const findCampByRef = computed(() => {
 watch(findCampByRef, () => {
   campDetails.value = [];
   campDetails.value = props.campsList.find(
-    (camp) => camp.campRef === campName.value.val
+    camp => camp.campRef === campName.value.val,
   );
 });
 
@@ -174,6 +174,7 @@ watchEffect(() => {
   calculatedDays.value;
   numCampDays.value;
 });
+
 
 // camp form **
 // validation
@@ -215,30 +216,30 @@ const validateCampForm = () => {
 const onAddBookingItem = () => {
   validateCampForm();
   if (campFormIsValid) {
-    emit(
-      "camp-booking-added",
-      childName.value.val,
-      childSurname.value.val,
-      childAge.value.val,
-      pupilPrem.value,
-      hafID.value.val,
-      confirmedPhoto.value,
-      campLoc.value.val,
-      campName.value.val,
-      campDaysSelected.value.val,
-      numCampDays.value
-    );
-    // reset after each booking is added
-    childName.value.val = "";
-    childSurname.value.val = "";
-    childAge.value.val = "select";
-    pupilPrem.value = false;
-    hafID.value.val = "";
-    // campLoc.value.val = "select";
-    campName.value.val = "select";
-    campDaysSelected.value.val = [];
+  emit(
+    "camp-booking-added",
+    childName.value.val,
+    childSurname.value.val,
+    childAge.value.val,
+    pupilPrem.value,
+    hafID.value.val,
+    confirmedPhoto.value,
+    campLoc.value.val,
+    campName.value.val,
+    campDaysSelected.value.val,
+    numCampDays.value,
+  );
+  // reset after each booking is added
+  childName.value.val = "";
+  childSurname.value.val = "";
+  childAge.value.val = "select";
+  pupilPrem.value = false;
+  hafID.value.val = "";
+  // campLoc.value.val = "select";
+  campName.value.val = "select";
+  campDaysSelected.value.val = [];
   }
-  return;
+  return
 };
 </script>
 
@@ -265,8 +266,8 @@ const onAddBookingItem = () => {
   <div id="text">
     <h1 class="text-accent font-play capitalize">camp bookings</h1>
     <p class="text-light">
-      We run Holiday Activity Camps at Parklands Primary School, Nyewood Primary
-      School and Portfield Primary Academy throughout the year.
+      We run Holiday Activity Camps at Sidlesham Primary School and Portfield
+      Primary Academy throughout the year.
     </p>
     <p class="text-light">
       If you are booking a HAF place please have your child's HAF ID handy. If
