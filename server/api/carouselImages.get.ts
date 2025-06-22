@@ -8,7 +8,7 @@ export default defineEventHandler(async () => {
   const table = base("carouselImages");
 
   const assets = await table
-    .select({ filterByFormula: "NOT({display} = 'false')" })
+    .select({ filterByFormula: 'NOT({display} = "false")' })
     .firstPage();
   if (!assets) {
     throw Error("Unable to fetch assets");

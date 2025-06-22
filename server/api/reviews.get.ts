@@ -11,7 +11,7 @@ export default defineEventHandler(async () => {
   if (!records) {
     throw Error("Unable to fetch reviews");
   }
-  // console.log('airtable reviews', records)
+  // console.log("airtable reviews", records);
 
   return records;
 });
