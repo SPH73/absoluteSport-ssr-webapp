@@ -57,7 +57,7 @@ useHead({
 const { error, pending, data: reviews } = await useFetch("/api/reviews");
 const reviewList = ref([]);
 let review = {};
-console.log("reviewsList", reviews.value);
+// console.log("reviewList", reviews.value);
 reviews.value.forEach((record, index) => {
   if (record.fields.featured) {
     review = {
