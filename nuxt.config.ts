@@ -57,9 +57,15 @@ export default defineNuxtConfig({
       gcAccessToken: process.env.GC_ACCESS_TOKEN,
     },
     public: {
+      siteUrl: process.env.NUXT_PUBLIC_SITE_URL || 'http://localhost:3000',
       atBaseId: process.env.AT_BASE_ID,
       mcAudId: process.env.MC_AUDIENCE_ID,
       mcServer: process.env.MC_SERVER_PREFIX,
+    },
+    nitro: {
+    prerender: {
+      routes: ['/sitemap.xml', '/robots.txt']
+      }
     },
   },
 });
