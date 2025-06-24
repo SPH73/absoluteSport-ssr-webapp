@@ -27,7 +27,7 @@ useHead({
   ],
 });
 // posterImage is used in the template to display the event poster
-const posterImage = new URL("/assets/images/ffd-poster.svg", import.meta.url)
+const posterImage = new URL("assets/images/ffd-poster.svg", import.meta.url)
   .href;
 </script>
 

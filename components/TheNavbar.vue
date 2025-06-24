@@ -59,6 +59,36 @@ onMounted(() => {
           </li>
           <li class="dropdown" aria-haspopup="true">
             <span
+              >Events&nbsp;
+              <font-awesome-icon
+                :icon="['fas', 'angle-down']"
+                class="text-secondary h-8 w-8 my-auto"
+              />
+            </span>
+
+            <ul class="dropdown-content" aria-label="submenu">
+              <li class="flex justify-items-center">
+                <NuxtLink
+                  to="/events"
+                  class="hover:font-bold pb-2"
+                  aria-label="Navigate to the Events page"
+                >
+                  Family Fun Day Charity Event
+                </NuxtLink>
+              </li>
+              <li class="flex justify-items-center">
+                <NuxtLink
+                  to="/events/booking"
+                  class="hover:font-bold pb-2"
+                  aria-label="Navigate to the Events page"
+                >
+                  Book Tickets
+                </NuxtLink>
+              </li>
+            </ul>
+          </li>
+          <li class="dropdown" aria-haspopup="true">
+            <span
               >School Clubs
               <font-awesome-icon
                 :icon="['fas', 'angle-down']"
@@ -96,6 +126,7 @@ onMounted(() => {
               </li>
             </ul>
           </li>
+
           <li class="dropdown" aria-haspopup="true">
             <span
               >Activity Camps&nbsp;<font-awesome-icon
@@ -269,7 +300,26 @@ onMounted(() => {
               Home</NuxtLink
             >
           </li>
-
+          <li class="flex items-center">
+            <NuxtLink
+              to="/events"
+              @click="isOpen = false"
+              class="my-4 inline-block"
+              aria-label="Navigate to the Events page"
+            >
+              Family Fun Day Charity Event</NuxtLink
+            >
+          </li>
+          <li class="flex items-center">
+            <NuxtLink
+              to="/events/booking"
+              @click="isOpen = false"
+              class="my-4 inline-block"
+              aria-label="Navigate to events booking form"
+            >
+              Book Tickets</NuxtLink
+            >
+          </li>
           <li class="flex items-center">
             <NuxtLink
               to="/clubs"
