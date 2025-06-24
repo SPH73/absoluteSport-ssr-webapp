@@ -182,7 +182,7 @@ const onAddTicketItem = () => {
     <h1 class="text-accent font-play capitalize">Event bookings</h1>
     <p class="text-light">
       Please complete the form below to book your event tickets. Please book all
-      required tickets after adding your payment details.
+      required tickets after adding your or (payer) details.
     </p>
     <p class="text-light">
       Please save each ticket you wish to book for your family individually.
@@ -213,7 +213,7 @@ const onAddTicketItem = () => {
   </div>
   <!-- <p class="text-light">Payer Added: {{ payerAdded }}</p> -->
   <div id="forms" class="my-2">
-    <h3>1: Payer Details</h3>
+    <h3>1: Booking Details</h3>
     <div id="event-payer-details" v-if="!payerAdded">
       <form @submit.prevent="onSubmitPayer">
         <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-3xl w-full">
@@ -310,10 +310,10 @@ const onAddTicketItem = () => {
           <button class="btn-accent my-4 w-full md:w-fit">Save Details</button>
         </div>
       </form>
-      <p class="error" v-if="!payerFormIsValid">
+      <!-- <p class="error" v-if="!payerFormIsValid">
         One or more fields are invalid. Please correct the errors and submit
         again.
-      </p>
+      </p> -->
     </div>
 
     <p v-else class="text-accent">Details saved successfully.</p>
