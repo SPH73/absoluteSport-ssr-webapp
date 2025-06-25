@@ -13,10 +13,10 @@ async function showSteps() {
 
 // payer form data ****
 
-const payerName = ref({ val: "", isValid: true });
-const payerContact = ref({ val: "", isValid: true });
-const payerEmail = ref({ val: "", isValid: true });
-const acceptedTerms = ref({ val: false, isValid: true });
+const payerName = ref({ val: "Jane Doe", isValid: true });
+const payerContact = ref({ val: "0787111555", isValid: true });
+const payerEmail = ref({ val: "jane.doe@example.com", isValid: true });
+const acceptedTerms = ref({ val: true, isValid: true });
 const payerFormIsValid = ref(null);
 
 // payer form validation
@@ -57,11 +57,15 @@ async function onSubmitPayer() {
 // ticket form data
 const eventFormIsValid = ref(false);
 const ticketName = ref({ val: "", isValid: true });
-const childAgeRange = [5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16];
 const ticketAge = ref({ val: "select", isValid: true });
 const ticketType = ref({ val: "select", isValid: true });
 const ticketInfo = ref({ val: "", isValid: true });
 const showAgeField = ref(false);
+// Dynamic age ranges based on ticket type
+const ageRanges = {
+  infant: Array.from({ length: 5 }, (_, i) => i), // 0-4
+  child: Array.from({ length: 12 }, (_, i) => i + 5), // 5-16
+};
 
 const ticketPrice = computed(() => {
   const type = ticketType.value.val;
@@ -155,7 +159,7 @@ const onAddTicketItem = () => {
   validateTicketAge();
   if (eventFormIsValid) {
     emit(
-      "event-booking-added",
+      "event-ticket-added",
       ticketName.value.val,
       ticketAge.value.val,
       ticketType.value.val,
@@ -167,7 +171,6 @@ const onAddTicketItem = () => {
     ticketAge.value.val = "select";
     ticketType.value.val = "select";
     ticketInfo.value.val = "";
-    ticketPrice.value = null;
   }
   return;
 };
@@ -306,10 +309,6 @@ const onAddTicketItem = () => {
           <button class="btn-accent my-4 w-full md:w-fit">Save Details</button>
         </div>
       </form>
-      <!-- <p class="error" v-if="!payerFormIsValid">
-        One or more fields are invalid. Please correct the errors and submit
-        again.
-      </p> -->
     </div>
 
     <p v-else class="text-accent">Details saved successfully.</p>
@@ -331,58 +330,66 @@ const onAddTicketItem = () => {
               type="text"
               v-model.trim.lazy="ticketName.val"
               class="w-full p-2 rounded"
-              autocomplete="name"
+              autocomplete="first-name"
               required
             />
           </div>
-          <div>
-            <div class="md:text-end" :class="{ invalid: !ticketType.isValid }">
-              <label>Ticket Type</label>
-            </div>
-            <div :class="{ invalid: !ticketType.isValid }">
-              <select
-                name="ticket-type"
-                id="ticket-type"
-                v-model="ticketType.val"
-                required
-                class="w-full p-2 rounded"
-              >
-                <option disabled value="select">Select a ticket type...</option>
-                <option value="infant">Infant (0–4, Free)</option>
-                <option value="child">Child (5–16, £10)</option>
-                <option value="adult">Adult (£7.50)</option>
-              </select>
-            </div>
-            <!-- <p class="text-light" v-if="!eventFormIsValid">
-            Please add the missing fields and submit again.
-          </p> -->
+          <div class="md:text-end" :class="{ invalid: !ticketType.isValid }">
+            <label>Ticket Type</label>
           </div>
-          <div v-if="showAgeField" class="md:col-span-2">
-            <label for="ticketAge" class="block text-end">Age</label>
+          <div :class="{ invalid: !ticketType.isValid }">
             <select
-              name="ticketAge"
-              id="ticketAge"
-              v-model.number="ticketAge.val"
+              name="ticket-type"
+              id="ticket-type"
+              v-model="ticketType.val"
+              required
               class="w-full p-2 rounded"
             >
-              <option disabled value="select">Select Age ...</option>
-              <option v-for="(n, i) in childAgeRange" :key="i" :value="n">
-                {{ n }}
-              </option>
+              <option disabled value="select">Select a ticket type...</option>
+              <option value="infant">Infant (0–4, Free)</option>
+              <option value="child">Child (5–16, £10)</option>
+              <option value="adult">Adult (£7.50)</option>
             </select>
           </div>
+          <div
+            v-if="showAgeField"
+            class="md:text-end"
+            :class="{ invalid: !ticketAge.isValid }"
+          >
+            <label for="ticketAge">Age</label>
+            <div :class="{ invalid: !ticketAge.isValid }">
+              <select
+                name="ticketAge"
+                id="ticketAge"
+                v-model.number="ticketAge.val"
+                class="w-full p-2 rounded"
+                required
+              >
+                <option
+                  v-for="age in ageRanges[ticketType.val]"
+                  :key="age"
+                  :value="age"
+                >
+                  {{ age }} years
+                </option>
+              </select>
+            </div>
+          </div>
+          <div class="md:text-end" :class="{ invalid: !ticketInfo.isValid }">
+            <label for="medical">Special Requirements *</label>
+          </div>
+          <div :class="{ invalid: !ticketInfo.isValid }">
+            <textarea
+              rows="4"
+              v-model="ticketInfo.val"
+              class="w-full p-2 rounded"
+              placeholder="Please tell us about any special requirements we need to be aware of. (None if N/A)"
+            ></textarea>
+          </div>
         </div>
-        <div class="md:text-end" :class="{ invalid: !ticketInfo.isValid }">
-          <label for="medical">Special Requirements *</label>
-        </div>
-        <div :class="{ invalid: !ticketInfo.isValid }">
-          <textarea
-            rows="4"
-            v-model="ticketInfo.val"
-            class="w-full p-2 rounded"
-            placeholder="Please tell us about any special requirements we need to be aware of. (None if N/A)"
-          ></textarea>
-        </div>
+        <div
+          class="grid grid-cols-1 md:grid-cols-2 gap-4 py-4 text-3xl w-full"
+        ></div>
         <!-- /ticket details -->
 
         <p class="text-light" v-if="!eventFormIsValid">

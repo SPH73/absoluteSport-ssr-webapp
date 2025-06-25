@@ -23,7 +23,7 @@ const setSelectedTab = (tab) => {
 
 // booking data
 const eventBooking = ref([]);
-const ticketNames = ref([]);
+const ticketList = ref([]);
 const payerName = ref("");
 const payerEmail = ref("");
 const payerContact = ref("");
@@ -44,17 +44,18 @@ const handleSavePayer = (name, contact, email, terms) => {
 
     savedPayer.value = {
       payerName: payerName.value,
-      payerContact: payerContact.value,
       payerEmail: payerEmail.value,
+      payerContact: payerContact.value,
       paymentRef: paymentRef.value,
-      numTickets: numTickets,
-      ticketNames: ticketNames,
       amountDue: totalCost,
       status: "awaiting payment",
+      numTickets: numTickets,
+      ticketNames: ticketNames,
     };
   } catch (err) {
     console.error("Error in handleSavePayer:", err);
   }
+  console.log("savedPayer***", savedPayer.value);
 };
 
 watch(savedPayer, () => {
@@ -80,56 +81,52 @@ const handleAddTicketItem = (name, age, type, info, price) => {
   ticketInfo.value = info;
   ticketPrice.value = price;
 
-  if (!ticketNames.value.includes(name)) {
-    ticketNames.value.push(name);
+  if (!ticketList.value.includes(name)) {
+    ticketList.value.push(name);
   }
 
-  watchEffect(() => {
-    console.log("total cost***", totalCost.value);
-  });
   // computed ticket price
-  const calculatedTicketPrice = computed(() => {
-    if (ticketType.value === "infant") {
-      return (ticketPrice.value = 0);
-    } else if (ticketType.value === "child") {
-      return (ticketPrice.value = 10);
-    } else if (ticketType.value === "adult") {
-      return (ticketPrice.value = 7.5);
-    }
-  });
+  let calculatedTicketPrice = 0;
+
+  if (type === "infant") calculatedTicketPrice = 0;
+  else if (type === "child") calculatedTicketPrice = 10;
+  else if (type === "adult") calculatedTicketPrice = 7.5;
 
   watchEffect(() => {
     ticketType.value;
     console.log("ticket price***", ticketPrice.value);
-    console.log("ticket cost***", totalCost.value);
+    console.log("total cost***", totalCost.value);
   });
   const ticketItem = ref({});
   ticketItem.value = {
-    ticketName: ticketName.value,
     payerName: payerName.value,
-    ticketAge: ticketAge.value,
-    ticketType: ticketType.value,
-    bookingRef: bookingRef.value,
-    ticketInfo: ticketInfo.value,
-    price: calculatedTicketPrice.value,
-    paymentRef: paymentRef.value,
     status: "reserved",
+    paymentRef: paymentRef.value,
+    ticketName: ticketName.value,
+    ticketType: ticketType.value,
+    ticketAge: ticketAge.value,
+    ticketPrice: calculatedTicketPrice,
+    ticketInfo: ticketInfo.value,
+    ticketRef: ticketRef.value,
   };
 
   eventBooking.value.push(ticketItem.value);
+  console.log("eventBooking***", eventBooking.value);
+
+  console.log("ticketList***", ticketList.value);
 };
 
-const tickets = computed(() => {
-  return JSON.stringify(ticketNames.value);
+const ticketNames = computed(() => {
+  return JSON.stringify(ticketList.value);
 });
 
 const numTickets = computed(() => {
-  return ticketNames.value.length;
+  return ticketList.value.length;
 });
 
 const totalCost = computed(() => {
   return eventBooking.value.reduce(
-    (total, curr) => (total = total + curr.price),
+    (total, curr) => (total = total + curr.ticketPrice),
     0
   );
 });
@@ -169,7 +166,7 @@ async function confirmBooking() {
 
   const summary = ref([]);
   for (let item of eventBooking.value) {
-    const resBook = await $fetch("/api/events/eventBooking", {
+    const resBook = await $fetch("/api/events/ffdBooking", {
       method: "post",
       body: item,
     });
@@ -194,7 +191,7 @@ async function confirmBooking() {
         name: payerName.value,
         phone: payerContact.value,
         email: payerEmail.value,
-        tickets: tickets.value,
+        tickets: ticketNames.value,
         paymentRef: paymentRef.value,
         amountDue: totalCost.value,
         bookingDate: date,

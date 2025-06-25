@@ -11,7 +11,7 @@ export default defineEventHandler(async (fields) => {
   const { atBaseId } = useRuntimeConfig().public;
   const base = new Airtable({ apiKey: atApiKey }).base(atBaseId);
 
-  const table = base("camp-bookings");
+  const table = base("ffd-bookings");
   const record = await readBody(fields);
 
   try {

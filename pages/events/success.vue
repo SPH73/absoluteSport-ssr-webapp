@@ -222,7 +222,7 @@ const payNow = async () => {
                 <td
                   class="bg-light text-dark border border-secondary p-4 w-3/5"
                 >
-                  <span v-for="child in data.children">{{ child }}</span>
+                  <span v-for="name in data.tickets">{{ name }}</span>
                 </td>
               </tr>
               <tr>

@@ -29,7 +29,7 @@ const cancelBooking = () => {
 // computed cost
 const amountDue = computed(() => {
   return props.eventBooking.reduce(
-    (total, curr) => (total = total + curr.price),
+    (total, curr) => (total = total + curr.ticketPrice),
     0
   );
 });
@@ -102,7 +102,7 @@ const amountDue = computed(() => {
               Total Amount Due
             </th>
             <td class="bg-light text-dark border border-secondary p-4 w-3/5">
-              <strong>£{{ amountDue }}</strong>
+              <strong>£{{ amountDue.toFixed(2) }}</strong>
             </td>
           </tr>
           <tr>
@@ -143,7 +143,7 @@ const amountDue = computed(() => {
             <th
               class="uppercase p-4 bg-secondary text-left text-accent border border-secondary w-2/5 mt-8"
             >
-              {{ index + 1 }}:&nbsp;Ticket Booked
+              {{ index + 1 }}:&nbsp;Ticket Holder
             </th>
             <td
               class="bg-light text-dark border border-secondary p-4 w-3/5 mt-8"
@@ -158,14 +158,42 @@ const amountDue = computed(() => {
             <th
               class="uppercase p-4 bg-secondary text-left text-accent border border-secondary"
             >
+              Ticket Details
+            </th>
+            <td class="bg-light text-dark border border-secondary p-4">
+              <span class="font-bold">Type: &nbsp;</span>
+              {{ booking.ticketType }} &nbsp;
+              <span
+                v-if="
+                  booking.ticketType === 'child' ||
+                  booking.ticketType === 'infant'
+                "
+                class="font-bold"
+                >Age:
+              </span>
+              {{ booking.ticketAge }}
+            </td>
+          </tr>
+          <tr>
+            <th
+              class="uppercase p-4 bg-secondary text-left text-accent border border-secondary"
+            >
+              Special Requirements
+            </th>
+            <td class="bg-light text-dark border border-secondary p-4">
+              {{ booking.ticketInfo }}
+            </td>
+          </tr>
+          <tr>
+            <th
+              class="uppercase p-4 bg-secondary text-left text-accent border border-secondary"
+            >
               Ticket Reference
             </th>
             <td class="bg-light text-dark border border-secondary p-4">
-              {{ booking.ticketType }}
-              {{ booking.ticketRef }} {{ booking.ticketInfo }}
+              <span class="font-bold">Reference:</span> {{ booking.ticketRef }}
             </td>
           </tr>
-
           <tr>
             <th
               class="uppercase p-4 bg-secondary text-left text-accent border border-secondary"
@@ -173,7 +201,7 @@ const amountDue = computed(() => {
               Ticket Price
             </th>
             <td class="bg-light text-dark border border-secondary p-4">
-              £{{ booking.price }}
+              £{{ booking.ticketPrice.toFixed(2) }}
             </td>
           </tr>
         </tbody>
