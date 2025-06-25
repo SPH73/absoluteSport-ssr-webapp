@@ -73,7 +73,7 @@ onMounted(() => {
                   class="hover:font-bold pb-2"
                   aria-label="Navigate to the Events page"
                 >
-                  Family Fun Day Charity Event
+                  Family Fun Day Event
                 </NuxtLink>
               </li>
               <li class="flex justify-items-center">
@@ -307,7 +307,7 @@ onMounted(() => {
               class="my-4 inline-block"
               aria-label="Navigate to the Events page"
             >
-              Family Fun Day Charity Event</NuxtLink
+              Family Fun Day Event</NuxtLink
             >
           </li>
           <li class="flex items-center">

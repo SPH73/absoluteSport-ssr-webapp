@@ -2,7 +2,7 @@
 const year = new Date().getFullYear();
 const route = useRoute();
 useHead({
-  title: `${year} Fun Filled Holiday Activity Camps in West Sussex`,
+  title: `${year} AbsoluteSport Family Fun Day Event`,
   meta: [
     {
       name: "description",
@@ -35,9 +35,7 @@ const posterImage = new URL("assets/images/ffd-poster.svg", import.meta.url)
   <div class="my-8">
     <section class="max-w-7xl mx-auto">
       <div class="container py-4">
-        <h1 class="font-play capitalize">
-          AbsoluteSport Family Fun Day Charity Event
-        </h1>
+        <h1 class="font-play capitalize">AbsoluteSport Family Fun Day Event</h1>
         <p>Join us for a day dedicated to family!</p>
         <p>
           At our family fun day, we can spend time together building and

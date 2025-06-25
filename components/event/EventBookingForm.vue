@@ -92,14 +92,18 @@ watchEffect(() => {
   });
 });
 
-watch(ticketType, (newVal) => {
-  if (newVal.val === "child" || newVal.val === "infant") {
-    showAgeField.value = true;
-  } else {
-    showAgeField.value = false;
-    ticketAge.value.val = null;
+watch(
+  () => ticketType.value.val, // this is the correct reactive getter
+  (newVal) => {
+    console.log("[watch:ticketType]", newVal);
+    if (newVal === "child" || newVal === "infant") {
+      showAgeField.value = true;
+    } else {
+      showAgeField.value = false;
+      ticketAge.value.val = null;
+    }
   }
-});
+);
 
 const validateTicketAge = () => {
   const age = Number(ticketAge.value.val);
@@ -116,9 +120,6 @@ const validateTicketAge = () => {
 };
 
 // ticket details
-
-const ticketDetails = ref({});
-
 // ticket form **
 // validation
 const validateEventForm = () => {
@@ -126,11 +127,6 @@ const validateEventForm = () => {
 
   if (!ticketName.value.val.trim()) {
     ticketName.value.isValid = false;
-    eventFormIsValid.value = false;
-  }
-
-  if (ticketAge.value.val === "select") {
-    ticketAge.value.isValid = false;
     eventFormIsValid.value = false;
   }
   if (ticketType.value.val === "select") {
@@ -390,7 +386,7 @@ const onAddTicketItem = () => {
         <!-- /ticket details -->
 
         <p class="text-light" v-if="!eventFormIsValid">
-          Please add the missing fields and submit again.
+          Please add all fields before saving your ticket details.
         </p>
         <div class="md:flex md:justify-end" v-if="eventFormIsValid">
           <button class="btn-accent my-4 w-full md:w-fit">
