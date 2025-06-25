@@ -1,6 +1,6 @@
 <script setup>
 useHead({
-  title: `Charity Event Ticket Booking`,
+  title: `Event Ticket Booking`,
   meta: [
     {
       name: "robots",

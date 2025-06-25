@@ -72,9 +72,8 @@ const payNow = async () => {
       <h2 class="font-play print:text-dark">Success!</h2>
       <p>
         Thank you, for reserving your tickets to our upcoming
-        <span class="font-play">
-          AbsoluteSport Family Fun Day Charity Event</span
-        >. We look forward to seeing you!
+        <span class="font-play"> AbsoluteSport Family Fun Day Event</span>. We
+        look forward to seeing you!
       </p>
       <p class="font-inter-medium print:hidden">
         This page is printer friendly! We suggest printing it or saving it as a
