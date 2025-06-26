@@ -350,41 +350,41 @@ const onAddTicketItem = () => {
               <option value="child">Child (5–16, £10)</option>
               <option value="adult">Adult (£7.50)</option>
             </select>
-          </div>
-          <div
-            v-if="showAgeField"
-            class="md:text-end"
-            :class="{ invalid: !ticketAge.isValid }"
-          >
-            <label for="ticketAge">Age</label>
-            <div :class="{ invalid: !ticketAge.isValid }">
-              <select
-                name="ticketAge"
-                id="ticketAge"
-                v-model.number="ticketAge.val"
-                class="w-full p-2 rounded"
-                required
-              >
-                <option
-                  v-for="age in ageRanges[ticketType.val]"
-                  :key="age"
-                  :value="age"
+            <div
+              v-if="showAgeField"
+              class="md:text-end"
+              :class="{ invalid: !ticketAge.isValid }"
+            >
+              <label for="ticketAge">Age</label>
+              <div :class="{ invalid: !ticketAge.isValid }">
+                <select
+                  name="ticketAge"
+                  id="ticketAge"
+                  v-model.number="ticketAge.val"
+                  class="w-full p-2 rounded"
+                  required
                 >
-                  {{ age }} years
-                </option>
-              </select>
+                  <option
+                    v-for="age in ageRanges[ticketType.val]"
+                    :key="age"
+                    :value="age"
+                  >
+                    {{ age }} years
+                  </option>
+                </select>
+              </div>
             </div>
-          </div>
-          <div class="md:text-end" :class="{ invalid: !ticketInfo.isValid }">
-            <label for="medical">Special Requirements *</label>
-          </div>
-          <div :class="{ invalid: !ticketInfo.isValid }">
-            <textarea
-              rows="4"
-              v-model="ticketInfo.val"
-              class="w-full p-2 rounded"
-              placeholder="Please tell us about any special requirements we need to be aware of. (None if N/A)"
-            ></textarea>
+            <div class="md:text-end" :class="{ invalid: !ticketInfo.isValid }">
+              <label for="medical">Special Requirements *</label>
+            </div>
+            <div :class="{ invalid: !ticketInfo.isValid }">
+              <textarea
+                rows="4"
+                v-model="ticketInfo.val"
+                class="w-full p-2 rounded"
+                placeholder="Please tell us about any special requirements we need to be aware of. (None if N/A)"
+              ></textarea>
+            </div>
           </div>
         </div>
         <div

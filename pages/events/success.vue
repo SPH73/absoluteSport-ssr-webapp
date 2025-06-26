@@ -18,9 +18,12 @@ const route = useRoute();
 const data = ref(route.query);
 const paymentRef = ref(route.query.paymentRef);
 const date = ref(route.query.bookingDate);
+
 console.log("success****", data.value);
 
 const amount = Number(data.value.amountDue) * 100;
+const formatted = Number(data.value.amountDue).toFixed(2);
+console.log(formatted); // "7.5
 const instantPayment = ref(true);
 const paymentRequest = ref(false);
 const paymentCreated = ref(false);
@@ -217,7 +220,7 @@ const payNow = async () => {
                 <th
                   class="uppercase p-4 bg-secondary border border-secondary text-left text-accent print:text-dark w-2/5"
                 >
-                  Family Members
+                  Booked Tickets
                 </th>
                 <td
                   class="bg-light text-dark border border-secondary p-4 w-3/5"
@@ -234,7 +237,7 @@ const payNow = async () => {
                 <td
                   class="bg-light text-dark border border-secondary p-4 w-3/5"
                 >
-                  £{{ data.amountDue }}
+                  £{{ formatted }}
                 </td>
               </tr>
               <tr>
