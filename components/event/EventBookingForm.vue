@@ -84,20 +84,10 @@ watchEffect(() => {
     (ticketAge.value.val !== "select" && ticketAge.value.val !== null);
 
   eventFormIsValid.value = nameOk && typeOk && infoOk && ageOk;
-
-  console.log({
-    nameOk,
-    typeOk,
-    infoOk,
-    ageOk,
-    ticketType: ticketType.value.val,
-    ticketAge: ticketAge.value.val,
-    eventFormIsValid: eventFormIsValid.value,
-  });
 });
 
 watch(
-  () => ticketType.value.val, // this is the correct reactive getter
+  () => ticketType.value.val,
   (newVal) => {
     console.log("[watch:ticketType]", newVal);
     if (newVal === "child" || newVal === "infant") {
@@ -123,8 +113,6 @@ const validateTicketAge = () => {
   return true;
 };
 
-// ticket details
-// ticket form **
 // validation
 const validateEventForm = () => {
   eventFormIsValid.value = true;
@@ -181,7 +169,7 @@ const onAddTicketItem = () => {
     <h1 class="text-accent font-play capitalize">Event bookings</h1>
     <p class="text-light">
       Please complete the form below to book your event tickets. Please book all
-      required tickets after adding your or (payer) details.
+      required tickets after adding your or (or the payer's) details.
     </p>
     <p class="text-light">
       Please save each ticket you wish to book for your family individually.
@@ -404,8 +392,8 @@ const onAddTicketItem = () => {
       <!-- /end ticket item form -->
 
       <p class="text-light">
-        Please review your booking details before confirming. Ticket and
-        payments references will be created on submission.
+        Please review your booking details before confirming. Ticket and payment
+        references will be created upon form submission.
       </p>
     </div>
   </div>
