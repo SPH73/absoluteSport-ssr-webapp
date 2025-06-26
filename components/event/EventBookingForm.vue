@@ -13,9 +13,9 @@ async function showSteps() {
 
 // payer form data ****
 
-const payerName = ref({ val: "Jane Doe", isValid: true });
-const payerContact = ref({ val: "0787111555", isValid: true });
-const payerEmail = ref({ val: "jane.doe@example.com", isValid: true });
+const payerName = ref({ val: "", isValid: true });
+const payerContact = ref({ val: "", isValid: true });
+const payerEmail = ref({ val: "", isValid: true });
 const acceptedTerms = ref({ val: true, isValid: true });
 const payerFormIsValid = ref(null);
 
