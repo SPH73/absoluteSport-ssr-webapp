@@ -1,3 +1,44 @@
+# robots.txt for AbsoluteSport - block suspicious/bogus paths
+
 User-agent: *
+# Allow main site pages
 Allow: /
+
+# Block common scans, leftover WP paths, and bogus URLs
+Disallow: /wp-admin/
+Disallow: /wp-includes/
+Disallow: /wp-content/
+Disallow: /xmlrpc.php
+Disallow: /wlwmanifest.xml
+Disallow: /license.txt
+Disallow: /*.php$
+Disallow: /*.asp$
+Disallow: /*.aspx$
+Disallow: /*.bak$
+Disallow: /*.env$
+Disallow: /*.sql$
+Disallow: /*.log$
+Disallow: /*.old$
+Disallow: /*.swp$
+Disallow: /*~$
+Disallow: /.git/
+Disallow: /.svn/
+Disallow: /feed/
+Disallow: /camps/tel:
+Disallow: /admin/
+Disallow: /login/
+Disallow: /signup/
+Disallow: /register/
+Disallow: /config/
+Disallow: /test-page/
+Disallow: /tmp/
+Disallow: /phpmyadmin/
+Disallow: /pma/
+Disallow: /solr/
+Disallow: /cgi-bin/
+Disallow: /shell/
+Disallow: /adminer/
+Disallow: /wp-login.php
+
+# Sitemap location
 Sitemap: https://www.absolutesport.org/sitemap.xml
