@@ -54,23 +54,23 @@ useHead({
     // },
   ],
 });
-const { error, pending, data: reviews } = await useFetch("/api/reviews");
-const reviewList = ref([]);
-let review = {};
-// console.log("reviewList", reviews.value);
-reviews.value.forEach((record, index) => {
-  if (record.fields.featured) {
-    review = {
-      index: index + 1,
-      id: record.id,
-      name: record.fields.reviewerName,
-      comment: record.fields.reviewerComment,
-      rating: record.fields.rating,
-      created: record.fields.created,
-    };
-    reviewList.value.push(review);
-  }
-});
+// const { error, pending, data: reviews } = await useFetch("/api/reviews");
+// const reviewList = ref([]);
+// let review = {};
+// // console.log("reviewList", reviews.value);
+// reviews.value.forEach((record, index) => {
+//   if (record.fields.featured) {
+//     review = {
+//       index: index + 1,
+//       id: record.id,
+//       name: record.fields.reviewerName,
+//       comment: record.fields.reviewerComment,
+//       rating: record.fields.rating,
+//       created: record.fields.created,
+//     };
+//     reviewList.value.push(review);
+//   }
+// });
 </script>
 
 <template>
