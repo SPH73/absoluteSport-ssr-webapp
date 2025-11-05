@@ -1,11 +1,17 @@
 // https://v3.nuxtjs.org/api/configuration/nuxt.config
 import { resolve } from "path";
 export default defineNuxtConfig({
-  alias: {
-    "@": resolve(__dirname, "/"),
+  nitro: {
+    preset: "netlify",
+    compatibilityDate: "2025-11-05",
+    prerender: {
+      routes: ["/sitemap.xml", "/robots.txt"],
+    },
   },
+
   routeRules: {
     "/api/**": { cors: true },
+    "/": { prerender: true },
   },
   app: {
     pageTransition: { name: "page", mode: "out-in" },
@@ -61,11 +67,6 @@ export default defineNuxtConfig({
       atBaseId: process.env.AT_BASE_ID,
       mcAudId: process.env.MC_AUDIENCE_ID,
       mcServer: process.env.MC_SERVER_PREFIX,
-    },
-    nitro: {
-      prerender: {
-        routes: ["/sitemap.xml", "/robots.txt"],
-      },
     },
   },
 });
