@@ -1,3 +1,10 @@
+[build]
+  command = "npm run build"
+  publish = ".netlify/publish"
+
+[functions]
+  node_bundler = "esbuild"
+
 [[redirects]]
   from = "/*.{php,asp,aspx,cgi,pl,sh,zip,tar,gz,rar,7z,sql,bak,old,env}"
   to = "/404.html"
