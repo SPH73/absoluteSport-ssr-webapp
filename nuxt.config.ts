@@ -1,16 +1,9 @@
 // nuxt.config.ts
-import { resolve } from "path";
+import { defineNuxtConfig } from "nuxt/config";
 
 export default defineNuxtConfig({
-  // Path aliases
-  alias: {
-    "@": resolve(__dirname, "/"),
-  },
-
-  // Routing rules
-  routeRules: {
-    "/api/**": { cors: true },
-  },
+  // Compatibility date for Nitro & Vercel environments
+  compatibilityDate: "2025-09-17",
 
   // App configuration
   app: {
@@ -36,30 +29,12 @@ export default defineNuxtConfig({
   },
 
   // Modules
-  modules: [
-    "@nuxtjs/tailwindcss",
-    "@vueuse/nuxt",
-    "nuxt-swiper",
-    "@nuxt/image-edge",
-    // 'nuxt-security' // check Nuxt 4 compatibility before enabling
-  ],
-
-  // Image configuration
-  image: {
-    cloudinary: {
-      baseURL: `https://res.cloudinary.com/${process.env.CLOUD_NAME}/image/upload/`,
-    },
-  },
+  modules: ["@nuxtjs/tailwindcss", "@vueuse/nuxt", "nuxt-swiper"],
 
   // TailwindCSS
-  tailwindcss: {
-    cssPath: "~/assets/css/tailwind.css",
-    configPath: "tailwind.config",
-    exposeConfig: true,
-  },
 
   // Global CSS
-  css: ["~/assets/css/global.css"],
+  css: ["/assets/css/global.css"],
 
   // Runtime configuration
   runtimeConfig: {
