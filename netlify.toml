@@ -1,0 +1,11 @@
+[[redirects]]
+  from = "/*.{php,asp,aspx,cgi,pl,sh,zip,tar,gz,rar,7z,sql,bak,old,env}"
+  to = "/404.html"
+  status = 404
+  force = true
+
+[[redirects]]
+  from = "/wp-*"
+  to = "/404.html"
+  status = 404
+  force = true
