@@ -29,131 +29,139 @@ console.log("success****", data.value);
           <table
             class="table-auto border-separate border-spacing-2 border border-secondary text-light w-full text-2xl rounded-md"
           >
-            <tr>
-              <th
-                class="uppercase p-4 bg-secondary text-left text-accent border border-secondary p-4 w-2/5"
-              >
-                Enquiry Date
-              </th>
-              <td class="bg-light text-dark border border-secondary p-4 w-3/5">
-                {{ date }}
-              </td>
-            </tr>
-            <tr>
-              <th
-                class="uppercase p-4 bg-secondary text-left text-accent border border-secondary p-4"
-              >
-                First Name
-              </th>
-              <td class="bg-light text-dark border border-secondary p-4">
-                {{ data.name }}
-              </td>
-            </tr>
-            <tr>
-              <th
-                class="uppercase p-4 bg-secondary text-left text-accent border border-secondary p-4"
-              >
-                Surname
-              </th>
-              <td class="bg-light text-dark border border-secondary p-4">
-                {{ data.surname }}
-              </td>
-            </tr>
-            <tr>
-              <th
-                class="uppercase p-4 bg-secondary text-left text-accent border border-secondary p-4"
-              >
-                Phone
-              </th>
-              <td class="bg-light text-dark border border-secondary p-4">
-                {{ data.phone }}
-              </td>
-            </tr>
-            <tr>
-              <th
-                class="uppercase p-4 bg-secondary text-left text-accent border border-secondary p-4"
-              >
-                Email
-              </th>
-              <td class="bg-light text-dark border border-secondary p-4">
-                {{ data.email }}
-              </td>
-            </tr>
+            <tbody>
+              <tr>
+                <th
+                  class="uppercase p-4 bg-secondary text-left text-accent border border-secondary w-2/5"
+                >
+                  Enquiry Date
+                </th>
+                <td
+                  class="bg-light text-dark border border-secondary p-4 w-3/5"
+                >
+                  {{ date }}
+                </td>
+              </tr>
+              <tr>
+                <th
+                  class="uppercase p-4 bg-secondary text-left text-accent border border-secondary"
+                >
+                  First Name
+                </th>
+                <td class="bg-light text-dark border border-secondary p-4">
+                  {{ data.name }}
+                </td>
+              </tr>
+              <tr>
+                <th
+                  class="uppercase p-4 bg-secondary text-left text-accent border border-secondary"
+                >
+                  Surname
+                </th>
+                <td class="bg-light text-dark border border-secondary p-4">
+                  {{ data.surname }}
+                </td>
+              </tr>
+              <tr>
+                <th
+                  class="uppercase p-4 bg-secondary text-left text-accent border border-secondary"
+                >
+                  Phone
+                </th>
+                <td class="bg-light text-dark border border-secondary p-4">
+                  {{ data.phone }}
+                </td>
+              </tr>
+              <tr>
+                <th
+                  class="uppercase p-4 bg-secondary text-left text-accent border border-secondary"
+                >
+                  Email
+                </th>
+                <td class="bg-light text-dark border border-secondary p-4">
+                  {{ data.email }}
+                </td>
+              </tr>
+            </tbody>
           </table>
           <h3 class="font-play capitalize">Party details:</h3>
           <table
             class="table-auto border-separate border-spacing-2 border border-secondary text-light w-full text-2xl rounded-md"
           >
-            <tr>
-              <th
-                class="uppercase p-4 bg-secondary text-left text-accent p-4 w-2/5"
-              >
-                Party
-              </th>
-              <td class="bg-light text-dark border border-secondary p-4 w-3/5">
-                {{ data.party }}
-              </td>
-            </tr>
-            <tr>
-              <th
-                class="uppercase p-4 bg-secondary text-left text-accent border border-secondary p-4"
-              >
-                1st Date
-              </th>
-              <td class="bg-light text-dark border border-secondary p-4">
-                {{ data.date1 }}
-              </td>
-            </tr>
-            <tr>
-              <th
-                class="uppercase p-4 bg-secondary text-left text-accent border border-secondary p-4"
-              >
-                2nd Date
-              </th>
-              <td class="bg-light text-dark border border-secondary p-4">
-                {{ data.date2 }}
-              </td>
-            </tr>
-            <tr>
-              <th
-                class="uppercase p-4 bg-secondary text-left text-accent border border-secondary p-4"
-              >
-                Start Time
-              </th>
-              <td class="bg-light text-dark border border-secondary p-4">
-                {{ data.start }}
-              </td>
-            </tr>
-            <tr>
-              <th
-                class="uppercase p-4 bg-secondary text-left text-accent border border-secondary p-4"
-              >
-                Party Length
-              </th>
-              <td class="bg-light text-dark border border-secondary p-4">
-                {{ data.length }}
-              </td>
-            </tr>
-            <tr>
-              <th
-                class="uppercase p-4 bg-secondary text-left text-accent border border-secondary p-4"
-              >
-                No. Children
-              </th>
-              <td class="bg-light text-dark border border-secondary p-4">
-                {{ data.numChildren }}
-              </td>
-            </tr>
-            <tr>
-              <th
-                class="uppercase p-4 bg-secondary text-left text-accent border border-secondary p-4"
-              >
-                Venue PostCode
-              </th>
-              <td class="bg-light text-dark border border-secondary p-4">
-                {{ data.postCode }}
-              </td>
-            </tr>
+            <tbody>
+              <tr>
+                <th
+                  class="uppercase p-4 bg-secondary text-left text-accent w-2/5"
+                >
+                  Party
+                </th>
+                <td
+                  class="bg-light text-dark border border-secondary p-4 w-3/5"
+                >
+                  {{ data.party }}
+                </td>
+              </tr>
+              <tr>
+                <th
+                  class="uppercase p-4 bg-secondary text-left text-accent border border-secondary"
+                >
+                  1st Date
+                </th>
+                <td class="bg-light text-dark border border-secondary p-4">
+                  {{ data.date1 }}
+                </td>
+              </tr>
+              <tr>
+                <th
+                  class="uppercase p-4 bg-secondary text-left text-accent border border-secondary"
+                >
+                  2nd Date
+                </th>
+                <td class="bg-light text-dark border border-secondary p-4">
+                  {{ data.date2 }}
+                </td>
+              </tr>
+              <tr>
+                <th
+                  class="uppercase p-4 bg-secondary text-left text-accent border border-secondary"
+                >
+                  Start Time
+                </th>
+                <td class="bg-light text-dark border border-secondary p-4">
+                  {{ data.start }}
+                </td>
+              </tr>
+              <tr>
+                <th
+                  class="uppercase p-4 bg-secondary text-left text-accent border border-secondary"
+                >
+                  Party Length
+                </th>
+                <td class="bg-light text-dark border border-secondary p-4">
+                  {{ data.length }}
+                </td>
+              </tr>
+              <tr>
+                <th
+                  class="uppercase p-4 bg-secondary text-left text-accent border border-secondary"
+                >
+                  No. Children
+                </th>
+                <td class="bg-light text-dark border border-secondary p-4">
+                  {{ data.numChildren }}
+                </td>
+              </tr>
+              <tr>
+                <th
+                  class="uppercase p-4 bg-secondary text-left text-accent border border-secondary"
+                >
+                  Venue PostCode
+                </th>
+                <td class="bg-light text-dark border border-secondary p-4">
+                  {{ data.postCode }}
+                </td>
+              </tr>
+            </tbody>
           </table>
         </div>
       </div>

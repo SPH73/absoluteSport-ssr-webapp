@@ -1,9 +1,9 @@
 // https://v3.nuxtjs.org/api/configuration/nuxt.config
 import { resolve } from "path";
 export default defineNuxtConfig({
+  compatibilityDate: "2025-11-05",
   nitro: {
     preset: "netlify",
-    compatibilityDate: "2025-11-05",
     prerender: {
       routes: ["/sitemap.xml", "/robots.txt"],
     },

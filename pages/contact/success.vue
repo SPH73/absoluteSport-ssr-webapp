@@ -43,66 +43,70 @@ console.log("success****", data.value);
           <table
             class="table-auto border-separate border-spacing-2 border border-secondary text-light w-full text-2xl rounded-md"
           >
-            <tr>
-              <th
-                class="uppercase p-4 bg-secondary text-left text-accent border border-secondary p-4 w-2/5"
-              >
-                Enquiry Date
-              </th>
-              <td class="bg-light text-dark border border-secondary p-4 w-3/5">
-                {{ date }}
-              </td>
-            </tr>
-            <tr>
-              <th
-                class="uppercase p-4 bg-secondary text-left text-accent border border-secondary p-4"
-              >
-                First Name
-              </th>
-              <td class="bg-light text-dark border border-secondary p-4">
-                {{ data.name }}
-              </td>
-            </tr>
-            <tr>
-              <th
-                class="uppercase p-4 bg-secondary text-left text-accent border border-secondary p-4"
-              >
-                Surname
-              </th>
-              <td class="bg-light text-dark border border-secondary p-4">
-                {{ data.surname }}
-              </td>
-            </tr>
-            <tr>
-              <th
-                class="uppercase p-4 bg-secondary text-left text-accent border border-secondary p-4"
-              >
-                Phone
-              </th>
-              <td class="bg-light text-dark border border-secondary p-4">
-                {{ data.phone }}
-              </td>
-            </tr>
-            <tr>
-              <th
-                class="uppercase p-4 bg-secondary text-left text-accent border border-secondary p-4"
-              >
-                Email
-              </th>
-              <td class="bg-light text-dark border border-secondary p-4">
-                {{ data.email }}
-              </td>
-            </tr>
-            <tr>
-              <th
-                class="uppercase p-4 bg-secondary text-left text-accent border border-secondary p-4"
-              >
-                Message
-              </th>
-              <td class="bg-light text-dark border border-secondary p-4">
-                {{ data.message }}
-              </td>
-            </tr>
+            <tbody>
+              <tr>
+                <th
+                  class="uppercase p-4 bg-secondary text-left text-accent border border-secondary w-2/5"
+                >
+                  Enquiry Date
+                </th>
+                <td
+                  class="bg-light text-dark border border-secondary p-4 w-3/5"
+                >
+                  {{ date }}
+                </td>
+              </tr>
+              <tr>
+                <th
+                  class="uppercase p-4 bg-secondary text-left text-accent border border-secondary"
+                >
+                  First Name
+                </th>
+                <td class="bg-light text-dark border border-secondary p-4">
+                  {{ data.name }}
+                </td>
+              </tr>
+              <tr>
+                <th
+                  class="uppercase p-4 bg-secondary text-left text-accent border border-secondary"
+                >
+                  Surname
+                </th>
+                <td class="bg-light text-dark border border-secondary p-4">
+                  {{ data.surname }}
+                </td>
+              </tr>
+              <tr>
+                <th
+                  class="uppercase p-4 bg-secondary text-left text-accent border border-secondary"
+                >
+                  Phone
+                </th>
+                <td class="bg-light text-dark border border-secondary p-4">
+                  {{ data.phone }}
+                </td>
+              </tr>
+              <tr>
+                <th
+                  class="uppercase p-4 bg-secondary text-left text-accent border border-secondary"
+                >
+                  Email
+                </th>
+                <td class="bg-light text-dark border border-secondary p-4">
+                  {{ data.email }}
+                </td>
+              </tr>
+              <tr>
+                <th
+                  class="uppercase p-4 bg-secondary text-left text-accent border border-secondary"
+                >
+                  Message
+                </th>
+                <td class="bg-light text-dark border border-secondary p-4">
+                  {{ data.message }}
+                </td>
+              </tr>
+            </tbody>
           </table>
         </div>
       </div>
