@@ -1,38 +1,6 @@
 [build]
   command = "NITRO_PRESET=netlify npm run build"
-  publish = ".netlify/publish"
+  publish = "dist"
 
 [functions]
-  directory = ".netlify/functions-internal"
   node_bundler = "esbuild"
-
-# Block common bot/file probes
-[[redirects]]
-  from = "/*.{php,asp,aspx,cgi,pl,sh,zip,tar,gz,rar,7z,sql,bak,old,env}"
-  to = "/404.html"
-  status = 404
-  force = true
-
-[[redirects]]
-  from = "/wp-*"
-  to = "/404.html"
-  status = 404
-  force = true
-
-[[redirects]]
-  from = "/wp-admin/*"
-  to = "/404.html"
-  status = 404
-  force = true
-
-[[redirects]]
-  from = "/wp-login.php"
-  to = "/404.html"
-  status = 404
-  force = true
-
-# SSR catch-all -> Nitro server function
-[[redirects]]
-  from = "/*"
-  to = "/.netlify/functions/server"
-  status = 200
