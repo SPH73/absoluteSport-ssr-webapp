@@ -1,46 +1,54 @@
 <script setup>
 // retrieve data for haf pop up
 const { data: cms } = await useFetch("/api/cms");
-const content = ref([]);
-let element = {};
-cms.value.forEach((record, index) => {
-  element = {
-    index: index + 1,
+
+const content = ref(
+  (cms.value || []).map((record, i) => ({
+    index: i + 1,
     name: record.fields.element,
     content: record.fields.content,
     display: record.fields.display,
     modified: record.fields.lastUpdated,
-  };
-  content.value.push(element);
-});
+  }))
+);
+
 // pop up when haf is selected
 const hafContent = computed(() => {
   return content.value.find((item) => item.name === "haf");
 });
+
 // fetched data / props ****
-const { data: campLocList, error } = await useFetch("/api/camps/campLocList");
-const props = defineProps(["parentAdded", "error", "campsList"]);
+const { data: campLocList } = await useFetch("/api/camps/campLocList");
+const props = defineProps(["parentAdded", "campsList"]);
+
 // events ****
 const emit = defineEmits([
   "parent-submitted",
   "camp-booking-added",
   "show-steps",
 ]);
-async function showSteps() {
+function showSteps() {
   emit("show-steps");
 }
 
 // parent form data ****
-
 const enteredParentName = ref({ val: "", isValid: true });
 const enteredMainContact = ref({ val: "", isValid: true });
 const enteredEmail = ref({ val: "", isValid: true });
 const acceptedTerms = ref({ val: false, isValid: true });
-const parentFormIsValid = ref(null);
+const parentFormIsValid = ref(true);
+const parentSubmitAttempted = ref(false);
 
 // parent form validation
 const validateParentForm = () => {
   parentFormIsValid.value = true;
+
+  // reset flags before validation
+  enteredParentName.value.isValid = true;
+  enteredEmail.value.isValid = true;
+  enteredMainContact.value.isValid = true;
+  acceptedTerms.value.isValid = true;
+
   if (enteredParentName.value.val === "") {
     enteredParentName.value.isValid = false;
     parentFormIsValid.value = false;
@@ -49,7 +57,7 @@ const validateParentForm = () => {
     enteredEmail.value.isValid = false;
     parentFormIsValid.value = false;
   }
-  if (enteredMainContact.value.val === null) {
+  if (enteredMainContact.value.val === "") {
     enteredMainContact.value.isValid = false;
     parentFormIsValid.value = false;
   }
@@ -58,10 +66,12 @@ const validateParentForm = () => {
     parentFormIsValid.value = false;
   }
 };
+
 // parent form submission
-async function onSubmitParent() {
+function onSubmitParent() {
+  parentSubmitAttempted.value = true;
   validateParentForm();
-  if (!parentFormIsValid) {
+  if (!parentFormIsValid.value) {
     return;
   }
   emit(
@@ -83,8 +93,9 @@ const childAge = ref({ val: "select", isValid: true });
 const pupilPrem = ref(false);
 const ppIsChecked = ref(false);
 const title = "Pupil Premium Booking";
+
 watch(pupilPrem, () => {
-  ppIsChecked.value = pupilPrem.value ? true : false;
+  ppIsChecked.value = !!pupilPrem.value;
 });
 const confirmPP = () => {
   ppIsChecked.value = false;
@@ -93,93 +104,69 @@ const hafID = ref({ val: "", isValid: true });
 const confirmedPhoto = ref(true);
 
 // camp details
-const locationOptions = ref([]);
-let location = {};
-campLocList.value.forEach((record, index) => {
-  location = {
-    index: index + 1,
+const campSubmitAttempted = ref(false);
+const locationOptions = ref(
+  (campLocList.value || []).map((record, i) => ({
+    index: i + 1,
     id: record.id,
     locationName: record.fields.locationName,
     locRef: record.fields.locRef,
     locPrice: record.fields.pricePerDay,
-  };
-  locationOptions.value.push(location);
-});
+  }))
+);
 
 const campLoc = ref({ val: "select" });
-const filteredCamps = ref([]);
-const hafFilteredCamps = ref([]);
-const campDetails = ref({});
-const filterCampsByLoc = computed(() => {
-  let loc = campLoc.value.val;
-  return (filteredCamps.value = props.campsList.filter(
-    (camp) => camp.locRef === loc
-  ));
+
+// pure computeds for lists
+const hasLocation = computed(() => campLoc.value.val !== "select");
+
+const filteredCamps = computed(() => {
+  const list = Array.isArray(props.campsList) ? props.campsList : [];
+  return hasLocation.value
+    ? list.filter((c) => c.locRef === campLoc.value.val)
+    : [];
 });
 
-const filterCampsByHaf = computed(() => {
-  return (hafFilteredCamps.value = filteredCamps.value.filter(
-    (camp) => camp.haf === true
-  ));
+const hafFilteredCamps = computed(() =>
+  filteredCamps.value.filter((c) => c.haf === true)
+);
+
+const noCampsMessage = computed(() => {
+  return hasLocation.value && filteredCamps.value.length === 0
+    ? "Sorry, no camps available for your selection"
+    : "Select a camp location to show available camp weeks.";
 });
 
 const campName = ref({ val: "select", isValid: true });
-const campWeekSelected = computed(() => {
-  campDaysSelected.value.val = [];
-  return campName.value.val === "select" ? false : true;
+const campWeekSelected = computed(() => campName.value.val !== "select");
+
+// single source of truth for selected camp details
+const campDetails = computed(() => {
+  const list = Array.isArray(props.campsList) ? props.campsList : [];
+  return list.find((c) => c.campRef === campName.value.val);
 });
 
-const findCampByRef = computed(() => {
-  campDetails.value = props.campsList.find(
-    (camp) => camp.campRef === campName.value.val
-  );
-});
-
-// build checkbox days from campRef
-
-watch(findCampByRef, () => {
-  campDetails.value = [];
-  campDetails.value = props.campsList.find(
-    (camp) => camp.campRef === campName.value.val
-  );
-});
-
+// when the camp changes, clear any previously chosen days
 watch(campName, () => {
-  campWeekSelected = false;
   campDaysSelected.value.val = [];
-  campDetails.value = [];
-  findCampByRef.value;
-  return campDetails.value;
 });
 
 const campDaysSelected = ref({ val: [], isValid: true });
-const numCampDays = ref(null);
+const numCampDays = computed(() => campDaysSelected.value.val.length);
 
-const calculatedDays = computed(() => {
-  return (numCampDays.value = campDaysSelected.value.val.length);
-});
-
-watchEffect(() => {
-  pupilPrem.value;
-  campLoc.value.val;
-  filterCampsByLoc.value;
-  filteredCamps.value;
-  filterCampsByHaf.value;
-  hafFilteredCamps.value;
-  campName.value.val;
-  campWeekSelected;
-  findCampByRef.value;
-  campDetails.value;
-  campDaysSelected.value.val;
-  calculatedDays.value;
-  numCampDays.value;
-});
-
-// camp form **
-// validation
+// camp form validation
 const validateCampForm = () => {
   campFormIsValid.value = true;
-  if (childName.value.val === null) {
+
+  // reset flags before validation
+  childName.value.isValid = true;
+  childSurname.value.isValid = true;
+  childAge.value.isValid = true;
+  hafID.value.isValid = true;
+  campName.value.isValid = true;
+  campDaysSelected.value.isValid = true;
+
+  if (childName.value.val === "") {
     childName.value.isValid = false;
     campFormIsValid.value = false;
   }
@@ -191,13 +178,12 @@ const validateCampForm = () => {
     childAge.value.isValid = false;
     campFormIsValid.value = false;
   }
-  if (pupilPrem) {
+  if (pupilPrem.value) {
     if (hafID.value.val === "") {
       hafID.value.isValid = false;
       campFormIsValid.value = false;
     }
   }
-
   if (campName.value.val === "select") {
     campName.value.isValid = false;
     campFormIsValid.value = false;
@@ -206,46 +192,43 @@ const validateCampForm = () => {
     campDaysSelected.value.isValid = false;
     campFormIsValid.value = false;
   }
-  if (numCampDays.value === null) {
-    campDaysSelected.value.isValid = false;
-    campFormIsValid.value = false;
-  }
 };
+
 // submission
 const onAddBookingItem = () => {
+  campSubmitAttempted.value = true;
   validateCampForm();
-  if (campFormIsValid) {
-    emit(
-      "camp-booking-added",
-      childName.value.val,
-      childSurname.value.val,
-      childAge.value.val,
-      pupilPrem.value,
-      hafID.value.val,
-      confirmedPhoto.value,
-      campLoc.value.val,
-      campName.value.val,
-      campDaysSelected.value.val,
-      numCampDays.value
-    );
-    // reset after each booking is added
-    childName.value.val = "";
-    childSurname.value.val = "";
-    childAge.value.val = "select";
-    pupilPrem.value = false;
-    hafID.value.val = "";
-    // campLoc.value.val = "select";
-    campName.value.val = "select";
-    campDaysSelected.value.val = [];
-  }
-  return;
+  if (!campFormIsValid.value) return;
+
+  emit(
+    "camp-booking-added",
+    childName.value.val,
+    childSurname.value.val,
+    childAge.value.val,
+    pupilPrem.value,
+    hafID.value.val,
+    confirmedPhoto.value,
+    campLoc.value.val,
+    campName.value.val,
+    campDaysSelected.value.val,
+    numCampDays.value
+  );
+  // reset after each booking is added
+  childName.value.val = "";
+  childSurname.value.val = "";
+  childAge.value.val = "select";
+  pupilPrem.value = false;
+  hafID.value.val = "";
+  campName.value.val = "select";
+  campDaysSelected.value.val = [];
+  campSubmitAttempted.value = false;
 };
 </script>
 
 <template>
   <BaseDialog @close="confirmPP" :open="ppIsChecked" :title="title">
     <template #content>
-      <p v-if="hafContent.display" class="font-play">
+      <p v-if="hafContent?.display" class="font-play">
         {{ hafContent.content }}
       </p>
       <p class="text-dark">
@@ -394,7 +377,7 @@ const onAddBookingItem = () => {
           <button class="btn-accent my-4 w-full md:w-fit">Save Details</button>
         </div>
       </form>
-      <p class="error" v-if="!parentFormIsValid">
+      <p class="error" v-if="parentSubmitAttempted && !parentFormIsValid">
         One or more fields are invalid. Please correct the errors and submit
         again.
       </p>
@@ -619,11 +602,7 @@ const onAddBookingItem = () => {
           </div>
         </div>
         <p class="text-light" v-else>
-          {{
-            !campLoc === "select"
-              ? "Sorry\, no camps available for your selection"
-              : "Select a location to show available camp weeks."
-          }}
+          {{ noCampsMessage }}
         </p>
         <div v-if="campWeekSelected">
           <!-- camp days !haf-->
@@ -632,7 +611,8 @@ const onAddBookingItem = () => {
             class="flex flex-row justify-between items-center pt-4"
           >
             <div
-              v-for="day in campDetails.daysAvailable"
+              v-for="day in campDetails?.daysAvailable || []"
+              :key="day"
               class="flex flex-col items-center justify-end gap-4"
             >
               <label>{{ day }}</label>
@@ -675,7 +655,8 @@ const onAddBookingItem = () => {
             class="flex flex-row justify-between items-center pt-4"
           >
             <div
-              v-for="day in campDetails.hafDays"
+              v-for="day in campDetails?.hafDays || []"
+              :key="day"
               class="flex flex-col items-center justify-end gap-4"
             >
               <label>{{ day }}</label>
@@ -717,7 +698,7 @@ const onAddBookingItem = () => {
           Select a camp week to show available days.
         </p>
         <!-- /end camp details -->
-        <p class="text-light" v-if="!campFormIsValid">
+        <p class="text-light" v-if="campSubmitAttempted && !campFormIsValid">
           Please add the missing fields and submit again.
         </p>
         <div class="md:flex md:justify-end" v-show="numCampDays > 0">
