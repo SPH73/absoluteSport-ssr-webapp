@@ -1,9 +1,9 @@
 [build]
   command = "npm run build"
-  publish = ".netlify/publish"
+  publish = "dist"
 
 [functions]
-  node_bundler = "esbuild"
+  directory = ".netlify/functions-internal"
 
 [[redirects]]
   from = "/*.{php,asp,aspx,cgi,pl,sh,zip,tar,gz,rar,7z,sql,bak,old,env}"
