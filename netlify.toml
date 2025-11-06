@@ -1,21 +1,18 @@
 [build]
   command = "NITRO_PRESET=netlify npm run build"
-  publish ".netlify/publish"
+  publish = ".netlify/publish"
 
 [functions]
   directory = ".netlify/functions-internal"
   node_bundler = "esbuild"
 
-# ───────── Bot / scanner blocks (specific rules first) ─────────
-
-# Block file-extension probes (.php, .asp, archives, dumps, etc.)
+# Block common bot/file probes
 [[redirects]]
   from = "/*.{php,asp,aspx,cgi,pl,sh,zip,tar,gz,rar,7z,sql,bak,old,env}"
   to = "/404.html"
   status = 404
   force = true
 
-# Common WordPress probes (expand as you like)
 [[redirects]]
   from = "/wp-*"
   to = "/404.html"
@@ -34,11 +31,7 @@
   status = 404
   force = true
 
-# ───────── Nuxt/Nitro SSR & API fallback  ─────────
-
-# Let Nitro handle ALL remaining routes (SSR pages + /api/*),
-# while still allowing existing files in .output/public to be served directly.
-
+# SSR catch-all -> Nitro server function
 [[redirects]]
   from = "/*"
   to = "/.netlify/functions/server"
