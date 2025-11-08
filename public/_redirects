@@ -41,5 +41,8 @@
 /shell/*          /404  404
 /adminer/*        /404  404
 
-# --- Optional catch-all for legit Nuxt routes ---
-/*                /.netlify/functions/server  200!
+# --- API to SSR (highest priority) ---
+/api/*                              /.netlify/functions/server   200
+
+# --- Nuxt SSR catch-all (fallback) ---
+/*                                  /.netlify/functions/server   200
