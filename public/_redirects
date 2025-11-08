@@ -42,4 +42,4 @@
 /adminer/*        /404  404
 
 # --- Optional catch-all for legit Nuxt routes ---
-/*                /.netlify/functions/server  200
+/*                /.netlify/functions/server  200!
