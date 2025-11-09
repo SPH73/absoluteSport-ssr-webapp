@@ -12,5 +12,3 @@ dist
 .netlify
 # github workflows
 .github
-temp ignore
-_redirects
