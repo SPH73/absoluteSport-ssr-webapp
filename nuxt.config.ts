@@ -1,5 +1,6 @@
 // https://v3.nuxtjs.org/api/configuration/nuxt.config
-import { resolve } from "path";
+
+import { defineNuxtConfig } from "nuxt/config";
 export default defineNuxtConfig({
   compatibilityDate: "2025-11-05",
   nitro: {
@@ -10,7 +11,6 @@ export default defineNuxtConfig({
   },
 
   routeRules: {
-    "/api/**": { cors: true },
     "/": { prerender: true },
   },
   app: {
@@ -35,7 +35,7 @@ export default defineNuxtConfig({
     "@nuxtjs/tailwindcss",
     "@vueuse/nuxt",
     "nuxt-swiper",
-    "@nuxt/image-edge",
+    "@nuxt/image",
     // "nuxt-security",
   ],
   image: {
