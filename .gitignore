@@ -12,3 +12,9 @@ dist
 .netlify
 # github workflows
 .github
+.vercel
+
+# Local archives
+*.tgz
+*.zip
+
