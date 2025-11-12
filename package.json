@@ -16,7 +16,7 @@
     "@nuxtjs/tailwindcss": "^6.6.6",
     "@tailwindcss/typography": "^0.5.9",
     "@vueuse/nuxt": "^10.1.0",
-    "nuxt": "^3.2.3",
+    "nuxt": "^4.2.1",
     "nuxt-security": "^0.13.0"
   },
   "dependencies": {
@@ -31,5 +31,5 @@
     "md5": "^2.3.0",
     "nuxt-swiper": "^1.1.0"
   },
-  "packageManager": "pnpm@10.8.1+sha512.c50088ba998c67b8ca8c99df8a5e02fd2ae2e2b29aaf238feaa9e124248d3f48f9fb6db2424949ff901cffbb5e0f0cc1ad6aedb602cd29450751d11c35023677"
+  "packageManager": "npm@10"
 }
