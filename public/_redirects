@@ -1,4 +1,0 @@
-/*.php           /404  404
-/wp-*            /404  404
-/xmlrpc.php      /404  404
-/*               /.netlify/functions/server  200
