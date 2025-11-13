@@ -1,0 +1,5 @@
+[build] # intentionally empty so UI settings stay authoritative
+
+[[edge_functions]]
+path = "/*"
+function = "block-probes"
