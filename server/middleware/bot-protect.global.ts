@@ -15,6 +15,10 @@ const blockPatterns = [
   /xmlrpc/i, // xmlrpc probes
   /#!/, // hashbang-style URLs
   /\?gclid=/i, // gclid tracking params
+  /^\/\.env$/i, // direct .env access
+  /^\/\.git\//i, // any path under .git/
+  /^\/phpmyadmin\//i, // phpMyAdmin dir/probes
+  /^\/pma\//i, // common phpMyAdmin alias
 ];
 
 // Static / internal paths to allow without checks
