@@ -1,0 +1,9 @@
+/wp-*                 410
+*/wp-*.php            410
+/wp-login.php         410
+/xmlrpc.php           410
+/*.php                410
+/.env                 410
+/.git/*               410
+/phpmyadmin/*         410
+/pma/*                410
