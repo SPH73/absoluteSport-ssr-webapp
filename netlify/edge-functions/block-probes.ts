@@ -15,7 +15,7 @@ export default async (request: Request) => {
     return new Response("Gone", { status: 410 });
   }
 
-  // Cheap UA screen (optional)
+  // Cheap UA screening
   const ua = request.headers.get("user-agent") || "";
   if (/curl|wget|python-requests|libwww-perl|nikto|sqlmap/i.test(ua)) {
     return new Response("Forbidden", { status: 403 });
