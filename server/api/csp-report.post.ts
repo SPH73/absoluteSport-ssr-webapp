@@ -1,13 +1,14 @@
+// server/api/csp-report.post.ts
 import { defineEventHandler, readBody, getRequestHeader } from "h3";
-import { useRuntimeConfig } from "#imports";
+
+interface CspReportBody {
+  "csp-report"?: Record<string, any>;
+  [key: string]: any;
+}
 
 export default defineEventHandler(async (event) => {
-  const body = await readBody<unknown>(event).catch(() => null);
-
-  const report =
-    body && typeof body === "object"
-      ? (body as any)["csp-report"] || body
-      : null;
+  const body = await readBody<CspReportBody>(event);
+  const report = body?.["csp-report"] ?? body;
 
   // Always log for inspection
   console.warn("[csp-report]", {
@@ -20,40 +21,23 @@ export default defineEventHandler(async (event) => {
     return null;
   }
 
-  const reportObj = report as Record<string, any>;
+  const r: any = report;
+  const documentUri = r["document-uri"] ?? null;
+  const referrer = r["referrer"] ?? null;
+  const violatedDirective = r["violated-directive"] ?? null;
+  const effectiveDirective = r["effective-directive"] ?? null;
+  const originalPolicy = r["original-policy"] ?? null;
+  const blockedUri = r["blocked-uri"] ?? null;
+  const disposition = r["disposition"] ?? null;
 
-  // Normalized fields
-  const documentUri =
-    reportObj["document-uri"] ?? reportObj["documentURI"] ?? "";
-  const referrerHeader =
-    getRequestHeader(event, "referer") ||
-    getRequestHeader(event, "referrer") ||
-    "";
-  const violatedDirective = reportObj["violated-directive"] ?? "";
-  const effectiveDirective = reportObj["effective-directive"] ?? "";
-  const blockedUri = reportObj["blocked-uri"] ?? "";
-  const disposition = reportObj["disposition"] ?? "";
-  const originalPolicy = reportObj["original-policy"] ?? "";
+  // Extract headers
+  const userAgent = getRequestHeader(event, "user-agent") ?? null;
+  const ip = getRequestHeader(event, "x-forwarded-for") ?? null;
 
-  // Headers
-  const userAgent = getRequestHeader(event, "user-agent") || "";
-  const ip =
-    getRequestHeader(event, "x-forwarded-for") ||
-    event.node.req.socket?.remoteAddress ||
-    "";
-
-  // Runtime config (Nuxt runtimeConfig, NOT process.env)
-  const {
-    cspAirtableToken: token,
-    cspAirtableBaseId: baseId,
-    cspAirtableTable,
-  } = useRuntimeConfig(event) as {
-    cspAirtableToken?: string;
-    cspAirtableBaseId?: string;
-    cspAirtableTable?: string;
-  };
-
-  const tableName = cspAirtableTable || "CSP-REPORTS";
+  // Read Airtable config from environment
+  const token = process.env.NUXT_CSP_AIRTABLE_TOKEN;
+  const baseId = process.env.NUXT_CSP_AIRTABLE_BASE_ID;
+  const tableName = process.env.NUXT_CSP_AIRTABLE_TABLE || "CSP-REPORTS";
 
   // Early exit if config missing
   if (!token || !baseId) {
@@ -67,46 +51,54 @@ export default defineEventHandler(async (event) => {
     tableName
   )}`;
 
-  // Prepare JSON-safe string, truncated
-  let rawJson: string;
+  // Make rawJson safe and optional
+  let rawJson: string | null = null;
   try {
-    rawJson = JSON.stringify(reportObj);
+    rawJson = JSON.stringify(report);
+    if (rawJson.length > 50000) {
+      rawJson = rawJson.substring(0, 50000);
+    }
   } catch {
-    rawJson = "[unserializable CSP report]";
-  }
-  if (rawJson.length > 50000) {
-    rawJson = rawJson.substring(0, 50000);
+    rawJson = null;
   }
 
-  const timestamp = new Date().toISOString();
+  const fields: Record<string, any> = {
+    timestamp: new Date().toISOString(),
+    documentURI: documentUri,
+    referrer,
+    violatedDirective,
+    effectiveDirective,
+    blockedUri: blockedUri,
+    disposition,
+    originalPolicy,
+    userAgent,
+    IP: ip,
+  };
+
+  if (rawJson !== null) {
+    fields.raw = rawJson;
+  }
 
   try {
-    await $fetch(airtableUrl, {
+    const response = await fetch(airtableUrl, {
       method: "POST",
       headers: {
         Authorization: `Bearer ${token}`,
         "Content-Type": "application/json",
       },
-      body: {
+      body: JSON.stringify({
         records: [
           {
-            fields: {
-              timestamp,
-              documentUri,
-              referrer: referrerHeader,
-              violatedDirective,
-              effectiveDirective,
-              blockedUri,
-              disposition,
-              originalPolicy,
-              userAgent,
-              IP: ip,
-              raw: rawJson,
-            },
+            fields,
           },
         ],
-      },
+      }),
     });
+
+    if (!response.ok) {
+      const text = await response.text().catch(() => "");
+      console.error("[csp-report] Airtable API error", response.status, text);
+    }
   } catch (err) {
     console.error("[csp-report] Failed to push to CSP Airtable", err);
   }

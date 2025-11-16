@@ -1,5 +1,5 @@
+// server/api/legacy-404.post.ts
 import { defineEventHandler, readBody, getRequestHeader } from "h3";
-import { useRuntimeConfig } from "#imports";
 
 interface LegacyPayload {
   url?: string;
@@ -8,55 +8,34 @@ interface LegacyPayload {
 }
 
 export default defineEventHandler(async (event) => {
-  const body =
-    (await readBody<LegacyPayload | null>(event).catch(() => null)) || {};
+  const body = await readBody<LegacyPayload>(event);
 
-  // Extract data from the payload
-  const path = body.url;
-  const statusCode = body.statusCode;
-  const statusMessage = body.statusMessage;
+  const path = body.url ?? null;
+  const statusCode = body.statusCode ?? null;
+  const statusMessage = body.statusMessage ?? null;
 
-  // Headers / context
-  const referer =
-    getRequestHeader(event, "referer") ||
-    getRequestHeader(event, "referrer") ||
-    "";
-  const userAgent = getRequestHeader(event, "user-agent") || "";
-  const ip =
-    getRequestHeader(event, "x-forwarded-for") ||
-    event.node.req.socket?.remoteAddress ||
-    null;
+  const referer = getRequestHeader(event, "referer") ?? null;
+  const userAgent = getRequestHeader(event, "user-agent") ?? null;
+  const ip = getRequestHeader(event, "x-forwarded-for") ?? null;
 
-  const ts = new Date().toISOString();
-
-  // Always log for inspection
   console.warn("[legacy-404]", {
-    ts,
+    ts: new Date().toISOString(),
     path,
     statusCode,
     statusMessage,
     referer,
   });
 
-  // Filter: only care about 404s
+  // Only log real 404s with a path
   if (!path || statusCode !== 404) {
     return null;
   }
 
-  // Runtime config (Nuxt runtimeConfig, NOT process.env)
-  const {
-    cspAirtableToken: token,
-    cspAirtableBaseId: baseId,
-    legacyAirtableTable,
-  } = useRuntimeConfig(event) as {
-    cspAirtableToken?: string;
-    cspAirtableBaseId?: string;
-    legacyAirtableTable?: string;
-  };
+  // Reuse the same Airtable token/baseId as CSP
+  const token = process.env.NUXT_CSP_AIRTABLE_TOKEN;
+  const baseId = process.env.NUXT_CSP_AIRTABLE_BASE_ID;
+  const tableName = process.env.NUXT_LEGACY_AIRTABLE_TABLE || "LEGACY-URLS";
 
-  const tableName = legacyAirtableTable || "LEGACY-URLS";
-
-  // Early exit if config missing
   if (!token || !baseId) {
     console.warn(
       "[legacy-404] Airtable config missing; skipping Airtable push"
@@ -68,8 +47,8 @@ export default defineEventHandler(async (event) => {
     tableName
   )}`;
 
-  const fields = {
-    timestamp: ts,
+  const fields: Record<string, any> = {
+    timestamp: new Date().toISOString(),
     path,
     fullURL: path,
     referrer: referer,
@@ -78,20 +57,29 @@ export default defineEventHandler(async (event) => {
     statusCode,
     statusMessage,
     actioned: false,
-    // decision intentionally unset; to be managed in Airtable UI
+    // decision left unset for manual triage
   };
 
   try {
-    await $fetch(airtableUrl, {
+    const response = await fetch(airtableUrl, {
       method: "POST",
       headers: {
         Authorization: `Bearer ${token}`,
         "Content-Type": "application/json",
       },
-      body: {
-        records: [{ fields }],
-      },
+      body: JSON.stringify({
+        records: [
+          {
+            fields,
+          },
+        ],
+      }),
     });
+
+    if (!response.ok) {
+      const text = await response.text().catch(() => "");
+      console.error("[legacy-404] Airtable API error", response.status, text);
+    }
   } catch (err) {
     console.error("[legacy-404] Failed to push to Airtable", err);
   }
