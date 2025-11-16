@@ -36,20 +36,13 @@ export default defineNuxtConfig({
     "@vueuse/nuxt",
     "nuxt-swiper",
     "@nuxt/image",
-    // "nuxt-security",
   ],
   image: {
     cloudinary: {
       baseURL: `https://res.cloudinary.com/${process.env.CLOUD_NAME}/image/upload/`,
     },
   },
-  // security: {
-  //   headers: {
-  //     contentSecurityPolicy: {
-  //       "img-src": ["'self'", "https://v5.airtableusercontent.com/"],
-  //     },
-  //   },
-  // },
+
   tailwindcss: {
     cssPath: "~/assets/css/tailwind.css",
     configPath: "tailwind.config",
@@ -62,6 +55,11 @@ export default defineNuxtConfig({
       mcApiKey: process.env.MC_API_KEY,
       gcAccessToken: process.env.GC_ACCESS_TOKEN,
     },
+    cspAirtableToken: process.env.NUXT_CSP_AIRTABLE_TOKEN,
+    cspAirtableBaseId: process.env.NUXT_CSP_AIRTABLE_BASE_ID,
+    cspAirtableTable: process.env.NUXT_CSP_AIRTABLE_TABLE || "CSP-REPORTS",
+    legacyAirtableTable:
+      process.env.NUXT_LEGACY_AIRTABLE_TABLE || "LEGACY-URLS",
     public: {
       siteUrl: process.env.NUXT_PUBLIC_SITE_URL || "http://localhost:3000",
       atBaseId: process.env.AT_BASE_ID,

@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import type { NuxtError } from "#app";
+import { onMounted } from "vue";
 
 const props = defineProps<{
   error: NuxtError;
@@ -10,6 +11,28 @@ const route = useRoute();
 const reset = () => {
   clearError({ redirect: "/" });
 };
+
+// Client-only 404 logging
+if (import.meta.client) {
+  onMounted(async () => {
+    if (props.error?.statusCode !== 404) {
+      return;
+    }
+
+    try {
+      await $fetch("/api/legacy-404", {
+        method: "POST",
+        body: {
+          url: props.error.url,
+          statusCode: props.error.statusCode,
+          statusMessage: props.error.statusMessage,
+        },
+      });
+    } catch (err) {
+      console.warn("[legacy-404] Failed to send 404 log", err);
+    }
+  });
+}
 </script>
 <template>
   <NuxtLayout>

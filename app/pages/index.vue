@@ -71,13 +71,6 @@ useHead({
 //     reviewList.value.push(review);
 //   }
 // });
-
-// TEMP: Deliberate CSP violation for testing CSP-Report-Only
-if (import.meta.client) {
-  const el = document.createElement("script");
-  el.src = "https://example.com/evil-test.js"; // definitely blocked by CSP
-  document.head.appendChild(el);
-}
 </script>
 
 <template>
