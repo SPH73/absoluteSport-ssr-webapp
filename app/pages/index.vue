@@ -71,13 +71,6 @@ useHead({
 //     reviewList.value.push(review);
 //   }
 // });
-
-// Temp test for violating CSP
-if (import.meta.client) {
-  const el = document.createElement("script");
-  el.src = "https://example.com/evil-test.js";
-  document.head.appendChild(el);
-}
 </script>
 
 <template>
