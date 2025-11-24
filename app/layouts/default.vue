@@ -5,14 +5,14 @@ let element = {};
 cms.value.forEach((record, index) => {
   element = {
     index: index + 1,
-    name: record.fields.element,
-    content: record.fields.content,
-    display: record.fields.display,
+    name: record.element,
+    content: record.content,
+    display: record.display,
   };
   content.value.push(element);
 });
 const tickerContent = computed(() => {
-  return content.value.find(item => item.name === "ticker");
+  return content.value.find((item) => item.name === "ticker");
 });
 </script>
 

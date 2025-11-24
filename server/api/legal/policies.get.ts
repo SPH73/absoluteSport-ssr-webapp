@@ -1,20 +1,13 @@
-import Airtable from "airtable";
+import { airtableSelect } from "../utils/airtable";
 
-export default defineEventHandler(async event => {
-  const { atApiKey } = useRuntimeConfig().private;
-  const { atBaseId } = useRuntimeConfig().public;
-  const base = new Airtable({ apiKey: atApiKey }).base(atBaseId);
-
-  const table = base("policies");
-
-  const records = await table
-    .select({
+export default defineEventHandler(async (event) => {
+  const records = await airtableSelect(
+    "policies",
+    {
       view: "Grid view",
-    })
-    .firstPage();
-  if (!records) {
-    throw Error("Unable to fetch available camp locations");
-  }
+    },
+    event
+  );
 
   return records;
 });

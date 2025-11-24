@@ -14,70 +14,74 @@ useHead({
     },
   ],
 });
-const {data: academyList, error} = await useFetch('/api/football/academyList')
+const { data: academyList, error } = await useFetch(
+  "/api/football/academyList"
+);
 
-const academyOptions = ref([])
-let academy = {}
+const academyOptions = ref([]);
+let academy = {};
 if (academyList.value) {
-academyList.value.forEach((record, index) => {
-  academy = {
-    index: index + 1,
-    id: record.id,
-    academyName: record.fields.academyName,
-    ageGroup: record.fields.ageGroup,
-    sessionStart: record.fields.sessionStart,
-    sessionDuration: record.fields.sessionDuration,
-    sessionTime: record.fields.sessionTime,
-    academyRef: record.fields.academyRef,
-    venueRef: record.fields.venueRef,
-    numSessions: record.fields.numSessions,
-    pricePerSession: record.fields.pricePerSession,
-    termCost: record.fields.termCost,
-    spaceAvailable: record.fields.spaceAvailable,
-    startDate: record.fields.startDate,
-    endDate: record.fields.endDate,
-    status: record.fields.status,
-  };
-  academyOptions.value.push(academy);
-});
-// console.log("academy options***", academyOptions.value)
-};
+  academyList.value.forEach((record, index) => {
+    academy = {
+      index: index + 1,
+      id: record.id,
+      academyName: record.academyName,
+      ageGroup: record.ageGroup,
+      sessionStart: record.sessionStart,
+      sessionDuration: record.sessionDuration,
+      sessionTime: record.sessionTime,
+      academyRef: record.academyRef,
+      venueRef: record.venueRef,
+      numSessions: record.numSessions,
+      pricePerSession: record.pricePerSession,
+      termCost: record.termCost,
+      spaceAvailable: record.spaceAvailable,
+      startDate: record.startDate,
+      endDate: record.endDate,
+      status: record.status,
+    };
+    academyOptions.value.push(academy);
+  });
+  // console.log("academy options***", academyOptions.value)
+}
 
 const upcomingSessions = computed(() => {
-  return academyOptions.value.filter(academy => academy.status === "upcoming");
+  return academyOptions.value.filter(
+    (academy) => academy.status === "upcoming"
+  );
 });
 const savedParent = ref({});
 const parentAdded = ref(false);
 
 const handleParentDetails = (parent) => {
   savedParent.value = parent;
-  console.log("booking handle parent details", savedParent.value)
-}
+  console.log("booking handle parent details", savedParent.value);
+};
 const bookingItem = ref({});
 const academyBooking = ref([]);
 const childList = ref([]);
 
 const handleBookingDetails = (booking) => {
-  bookingItem.value = booking
+  bookingItem.value = booking;
   academyBooking.value.push(bookingItem.value);
-  console.log("booking handle booking details", academyBooking.value)
+  console.log("booking handle booking details", academyBooking.value);
   if (!childList.value.includes(bookingItem.value.childName)) {
     childList.value.push(bookingItem.value.childName);
   }
-  console.log('booking updated child list', childList.value)
-}
+  console.log("booking updated child list", childList.value);
+};
 
 const removeItem = (item) => {
-  console.log(" booking remove item", item)
+  console.log(" booking remove item", item);
   academyBooking.value = academyBooking.value.filter(
-    booking => booking.bookingRef !== item,
+    (booking) => booking.bookingRef !== item,
     console.log("booking after removing item", academyBooking.value)
   );
 };
 const handleChildList = (child) => {
   childList.value = child;
-  console.log("booking handle child list", childList.value)
-}
+  console.log("booking handle child list", childList.value);
+};
 
 const cancelBooking = () => {
   savedParent.value = {};
@@ -89,16 +93,16 @@ const cancelBooking = () => {
 const totalCost = computed(() => {
   return academyBooking.value.reduce(
     (total, curr) => (total = total + curr.termCost),
-    0,
+    0
   );
 });
 
-const paymentRecord = ref({})
+const paymentRecord = ref({});
 const confirmBooking = async () => {
   const success = ref(false);
   const payId = ref(null);
   const bookId = ref(null);
-  paymentRecord.value = ({
+  paymentRecord.value = {
     parentName: savedParent.value.parentName,
     paymentRef: savedParent.value.paymentRef,
     status: savedParent.value.status,
@@ -108,9 +112,9 @@ const confirmBooking = async () => {
     termsAccepted: true,
     numBookings: academyBooking.value.length,
     children: JSON.stringify(childList.value),
-  })
+  };
 
-  console.log("confirm bookomg payment record*****", paymentRecord.value)
+  console.log("confirm bookomg payment record*****", paymentRecord.value);
 
   const resPay = await $fetch("/api/football/academyPayment", {
     method: "post",
@@ -125,8 +129,8 @@ const confirmBooking = async () => {
   const bookingRecord = ref({});
 
   for (let item of academyBooking.value) {
-    console.debug('item', item);
-    bookingRecord.value = ({
+    console.debug("item", item);
+    bookingRecord.value = {
       parentName: savedParent.value.parentName,
       paymentRef: savedParent.value.paymentRef,
       bookingRef: item.bookingRef,
@@ -146,16 +150,16 @@ const confirmBooking = async () => {
       startDate: item.startDate,
       endDate: item.endDate,
       status: "reserved awaiting payment",
-    });
-    console.log('confirm booking booking record', bookingRecord.value)
+    };
+    console.log("confirm booking booking record", bookingRecord.value);
     const resBook = await $fetch("/api/football/academyBooking", {
       method: "post",
       body: bookingRecord.value,
     });
     bookId.value = resBook.id;
-    console.log("resBook*****", resBook.fields);
+    console.log("resBook*****", resBook);
     console.log("bookId*****", bookId.value);
-    summary.value.push(resBook.fields);
+    summary.value.push(resBook);
   }
   console.log("booking summary*****", summary.value);
 
@@ -185,13 +189,12 @@ const confirmBooking = async () => {
       },
     });
   }
-}
+};
 // keep alive
 const selectedTab = ref("FootballForm");
-const setSelectedTab = tab => {
+const setSelectedTab = (tab) => {
   selectedTab.value = tab;
 };
-
 </script>
 
 <template>
@@ -199,32 +202,44 @@ const setSelectedTab = tab => {
     <BaseCard>
       <div class="button-container">
         <div class="btn-group">
-          <button class="btn-accent" v-show="selectedTab === 'FootballForm'" @click="selectedTab = 'FootballBookingDetails'">
+          <button
+            class="btn-accent"
+            v-show="selectedTab === 'FootballForm'"
+            @click="selectedTab = 'FootballBookingDetails'"
+          >
             Review Booking Details <span>&nbsp;⟼</span>
           </button>
-          <button class="btn-accent" v-show="selectedTab === 'FootballBookingDetails'" @click="selectedTab = 'FootballForm'">
+          <button
+            class="btn-accent"
+            v-show="selectedTab === 'FootballBookingDetails'"
+            @click="selectedTab = 'FootballForm'"
+          >
             <span>⟻&nbsp;</span> Back To Booking Form
           </button>
         </div>
       </div>
       <KeepAlive>
-        <FootballBookingForm v-if="selectedTab === 'FootballForm'" 
-          @show-steps="selectedTab = 'FootballBookingDetails'" 
+        <FootballBookingForm
+          v-if="selectedTab === 'FootballForm'"
+          @show-steps="selectedTab = 'FootballBookingDetails'"
           @parent-submitted="parentAdded = true"
           @save-parent="handleParentDetails"
           @booking-item-added="handleBookingDetails"
           :academy-list="academyOptions"
-          :parent-added="parentAdded" />
+          :parent-added="parentAdded"
+        />
       </KeepAlive>
       <KeepAlive>
-        <FootballBookingDetails v-if="selectedTab === 'FootballBookingDetails'"
-        :parent-added="parentAdded"  :savedParent="savedParent"
-        :academy-booking="academyBooking"  
-        @handleRemoveBookingItem="removeItem"
-        @handleCancelBooking="cancelBooking"
-        @handleConfirmBooking="confirmBooking" />
+        <FootballBookingDetails
+          v-if="selectedTab === 'FootballBookingDetails'"
+          :parent-added="parentAdded"
+          :savedParent="savedParent"
+          :academy-booking="academyBooking"
+          @handleRemoveBookingItem="removeItem"
+          @handleCancelBooking="cancelBooking"
+          @handleConfirmBooking="confirmBooking"
+        />
       </KeepAlive>
     </BaseCard>
   </div>
 </template>
-

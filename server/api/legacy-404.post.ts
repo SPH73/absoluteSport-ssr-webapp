@@ -1,5 +1,6 @@
 // server/api/legacy-404.post.ts
 import { defineEventHandler, readBody, getRequestHeader } from "h3";
+import { useRuntimeConfig } from "#imports";
 
 interface LegacyPayload {
   url?: string;
@@ -31,10 +32,11 @@ export default defineEventHandler(async (event) => {
     return null;
   }
 
-  // Reuse the same Airtable token/baseId as CSP
-  const token = process.env.NUXT_CSP_AIRTABLE_TOKEN;
-  const baseId = process.env.NUXT_CSP_AIRTABLE_BASE_ID;
-  const tableName = process.env.NUXT_LEGACY_AIRTABLE_TABLE || "LEGACY-URLS";
+  // Use dedicated security monitoring Airtable config
+  const config = useRuntimeConfig(event);
+  const token = config.cspAirtableToken;
+  const baseId = config.cspAirtableBaseId;
+  const tableName = config.legacyAirtableTable || "LEGACY-URLS";
 
   if (!token || !baseId) {
     console.warn(

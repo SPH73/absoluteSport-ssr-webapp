@@ -38,8 +38,8 @@ let asset = {};
 let images = [];
 let img = {};
 assets.value.forEach((asset, index) => {
-  if (asset.fields.segment === "clubs") {
-    let imagesCarousel = asset.fields.images;
+  if (asset.segment === "clubs") {
+    let imagesCarousel = asset.images;
     imagesCarousel.forEach((image) => {
       img = {
         url: image.thumbnails.large.url,
@@ -59,10 +59,10 @@ comments.value.forEach((record, index) => {
   comment = {
     index: index + 1,
     id: record.id,
-    school: record.fields.school,
-    name: record.fields.name,
-    designation: record.fields.designation,
-    comment: record.fields.comment,
+    school: record.school,
+    name: record.name,
+    designation: record.designation,
+    comment: record.comment,
   };
   commentList.value.push(comment);
 });

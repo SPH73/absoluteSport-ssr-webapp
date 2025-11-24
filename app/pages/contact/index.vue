@@ -78,18 +78,18 @@ async function handleSubmit() {
     method: "post",
     body: formData.value,
   });
-  console.log("enq res*****", res.fields);
+  console.log("enq res*****", res);
 
   enqRef.value = res.id;
   const router = useRouter();
   router.replace({
     path: "/contact/success",
     query: {
-      name: res.fields.firstName,
-      surname: res.fields.surname,
-      phone: res.fields.phone,
-      email: res.fields.email,
-      message: res.fields.info,
+      name: res.firstName,
+      surname: res.surname,
+      phone: res.phone,
+      email: res.email,
+      message: res.info,
       enqRef: res.id,
     },
   });

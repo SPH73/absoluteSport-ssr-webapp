@@ -7,8 +7,8 @@ partyList.value.forEach((record, index) => {
   party = {
     index: index + 1,
     id: record.id,
-    partyName: record.fields.partyName,
-    partyRef: record.fields.partyRef,
+    partyName: record.partyName,
+    partyRef: record.partyRef,
   };
   partyOptions.value.push(party);
 });
@@ -126,25 +126,25 @@ async function handleSubmit() {
     method: "post",
     body: partyData.value,
   });
-  console.log("quote res*****", res.fields);
+  console.log("quote res*****", res);
 
   quoteRef.value = res.id;
   const router = useRouter();
   router.replace({
     path: "/parties/success",
     query: {
-      name: res.fields.firstName,
-      surname: res.fields.surname,
-      phone: res.fields.phone,
-      email: res.fields.email,
-      party: res.fields.party,
+      name: res.firstName,
+      surname: res.surname,
+      phone: res.phone,
+      email: res.email,
+      party: res.party,
       quoteRef: res.id,
-      date1: res.fields.partyDate1,
-      date2: res.fields.partyDate2,
-      length: res.fields.partyLength,
-      start: res.fields.partyStart,
-      numChildren: res.fields.numChildren,
-      postCode: res.fields.postCode,
+      date1: res.partyDate1,
+      date2: res.partyDate2,
+      length: res.partyLength,
+      start: res.partyStart,
+      numChildren: res.numChildren,
+      postCode: res.postCode,
     },
   });
 }

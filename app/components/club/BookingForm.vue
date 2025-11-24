@@ -12,18 +12,18 @@ clubList.value.forEach((record, index) => {
   club = {
     index: index + 1,
     id: record.id,
-    clubName: record.fields.clubName,
-    yearRange: record.fields.yearRange,
-    clubRef: record.fields.clubRef,
-    schoolName: record.fields.schoolName,
-    schoolRef: record.fields.schoolRef,
-    startDate: record.fields.startDate,
-    endDate: record.fields.endDate,
-    sessions: record.fields.sessions,
-    pricePerSession: record.fields.pricePerSession,
-    termCost: record.fields.termCost,
-    spaceAvailable: record.fields.spaceAvailable,
-    status: record.fields.status,
+    clubName: record.clubName,
+    yearRange: record.yearRange,
+    clubRef: record.clubRef,
+    schoolName: record.schoolName,
+    schoolRef: record.schoolRef,
+    startDate: record.startDate,
+    endDate: record.endDate,
+    sessions: record.sessions,
+    pricePerSession: record.pricePerSession,
+    termCost: record.termCost,
+    spaceAvailable: record.spaceAvailable,
+    status: record.status,
   };
   clubOptions.value.push(club);
 });
@@ -35,9 +35,9 @@ schoolList.value.forEach((record, index) => {
   school = {
     index: index + 1,
     id: record.id,
-    schoolName: record.fields.schoolName,
-    schoolRef: record.fields.schoolRef,
-    status: record.fields.status,
+    schoolName: record.schoolName,
+    schoolRef: record.schoolRef,
+    status: record.status,
   };
   schoolOptions.value.push(school);
 });

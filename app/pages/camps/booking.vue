@@ -22,17 +22,17 @@ campsList.value.forEach((record, index) => {
   camp = {
     index: index + 1,
     id: record.id,
-    campName: record.fields.campName,
-    campRef: record.fields.campRef,
-    locRef: record.fields.locRef,
-    campDate: record.fields.campDate,
-    weekStarting: record.fields.ws,
-    pricePerDay: record.fields.pricePerDay,
-    spaceAvailable: record.fields.spaceAvailable,
-    status: record.fields.status,
-    haf: record.fields.haf,
-    daysAvailable: record.fields.daysAvailable,
-    hafDays: record.fields.hafDays,
+    campName: record.campName,
+    campRef: record.campRef,
+    locRef: record.locRef,
+    campDate: record.campDate,
+    weekStarting: record.ws,
+    pricePerDay: record.pricePerDay,
+    spaceAvailable: record.spaceAvailable,
+    status: record.status,
+    haf: record.haf,
+    daysAvailable: record.daysAvailable,
+    hafDays: record.hafDays,
   };
   campOptions.value.push(camp);
 });
@@ -216,9 +216,9 @@ async function confirmBooking() {
       body: campItem,
     });
     bookId.value = resBook.id;
-    // console.log("resBook*****", resBook.fields);
+    // console.log("resBook*****", resBook);
     // console.log("bookId*****", bookId.value);
-    summary.value.push(resBook.fields);
+    summary.value.push(resBook);
   }
   // console.log("booking summary*****", summary.value);
 

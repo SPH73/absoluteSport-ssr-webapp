@@ -1,16 +1,16 @@
-import Airtable from "airtable";
+import { airtableSelect } from "../utils/airtable";
 
-export default defineEventHandler(async () => {
-  const { atApiKey } = useRuntimeConfig().private;
-  const { atBaseId } = useRuntimeConfig().public;
-  const base = new Airtable({ apiKey: atApiKey }).base(atBaseId);
+export default defineEventHandler(async (event) => {
+  const records = await airtableSelect(
+    "cms",
+    {
+      view: "schools",
+      filterByFormula: 'NOT({display} = "false")',
+    },
+    event
+  );
 
-  const table = base("cms");
-
-  const records = await table
-    .select({ view: "schools", filterByFormula: 'NOT({display} = "false")' })
-    .firstPage();
-  if (!records) {
+  if (!records || records.length === 0) {
     throw Error("Unable to fetch content");
   }
   console.log("airtable cms", records);

@@ -36,12 +36,12 @@ list.value.forEach((record, index) => {
   camp = {
     index: index + 1,
     id: record.id,
-    campRef: record.fields.campRef,
-    campName: record.fields.campName,
-    campDate: record.fields.campDate,
-    locRef: record.fields.locRef,
-    spaceAvailable: record.fields.spaceAvailable,
-    status: record.fields.status,
+    campRef: record.campRef,
+    campName: record.campName,
+    campDate: record.campDate,
+    locRef: record.locRef,
+    spaceAvailable: record.spaceAvailable,
+    status: record.status,
   };
   campList.value.push(camp);
 });
@@ -53,9 +53,9 @@ locs.value.forEach((record, index) => {
   loc = {
     index: index + 1,
     id: record.id,
-    locationName: record.fields.locationName,
-    locRef: record.fields.locRef,
-    schoolBadge: record.fields.schoolBadge,
+    locationName: record.locationName,
+    locRef: record.locRef,
+    schoolBadge: record.schoolBadge,
   };
   locList.value.push(loc);
 });

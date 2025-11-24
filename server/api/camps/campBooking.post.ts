@@ -1,23 +1,10 @@
-import Airtable from "airtable";
-const minifyData = (record: any) => {
-  return {
-    fields: record.fields,
-    id: record.id,
-  };
-};
+import { readBody } from "h3";
+import { airtableCreate } from "../utils/airtable";
 
-export default defineEventHandler(async fields => {
-  const { atApiKey } = useRuntimeConfig().private;
-  const { atBaseId } = useRuntimeConfig().public;
-  const base = new Airtable({ apiKey: atApiKey }).base(atBaseId);
+export default defineEventHandler(async (event) => {
+  const fields = await readBody(event);
 
-  const table = base("camp-bookings");
-  const record = await readBody(fields);
+  const created = await airtableCreate("camp-bookings", fields, event);
 
-  try {
-    const createdRecord = await table.create(record);
-    return minifyData(createdRecord);
-  } catch (err) {
-    console.error(err);
-  }
+  return created;
 });

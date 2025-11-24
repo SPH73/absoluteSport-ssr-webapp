@@ -8,12 +8,12 @@ const {
 const partySlug = ref(route.params.slug);
 let partyList = ref([]);
 
-parties.value.forEach(record => {
-  if (record.fields.slug === route.params.slug) {
-    let imagesCarousel = record.fields.imagesCarousel;
+parties.value.forEach((record) => {
+  if (record.slug === route.params.slug) {
+    let imagesCarousel = record.imagesCarousel;
     let img = {};
     let images = [];
-    imagesCarousel.forEach(image => {
+    imagesCarousel.forEach((image) => {
       img = {
         url: image.url,
         id: image.id,
@@ -25,23 +25,23 @@ parties.value.forEach(record => {
     });
     let party = {
       id: record.id,
-      slug: record.fields.slug,
-      metaTitle: record.fields.metaTitle,
-      metaDescription: record.fields.metaDescription,
-      partyName: record.fields.partyName,
-      descriptionHeading: record.fields.descriptionHeading,
-      descriptionP1: record.fields.descriptionP1,
-      descriptionP2: record.fields.descriptionP2,
-      descriptionP3: record.fields.descriptionP3,
-      descriptionP4: record.fields.descriptionP4,
-      descriptionP5: record.fields.descriptionP5,
+      slug: record.slug,
+      metaTitle: record.metaTitle,
+      metaDescription: record.metaDescription,
+      partyName: record.partyName,
+      descriptionHeading: record.descriptionHeading,
+      descriptionP1: record.descriptionP1,
+      descriptionP2: record.descriptionP2,
+      descriptionP3: record.descriptionP3,
+      descriptionP4: record.descriptionP4,
+      descriptionP5: record.descriptionP5,
       carousel: images,
     };
     partyList.value.push(party);
   }
 });
-const selectedParty = computed(partySlug => {
-  return partyList.value.find(party => party.slug === route.params.slug);
+const selectedParty = computed((partySlug) => {
+  return partyList.value.find((party) => party.slug === route.params.slug);
 });
 
 useHead({

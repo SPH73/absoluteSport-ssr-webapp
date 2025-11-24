@@ -1,5 +1,6 @@
 // server/api/csp-report.post.ts
 import { defineEventHandler, readBody, getRequestHeader } from "h3";
+import { useRuntimeConfig } from "#imports";
 
 interface CspReportBody {
   "csp-report"?: Record<string, any>;
@@ -34,10 +35,11 @@ export default defineEventHandler(async (event) => {
   const userAgent = getRequestHeader(event, "user-agent") ?? null;
   const ip = getRequestHeader(event, "x-forwarded-for") ?? null;
 
-  // Read Airtable config from environment
-  const token = process.env.NUXT_CSP_AIRTABLE_TOKEN;
-  const baseId = process.env.NUXT_CSP_AIRTABLE_BASE_ID;
-  const tableName = process.env.NUXT_CSP_AIRTABLE_TABLE || "CSP-REPORTS";
+  // Read Airtable config from runtime config
+  const config = useRuntimeConfig(event);
+  const token = config.cspAirtableToken;
+  const baseId = config.cspAirtableBaseId;
+  const tableName = config.cspAirtableTable || "CSP-REPORTS";
 
   // Early exit if config missing
   if (!token || !baseId) {

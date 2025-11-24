@@ -1,60 +1,88 @@
+// server/api/mailchimp.ts
 import mailchimp from "@mailchimp/mailchimp_marketing";
 import md5 from "md5";
+import { defineEventHandler, readBody, createError } from "h3";
+import { useRuntimeConfig } from "#imports";
 
-export default defineEventHandler(async event => {
-  const { mcApiKey } = useRuntimeConfig().private;
-  const { mcAudId } = useRuntimeConfig().public;
-  const { mcServer } = useRuntimeConfig().public;
+type SubscribeBody = {
+  email: string;
+  firstName?: string;
+  lastName?: string;
+  // frontend can send a single tag or an array
+  tags?: string | string[];
+};
 
+export default defineEventHandler(async (event) => {
+  const config = useRuntimeConfig();
+  const { mcApiKey } = config.private;
+  const { mcAudId, mcServer } = config.public;
+
+  // Configure SDK – per Mailchimp docs
   mailchimp.setConfig({
     apiKey: mcApiKey,
     server: mcServer,
   });
 
-  const { email, firstName, lastName, tags } = await readBody(event);
+  const { email, firstName, lastName, tags }: SubscribeBody =
+    await readBody<SubscribeBody>(event);
 
   if (!email) {
-    console.error("Missing `email` in the subscribe body");
-    return;
+    throw createError({
+      statusCode: 400,
+      statusMessage: "Missing `email` in the subscribe body",
+    });
   }
 
-  let result;
+  const subscriber_hash = md5(email.toLowerCase());
 
-  const subscriber_hash = md5(email);
+  // Derive the correct body type from the SDK itself
+  type SetListMemberBody = Parameters<typeof mailchimp.lists.setListMember>[2];
+
+  const payload: SetListMemberBody = {
+    email_address: email,
+    status_if_new: "subscribed", // literal, matches the SDK Status union
+    merge_fields: {
+      FNAME: firstName,
+      LNAME: lastName,
+    },
+    ...(tags && {
+      tags: Array.isArray(tags) ? tags : [tags],
+    }),
+  };
+
+  let result: { message: string; status: number };
 
   try {
     const response = await mailchimp.lists.setListMember(
       mcAudId,
       subscriber_hash,
-      {
-        email_address: email,
-        status_if_new: "subscribed",
-        merge_fields: {
-          FNAME: firstName,
-          LNAME: lastName,
-        },
-        tags: tags,
-      },
+      payload
     );
 
-    console.log(response);
-
     result = {
-      // message: `New subscriber added to Mailchimp  with email ${response.email_address}`,
-      message: response.status,
+      message: String(response.status ?? "subscribed"),
       status: 200,
     };
+  } catch (error: unknown) {
+    const mcErr = error as {
+      response?: { body?: { title?: string } };
+      status?: number;
+    };
 
-    console.log("result", result);
-  } catch (err) {
-    result = { message: err.response.body.title, status: err.status };
+    console.error("[mailchimp] subscribe error", mcErr);
+
+    result = {
+      message: mcErr?.response?.body?.title ?? "Mailchimp subscription failed",
+      status: mcErr?.status ?? 500,
+    };
   }
 
-  if (result.status !== 200)
+  if (result.status !== 200) {
     throw createError({
       statusCode: result.status,
       statusMessage: result.message,
     });
+  }
 
   return result;
 });

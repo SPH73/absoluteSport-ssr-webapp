@@ -29,30 +29,30 @@ const { error, data: content } = await useFetch("/api/parties/details");
 const partyDetails = ref([]);
 let party = {};
 content.value.forEach((record, index) => {
-  if (record.fields.featured) {
+  if (record.featured) {
     party = {
       index: index + 1,
       id: record.id,
-      slug: record.fields.slug,
-      pageTitle: record.fields.pageTitle,
-      partyName: record.fields.partyName,
-      summaryP1: record.fields.summaryP1,
-      summaryP2: record.fields.summaryP2,
-      summaryP3: record.fields.summaryP3,
+      slug: record.slug,
+      pageTitle: record.pageTitle,
+      partyName: record.partyName,
+      summaryP1: record.summaryP1,
+      summaryP2: record.summaryP2,
+      summaryP3: record.summaryP3,
       image: [
         {
-          id: record.fields.thumbnail[0].id,
-          filename: record.fields.thumbnail[0].filename,
-          thumbnail: record.fields.thumbnail[0].url,
+          id: record.thumbnail[0].id,
+          filename: record.thumbnail[0].filename,
+          thumbnail: record.thumbnail[0].url,
         },
       ],
     };
     partyDetails.value.push(party);
   }
   const activeParty = ref(null);
-  const activateParty = partySlug => {
+  const activateParty = (partySlug) => {
     activeParty.value = partyDetails.value.find(
-      party => party.slug === partySlug,
+      (party) => party.slug === partySlug
     );
   };
 });

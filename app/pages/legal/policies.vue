@@ -6,10 +6,10 @@ policies.value.forEach((record, index) => {
   doc = {
     index: index + 1,
     id: record.id,
-    policyName: record.fields.policyName,
-    policyDate: record.fields.policyDate,
-    link: record.fields.link,
-    status: record.fields.status,
+    policyName: record.policyName,
+    policyDate: record.policyDate,
+    link: record.link,
+    status: record.status,
   };
   policyList.value.push(doc);
 });

@@ -23,13 +23,14 @@ if (import.meta.client) {
       await $fetch("/api/legacy-404", {
         method: "POST",
         body: {
-          url: props.error.url,
+          url: route.fullPath,
           statusCode: props.error.statusCode,
           statusMessage: props.error.statusMessage,
         },
       });
     } catch (err) {
       console.warn("[legacy-404] Failed to send 404 log", err);
+      ``;
     }
   });
 }

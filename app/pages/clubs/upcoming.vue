@@ -30,11 +30,11 @@ let element = {};
 cms.value.forEach((record, index) => {
   element = {
     index: index + 1,
-    name: record.fields.element,
-    content: record.fields.content,
-    display: record.fields.display,
-    school: record.fields.school,
-    modified: record.fields.lastUpdated,
+    name: record.element,
+    content: record.content,
+    display: record.display,
+    school: record.school,
+    modified: record.lastUpdated,
   };
   content.value.push(element);
 });
@@ -51,14 +51,14 @@ list.value.forEach((record, index) => {
   activity = {
     index: index + 1,
     id: record.id,
-    sportName: record.fields.sportName,
-    intro: record.fields.intro,
-    yearRange: record.fields.yearRange,
-    schoolList: record.fields.schoolList,
-    sessions: record.fields.sessions,
-    startDate: record.fields.startDate,
-    endDate: record.fields.endDate,
-    display: record.fields.display,
+    sportName: record.sportName,
+    intro: record.intro,
+    yearRange: record.yearRange,
+    schoolList: record.schoolList,
+    sessions: record.sessions,
+    startDate: record.startDate,
+    endDate: record.endDate,
+    display: record.display,
   };
   sportList.value.push(activity);
 });
@@ -70,11 +70,11 @@ schoolList.value.forEach((record, index) => {
   school = {
     index: index + 1,
     id: record.id,
-    schoolName: record.fields.schoolName,
-    schoolRef: record.fields.schoolRef,
-    status: record.fields.status,
-    schoolBadge: record.fields.schoolBadge,
-    bookings: record.fields.bookings,
+    schoolName: record.schoolName,
+    schoolRef: record.schoolRef,
+    status: record.status,
+    schoolBadge: record.schoolBadge,
+    bookings: record.bookings,
   };
   schoolOptions.value.push(school);
 });

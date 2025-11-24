@@ -15,9 +15,9 @@ fList.value.forEach((record, index) => {
   faq = {
     index: index + 1,
     id: record.id,
-    question: record.fields.question,
-    answer: record.fields.answer,
-    tags: record.fields.tags,
+    question: record.question,
+    answer: record.answer,
+    tags: record.tags,
   };
   faqList.value.push(faq);
 });
@@ -48,18 +48,18 @@ const clearFilters = () => {
   hideFaqList();
 };
 
-const selectTag = tag => {
+const selectTag = (tag) => {
   return (selectedTag.value = tag);
 };
 
 const matchingFAQs = computed(() => {
   clearTag();
-  return faqList.value.filter(faq => faq.question.includes(search.value));
+  return faqList.value.filter((faq) => faq.question.includes(search.value));
 });
 // watch(matchingFAQs, () => console.log(matchingFAQs.value));
 const filteredFAQs = computed(() => {
   clearInput();
-  return faqList.value.filter(faq => faq.tags.includes(selectedTag.value));
+  return faqList.value.filter((faq) => faq.tags.includes(selectedTag.value));
 });
 </script>
 <template>

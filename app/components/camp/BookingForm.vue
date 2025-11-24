@@ -5,10 +5,10 @@ const { data: cms } = await useFetch("/api/cms");
 const content = ref(
   (cms.value || []).map((record, i) => ({
     index: i + 1,
-    name: record.fields.element,
-    content: record.fields.content,
-    display: record.fields.display,
-    modified: record.fields.lastUpdated,
+    name: record.element,
+    content: record.content,
+    display: record.display,
+    modified: record.lastUpdated,
   }))
 );
 
@@ -109,9 +109,9 @@ const locationOptions = ref(
   (campLocList.value || []).map((record, i) => ({
     index: i + 1,
     id: record.id,
-    locationName: record.fields.locationName,
-    locRef: record.fields.locRef,
-    locPrice: record.fields.pricePerDay,
+    locationName: record.locationName,
+    locRef: record.locRef,
+    locPrice: record.pricePerDay,
   }))
 );
 

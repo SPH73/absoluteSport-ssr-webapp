@@ -27,7 +27,7 @@ useHead({
   ],
 });
 const { error: assetError, data: assets } = await useFetch(
-  "/api/carouselImages",
+  "/api/carouselImages"
 );
 const { error: listError, data: list } = await useFetch("/api/camps/campsList");
 
@@ -36,9 +36,9 @@ const campImages = ref([]);
 let images = [];
 let img = {};
 assets.value.forEach((asset, index) => {
-  if (asset.fields.segment === "camps") {
-    let imagesCarousel = asset.fields.images;
-    imagesCarousel.forEach(image => {
+  if (asset.segment === "camps") {
+    let imagesCarousel = asset.images;
+    imagesCarousel.forEach((image) => {
       img = {
         url: image.url,
         id: image.id,
@@ -57,21 +57,21 @@ list.value.forEach((record, index) => {
   camp = {
     index: index + 1,
     id: record.id,
-    campRef: record.fields.campRef,
-    campName: record.fields.campName,
-    campDate: record.fields.campDate,
-    locRef: record.fields.locRef,
-    spaceAvailable: record.fields.spaceAvailable,
-    status: record.fields.status,
+    campRef: record.campRef,
+    campName: record.campName,
+    campDate: record.campDate,
+    locRef: record.locRef,
+    spaceAvailable: record.spaceAvailable,
+    status: record.status,
   };
   campList.value.push(camp);
 });
 const currentCamps = computed(() => {
-  return campList.value.filter(camp => camp.status.includes("current"));
+  return campList.value.filter((camp) => camp.status.includes("current"));
 });
 
 const nextCamps = computed(() => {
-  return campList.value.filter(camp => camp.status === "next");
+  return campList.value.filter((camp) => camp.status === "next");
 });
 </script>
 
@@ -94,9 +94,15 @@ const nextCamps = computed(() => {
             friendships and life-long memories.
           </p>
           <p>
-            Our camps are suitable for children of all abilities between 5 and 14 years old and run from 09:00 - 17:00 each day and the price varies from £25 - £35 accross our camp locations.  
+            Our camps are suitable for children of all abilities between 5 and
+            14 years old and run from 09:00 - 17:00 each day and the price
+            varies from £25 - £35 accross our camp locations.
           </p>
-          <p>The camps provide an opportunity for the children to stay active throughout the school holidays by participating in a wide range of fun, exciting sports, games and art projects.</p>
+          <p>
+            The camps provide an opportunity for the children to stay active
+            throughout the school holidays by participating in a wide range of
+            fun, exciting sports, games and art projects.
+          </p>
           <p>
             Our camps are structured and delivered by our coaches trained in
             coaching children in sports. The team will ensure that your child
@@ -105,8 +111,8 @@ const nextCamps = computed(() => {
             confidence).
           </p>
           <p>
-            You'll find more information and an up-to-date list of the current and upcoming camps we
-            are running on our "upcoming camps" page
+            You'll find more information and an up-to-date list of the current
+            and upcoming camps we are running on our "upcoming camps" page
             <NuxtLink
               aria-label="view upcoming camps"
               to="camps/upcoming"

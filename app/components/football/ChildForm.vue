@@ -1,20 +1,22 @@
-<script  setup>
+<script setup>
 // fetch venueList from api
-const {data: venueList, error: venueError} = await useFetch('/api/football/academyVenueList')
-const venueOptions = ref([])
-let venue = {}
+const { data: venueList, error: venueError } = await useFetch(
+  "/api/football/academyVenueList"
+);
+const venueOptions = ref([]);
+let venue = {};
 venueList.value.forEach((record, index) => {
   venue = {
     index: index + 1,
-    venueName: record.fields.venueName,
-    venueRef: record.fields.venueRef,
-    status: record.fields.status,
+    venueName: record.venueName,
+    venueRef: record.venueRef,
+    status: record.status,
   };
   venueOptions.value.push(venue);
 });
 
-const props = defineProps(['parent-added'])
-const emit = defineEmits(["booking-item-added"])
+const props = defineProps(["parent-added"]);
+const emit = defineEmits(["booking-item-added"]);
 
 const childName = ref({ val: "", isValid: true });
 const childSurname = ref({ val: "", isValid: true });
@@ -25,33 +27,31 @@ const selectedVenue = ref({ val: "select", isValid: true });
 const confirmedPhoto = ref(true);
 const childFormIsValid = ref(true);
 
+// child form validation
+const validateChildForm = () => {
+  childFormIsValid.value = true;
 
-  // child form validation
-  const validateChildForm = () => {
-    childFormIsValid.value = true;
-
-    if (childName.value.val === "") {
-      childName.value.isValid = false;
-      childFormIsValid.value = false;
-    }
-    if (childSurname.value.val === "") {
-      childSurname.value.isValid = false;
-      childFormIsValid.value = false;
-    }
-    if (enteredMedical.value.val === "") {
-      enteredMedical.value.isValid = false;
-      childFormIsValid.value = false;
-    }
-    if (childAge.value.val === "select") {
-      childAge.value.isValid = false;
-      childFormIsValid.value = false;
-    }
-    if (selectedVenue.value.val === "select") {
-      selectedVenue.value.isValid = false;
-      childFormIsValid.value = false;
+  if (childName.value.val === "") {
+    childName.value.isValid = false;
+    childFormIsValid.value = false;
   }
-  };
-
+  if (childSurname.value.val === "") {
+    childSurname.value.isValid = false;
+    childFormIsValid.value = false;
+  }
+  if (enteredMedical.value.val === "") {
+    enteredMedical.value.isValid = false;
+    childFormIsValid.value = false;
+  }
+  if (childAge.value.val === "select") {
+    childAge.value.isValid = false;
+    childFormIsValid.value = false;
+  }
+  if (selectedVenue.value.val === "select") {
+    selectedVenue.value.isValid = false;
+    childFormIsValid.value = false;
+  }
+};
 
 const onAddBookingItem = () => {
   validateChildForm();
@@ -66,8 +66,7 @@ const onAddBookingItem = () => {
     enteredMedical.value.val,
     childAge.value.val,
     selectedVenue.value.val,
-    confirmedPhoto.value,
-
+    confirmedPhoto.value
   );
   // reset after each booking is added
   childName.value.val = "";
@@ -80,11 +79,11 @@ const onAddBookingItem = () => {
 <template>
   <div id="academy-child-details" v-if="props.parentAdded">
     <form @submit.prevent="onAddBookingItem">
-    <h3>2. Booking Details</h3>
+      <h3>2. Booking Details</h3>
       <div
         id="child-details"
         class="grid grid-cols-1 md:grid-cols-2 gap-4 text-3xl w-full"
-        >
+      >
         <div class="md:text-end" :class="{ invalid: !childName.isValid }">
           <label>First Name</label>
         </div>
@@ -109,10 +108,7 @@ const onAddBookingItem = () => {
             required
           />
         </div>
-        <div
-          class="md:text-end"
-          :class="{ invalid: !enteredMedical.isValid }"
-        >
+        <div class="md:text-end" :class="{ invalid: !enteredMedical.isValid }">
           <label for="medical">Medical Conditions *</label>
         </div>
         <div :class="{ invalid: !enteredMedical.isValid }">
@@ -151,28 +147,28 @@ const onAddBookingItem = () => {
         </div>
       </div>
       <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-3xl w-full mt-4">
-    <div class="md:text-end">
-      <label>Academy Venue</label>
-    </div>
-    <div>
-      <select
-        name="selected-venue"
-        id="selected-venue"
-        required
-        v-model="selectedVenue.val"
-        class="w-full p-2 rounded"
-      >
-        <option disabled value="select">Choose a venue...</option>
-        <option
-          v-for="option in venueOptions"
-          :value="option.venueRef"
-          :key="option.id"
-        >
-          {{ option.venueName }}
-        </option>
-      </select>
-    </div>
-  </div>
+        <div class="md:text-end">
+          <label>Academy Venue</label>
+        </div>
+        <div>
+          <select
+            name="selected-venue"
+            id="selected-venue"
+            required
+            v-model="selectedVenue.val"
+            class="w-full p-2 rounded"
+          >
+            <option disabled value="select">Choose a venue...</option>
+            <option
+              v-for="option in venueOptions"
+              :value="option.venueRef"
+              :key="option.id"
+            >
+              {{ option.venueName }}
+            </option>
+          </select>
+        </div>
+      </div>
       <div class="flex items-center justify-end mb-2 relative pt-4">
         <label for="photo-permission" class="select-none"
           >Photo permission</label
