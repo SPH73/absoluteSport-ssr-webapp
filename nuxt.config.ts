@@ -4,7 +4,7 @@ import { defineNuxtConfig } from "nuxt/config";
 export default defineNuxtConfig({
   compatibilityDate: "2025-11-05",
   nitro: {
-    preset: "netlify",
+    preset: process.env.NODE_ENV === "test" ? "node-server" : "netlify",
     prerender: {
       routes: ["/sitemap.xml", "/robots.txt"],
     },
@@ -36,6 +36,7 @@ export default defineNuxtConfig({
     "@vueuse/nuxt",
     "nuxt-swiper",
     "@nuxt/image",
+    "@nuxt/test-utils/module",
   ],
   image: {
     cloudinary: {
