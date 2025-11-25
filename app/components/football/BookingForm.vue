@@ -13,27 +13,34 @@ try {
 }
 
 const academyOptions = ref([]);
-let academy = {};
-academyList.forEach((record, index) => {
-  academy = {
-    index: index + 1,
-    academyName: record.academyName,
-    ageGroup: record.ageGroup,
-    sessionTime: record.sessionTime,
-    sessionDuration: record.sessionDuration,
-    academyRef: record.academyRef,
-    venueRef: record.venueRef,
-    venueName: record.venueName,
-    numSessions: record.numSessions,
-    pricePerSession: record.pricePerSession,
-    termCost: record.termCost,
-    spaceAvailable: record.spaceAvailable,
-    startDate: record.startDate,
-    endDate: record.endDate,
-    status: record.status,
-  };
-  academyOptions.value.push(academy);
-});
+
+// Guard against undefined result from 429/503 redirect
+if (!academyList || !Array.isArray(academyList)) {
+  // guardedFetch already handled the redirect to /booking-paused
+  // Safe to render with empty academyOptions
+} else {
+  let academy = {};
+  academyList.forEach((record, index) => {
+    academy = {
+      index: index + 1,
+      academyName: record.academyName,
+      ageGroup: record.ageGroup,
+      sessionTime: record.sessionTime,
+      sessionDuration: record.sessionDuration,
+      academyRef: record.academyRef,
+      venueRef: record.venueRef,
+      venueName: record.venueName,
+      numSessions: record.numSessions,
+      pricePerSession: record.pricePerSession,
+      termCost: record.termCost,
+      spaceAvailable: record.spaceAvailable,
+      startDate: record.startDate,
+      endDate: record.endDate,
+      status: record.status,
+    };
+    academyOptions.value.push(academy);
+  });
+}
 
 const emit = defineEmits([
   "show-steps",

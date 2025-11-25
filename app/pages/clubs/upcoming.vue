@@ -28,56 +28,77 @@ useHead({
 });
 const cms = await guardedFetch("/api/clubs/cmsSchool");
 const content = ref([]);
-let element = {};
-cms.forEach((record, index) => {
-  element = {
-    index: index + 1,
-    name: record.element,
-    content: record.content,
-    display: record.display,
-    school: record.school,
-    modified: record.lastUpdated,
-  };
-  content.value.push(element);
-});
+
+// Guard against undefined result from 429/503 redirect
+if (!cms || !Array.isArray(cms)) {
+  // guardedFetch already handled the redirect to /booking-paused
+  // Safe to render with empty content
+} else {
+  let element = {};
+  cms.forEach((record, index) => {
+    element = {
+      index: index + 1,
+      name: record.element,
+      content: record.content,
+      display: record.display,
+      school: record.school,
+      modified: record.lastUpdated,
+    };
+    content.value.push(element);
+  });
+}
 console.log("content", content.value);
 
 const list = await guardedFetch("/api/clubs/sportList");
 const schoolList = await guardedFetch("/api/clubs/schoolList");
 
 const sportList = ref([]);
-let activity = {};
-list.forEach((record, index) => {
-  activity = {
-    index: index + 1,
-    id: record.id,
-    sportName: record.sportName,
-    intro: record.intro,
-    yearRange: record.yearRange,
-    schoolList: record.schoolList,
-    sessions: record.sessions,
-    startDate: record.startDate,
-    endDate: record.endDate,
-    display: record.display,
-  };
-  sportList.value.push(activity);
-});
+
+// Guard against undefined result from 429/503 redirect
+if (!list || !Array.isArray(list)) {
+  // guardedFetch already handled the redirect to /booking-paused
+  // Safe to render with empty sportList
+} else {
+  let activity = {};
+  list.forEach((record, index) => {
+    activity = {
+      index: index + 1,
+      id: record.id,
+      sportName: record.sportName,
+      intro: record.intro,
+      yearRange: record.yearRange,
+      schoolList: record.schoolList,
+      sessions: record.sessions,
+      startDate: record.startDate,
+      endDate: record.endDate,
+      display: record.display,
+    };
+    sportList.value.push(activity);
+  });
+}
 console.log("SportList", sportList.value);
 
-let school = {};
 const schoolOptions = ref([]);
-schoolList.forEach((record, index) => {
-  school = {
-    index: index + 1,
-    id: record.id,
-    schoolName: record.schoolName,
-    schoolRef: record.schoolRef,
-    status: record.status,
-    schoolBadge: record.schoolBadge,
-    bookings: record.bookings,
-  };
-  schoolOptions.value.push(school);
-});
+
+// Guard against undefined result from 429/503 redirect
+if (!schoolList || !Array.isArray(schoolList)) {
+  // guardedFetch already handled the redirect to /booking-paused
+  // Safe to render with empty schoolOptions
+} else {
+  let school = {};
+  schoolList.forEach((record, index) => {
+    school = {
+      index: index + 1,
+      id: record.id,
+      schoolName: record.schoolName,
+      schoolRef: record.schoolRef,
+      status: record.status,
+      schoolBadge: record.schoolBadge,
+      bookings: record.bookings,
+    };
+    schoolOptions.value.push(school);
+  });
+}
 console.log("SchoolList", schoolOptions.value);
 
 const currentClubs = computed(() => {

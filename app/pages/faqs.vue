@@ -13,18 +13,22 @@ const fList = await guardedFetch("/api/faqs");
 const error = ref(null);
 const pending = ref(false);
 const faqList = ref([]);
-let faq = {};
-// console.log("faqs", faqList.value);
-fList.forEach((record, index) => {
-  faq = {
-    index: index + 1,
-    id: record.id,
-    question: record.question,
-    answer: record.answer,
-    tags: record.tags,
-  };
-  faqList.value.push(faq);
-});
+
+// Guard against undefined result from 429/503 redirect
+if (fList && Array.isArray(fList)) {
+  let faq = {};
+  // console.log("faqs", faqList.value);
+  fList.forEach((record, index) => {
+    faq = {
+      index: index + 1,
+      id: record.id,
+      question: record.question,
+      answer: record.answer,
+      tags: record.tags,
+    };
+    faqList.value.push(faq);
+  });
+}
 
 const showFaqs = ref(false);
 const search = ref("");

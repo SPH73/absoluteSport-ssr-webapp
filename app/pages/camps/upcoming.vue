@@ -31,34 +31,48 @@ const list = await guardedFetch("/api/camps/campsList");
 const locs = await guardedFetch("/api/camps/campLocList");
 
 const campList = ref([]);
-let camp = {};
-list.forEach((record, index) => {
-  camp = {
-    index: index + 1,
-    id: record.id,
-    campRef: record.campRef,
-    campName: record.campName,
-    campDate: record.campDate,
-    locRef: record.locRef,
-    spaceAvailable: record.spaceAvailable,
-    status: record.status,
-  };
-  campList.value.push(camp);
-});
+
+// Guard against undefined result from 429/503 redirect
+if (!list || !Array.isArray(list)) {
+  // guardedFetch already handled the redirect to /booking-paused
+  // Safe to render with empty campList
+} else {
+  let camp = {};
+  list.forEach((record, index) => {
+    camp = {
+      index: index + 1,
+      id: record.id,
+      campRef: record.campRef,
+      campName: record.campName,
+      campDate: record.campDate,
+      locRef: record.locRef,
+      spaceAvailable: record.spaceAvailable,
+      status: record.status,
+    };
+    campList.value.push(camp);
+  });
+}
 console.log(campList.value);
 
 const locList = ref([]);
-let loc = {};
-locs.forEach((record, index) => {
-  loc = {
-    index: index + 1,
-    id: record.id,
-    locationName: record.locationName,
-    locRef: record.locRef,
-    schoolBadge: record.schoolBadge,
-  };
-  locList.value.push(loc);
-});
+
+// Guard against undefined result from 429/503 redirect
+if (!locs || !Array.isArray(locs)) {
+  // guardedFetch already handled the redirect to /booking-paused
+  // Safe to render with empty locList
+} else {
+  let loc = {};
+  locs.forEach((record, index) => {
+    loc = {
+      index: index + 1,
+      id: record.id,
+      locationName: record.locationName,
+      locRef: record.locRef,
+      schoolBadge: record.schoolBadge,
+    };
+    locList.value.push(loc);
+  });
+}
 
 console.log(locList.value);
 const currentCamps = computed(() => {

@@ -33,39 +33,52 @@ const list = await guardedFetch("/api/camps/campsList");
 
 const campImages = ref([]);
 
-let images = [];
-let img = {};
-assets.forEach((asset, index) => {
-  if (asset.segment === "camps") {
-    let imagesCarousel = asset.images;
-    imagesCarousel.forEach((image) => {
-      img = {
-        url: image.url,
-        id: image.id,
-        filename: image.filename,
-        width: image.width,
-        height: image.height,
-      };
-      campImages.value.push(img);
-    });
-  }
-});
+// Guard against undefined result from 429/503 redirect
+if (!assets || !Array.isArray(assets)) {
+  // guardedFetch already handled the redirect to /booking-paused
+  // Safe to render with empty campImages
+} else {
+  let images = [];
+  let img = {};
+  assets.forEach((asset, index) => {
+    if (asset.segment === "camps") {
+      let imagesCarousel = asset.images;
+      imagesCarousel.forEach((image) => {
+        img = {
+          url: image.url,
+          id: image.id,
+          filename: image.filename,
+          width: image.width,
+          height: image.height,
+        };
+        campImages.value.push(img);
+      });
+    }
+  });
+}
 
 const campList = ref([]);
-let camp = {};
-list.forEach((record, index) => {
-  camp = {
-    index: index + 1,
-    id: record.id,
-    campRef: record.campRef,
-    campName: record.campName,
-    campDate: record.campDate,
-    locRef: record.locRef,
-    spaceAvailable: record.spaceAvailable,
-    status: record.status,
-  };
-  campList.value.push(camp);
-});
+
+// Guard against undefined result from 429/503 redirect
+if (!list || !Array.isArray(list)) {
+  // guardedFetch already handled the redirect to /booking-paused
+  // Safe to render with empty campList
+} else {
+  let camp = {};
+  list.forEach((record, index) => {
+    camp = {
+      index: index + 1,
+      id: record.id,
+      campRef: record.campRef,
+      campName: record.campName,
+      campDate: record.campDate,
+      locRef: record.locRef,
+      spaceAvailable: record.spaceAvailable,
+      status: record.status,
+    };
+    campList.value.push(camp);
+  });
+}
 const currentCamps = computed(() => {
   return campList.value.filter((camp) => camp.status.includes("current"));
 });

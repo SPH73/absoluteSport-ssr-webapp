@@ -32,38 +32,52 @@ const assets = await guardedFetch("/api/carouselImages");
 const comments = await guardedFetch("/api/clubs/schoolTestimonials");
 
 const clubImages = ref([]);
-let asset = {};
-let images = [];
-let img = {};
-assets.forEach((asset, index) => {
-  if (asset.segment === "clubs") {
-    let imagesCarousel = asset.images;
-    imagesCarousel.forEach((image) => {
-      img = {
-        url: image.thumbnails.large.url,
-        id: image.id,
-        filename: image.filename,
-        width: image.thumbnails.large.width,
-        height: image.thumbnails.large.height,
-      };
-      clubImages.value.push(img);
-    });
-  }
-});
+
+// Guard against undefined result from 429/503 redirect
+if (!assets || !Array.isArray(assets)) {
+  // guardedFetch already handled the redirect to /booking-paused
+  // Safe to render with empty clubImages
+} else {
+  let asset = {};
+  let images = [];
+  let img = {};
+  assets.forEach((asset, index) => {
+    if (asset.segment === "clubs") {
+      let imagesCarousel = asset.images;
+      imagesCarousel.forEach((image) => {
+        img = {
+          url: image.thumbnails.large.url,
+          id: image.id,
+          filename: image.filename,
+          width: image.thumbnails.large.width,
+          height: image.thumbnails.large.height,
+        };
+        clubImages.value.push(img);
+      });
+    }
+  });
+}
 
 const commentList = ref([]);
-let comment = {};
-comments.forEach((record, index) => {
-  comment = {
-    index: index + 1,
-    id: record.id,
-    school: record.school,
-    name: record.name,
-    designation: record.designation,
-    comment: record.comment,
-  };
-  commentList.value.push(comment);
-});
+
+// Guard against undefined result from 429/503 redirect
+if (!comments || !Array.isArray(comments)) {
+  // guardedFetch already handled the redirect to /booking-paused
+  // Safe to render with empty commentList
+} else {
+  let comment = {};
+  comments.forEach((record, index) => {
+    comment = {
+      index: index + 1,
+      id: record.id,
+      school: record.school,
+      name: record.name,
+      designation: record.designation,
+      comment: record.comment,
+    };
+    commentList.value.push(comment);
+  });
+}
 </script>
 
 <template>

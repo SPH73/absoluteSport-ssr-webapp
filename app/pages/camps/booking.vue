@@ -19,26 +19,30 @@ useHead({
 // fetched camps
 const campsList = await guardedFetch("/api/camps/campsList");
 const error = ref(null);
-let camp = {};
 const campOptions = ref([]);
-campsList.forEach((record, index) => {
-  camp = {
-    index: index + 1,
-    id: record.id,
-    campName: record.campName,
-    campRef: record.campRef,
-    locRef: record.locRef,
-    campDate: record.campDate,
-    weekStarting: record.ws,
-    pricePerDay: record.pricePerDay,
-    spaceAvailable: record.spaceAvailable,
-    status: record.status,
-    haf: record.haf,
-    daysAvailable: record.daysAvailable,
-    hafDays: record.hafDays,
-  };
-  campOptions.value.push(camp);
-});
+
+// Guard against undefined result from 429/503 redirect
+if (campsList && Array.isArray(campsList)) {
+  let camp = {};
+  campsList.forEach((record, index) => {
+    camp = {
+      index: index + 1,
+      id: record.id,
+      campName: record.campName,
+      campRef: record.campRef,
+      locRef: record.locRef,
+      campDate: record.campDate,
+      weekStarting: record.ws,
+      pricePerDay: record.pricePerDay,
+      spaceAvailable: record.spaceAvailable,
+      status: record.status,
+      haf: record.haf,
+      daysAvailable: record.daysAvailable,
+      hafDays: record.hafDays,
+    };
+    campOptions.value.push(camp);
+  });
+}
 const currentCamps = computed(() => {
   return campOptions.value.filter((camp) => camp.status.includes("current"));
 });

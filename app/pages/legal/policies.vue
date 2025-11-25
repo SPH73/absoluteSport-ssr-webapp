@@ -3,18 +3,22 @@ const { guardedFetch } = useBookingApi();
 
 const policies = await guardedFetch("/api/legal/policies");
 const policyList = ref([]);
-let doc = {};
-policies.forEach((record, index) => {
-  doc = {
-    index: index + 1,
-    id: record.id,
-    policyName: record.policyName,
-    policyDate: record.policyDate,
-    link: record.link,
-    status: record.status,
-  };
-  policyList.value.push(doc);
-});
+
+// Guard against undefined result from 429/503 redirect
+if (policies && Array.isArray(policies)) {
+  let doc = {};
+  policies.forEach((record, index) => {
+    doc = {
+      index: index + 1,
+      id: record.id,
+      policyName: record.policyName,
+      policyDate: record.policyDate,
+      link: record.link,
+      status: record.status,
+    };
+    policyList.value.push(doc);
+  });
+}
 </script>
 
 <template>

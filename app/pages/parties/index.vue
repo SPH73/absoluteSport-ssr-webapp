@@ -29,35 +29,39 @@ useHead({
 });
 const content = await guardedFetch("/api/parties/details");
 const partyDetails = ref([]);
-let party = {};
-content.forEach((record, index) => {
-  if (record.featured) {
-    party = {
-      index: index + 1,
-      id: record.id,
-      slug: record.slug,
-      pageTitle: record.pageTitle,
-      partyName: record.partyName,
-      summaryP1: record.summaryP1,
-      summaryP2: record.summaryP2,
-      summaryP3: record.summaryP3,
-      image: [
-        {
-          id: record.thumbnail[0].id,
-          filename: record.thumbnail[0].filename,
-          thumbnail: record.thumbnail[0].url,
-        },
-      ],
+
+// Guard against undefined result from 429/503 redirect
+if (content && Array.isArray(content)) {
+  let party = {};
+  content.forEach((record, index) => {
+    if (record.featured) {
+      party = {
+        index: index + 1,
+        id: record.id,
+        slug: record.slug,
+        pageTitle: record.pageTitle,
+        partyName: record.partyName,
+        summaryP1: record.summaryP1,
+        summaryP2: record.summaryP2,
+        summaryP3: record.summaryP3,
+        image: [
+          {
+            id: record.thumbnail[0].id,
+            filename: record.thumbnail[0].filename,
+            thumbnail: record.thumbnail[0].url,
+          },
+        ],
+      };
+      partyDetails.value.push(party);
+    }
+    const activeParty = ref(null);
+    const activateParty = (partySlug) => {
+      activeParty.value = partyDetails.value.find(
+        (party) => party.slug === partySlug
+      );
     };
-    partyDetails.value.push(party);
-  }
-  const activeParty = ref(null);
-  const activateParty = (partySlug) => {
-    activeParty.value = partyDetails.value.find(
-      (party) => party.slug === partySlug
-    );
-  };
-});
+  });
+}
 </script>
 <template>
   <div class="my-8">

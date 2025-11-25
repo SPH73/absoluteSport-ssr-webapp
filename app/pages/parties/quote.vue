@@ -4,17 +4,24 @@ const { guardedFetch } = useBookingApi();
 // fetched data
 const partyList = await guardedFetch("/api/parties/partyList");
 const error = ref(null);
-let party = {};
 const partyOptions = ref([]);
-partyList.forEach((record, index) => {
-  party = {
-    index: index + 1,
-    id: record.id,
-    partyName: record.partyName,
-    partyRef: record.partyRef,
-  };
-  partyOptions.value.push(party);
-});
+
+// Guard against undefined result from 429/503 redirect
+if (!partyList || !Array.isArray(partyList)) {
+  // guardedFetch already handled the redirect to /booking-paused
+  // Safe to render with empty partyOptions
+} else {
+  let party = {};
+  partyList.forEach((record, index) => {
+    party = {
+      index: index + 1,
+      id: record.id,
+      partyName: record.partyName,
+      partyRef: record.partyRef,
+    };
+    partyOptions.value.push(party);
+  });
+}
 
 // form data
 const partyData = ref({});

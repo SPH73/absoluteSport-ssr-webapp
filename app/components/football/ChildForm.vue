@@ -21,13 +21,19 @@ interface VenueOption {
 
 const venueOptions = ref<VenueOption[]>([]);
 
-venueList.forEach((record, index) => {
-  const venue: VenueOption = {
-    index: index + 1,
-    venueName: record.venueName,
-    venueRef: record.venueRef,
-    status: record.status,
-  };
-  venueOptions.value.push(venue);
-});
+// Guard against undefined result from 429/503 redirect
+if (!venueList || !Array.isArray(venueList)) {
+  // guardedFetch already handled the redirect to /booking-paused
+  // Safe to render with empty venueOptions
+} else {
+  venueList.forEach((record, index) => {
+    const venue: VenueOption = {
+      index: index + 1,
+      venueName: record.venueName,
+      venueRef: record.venueRef,
+      status: record.status,
+    };
+    venueOptions.value.push(venue);
+  });
+}
 </script>

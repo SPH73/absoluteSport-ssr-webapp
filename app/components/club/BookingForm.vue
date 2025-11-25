@@ -6,41 +6,55 @@ const clubError = ref(null);
 const schoolList = await guardedFetch("/api/clubs/schoolList");
 const schoolError = ref(null);
 
-let club = {};
 const clubOptions = ref([]);
-clubList.forEach((record, index) => {
-  club = {
-    index: index + 1,
-    id: record.id,
-    clubName: record.clubName,
-    yearRange: record.yearRange,
-    clubRef: record.clubRef,
-    schoolName: record.schoolName,
-    schoolRef: record.schoolRef,
-    startDate: record.startDate,
-    endDate: record.endDate,
-    sessions: record.sessions,
-    pricePerSession: record.pricePerSession,
-    termCost: record.termCost,
-    spaceAvailable: record.spaceAvailable,
-    status: record.status,
-  };
-  clubOptions.value.push(club);
-});
+
+// Guard against undefined result from 429/503 redirect
+if (!clubList || !Array.isArray(clubList)) {
+  // guardedFetch already handled the redirect to /booking-paused
+  // Safe to render with empty clubOptions
+} else {
+  let club = {};
+  clubList.forEach((record, index) => {
+    club = {
+      index: index + 1,
+      id: record.id,
+      clubName: record.clubName,
+      yearRange: record.yearRange,
+      clubRef: record.clubRef,
+      schoolName: record.schoolName,
+      schoolRef: record.schoolRef,
+      startDate: record.startDate,
+      endDate: record.endDate,
+      sessions: record.sessions,
+      pricePerSession: record.pricePerSession,
+      termCost: record.termCost,
+      spaceAvailable: record.spaceAvailable,
+      status: record.status,
+    };
+    clubOptions.value.push(club);
+  });
+}
 console.log("ClubList", clubOptions.value);
 
-let school = {};
 const schoolOptions = ref([]);
-schoolList.forEach((record, index) => {
-  school = {
-    index: index + 1,
-    id: record.id,
-    schoolName: record.schoolName,
-    schoolRef: record.schoolRef,
-    status: record.status,
-  };
-  schoolOptions.value.push(school);
-});
+
+// Guard against undefined result from 429/503 redirect
+if (!schoolList || !Array.isArray(schoolList)) {
+  // guardedFetch already handled the redirect to /booking-paused
+  // Safe to render with empty schoolOptions
+} else {
+  let school = {};
+  schoolList.forEach((record, index) => {
+    school = {
+      index: index + 1,
+      id: record.id,
+      schoolName: record.schoolName,
+      schoolRef: record.schoolRef,
+      status: record.status,
+    };
+    schoolOptions.value.push(school);
+  });
+}
 console.log("SchoolList", schoolOptions.value);
 
 const enteredParentName = ref({ val: "", isValid: true });
