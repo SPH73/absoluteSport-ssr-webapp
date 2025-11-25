@@ -1,4 +1,6 @@
 <script setup>
+const { guardedFetch } = useBookingApi();
+
 useHead({
   title: `Holiday camps booking request`,
   meta: [
@@ -15,10 +17,11 @@ useHead({
   ],
 });
 // fetched camps
-const { data: campsList, error } = await useFetch("/api/camps/campsList");
+const campsList = await guardedFetch("/api/camps/campsList");
+const error = ref(null);
 let camp = {};
 const campOptions = ref([]);
-campsList.value.forEach((record, index) => {
+campsList.forEach((record, index) => {
   camp = {
     index: index + 1,
     id: record.id,
@@ -200,7 +203,7 @@ async function confirmBooking() {
   const payId = ref(null);
   const bookId = ref(null);
 
-  const resPay = await $fetch("/api/camps/campPayment", {
+  const resPay = await guardedFetch("/api/camps/campPayment", {
     method: "post",
     body: savedParent.value,
   });
@@ -211,7 +214,7 @@ async function confirmBooking() {
 
   const summary = ref([]);
   for (let campItem of campBooking.value) {
-    const resBook = await $fetch("/api/camps/campBooking", {
+    const resBook = await guardedFetch("/api/camps/campBooking", {
       method: "post",
       body: campItem,
     });

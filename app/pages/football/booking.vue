@@ -1,4 +1,6 @@
 <script setup>
+const { guardedFetch } = useBookingApi();
+
 useHead({
   title: `Football Academy booking request`,
   meta: [
@@ -14,14 +16,13 @@ useHead({
     },
   ],
 });
-const { data: academyList, error } = await useFetch(
-  "/api/football/academyList"
-);
+const academyList = await guardedFetch("/api/football/academyList");
+const error = ref(null);
 
 const academyOptions = ref([]);
 let academy = {};
-if (academyList.value) {
-  academyList.value.forEach((record, index) => {
+if (academyList) {
+  academyList.forEach((record, index) => {
     academy = {
       index: index + 1,
       id: record.id,
@@ -116,7 +117,7 @@ const confirmBooking = async () => {
 
   console.log("confirm bookomg payment record*****", paymentRecord.value);
 
-  const resPay = await $fetch("/api/football/academyPayment", {
+  const resPay = await guardedFetch("/api/football/academyPayment", {
     method: "post",
     body: paymentRecord.value,
   });
@@ -152,7 +153,7 @@ const confirmBooking = async () => {
       status: "reserved awaiting payment",
     };
     console.log("confirm booking booking record", bookingRecord.value);
-    const resBook = await $fetch("/api/football/academyBooking", {
+    const resBook = await guardedFetch("/api/football/academyBooking", {
       method: "post",
       body: bookingRecord.value,
     });

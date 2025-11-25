@@ -1,4 +1,6 @@
 <script setup>
+const { guardedFetch } = useBookingApi();
+
 const year = new Date().getFullYear();
 const route = useRoute();
 useHead({
@@ -26,16 +28,14 @@ useHead({
     },
   ],
 });
-const { error: assetError, data: assets } = await useFetch(
-  "/api/carouselImages"
-);
-const { error: listError, data: list } = await useFetch("/api/camps/campsList");
+const assets = await guardedFetch("/api/carouselImages");
+const list = await guardedFetch("/api/camps/campsList");
 
 const campImages = ref([]);
 
 let images = [];
 let img = {};
-assets.value.forEach((asset, index) => {
+assets.forEach((asset, index) => {
   if (asset.segment === "camps") {
     let imagesCarousel = asset.images;
     imagesCarousel.forEach((image) => {
@@ -53,7 +53,7 @@ assets.value.forEach((asset, index) => {
 
 const campList = ref([]);
 let camp = {};
-list.value.forEach((record, index) => {
+list.forEach((record, index) => {
   camp = {
     index: index + 1,
     id: record.id,

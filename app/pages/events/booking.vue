@@ -1,4 +1,6 @@
 <script setup>
+const { guardedFetch } = useBookingApi();
+
 useHead({
   title: `Event Ticket Booking`,
   meta: [
@@ -155,7 +157,7 @@ async function confirmBooking() {
   const payId = ref(null);
   const bookId = ref(null);
 
-  const resPay = await $fetch("/api/events/ffdPayment", {
+  const resPay = await guardedFetch("/api/events/ffdPayment", {
     method: "post",
     body: savedPayer.value,
   });
@@ -166,7 +168,7 @@ async function confirmBooking() {
 
   const summary = ref([]);
   for (let item of eventBooking.value) {
-    const resBook = await $fetch("/api/events/ffdBooking", {
+    const resBook = await guardedFetch("/api/events/ffdBooking", {
       method: "post",
       body: item,
     });

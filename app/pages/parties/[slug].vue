@@ -1,14 +1,14 @@
 <script setup>
+const { guardedFetch } = useBookingApi();
+
 const route = useRoute();
-const {
-  data: parties,
-  error,
-  pending,
-} = await useFetch("/api/parties/details");
+const parties = await guardedFetch("/api/parties/details");
+const error = ref(null);
+const pending = ref(false);
 const partySlug = ref(route.params.slug);
 let partyList = ref([]);
 
-parties.value.forEach((record) => {
+parties.forEach((record) => {
   if (record.slug === route.params.slug) {
     let imagesCarousel = record.imagesCarousel;
     let img = {};

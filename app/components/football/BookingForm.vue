@@ -1,11 +1,20 @@
 <script setup>
+const { guardedFetch } = useBookingApi();
+
 // fetch academyList from api
-const { data: academyList, error: academyError } = await useFetch(
-  "/api/football/academyList"
-);
+const academyError = ref(null);
+let academyList = [];
+
+try {
+  academyList = await guardedFetch("/api/football/academyList");
+} catch (error) {
+  // Non-429/503 errors only; 429/503 are already redirected by the guard
+  academyError.value = error;
+}
+
 const academyOptions = ref([]);
 let academy = {};
-academyList.value.forEach((record, index) => {
+academyList.forEach((record, index) => {
   academy = {
     index: index + 1,
     academyName: record.academyName,

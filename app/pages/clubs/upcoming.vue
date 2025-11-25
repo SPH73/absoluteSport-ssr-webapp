@@ -1,4 +1,6 @@
 <script setup>
+const { guardedFetch } = useBookingApi();
+
 useHead({
   title: "AbsoluteSport upcoming school term clubs",
   meta: [
@@ -24,10 +26,10 @@ useHead({
     },
   ],
 });
-const { data: cms } = await useFetch("/api/clubs/cmsSchool");
+const cms = await guardedFetch("/api/clubs/cmsSchool");
 const content = ref([]);
 let element = {};
-cms.value.forEach((record, index) => {
+cms.forEach((record, index) => {
   element = {
     index: index + 1,
     name: record.element,
@@ -40,14 +42,12 @@ cms.value.forEach((record, index) => {
 });
 console.log("content", content.value);
 
-const { error: listError, data: list } = await useFetch("/api/clubs/sportList");
-const { error: schoolError, data: schoolList } = await useFetch(
-  "/api/clubs/schoolList"
-);
+const list = await guardedFetch("/api/clubs/sportList");
+const schoolList = await guardedFetch("/api/clubs/schoolList");
 
 const sportList = ref([]);
 let activity = {};
-list.value.forEach((record, index) => {
+list.forEach((record, index) => {
   activity = {
     index: index + 1,
     id: record.id,
@@ -66,7 +66,7 @@ console.log("SportList", sportList.value);
 
 let school = {};
 const schoolOptions = ref([]);
-schoolList.value.forEach((record, index) => {
+schoolList.forEach((record, index) => {
   school = {
     index: index + 1,
     id: record.id,

@@ -1,8 +1,10 @@
 <script setup>
-const { data: policies, error } = await useFetch("/api/legal/policies");
+const { guardedFetch } = useBookingApi();
+
+const policies = await guardedFetch("/api/legal/policies");
 const policyList = ref([]);
 let doc = {};
-policies.value.forEach((record, index) => {
+policies.forEach((record, index) => {
   doc = {
     index: index + 1,
     id: record.id,

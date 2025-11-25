@@ -1,4 +1,6 @@
 <script setup>
+const { guardedFetch } = useBookingApi();
+
 useHead({
   title: `Contact us`,
   meta: [
@@ -74,7 +76,7 @@ async function handleSubmit() {
     // recaptcha: recaptcha.value.val,
   };
 
-  const res = await $fetch("/api/contact", {
+  const res = await guardedFetch("/api/contact", {
     method: "post",
     body: formData.value,
   });

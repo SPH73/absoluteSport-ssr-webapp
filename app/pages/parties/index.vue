@@ -1,4 +1,6 @@
 <script setup>
+const { guardedFetch } = useBookingApi();
+
 useHead({
   title:
     "School Clubs, Holiday Camps & Themed Parties in West Sussex and Hampshire",
@@ -25,10 +27,10 @@ useHead({
     },
   ],
 });
-const { error, data: content } = await useFetch("/api/parties/details");
+const content = await guardedFetch("/api/parties/details");
 const partyDetails = ref([]);
 let party = {};
-content.value.forEach((record, index) => {
+content.forEach((record, index) => {
   if (record.featured) {
     party = {
       index: index + 1,

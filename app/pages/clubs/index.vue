@@ -1,4 +1,6 @@
 <script setup>
+const { guardedFetch } = useBookingApi();
+
 useHead({
   title:
     "Highly recommended school clubs provider in West Sussex and Hampshire",
@@ -25,19 +27,15 @@ useHead({
     },
   ],
 });
-const { error: assetError, data: assets } = await useFetch(
-  "/api/carouselImages"
-);
+const assets = await guardedFetch("/api/carouselImages");
 
-const { error: commentError, data: comments } = await useFetch(
-  "/api/clubs/schoolTestimonials"
-);
+const comments = await guardedFetch("/api/clubs/schoolTestimonials");
 
 const clubImages = ref([]);
 let asset = {};
 let images = [];
 let img = {};
-assets.value.forEach((asset, index) => {
+assets.forEach((asset, index) => {
   if (asset.segment === "clubs") {
     let imagesCarousel = asset.images;
     imagesCarousel.forEach((image) => {
@@ -55,7 +53,7 @@ assets.value.forEach((asset, index) => {
 
 const commentList = ref([]);
 let comment = {};
-comments.value.forEach((record, index) => {
+comments.forEach((record, index) => {
   comment = {
     index: index + 1,
     id: record.id,

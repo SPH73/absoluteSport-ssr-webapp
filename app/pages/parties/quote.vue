@@ -1,9 +1,12 @@
 <script setup>
+const { guardedFetch } = useBookingApi();
+
 // fetched data
-const { data: partyList, error } = await useFetch("/api/parties/partyList");
+const partyList = await guardedFetch("/api/parties/partyList");
+const error = ref(null);
 let party = {};
 const partyOptions = ref([]);
-partyList.value.forEach((record, index) => {
+partyList.forEach((record, index) => {
   party = {
     index: index + 1,
     id: record.id,
@@ -122,7 +125,7 @@ async function handleSubmit() {
     // recaptcha: recaptcha.value.val,
   };
 
-  const res = await $fetch("/api/parties/partyQuote", {
+  const res = await guardedFetch("/api/parties/partyQuote", {
     method: "post",
     body: partyData.value,
   });

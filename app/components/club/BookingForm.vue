@@ -1,14 +1,14 @@
 <script setup>
-const { data: clubList, error: clubError } = await useFetch(
-  "/api/clubs/clubsList"
-);
-const { data: schoolList, error: schoolError } = await useFetch(
-  "/api/clubs/schoolList"
-);
+const { guardedFetch } = useBookingApi();
+
+const clubList = await guardedFetch("/api/clubs/clubsList");
+const clubError = ref(null);
+const schoolList = await guardedFetch("/api/clubs/schoolList");
+const schoolError = ref(null);
 
 let club = {};
 const clubOptions = ref([]);
-clubList.value.forEach((record, index) => {
+clubList.forEach((record, index) => {
   club = {
     index: index + 1,
     id: record.id,
@@ -31,7 +31,7 @@ console.log("ClubList", clubOptions.value);
 
 let school = {};
 const schoolOptions = ref([]);
-schoolList.value.forEach((record, index) => {
+schoolList.forEach((record, index) => {
   school = {
     index: index + 1,
     id: record.id,
@@ -203,7 +203,7 @@ async function handleSubmitClubBooking() {
   };
 
   console.log("club payment", clubPayment.value);
-  const createdPayment = await $fetch("/api/clubs/clubPayment", {
+  const createdPayment = await guardedFetch("/api/clubs/clubPayment", {
     method: "post",
     body: clubPayment.value,
   });
@@ -240,7 +240,7 @@ async function handleSubmitClubBooking() {
         status: "reserved awaiting payment",
       };
 
-      const createdBooking = await $fetch("/api/clubs/clubBooking", {
+      const createdBooking = await guardedFetch("/api/clubs/clubBooking", {
         method: "post",
         body: clubBooking.value,
       });

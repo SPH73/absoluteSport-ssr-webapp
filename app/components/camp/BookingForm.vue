@@ -1,9 +1,11 @@
 <script setup>
+const { guardedFetch } = useBookingApi();
+
 // retrieve data for haf pop up
-const { data: cms } = await useFetch("/api/cms");
+const cms = await guardedFetch("/api/cms");
 
 const content = ref(
-  (cms.value || []).map((record, i) => ({
+  (cms || []).map((record, i) => ({
     index: i + 1,
     name: record.element,
     content: record.content,
@@ -18,7 +20,7 @@ const hafContent = computed(() => {
 });
 
 // fetched data / props ****
-const { data: campLocList } = await useFetch("/api/camps/campLocList");
+const campLocList = await guardedFetch("/api/camps/campLocList");
 const props = defineProps(["parentAdded", "campsList"]);
 
 // events ****
@@ -106,7 +108,7 @@ const confirmedPhoto = ref(true);
 // camp details
 const campSubmitAttempted = ref(false);
 const locationOptions = ref(
-  (campLocList.value || []).map((record, i) => ({
+  (campLocList || []).map((record, i) => ({
     index: i + 1,
     id: record.id,
     locationName: record.locationName,

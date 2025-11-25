@@ -1,4 +1,6 @@
 <script setup>
+const { guardedFetch } = useBookingApi();
+
 useHead({
   title: `Upcoming AbsoluteSport Holiday Activity Camps`,
   meta: [
@@ -25,14 +27,12 @@ useHead({
   ],
 });
 
-const { error: listError, data: list } = await useFetch("/api/camps/campsList");
-const { error: locsError, data: locs } = await useFetch(
-  "/api/camps/campLocList"
-);
+const list = await guardedFetch("/api/camps/campsList");
+const locs = await guardedFetch("/api/camps/campLocList");
 
 const campList = ref([]);
 let camp = {};
-list.value.forEach((record, index) => {
+list.forEach((record, index) => {
   camp = {
     index: index + 1,
     id: record.id,
@@ -49,7 +49,7 @@ console.log(campList.value);
 
 const locList = ref([]);
 let loc = {};
-locs.value.forEach((record, index) => {
+locs.forEach((record, index) => {
   loc = {
     index: index + 1,
     id: record.id,

@@ -53,6 +53,7 @@ export default defineNuxtConfig({
     private: {
       atApiKey: process.env.AT_API_KEY,
       mcApiKey: process.env.MC_API_KEY,
+      airtableDisabled: process.env.AIRTABLE_DISABLED === "true",
       gcAccessToken: process.env.GC_ACCESS_TOKEN,
     },
     cspAirtableToken: process.env.NUXT_CSP_AIRTABLE_TOKEN,

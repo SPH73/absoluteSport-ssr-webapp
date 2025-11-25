@@ -7,11 +7,15 @@ useHead({
     },
   ],
 });
-const { data: fList, error, pending } = await useFetch("/api/faqs");
+const { guardedFetch } = useBookingApi();
+
+const fList = await guardedFetch("/api/faqs");
+const error = ref(null);
+const pending = ref(false);
 const faqList = ref([]);
 let faq = {};
 // console.log("faqs", faqList.value);
-fList.value.forEach((record, index) => {
+fList.forEach((record, index) => {
   faq = {
     index: index + 1,
     id: record.id,

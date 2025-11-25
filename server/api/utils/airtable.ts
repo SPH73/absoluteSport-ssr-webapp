@@ -15,8 +15,11 @@ export type AirtableSelectOptions = {
 export function getAirtableBase(event?: H3Event) {
   const config = useRuntimeConfig(event);
 
-  const { atApiKey } = config.private;
-  const { atBaseId } = config.public;
+  const { atApiKey, airtableDisabled } = config.private as {
+    atApiKey: string;
+    airtableDisabled?: boolean;
+  };
+  const { atBaseId } = config.public as { atBaseId: string };
 
   return new Airtable({ apiKey: atApiKey }).base(atBaseId);
 }
@@ -49,12 +52,15 @@ export async function airtableSelect<T = any>(
       message: err?.message,
     });
 
-    // Airtable quota exceeded → return empty array, never crash SSR
+    // Airtable quota exceeded or unavailable → throw 503 so frontend can redirect
     if (
       err?.statusCode === 429 ||
       err?.error === "PUBLIC_API_BILLING_LIMIT_EXCEEDED"
     ) {
-      return [];
+      throw createError({
+        statusCode: 503,
+        statusMessage: `Airtable quota exceeded for table "${tableName}"`,
+      });
     }
 
     throw createError({
