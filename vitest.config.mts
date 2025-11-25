@@ -6,7 +6,7 @@ export default defineConfig({
     globals: true,
     // Split between plain Node tests and Nuxt-runtime tests
     projects: [
-      // Plain unit tests (no Nuxt runtime needed)
+      // Plain Node-based unit tests
       {
         test: {
           name: "unit",
@@ -15,7 +15,7 @@ export default defineConfig({
         },
       },
       // Nuxt runtime tests (components, composables using useRouter, etc.)
-      await defineVitestProject({
+      defineVitestProject({
         test: {
           name: "nuxt",
           include: ["test/nuxt/**/*.{test,spec}.ts"],

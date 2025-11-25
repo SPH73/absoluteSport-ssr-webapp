@@ -24,7 +24,6 @@
     "@types/mailchimp__mailchimp_marketing": "^3.0.22",
     "@types/md5": "^2.3.6",
     "@types/node": "^24.10.1",
-    "@vitest/coverage-v8": "^4.0.13",
     "@vue/test-utils": "^2.4.6",
     "@vueuse/nuxt": "^14.0.0",
     "happy-dom": "^20.0.10",
