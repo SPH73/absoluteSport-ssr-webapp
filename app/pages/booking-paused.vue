@@ -1,14 +1,53 @@
 <!-- app/pages/booking-paused.vue -->
 <script setup lang="ts">
-const title = "Online bookings temporarily unavailable";
+const route = useRoute();
+const context = (route.query.context as string) || "booking";
+
+// Context-aware messaging
+const contextConfig = {
+  booking: {
+    title: "Online bookings temporarily unavailable",
+    description:
+      "Online bookings are temporarily paused. Please contact us via WhatsApp or email to make or amend a booking.",
+    systemType: "booking & messaging system",
+    actionText: "make or amend bookings",
+    affectedText: "Existing bookings are not affected.",
+  },
+  contact: {
+    title: "Online contact form temporarily unavailable",
+    description:
+      "Our online contact form is temporarily paused. Please contact us via WhatsApp or email.",
+    systemType: "contact form",
+    actionText: "get in touch",
+    affectedText: "We look forward to hearing from you.",
+  },
+  quote: {
+    title: "Online party enquiries temporarily unavailable",
+    description:
+      "Our online party enquiry form is temporarily paused. Please contact us via WhatsApp or email to request a quote.",
+    systemType: "party enquiry system",
+    actionText: "request a party quote",
+    affectedText: "Existing bookings are not affected.",
+  },
+  enquiry: {
+    title: "Online enquiries temporarily unavailable",
+    description:
+      "Our online enquiry forms are temporarily paused. Please contact us via WhatsApp or email.",
+    systemType: "enquiry system",
+    actionText: "submit your enquiry",
+    affectedText: "We appreciate your patience.",
+  },
+};
+
+const config =
+  contextConfig[context as keyof typeof contextConfig] || contextConfig.booking;
 
 useHead({
-  title,
+  title: config.title,
   meta: [
     {
       name: "description",
-      content:
-        "Online bookings are temporarily paused. Please contact us via WhatsApp or email to make or amend a booking.",
+      content: config.description,
     },
   ],
 });
@@ -21,17 +60,16 @@ useHead({
     >
       <div class="max-w-xl">
         <h1 class="text-3xl md:text-4xl font-bold mb-4 text-white">
-          {{ title }}
+          {{ config.title }}
         </h1>
 
         <p class="mb-4 text-base md:text-lg text-white">
-          Our online booking & messaging system is temporarily offline due to a
-          technical limit with our database provider.
+          {{ config.description }}
         </p>
 
         <p class="mb-6 text-sm md:text-base text-white">
-          You can still make or amend bookings by contacting us directly.
-          Existing bookings are not affected.
+          You can still {{ config.actionText }} by contacting us directly.
+          {{ config.affectedText }}
         </p>
 
         <div class="flex flex-col sm:flex-row gap-3 justify-center mb-6">
