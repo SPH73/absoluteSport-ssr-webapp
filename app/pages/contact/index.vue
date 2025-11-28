@@ -16,6 +16,14 @@ useHead({
     },
   ],
 });
+
+// If contact form should be unavailable, redirect to booking-paused
+// This ensures users are informed when the contact system is down
+await navigateTo({
+  path: "/booking-paused",
+  query: { context: "contact" },
+});
+
 // form data
 const formData = ref({});
 const firstName = ref({ val: "", isValid: true });

@@ -78,6 +78,14 @@ if (!comments || !Array.isArray(comments)) {
     commentList.value.push(comment);
   });
 }
+
+// If this page has nothing meaningful to show, route to booking-paused
+if (clubImages.value.length === 0 && commentList.value.length === 0) {
+  await navigateTo({
+    path: "/booking-paused",
+    query: { context: "booking" },
+  });
+}
 </script>
 
 <template>

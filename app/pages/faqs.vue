@@ -30,6 +30,14 @@ if (fList && Array.isArray(fList)) {
   });
 }
 
+// If there are no FAQs to show, route to booking-paused instead of rendering a blank page
+if (!faqList.value.length) {
+  await navigateTo({
+    path: "/booking-paused",
+    query: { context: "contact" },
+  });
+}
+
 const showFaqs = ref(false);
 const search = ref("");
 const selectedTag = ref(null);

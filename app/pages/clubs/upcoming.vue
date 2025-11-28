@@ -108,6 +108,14 @@ const currentClubs = computed(() => {
   );
 });
 
+// If there are no schools or sports to display, route to booking-paused
+if (schoolOptions.value.length === 0 && sportList.value.length === 0) {
+  await navigateTo({
+    path: "/booking-paused",
+    query: { context: "booking" },
+  });
+}
+
 const selectedImage = ref(null);
 const selectedSchool = ref(null);
 

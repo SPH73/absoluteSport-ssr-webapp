@@ -86,6 +86,14 @@ const currentCamps = computed(() => {
 const nextCamps = computed(() => {
   return campList.value.filter((camp) => camp.status === "next");
 });
+
+// If this page has nothing meaningful to show, route to booking-paused
+if (campList.value.length === 0 && campImages.value.length === 0) {
+  await navigateTo({
+    path: "/booking-paused",
+    query: { context: "booking" },
+  });
+}
 </script>
 
 <template>

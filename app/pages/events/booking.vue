@@ -17,6 +17,23 @@ useHead({
   ],
 });
 
+// Fetch event data to check if booking is available
+const eventData = await guardedFetch("/api/events/eventsList");
+const eventList = ref([]);
+
+// Guard against undefined result from 429/503 redirect
+if (eventData && Array.isArray(eventData)) {
+  eventList.value = eventData;
+}
+
+// If there are no events to book, route to booking-paused
+if (eventList.value.length === 0) {
+  await navigateTo({
+    path: "/booking-paused",
+    query: { context: "booking" },
+  });
+}
+
 // keep alive
 const selectedTab = ref("EventForm");
 const setSelectedTab = (tab) => {

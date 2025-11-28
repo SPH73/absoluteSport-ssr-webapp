@@ -19,6 +19,14 @@ if (policies && Array.isArray(policies)) {
     policyList.value.push(doc);
   });
 }
+
+// If there are no policies to show, route to booking-paused
+if (policyList.value.length === 0) {
+  await navigateTo({
+    path: "/booking-paused",
+    query: { context: "info" },
+  });
+}
 </script>
 
 <template>

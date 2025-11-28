@@ -8,7 +8,7 @@ const { guardedFetchMock } = vi.hoisted(() => ({
   guardedFetchMock: vi.fn(),
 }));
 
-// Mock the Nuxt auto-imported composable
+// Mock Nuxt auto-imports used in ticker.ts
 mockNuxtImport("useBookingApi", () => {
   return () => ({
     guardedFetch: guardedFetchMock,
@@ -16,6 +16,9 @@ mockNuxtImport("useBookingApi", () => {
 });
 
 describe("fetchTickerMessage", () => {
+  const FALLBACK_TEXT =
+    "Online services are temporarily unavailable. Please contact us directly.";
+
   beforeEach(() => {
     guardedFetchMock.mockReset();
   });
@@ -33,7 +36,7 @@ describe("fetchTickerMessage", () => {
         fields: {
           element: "other",
           display: true,
-          content: "Ignore me",
+          content: "Ignore this row",
         },
       },
     ]);
@@ -41,81 +44,71 @@ describe("fetchTickerMessage", () => {
     const result = await fetchTickerMessage();
 
     expect(guardedFetchMock).toHaveBeenCalledTimes(1);
-    expect(guardedFetchMock).toHaveBeenCalledWith("/api/cms");
-    expect(result).toEqual({
-      showTicker: true,
-      tickerText: "Airtable ticker message",
-    });
+    expect(result.showTicker).toBe(true);
+    expect(result.tickerText).toBe("Airtable ticker message");
+    // For normal runtime ticker, there should be no forced CTA to booking-paused
+    expect(result.targetRoute).toBeUndefined();
   });
 
-  it("returns fallback message when no ticker row exists and showFallbackOnMissing=true (default)", async () => {
+  it("falls back to booking-paused ticker when Airtable returns an empty array", async () => {
+    guardedFetchMock.mockResolvedValueOnce([]);
+
+    const result = await fetchTickerMessage();
+
+    expect(guardedFetchMock).toHaveBeenCalledTimes(1);
+    expect(result.showTicker).toBe(true);
+    expect(result.tickerText).toBe(FALLBACK_TEXT);
+    expect(result.targetRoute).toBe("/booking-paused?context=booking");
+  });
+
+  it("falls back to booking-paused ticker when no visible ticker row exists", async () => {
     guardedFetchMock.mockResolvedValueOnce([
+      {
+        fields: {
+          element: "ticker",
+          display: false,
+          content: "Hidden ticker – should not display",
+        },
+      },
       {
         fields: {
           element: "other",
           display: true,
-          content: "Not the ticker",
+          content: "Other content",
         },
       },
     ]);
 
-    const result = await fetchTickerMessage({
-      fallbackMessage: "Fallback message",
-    });
+    const result = await fetchTickerMessage();
 
-    expect(result).toEqual({
-      showTicker: true,
-      tickerText: "Fallback message",
-    });
+    expect(guardedFetchMock).toHaveBeenCalledTimes(1);
+    expect(result.showTicker).toBe(true);
+    expect(result.tickerText).toBe(FALLBACK_TEXT);
+    expect(result.targetRoute).toBe("/booking-paused?context=booking");
   });
 
-  it("returns no ticker when no ticker row exists and showFallbackOnMissing=false", async () => {
-    guardedFetchMock.mockResolvedValueOnce([
-      {
-        fields: {
-          element: "other",
-          display: true,
-          content: "Not the ticker",
-        },
-      },
-    ]);
-
-    const result = await fetchTickerMessage({
-      fallbackMessage: "Fallback message",
-      showFallbackOnMissing: false,
-    });
-
-    expect(result).toEqual({
-      showTicker: false,
-      tickerText: "Fallback message",
-    });
-  });
-
-  it("returns fallback message when guardedFetch returns undefined (e.g. 429/503 handled by redirect)", async () => {
-    guardedFetchMock.mockResolvedValueOnce(undefined);
-
-    const result = await fetchTickerMessage({
-      fallbackMessage: "Fallback in rate-limit",
-    });
-
-    expect(result).toEqual({
-      showTicker: true,
-      tickerText: "Fallback in rate-limit",
-    });
-  });
-
-  it("returns fallback message when guardedFetch throws a non-429/503 error", async () => {
+  it("falls back to booking-paused ticker when guardedFetch throws", async () => {
     guardedFetchMock.mockRejectedValueOnce(
-      new Error("Unexpected server error")
+      new Error("Airtable quota exceeded")
     );
 
-    const result = await fetchTickerMessage({
-      fallbackMessage: "Fallback on error",
-    });
+    const result = await fetchTickerMessage();
 
-    expect(result).toEqual({
-      showTicker: true,
-      tickerText: "Fallback on error",
-    });
+    expect(guardedFetchMock).toHaveBeenCalledTimes(1);
+    expect(result.showTicker).toBe(true);
+    expect(result.tickerText).toBe(FALLBACK_TEXT);
+    expect(result.targetRoute).toBe("/booking-paused?context=booking");
+  });
+
+  it("normalises unexpected shapes from Airtable and still falls back safely", async () => {
+    // Simulate some weird payload that isn't an array of records
+    guardedFetchMock.mockResolvedValueOnce(null as any);
+
+    const result = await fetchTickerMessage();
+
+    expect(guardedFetchMock).toHaveBeenCalledTimes(1);
+    expect(result.showTicker).toBe(true);
+    expect(result.tickerText).toBe(FALLBACK_TEXT);
+    expect(result.targetRoute).toBe("/booking-paused?context=booking");
   });
 });

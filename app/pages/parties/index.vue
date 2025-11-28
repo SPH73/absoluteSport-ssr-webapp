@@ -62,6 +62,14 @@ if (content && Array.isArray(content)) {
     };
   });
 }
+
+// If there are no parties to show, route to booking-paused
+if (partyDetails.value.length === 0) {
+  await navigateTo({
+    path: "/booking-paused",
+    query: { context: "contact" },
+  });
+}
 </script>
 <template>
   <div class="my-8">

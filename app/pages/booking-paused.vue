@@ -54,48 +54,46 @@ useHead({
 </script>
 
 <template>
-  <NuxtLayout>
-    <section
-      class="min-h-screen flex flex-col items-center justify-center px-6 py-16 text-center bg-dark"
-    >
-      <div class="max-w-xl">
-        <h1 class="text-3xl md:text-4xl font-bold mb-4 text-white">
-          {{ config.title }}
-        </h1>
+  <section
+    class="min-h-screen flex flex-col items-center justify-center px-6 py-16 text-center bg-dark"
+  >
+    <div class="max-w-xl">
+      <h1 class="text-3xl md:text-4xl font-bold mb-4 text-white">
+        {{ config.title }}
+      </h1>
 
-        <p class="mb-4 text-base md:text-lg text-white">
-          {{ config.description }}
-        </p>
+      <p class="mb-4 text-base md:text-lg text-white">
+        {{ config.description }}
+      </p>
 
-        <p class="mb-6 text-sm md:text-base text-white">
-          You can still {{ config.actionText }} by contacting us directly.
-          {{ config.affectedText }}
-        </p>
+      <p class="mb-6 text-sm md:text-base text-white">
+        You can still {{ config.actionText }} by contacting us directly.
+        {{ config.affectedText }}
+      </p>
 
-        <div class="flex flex-col sm:flex-row gap-3 justify-center mb-6">
-          <NuxtLink
-            to="https://api.whatsapp.com/send?phone=447540309658"
-            aria-label="Connect with us on whatsapp chat"
-          >
-            <font-awesome-icon
-              :icon="['fab', 'whatsapp']"
-              class="text-secondary h-12 w12"
-            />
-          </NuxtLink>
+      <div class="flex flex-col sm:flex-row gap-3 justify-center mb-6">
+        <NuxtLink
+          to="https://api.whatsapp.com/send?phone=447540309658"
+          aria-label="Connect with us on whatsapp chat"
+        >
+          <font-awesome-icon
+            :icon="['fab', 'whatsapp']"
+            class="text-secondary h-12 w12"
+          />
+        </NuxtLink>
 
-          <NuxtLink
-            to="mailto:absolutesport.as@gmail.com"
-            class="inline-flex items-center justify-center px-6 py-3 rounded-full bg-white text-dark font-semibold text-sm md:text-base hover:opacity-90 transition"
-          >
-            Email us: absolutesport.as@gmail.com
-          </NuxtLink>
-        </div>
-
-        <p class="text-xs text-gray-300">
-          We expect normal online booking to resume once our provider resolves
-          their technical issues. Thank you for your patience.
-        </p>
+        <NuxtLink
+          to="mailto:absolutesport.as@gmail.com"
+          class="inline-flex items-center justify-center px-6 py-3 rounded-full bg-white text-dark font-semibold text-sm md:text-base hover:opacity-90 transition"
+        >
+          Email us: absolutesport.as@gmail.com
+        </NuxtLink>
       </div>
-    </section>
-  </NuxtLayout>
+
+      <p class="text-xs text-gray-300">
+        We expect normal online booking to resume once our provider resolves
+        their technical issues. Thank you for your patience.
+      </p>
+    </div>
+  </section>
 </template>

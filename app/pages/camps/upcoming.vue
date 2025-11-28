@@ -89,6 +89,14 @@ const nextCamps = computed(() => {
   );
 });
 
+// If there are no locations or camps to display, route to booking-paused
+if (locList.value.length === 0 && campList.value.length === 0) {
+  await navigateTo({
+    path: "/booking-paused",
+    query: { context: "booking" },
+  });
+}
+
 const selectedImage = ref(null);
 const selectedLocation = ref(null);
 

@@ -1,4 +1,6 @@
 <script setup>
+const { guardedFetch } = useBookingApi();
+
 const year = new Date().getFullYear();
 const route = useRoute();
 useHead({
@@ -26,6 +28,24 @@ useHead({
     },
   ],
 });
+
+// Fetch event data from CMS
+const eventData = await guardedFetch("/api/events/eventsList");
+const eventList = ref([]);
+
+// Guard against undefined result from 429/503 redirect
+if (eventData && Array.isArray(eventData)) {
+  eventList.value = eventData;
+}
+
+// If there are no events to show, route to booking-paused
+if (eventList.value.length === 0) {
+  await navigateTo({
+    path: "/booking-paused",
+    query: { context: "booking" },
+  });
+}
+
 // posterImage is used in the template to display the event poster
 const posterImage = new URL("assets/images/ffd-poster.svg", import.meta.url)
   .href;
