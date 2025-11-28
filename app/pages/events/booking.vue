@@ -162,6 +162,12 @@ async function confirmBooking() {
     body: savedPayer.value,
   });
 
+  // Guard against undefined result from 429/503 redirect
+  if (!resPay) {
+    // guardedFetch already handled the redirect to /booking-paused
+    return;
+  }
+
   payId.value = resPay.id;
   console.log("resPay*****", resPay.id);
   console.log("payId*****", payId.value);
@@ -172,6 +178,13 @@ async function confirmBooking() {
       method: "post",
       body: item,
     });
+
+    // Guard against undefined result from 429/503 redirect
+    if (!resBook) {
+      // guardedFetch already handled the redirect to /booking-paused
+      return;
+    }
+
     bookId.value = resBook.id;
     console.log("resBook*****", resBook.fields);
     console.log("bookId*****", bookId.value);

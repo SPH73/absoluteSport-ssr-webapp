@@ -212,6 +212,12 @@ async function confirmBooking() {
     body: savedParent.value,
   });
 
+  if (!resPay) {
+    // 429 or 503: guardedFetch has already redirected to /booking-paused
+    // Do not access properties on resPay or continue with booking flow
+    return;
+  }
+
   payId.value = resPay.id;
   // console.log("resPay*****", resPay.id);
   // console.log("payId*****", payId.value);
@@ -222,6 +228,13 @@ async function confirmBooking() {
       method: "post",
       body: campItem,
     });
+
+    if (!resBook) {
+      // 429 or 503: guardedFetch has already redirected to /booking-paused
+      // Do not access properties on resBook or continue with booking flow
+      return;
+    }
+
     bookId.value = resBook.id;
     // console.log("resBook*****", resBook);
     // console.log("bookId*****", bookId.value);

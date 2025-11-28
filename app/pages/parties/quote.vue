@@ -138,6 +138,12 @@ async function handleSubmit() {
   });
   console.log("quote res*****", res);
 
+  if (!res) {
+    // 429 or 503: guardedFetch has already redirected to /booking-paused
+    // Do not access properties on res or continue with quote flow
+    return;
+  }
+
   quoteRef.value = res.id;
   const router = useRouter();
   router.replace({
