@@ -1,30 +1,24 @@
-import { describe, it, expect, beforeEach } from "vitest";
-import { vi } from "vitest";
+// test/nuxt/composables/useBookingApi.nuxt.spec.ts
+// @vitest-environment nuxt
+
+import { describe, it, expect, beforeEach, vi } from "vitest";
 import { mockNuxtImport } from "@nuxt/test-utils/runtime";
 
 // Hoisted mocks (Nuxt / Vitest guidance)
-const { fetchMock, routerPushMock } = vi.hoisted(() => {
+const { fetchMock, navigateToMock } = vi.hoisted(() => {
   return {
     fetchMock: vi.fn(),
-    routerPushMock: vi.fn(),
+    navigateToMock: vi.fn(),
   };
 });
 
-// 1) useRouter -> { push: routerPushMock }
-mockNuxtImport("useRouter", () => {
-  return () =>
-    ({
-      push: routerPushMock,
-    } as any);
-});
+// 1) navigateTo -> navigateToMock (global utility, can be called from anywhere)
+mockNuxtImport("navigateTo", () => navigateToMock);
 
-// 2) useNuxtApp -> { $fetch: fetchMock }
-mockNuxtImport("useNuxtApp", () => {
-  return () =>
-    ({
-      $fetch: fetchMock,
-    } as any);
-});
+// 2) $fetch -> fetchMock (mock the global $fetch auto-import)
+// Note: $fetch is a global auto-import, so we use vi.stubGlobal
+// This must be done before the composable is imported
+vi.stubGlobal("$fetch", fetchMock);
 
 // Import the composable
 import { useBookingApi } from "../../../app/composables/useBookingApi";
@@ -32,7 +26,7 @@ import { useBookingApi } from "../../../app/composables/useBookingApi";
 describe("useBookingApi.guardedsFetch", () => {
   beforeEach(() => {
     fetchMock.mockReset();
-    routerPushMock.mockReset();
+    navigateToMock.mockReset();
   });
 
   it("returns data on success and does not redirect", async () => {
@@ -45,7 +39,7 @@ describe("useBookingApi.guardedsFetch", () => {
     expect(fetchMock).toHaveBeenCalledTimes(1);
     expect(fetchMock).toHaveBeenCalledWith("/api/example", expect.any(Object));
     expect(result).toEqual(payload);
-    expect(routerPushMock).not.toHaveBeenCalled();
+    expect(navigateToMock).not.toHaveBeenCalled();
   });
 
   it("handles 429 by redirecting to /booking-paused and not rethrowing", async () => {
@@ -62,8 +56,10 @@ describe("useBookingApi.guardedsFetch", () => {
     await expect(guardedFetch("/api/example")).resolves.toBeUndefined();
 
     expect(fetchMock).toHaveBeenCalledTimes(1);
-    expect(routerPushMock).toHaveBeenCalledTimes(1);
-    expect(routerPushMock).toHaveBeenCalledWith("/booking-paused");
+    expect(navigateToMock).toHaveBeenCalledTimes(1);
+    expect(navigateToMock).toHaveBeenCalledWith(
+      "/booking-paused?context=booking",
+    );
   });
 
   it("handles 503 by redirecting to /booking-paused and not rethrowing", async () => {
@@ -80,8 +76,10 @@ describe("useBookingApi.guardedsFetch", () => {
     await expect(guardedFetch("/api/example")).resolves.toBeUndefined();
 
     expect(fetchMock).toHaveBeenCalledTimes(1);
-    expect(routerPushMock).toHaveBeenCalledTimes(1);
-    expect(routerPushMock).toHaveBeenCalledWith("/booking-paused");
+    expect(navigateToMock).toHaveBeenCalledTimes(1);
+    expect(navigateToMock).toHaveBeenCalledWith(
+      "/booking-paused?context=booking",
+    );
   });
 
   it("rethrows non-429/503 errors and does not redirect", async () => {
@@ -97,6 +95,6 @@ describe("useBookingApi.guardedsFetch", () => {
     await expect(guardedFetch("/api/example")).rejects.toBe(serverError);
 
     expect(fetchMock).toHaveBeenCalledTimes(1);
-    expect(routerPushMock).not.toHaveBeenCalled();
+    expect(navigateToMock).not.toHaveBeenCalled();
   });
 });

@@ -4,7 +4,17 @@ This directory contains tests for the empty-state redirect mechanism that ensure
 
 ## Test Structure
 
-### 1. Ticker Tests (`test/nuxt/utils/ticker.nuxt.spec.ts`)
+### 1. Composable Tests (`test/nuxt/composables/useBookingApi.nuxt.spec.ts`)
+
+Tests the `useBookingApi` composable that provides `guardedFetch()`:
+
+- **Successful requests**: Returns data normally, no redirect
+- **429/503 errors**: Redirects to `/booking-paused?context=booking` (client-side) or throws error (SSR)
+- **Other errors**: Rethrows for error page handling
+- Uses `navigateTo()` for client-side redirects (not `useRouter()`)
+- Mocks `$fetch` using `vi.stubGlobal()` for global auto-imports
+
+### 2. Ticker Tests (`test/nuxt/utils/ticker.nuxt.spec.ts`)
 
 Tests the ticker message system that displays on the home page:
 
@@ -14,7 +24,7 @@ Tests the ticker message system that displays on the home page:
 - **When guardedFetch throws**: Falls back to booking-paused ticker
 - **When unexpected data shape**: Safely falls back to booking-paused ticker
 
-### 2. Page-Level Redirect Tests (`test/nuxt/pages/`)
+### 3. Page-Level Redirect Tests (`test/nuxt/pages/`)
 
 Tests individual CMS-driven pages to ensure they redirect to `/booking-paused` when content is unavailable:
 
