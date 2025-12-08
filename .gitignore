@@ -31,3 +31,18 @@ typecheck-output.txt
 
 # project specific cheatsheets
 *CHEATSHEET.md
+
+# temporary backup directories
+.phase1-backup-*/
+
+# one-time helper scripts
+*-branch.sh
+apply-*.sh
+
+# one-time application guides
+APPLY_*.md
+*_APPLICATION_GUIDE.md
+
+# testing files
+TESTING_PLAN_P1.md
+test-middleware.sh
