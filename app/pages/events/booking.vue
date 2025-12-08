@@ -1,4 +1,6 @@
 <script setup>
+const { guardedFetch } = useBookingApi();
+
 useHead({
   title: `Event Ticket Booking`,
   meta: [
@@ -14,6 +16,23 @@ useHead({
     },
   ],
 });
+
+// Fetch event data to check if booking is available
+const eventData = await guardedFetch("/api/events/eventsList");
+const eventList = ref([]);
+
+// Guard against undefined result from 429/503 redirect
+if (eventData && Array.isArray(eventData)) {
+  eventList.value = eventData;
+}
+
+// If there are no events to book, route to booking-paused
+if (eventList.value.length === 0) {
+  await navigateTo({
+    path: "/booking-paused",
+    query: { context: "booking" },
+  });
+}
 
 // keep alive
 const selectedTab = ref("EventForm");
@@ -155,10 +174,16 @@ async function confirmBooking() {
   const payId = ref(null);
   const bookId = ref(null);
 
-  const resPay = await $fetch("/api/events/ffdPayment", {
+  const resPay = await guardedFetch("/api/events/ffdPayment", {
     method: "post",
     body: savedPayer.value,
   });
+
+  // Guard against undefined result from 429/503 redirect
+  if (!resPay) {
+    // guardedFetch already handled the redirect to /booking-paused
+    return;
+  }
 
   payId.value = resPay.id;
   console.log("resPay*****", resPay.id);
@@ -166,10 +191,17 @@ async function confirmBooking() {
 
   const summary = ref([]);
   for (let item of eventBooking.value) {
-    const resBook = await $fetch("/api/events/ffdBooking", {
+    const resBook = await guardedFetch("/api/events/ffdBooking", {
       method: "post",
       body: item,
     });
+
+    // Guard against undefined result from 429/503 redirect
+    if (!resBook) {
+      // guardedFetch already handled the redirect to /booking-paused
+      return;
+    }
+
     bookId.value = resBook.id;
     console.log("resBook*****", resBook.fields);
     console.log("bookId*****", bookId.value);

@@ -1,4 +1,6 @@
 <script setup>
+const { guardedFetch } = useBookingApi();
+
 useHead({
   title: `Contact us`,
   meta: [
@@ -14,6 +16,14 @@ useHead({
     },
   ],
 });
+
+// If contact form should be unavailable, redirect to booking-paused
+// This ensures users are informed when the contact system is down
+await navigateTo({
+  path: "/booking-paused",
+  query: { context: "contact" },
+});
+
 // form data
 const formData = ref({});
 const firstName = ref({ val: "", isValid: true });
@@ -74,22 +84,22 @@ async function handleSubmit() {
     // recaptcha: recaptcha.value.val,
   };
 
-  const res = await $fetch("/api/contact", {
+  const res = await guardedFetch("/api/contact", {
     method: "post",
     body: formData.value,
   });
-  console.log("enq res*****", res.fields);
+  console.log("enq res*****", res);
 
   enqRef.value = res.id;
   const router = useRouter();
   router.replace({
     path: "/contact/success",
     query: {
-      name: res.fields.firstName,
-      surname: res.fields.surname,
-      phone: res.fields.phone,
-      email: res.fields.email,
-      message: res.fields.info,
+      name: res.firstName,
+      surname: res.surname,
+      phone: res.phone,
+      email: res.email,
+      message: res.info,
       enqRef: res.id,
     },
   });

@@ -1,8 +1,7 @@
 {
-  // https://nuxt.com/docs/guide/concepts/typescript
+  // "https://nuxt.com/docs/guide/concepts/typescript",
   "extends": "./.nuxt/tsconfig.json",
   "compilerOptions": {
-    "types": ["node"],
     "moduleResolution": "Bundler"
   }
 }

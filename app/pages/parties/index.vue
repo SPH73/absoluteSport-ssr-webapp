@@ -1,4 +1,6 @@
 <script setup>
+const { guardedFetch } = useBookingApi();
+
 useHead({
   title:
     "School Clubs, Holiday Camps & Themed Parties in West Sussex and Hampshire",
@@ -25,37 +27,49 @@ useHead({
     },
   ],
 });
-const { error, data: content } = await useFetch("/api/parties/details");
+const content = await guardedFetch("/api/parties/details");
 const partyDetails = ref([]);
-let party = {};
-content.value.forEach((record, index) => {
-  if (record.fields.featured) {
-    party = {
-      index: index + 1,
-      id: record.id,
-      slug: record.fields.slug,
-      pageTitle: record.fields.pageTitle,
-      partyName: record.fields.partyName,
-      summaryP1: record.fields.summaryP1,
-      summaryP2: record.fields.summaryP2,
-      summaryP3: record.fields.summaryP3,
-      image: [
-        {
-          id: record.fields.thumbnail[0].id,
-          filename: record.fields.thumbnail[0].filename,
-          thumbnail: record.fields.thumbnail[0].url,
-        },
-      ],
+
+// Guard against undefined result from 429/503 redirect
+if (content && Array.isArray(content)) {
+  let party = {};
+  content.forEach((record, index) => {
+    if (record.featured) {
+      party = {
+        index: index + 1,
+        id: record.id,
+        slug: record.slug,
+        pageTitle: record.pageTitle,
+        partyName: record.partyName,
+        summaryP1: record.summaryP1,
+        summaryP2: record.summaryP2,
+        summaryP3: record.summaryP3,
+        image: [
+          {
+            id: record.thumbnail[0].id,
+            filename: record.thumbnail[0].filename,
+            thumbnail: record.thumbnail[0].url,
+          },
+        ],
+      };
+      partyDetails.value.push(party);
+    }
+    const activeParty = ref(null);
+    const activateParty = (partySlug) => {
+      activeParty.value = partyDetails.value.find(
+        (party) => party.slug === partySlug
+      );
     };
-    partyDetails.value.push(party);
-  }
-  const activeParty = ref(null);
-  const activateParty = partySlug => {
-    activeParty.value = partyDetails.value.find(
-      party => party.slug === partySlug,
-    );
-  };
-});
+  });
+}
+
+// If there are no parties to show, route to booking-paused
+if (partyDetails.value.length === 0) {
+  await navigateTo({
+    path: "/booking-paused",
+    query: { context: "contact" },
+  });
+}
 </script>
 <template>
   <div class="my-8">

@@ -16,8 +16,18 @@ dist
 
 # Local archives
 *.tgz
-*.zip
+
+
+
 
 # todo files
 *todo.md
 
+# status sh and txt files
+status.sh
+STATUS.txt
+STATUS2.txt
+typecheck-output.txt
+
+# project specific cheatsheets
+*CHEATSHEET.md

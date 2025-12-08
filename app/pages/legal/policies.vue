@@ -1,18 +1,32 @@
 <script setup>
-const { data: policies, error } = await useFetch("/api/legal/policies");
+const { guardedFetch } = useBookingApi();
+
+const policies = await guardedFetch("/api/legal/policies");
 const policyList = ref([]);
-let doc = {};
-policies.value.forEach((record, index) => {
-  doc = {
-    index: index + 1,
-    id: record.id,
-    policyName: record.fields.policyName,
-    policyDate: record.fields.policyDate,
-    link: record.fields.link,
-    status: record.fields.status,
-  };
-  policyList.value.push(doc);
-});
+
+// Guard against undefined result from 429/503 redirect
+if (policies && Array.isArray(policies)) {
+  let doc = {};
+  policies.forEach((record, index) => {
+    doc = {
+      index: index + 1,
+      id: record.id,
+      policyName: record.policyName,
+      policyDate: record.policyDate,
+      link: record.link,
+      status: record.status,
+    };
+    policyList.value.push(doc);
+  });
+}
+
+// If there are no policies to show, route to booking-paused
+if (policyList.value.length === 0) {
+  await navigateTo({
+    path: "/booking-paused",
+    query: { context: "info" },
+  });
+}
 </script>
 
 <template>

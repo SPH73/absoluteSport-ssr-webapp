@@ -1,17 +1,27 @@
 <script setup>
+const { guardedFetch } = useBookingApi();
+
 // fetched data
-const { data: partyList, error } = await useFetch("/api/parties/partyList");
-let party = {};
+const partyList = await guardedFetch("/api/parties/partyList");
+const error = ref(null);
 const partyOptions = ref([]);
-partyList.value.forEach((record, index) => {
-  party = {
-    index: index + 1,
-    id: record.id,
-    partyName: record.fields.partyName,
-    partyRef: record.fields.partyRef,
-  };
-  partyOptions.value.push(party);
-});
+
+// Guard against undefined result from 429/503 redirect
+if (!partyList || !Array.isArray(partyList)) {
+  // guardedFetch already handled the redirect to /booking-paused
+  // Safe to render with empty partyOptions
+} else {
+  let party = {};
+  partyList.forEach((record, index) => {
+    party = {
+      index: index + 1,
+      id: record.id,
+      partyName: record.partyName,
+      partyRef: record.partyRef,
+    };
+    partyOptions.value.push(party);
+  });
+}
 
 // form data
 const partyData = ref({});
@@ -122,29 +132,35 @@ async function handleSubmit() {
     // recaptcha: recaptcha.value.val,
   };
 
-  const res = await $fetch("/api/parties/partyQuote", {
+  const res = await guardedFetch("/api/parties/partyQuote", {
     method: "post",
     body: partyData.value,
   });
-  console.log("quote res*****", res.fields);
+  console.log("quote res*****", res);
+
+  if (!res) {
+    // 429 or 503: guardedFetch has already redirected to /booking-paused
+    // Do not access properties on res or continue with quote flow
+    return;
+  }
 
   quoteRef.value = res.id;
   const router = useRouter();
   router.replace({
     path: "/parties/success",
     query: {
-      name: res.fields.firstName,
-      surname: res.fields.surname,
-      phone: res.fields.phone,
-      email: res.fields.email,
-      party: res.fields.party,
+      name: res.firstName,
+      surname: res.surname,
+      phone: res.phone,
+      email: res.email,
+      party: res.party,
       quoteRef: res.id,
-      date1: res.fields.partyDate1,
-      date2: res.fields.partyDate2,
-      length: res.fields.partyLength,
-      start: res.fields.partyStart,
-      numChildren: res.fields.numChildren,
-      postCode: res.fields.postCode,
+      date1: res.partyDate1,
+      date2: res.partyDate2,
+      length: res.partyLength,
+      start: res.partyStart,
+      numChildren: res.numChildren,
+      postCode: res.postCode,
     },
   });
 }

@@ -7,20 +7,36 @@ useHead({
     },
   ],
 });
-const { data: fList, error, pending } = await useFetch("/api/faqs");
+const { guardedFetch } = useBookingApi();
+
+const fList = await guardedFetch("/api/faqs");
+const error = ref(null);
+const pending = ref(false);
 const faqList = ref([]);
-let faq = {};
-// console.log("faqs", faqList.value);
-fList.value.forEach((record, index) => {
-  faq = {
-    index: index + 1,
-    id: record.id,
-    question: record.fields.question,
-    answer: record.fields.answer,
-    tags: record.fields.tags,
-  };
-  faqList.value.push(faq);
-});
+
+// Guard against undefined result from 429/503 redirect
+if (fList && Array.isArray(fList)) {
+  let faq = {};
+  // console.log("faqs", faqList.value);
+  fList.forEach((record, index) => {
+    faq = {
+      index: index + 1,
+      id: record.id,
+      question: record.question,
+      answer: record.answer,
+      tags: record.tags,
+    };
+    faqList.value.push(faq);
+  });
+}
+
+// If there are no FAQs to show, route to booking-paused instead of rendering a blank page
+if (!faqList.value.length) {
+  await navigateTo({
+    path: "/booking-paused",
+    query: { context: "contact" },
+  });
+}
 
 const showFaqs = ref(false);
 const search = ref("");
@@ -48,18 +64,18 @@ const clearFilters = () => {
   hideFaqList();
 };
 
-const selectTag = tag => {
+const selectTag = (tag) => {
   return (selectedTag.value = tag);
 };
 
 const matchingFAQs = computed(() => {
   clearTag();
-  return faqList.value.filter(faq => faq.question.includes(search.value));
+  return faqList.value.filter((faq) => faq.question.includes(search.value));
 });
 // watch(matchingFAQs, () => console.log(matchingFAQs.value));
 const filteredFAQs = computed(() => {
   clearInput();
-  return faqList.value.filter(faq => faq.tags.includes(selectedTag.value));
+  return faqList.value.filter((faq) => faq.tags.includes(selectedTag.value));
 });
 </script>
 <template>

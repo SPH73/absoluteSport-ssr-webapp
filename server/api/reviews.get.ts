@@ -1,17 +1,13 @@
-import Airtable from "airtable";
+import { airtableSelect } from "./utils/airtable";
 
-export default defineEventHandler(async () => {
-  const { atApiKey } = useRuntimeConfig().private;
-  const { atBaseId } = useRuntimeConfig().public;
-  const base = new Airtable({ apiKey: atApiKey }).base(atBaseId);
-
-  const table = base("reviews");
-
-  const records = await table.select({ view: "allReviews" }).firstPage();
-  if (!records) {
-    throw Error("Unable to fetch reviews");
-  }
-  // console.log("airtable reviews", records);
+export default defineEventHandler(async (event) => {
+  const records = await airtableSelect(
+    "reviews",
+    {
+      view: "allReviews",
+    },
+    event
+  );
 
   return records;
 });

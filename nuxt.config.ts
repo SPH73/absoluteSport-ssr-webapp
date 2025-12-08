@@ -4,7 +4,7 @@ import { defineNuxtConfig } from "nuxt/config";
 export default defineNuxtConfig({
   compatibilityDate: "2025-11-05",
   nitro: {
-    preset: "netlify",
+    preset: process.env.NODE_ENV === "test" ? "node-server" : "netlify",
     prerender: {
       routes: ["/sitemap.xml", "/robots.txt"],
     },
@@ -36,6 +36,7 @@ export default defineNuxtConfig({
     "@vueuse/nuxt",
     "nuxt-swiper",
     "@nuxt/image",
+    "@nuxt/test-utils/module",
   ],
   image: {
     cloudinary: {
@@ -53,6 +54,7 @@ export default defineNuxtConfig({
     private: {
       atApiKey: process.env.AT_API_KEY,
       mcApiKey: process.env.MC_API_KEY,
+      airtableDisabled: process.env.AIRTABLE_DISABLED === "true",
       gcAccessToken: process.env.GC_ACCESS_TOKEN,
     },
     cspAirtableToken: process.env.NUXT_CSP_AIRTABLE_TOKEN,
@@ -65,6 +67,7 @@ export default defineNuxtConfig({
       atBaseId: process.env.AT_BASE_ID,
       mcAudId: process.env.MC_AUDIENCE_ID,
       mcServer: process.env.MC_SERVER_PREFIX,
+      bookingPaused: process.env.NUXT_PUBLIC_BOOKING_PAUSED === "true",
     },
   },
 });

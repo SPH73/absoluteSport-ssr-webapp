@@ -1,16 +1,13 @@
-import Airtable from "airtable";
+import { airtableSelect } from "../utils/airtable";
 
-export default defineEventHandler(async event => {
-  const { atApiKey } = useRuntimeConfig().private;
-  const { atBaseId } = useRuntimeConfig().public;
-  const base = new Airtable({ apiKey: atApiKey }).base(atBaseId);
-
-  const table = base("partiesList");
-
-  const records = await table.select({ view: "Grid view" }).firstPage();
-  if (!records) {
-    throw Error("Unable to fetch available parties");
-  }
+export default defineEventHandler(async (event) => {
+  const records = await airtableSelect(
+    "partiesList",
+    {
+      view: "Grid view",
+    },
+    event
+  );
 
   return records;
 });

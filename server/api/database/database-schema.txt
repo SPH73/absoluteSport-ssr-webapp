@@ -1,0 +1,411 @@
+1. Bookings & Payments
+1.1 fa-bookings (Football Academy Bookings)
+Purpose: Per-child bookings for Football Academy sessions.
+Api method: post
+Fields:
+surname – Child’s surname
+childName – Child’s first name
+parentName – Parent/guardian name
+email – Contact email
+mobile – Contact mobile
+venue – Academy venue (refers to faVenueList logically)
+academy – Academy programme (refers to faList logically)
+age – Child age
+medicalConditions – Free-text medical/needs info
+bookingRef – Internal booking reference
+paymentRef – Payment reference (GoCardless/other)
+photo – Photo consent / notes
+sessions – Session selection/summary
+time – Time slot
+termCost – Total cost for the term
+startDate – Term start date
+endDate – Term end date
+status – Booking status (e.g. pending, confirmed, cancelled)
+createdDate – Created timestamp
+Last Modified By – System meta (who last edited)
+
+1.2 fa-payments (Football Academy Payments)
+Purpose: Payments associated with FA bookings.
+Api method: post
+Fields:
+parentName – Payer name
+bookingCreatedOn – Date/time of original booking
+recordID – Linked Airtable record ID for original booking
+numBookings – Number of children/slots covered by this payment
+children – Summary of children included
+paymentRef – Payment reference (e.g. GoCardless)
+status – Payment status (Paid / Pending / Failed / Refunded)
+amountDue – Amount expected
+Amount Paid – Amount actually paid
+contactNumber – Contact phone
+email – Contact email
+termsAccepted – Terms & conditions accepted (yes/no)
+Created – Record created date/time
+
+1.3 camp-bookings (Holiday Camp Bookings)
+Purpose: Per-child holiday camp bookings.
+Api method: post
+Fields:
+childSurname – Child surname
+childName – Child name
+Created – Booking created timestamp
+parentName – Parent/guardian name
+status – Booking status
+childAge – Child age
+campName – Camp name/identifier (refers to campsList)
+location – Camp location
+daysBooked – Days selected for booking
+totalDays – Total number of days booked
+price – Calculated cost for the booking
+pupilPrem – Pupil premium indicator
+hafID – HAF (Holiday Activities & Food) identifier
+photos – Photo consent/notes
+bookingRef – Booking reference
+paymentRef – Payment reference
+
+1.4 camp-payments (Holiday Camp Payments)
+Purpose: holiday camp payments linked to one or more per child bookings.
+Api method: post
+Fields:
+parentName – Payer name
+Created – Payment record created date/time
+email – Contact email
+mainPhone – Main phone number
+paymentRef – Payment reference
+amountDue – Amount due
+status – Payment status
+numChildren – Number of children covered
+childrenNames – Names of children included
+emailSent – Email confirmation sent (yes/no)
+
+1.5 club-bookings (After-School Clubs Bookings)
+Purpose: After-school and wraparound care bookings.
+Api method: post
+Fields:
+surname – Child’s surname
+school – School name (refers to schoolList)
+club – Club name (refers to clubsList)
+yearGroup – Year group(s)
+paymentRef – Payment reference
+bookingRef – Booking reference
+childName – Child name
+parentName – Parent/guardian name
+contactNumber – Primary contact number
+email – Contact email
+altParentName – Alternative contact name
+altParentContact – Alternative contact phone
+medicalConds – Medical conditions
+sessionCost – Price per session
+sessionsPerTerm – Number of sessions per term
+termCost – Total term cost
+startDate – Start date of the club
+endDate – End date of the club
+status – Booking status (e.g. reserved, awaiting payment, confirmed)
+createdDate – Created timestamp
+Status Last Modified – Status last updated time
+Last Modified By – Meta (editor name)
+condition – Additional internal flag/condition
+
+1.6 club-payments (After-School Clubs Payments)
+Purpose: school club payments linked to per child bookings.
+Api method: post
+Fields:
+surname – Child/family surname
+bookingCreatedOn – Original booking created date/time
+recordID – Linked booking record ID
+school – School (aligned to schoolList)
+yearGroup – Year group
+medicalConds – Medical notes
+clubsQty – Number of clubs included
+clubsBooked – Summary of clubs booked
+paymentRef – Payment reference
+status – Payment status (e.g. awaiting payment, paid)
+amountDue – Amount due
+Amount Paid – Amount paid
+childName – Child name
+parentName – Parent/guardian name
+contactNumber – Contact number
+email – Email
+emailSent – Email confirmation sent (yes/no)
+Created – Payment record created date/time
+Notes – Internal notes
+
+2. Lookup & Configuration Tables
+These drive dropdown lists, schedules, pricing and availability in the app and admin views.
+2.1 campsList (Camps Configuration)
+Purpose: generates booking form select options
+Api method: get
+Fields:
+campName – Name (e.g. “Christmas 2025 Day 1”)
+status – Status (e.g. upcoming, past)
+daysAvailable – Primary day or pattern (e.g. Monday)
+haf – HAF eligible flag
+hafDays – Days applicable for HAF
+campRef – Camp reference code
+locRef – Location reference (matches campLocList)
+campDate – Human-readable date string
+ws – Week start / week summary date
+pricePerDay – Price per day
+spaceAvailable – Remaining capacity
+
+2.2 campLocList (Camp Locations)
+Purpose: generates booking form select options
+Api method: get 
+Fields:
+locationName – Location name (e.g. “Portfield Academy”)
+locRef – Location reference code
+pricePerDay – Location-specific price per day (if overridden)
+schoolBadge – School/venue badge or label
+
+2.3 clubsList (Clubs Configuration)
+Purpose: generates booking form select options
+Api method: get
+Fields:
+clubName – Club name (e.g. “Monday Wrap Around Care 15:00–17:15”)
+yearRange – Year coverage (e.g. R123456)
+clubRef – Club reference code
+schoolName – School name (human readable)
+schoolRef – School code (matches schoolList)
+pricePerSession – Price per session
+sessions – Number of sessions
+termCost – Total term cost
+maxCapacity – Maximum capacity
+spaceAvailable – Current available space
+status – e.g. upcoming/full
+startDate – Start date
+endDate – End date
+Modified – Last modified timestamp
+
+2.4 faList (Football Academy Programmes)
+Purpose: generates booking form select options
+Api method: get
+Fields:
+academyName – Academy name (e.g. “AbsoluteSport Portfield Rising Stars”)
+ageGroup – Age band (e.g. 5–7, 7–8)
+sessionTime – Time (e.g. Saturday 9am)
+sessionDuration – Duration (e.g. 1:00)
+academyRef – Academy reference code
+venueRef – Venue reference code (matches faVenueList)
+venueName – Venue name
+numSessions – Number of sessions in term/block
+pricePerSession – Price per session
+termCost – Total term cost
+spaceAvailable – Capacity remaining
+startDate – Start date
+endDate – End date
+status – e.g. full/upcoming
+
+2.5 faVenueList (Academy Venues)
+Purpose: generates booking form select options
+Api method: get
+Fields:
+venueName – Venue name
+venueRef – Venue reference code
+status – e.g. full/available
+
+2.6 sportList (Sports & Wraparound Mapping)
+Purpose: generates booking form checkboxes
+Api method: get
+Fields:
+sportName – Sport or wraparound label (e.g. “Wrap Around Care (Everyday)”)
+intro – Short description (e.g. “Games, Arts and Crafts”)
+yearRange – Year range
+schoolList – School name or link
+sessions – Number of sessions
+startDate – Start date
+endDate – End date
+display – Display flag
+Modified – Last modified timestamp
+
+2.7 eventsList (Events Calendar Items)
+Purpose: generates booking form select options
+Api method: get
+Fields:
+eventName – Event name
+status – e.g. upcoming/past
+eventRef – Event reference code
+locRef – Location reference
+campDate – Date string
+ws – Week start or date marker
+pricePerDay – Price per day
+spaceAvailable – Space remaining
+
+2.8 schoolList (Schools)
+Purpose: generates booking form select options
+Api method: get
+Fields:
+schoolName – School name
+schoolRef – Short school code
+status – Operational status
+space – Capacity/space indicator
+schoolBadge – Label or badge string
+bookings – Booking count/flag
+Modified – Last modified timestamp
+
+2.9 partiesList (Party Types)
+Purpose: generates booking form select options
+Api method: get
+
+Fields:
+partyName – Name (e.g. “Football Frenzy Party”)
+partyRef – Party reference code
+
+3. Content & SEO Tables
+These drive page content, meta information and imagery.
+3.1 CMS (Generic Content Blocks)
+Purpose: generates main page & serp content
+Api method: get
+Fields:
+element – Element key (e.g. ticker)
+school – Segment (here used as ticker “school” indicator)
+content – Content text
+display – Display flag
+lastUpdated – Last updated timestamp
+
+3.2 campsContent (Holiday Activity Camps Page)
+Purpose: generates main page content
+Api method: get
+Fields:
+page – Page descriptor (e.g. “Main Page Info”)
+imagesCarousel – Carousel images (multi-attachment-style string in Airtable)
+slug – URL slug (e.g. holiday-activity-camps)
+pageHeading – Page heading
+campName – Highlighted camp name (if used)
+thumbnail – Thumbnail image / reference
+summary – High-level summary
+summaryP1 – First paragraph
+summaryP2 – Second paragraph
+Notes for Us – Internal notes (e.g. “images required”)
+headTitle – SEO/head title (e.g. “2024 Fun Filled Holiday Activity Camps in West Sussex”)
+metaDescription – SEO meta description text
+benefits – Benefits section content
+images – Additional image list/paths
+
+3.3 clubsContent (Clubs Page)
+Purpose: generates main page content
+Api method: get
+Fields:
+pageHeading – “School Clubs” page heading
+imagesCarousel – Carousel images field
+pageTitle – Page title label (e.g. “Clubs Page”)
+thumbnail – Thumbnail image / reference
+summary – Short summary
+detailedDescription – Full narrative copy (multi-line)
+Notes – Internal notes (e.g. content status “Done”)
+headTitle – SEO title (e.g. “Highly recommended school clubs provider…”)
+metaDescription – SEO meta description text
+metaImage – SEO/image field
+Modified – Last modified timestamp
+
+3.4 footballContent (Football Academy Page)
+Purpose: generates main page content
+Api method: get
+Fields:
+contentName – Content block name (e.g. “Football Academy Intro”)
+content – Long-form intro text (multi-paragraph)
+page – Page name (e.g. “Football Academy”)
+metaDescription – SEO description (e.g. FA-qualified coach & talent scout)
+metaImage – SEO/OG image field
+metaTitle – SEO title (e.g. “Youth Football Training Academy…”)
+
+3.5 partiesContent (Party Detail Page Content)
+Purpose: generates main page content
+Api method: get
+Fields:
+pageTitle – Page type (e.g. “Detail Page”)
+imagesCarousel – Carousel image set
+images – Main image set for content
+featured – Featured party content flag
+SEOTitle – SEO title (e.g. “Football Frenzy Party in West Sussex and Hampshire”)
+partyName – Party name
+slug – URL slug (e.g. football-frenzy-party)
+pageHeading – Page heading
+thumbnail – Thumbnail image
+summary / additional paragraph fields (summaryP1, summaryP2, etc.) – descriptive copy (from indices between 15–78)
+bullets1 – Bullet point 1
+bullets2 – Bullet point 2
+bullets3 – Bullet point 3
+bullets4 – Bullet point 4
+bullets5 – Bullet point 5
+metaTitle – SEO title (e.g. “The Most Wanted Football Frenzy Party…”)
+metaDescription – SEO description
+metaImage – SEO/OG image
+Notes – Internal notes (“Images for image carousel!”)
+lastModified – Last modified timestamp
+(The mid-range fields between thumbnail and bullets1 are all narrative paragraphs and sub-sections; when modelling in Baserow, you can keep them as summary, bodyP1, bodyP2, etc., mirroring your current Airtable field names.)
+
+3.6 carouselImages (Global Carousel Images)
+Purpose: populates main page segments carousel content
+Api method: get
+Fields:
+segment – Segment key (e.g. clubs)
+images – String of image filenames (multiple)
+display – Display flag
+
+3.7 FAQs (Frequently Asked Questions)
+Purpose: generates search results
+Api method: get
+Fields:
+question – Question text
+answer – Answer text (multi-line)
+tags – Tag(s), e.g. parties
+
+3.8 reviews (Customer Reviews)
+Purpose: generates home page reviews carousel
+Api Type: get
+Fields:
+reviewerName – Reviewer name
+reviewerComment – Review text
+rating – Numeric rating
+featured – Featured flag
+created – Review created date/time
+recordID – Airtable record ID
+posted – Posted/on-site date
+
+3.9 schoolsTestimonials (School Testimonials)
+Purpose: generates testimonial carousel content - clubs page
+Api Type: get
+Fields:
+school – School name (e.g. “West Wittering Primary School”)
+name – Contact person’s name
+designation – Role (Headteacher, etc.)
+comment – Full testimonial copy
+featured – Featured indicator
+
+4. Enquiries & Contact
+4.1 enquiries (Unified Contact + Party Enquiries)
+Purpose: One table backing both general contact form and party enquiry forms.
+Api Type: post
+Fields:
+firstName – Enquirer first name
+surname – Enquirer surname
+status – Enquiry status (e.g. new, in progress, closed)
+enquiryType – Type (e.g. contact, party)
+createdOn – Created timestamp
+email – Email address
+info – General info / message text
+phone – Phone number
+postCode – Postcode
+party – Party selection (mapped logically to partiesList)
+childsName – Child’s name
+childsAge – Child’s age
+childsBirthday – Child’s DOB (free text or date)
+partyDate1 – Preferred date 1
+partyDate2 – Preferred date 2
+partyStart – Preferred start time
+partyLength – Duration
+numChildren – Expected number of children
+recaptcha – Captured recaptcha token/flag
+ref – Internal reference / record reference
+Created – System-style created timestamp (inline text from Airtable)
+emailSent – Yes/no flag for outbound email
+
+5. How to Model This in Baserow
+For each table above:
+Textual fields → Baserow Text or Long text depending on length.
+Booleans / flags (display, featured, emailSent, haf, pupilPrem, etc.) → Boolean or Single select where multi-state is needed.
+Status fields (status, enquiryType, etc.) → Single select with controlled options.
+Dates & times (startDate, Created, createdOn, endDate, etc.) → Date/DateTime.
+Numeric fields (termCost, pricePerSession, numChildren, numSessions, etc.) → Number.
+Relational fields (e.g. school, schoolRef / locRef / venueRef / party) → Baserow Link to table, aligned to schoolList, campLocList, faVenueList, partiesList etc.
+SEO/meta fields (metaTitle, metaDescription, metaImage, headTitle, SEOTitle) → Text (and File or URL for images).

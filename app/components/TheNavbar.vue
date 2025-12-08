@@ -57,7 +57,8 @@ onMounted(() => {
               Home
             </NuxtLink>
           </li>
-          <li class="dropdown" aria-haspopup="true">
+          <!-- EVENTS COMMENTED OUT - No current events -->
+          <!-- <li class="dropdown" aria-haspopup="true">
             <span
               >Events&nbsp;
               <font-awesome-icon
@@ -86,7 +87,7 @@ onMounted(() => {
                 </NuxtLink>
               </li>
             </ul>
-          </li>
+          </li> -->
           <li class="dropdown" aria-haspopup="true">
             <span
               >School Clubs
@@ -300,7 +301,8 @@ onMounted(() => {
               Home</NuxtLink
             >
           </li>
-          <li class="flex items-center">
+          <!-- EVENTS COMMENTED OUT - No current events -->
+          <!-- <li class="flex items-center">
             <NuxtLink
               to="/events"
               @click="isOpen = false"
@@ -319,7 +321,7 @@ onMounted(() => {
             >
               Book Tickets</NuxtLink
             >
-          </li>
+          </li> -->
           <li class="flex items-center">
             <NuxtLink
               to="/clubs"
