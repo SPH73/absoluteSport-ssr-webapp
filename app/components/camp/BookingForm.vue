@@ -18,11 +18,9 @@ interface CmsContent {
 }
 type CampLocRecord = {
   id: string;
-  fields: {
-    locationName: string;
-    locRef: string;
-    pricePerDay: number;
-  };
+  locationName: string;
+  locRef: string;
+  pricePerDay: number;
 };
 
 interface CampLocation {
@@ -71,9 +69,9 @@ const locationOptions = ref(
   (campLocList || []).map((record, i) => ({
     index: i + 1,
     id: record.id,
-    locationName: record.fields.locationName,
-    locRef: record.fields.locRef,
-    locPrice: record.fields.pricePerDay,
+    locationName: record.locationName,
+    locRef: record.locRef,
+    locPrice: record.pricePerDay,
   }))
 );
 
