@@ -1,8 +1,43 @@
-<script setup>
+<script setup lang="ts">
 const { guardedFetch } = useBookingApi();
 
+// ---------- Types ----------
+interface CampOption {
+  id: string;
+  campName: string;
+  campRef: string;
+  locRef: string;
+  campDate: string;
+  weekStarting: string;
+  pricePerDay: number;
+  spaceAvailable: number;
+  status: string | null;
+  haf: boolean;
+  daysAvailable: string[] | null;
+  hafDays: string[] | null;
+}
+
+interface CampBookingItem {
+  childName: string;
+  childSurname: string;
+  parentName: string;
+  childAge: number;
+  photos: boolean;
+  location: string;
+  campName: string;
+  daysBooked: string[];
+  totalDays: number;
+  bookingRef: string;
+  pupilPrem: boolean;
+  hafID: string;
+  price: number;
+  paymentRef: string;
+  status: "reserved" | "pupil premium";
+}
+
+// ---------- <head> ----------
 useHead({
-  title: `Holiday camps booking request`,
+  title: "Holiday camps booking request",
   meta: [
     {
       name: "robots",
@@ -16,56 +51,48 @@ useHead({
     },
   ],
 });
-// fetched camps
-const campsList = await guardedFetch("/api/camps/campsList");
-const error = ref(null);
-const campOptions = ref([]);
 
-// Guard against undefined result from 429/503 redirect
-if (campsList && Array.isArray(campsList)) {
-  let camp = {};
-  campsList.forEach((record, index) => {
-    camp = {
-      index: index + 1,
-      id: record.id,
-      campName: record.campName,
-      campRef: record.campRef,
-      locRef: record.locRef,
-      campDate: record.campDate,
-      weekStarting: record.ws,
-      pricePerDay: record.pricePerDay,
-      spaceAvailable: record.spaceAvailable,
-      status: record.status,
-      haf: record.haf,
-      daysAvailable: record.daysAvailable,
-      hafDays: record.hafDays,
-    };
-    campOptions.value.push(camp);
-  });
-}
-const currentCamps = computed(() => {
-  return campOptions.value.filter((camp) => camp.status.includes("current"));
-});
-// keep alive
-const selectedTab = ref("CampForm");
-const setSelectedTab = (tab) => {
+// ---------- Fetch camps ----------
+const campsListResponse = (await guardedFetch(
+  "/api/camps/campsList"
+)) as CampOption[] | null;
+
+const campOptions = ref<CampOption[]>(Array.isArray(campsListResponse) ? campsListResponse : []);
+
+// Only camps with status "current" should be bookable
+const currentCamps = computed<CampOption[]>(() =>
+  campOptions.value.filter(
+    (camp) => typeof camp.status === "string" && camp.status.includes("current")
+  )
+);
+
+// ---------- Tab state ----------
+const selectedTab = ref<"CampForm" | "CampBookingDetails">("CampForm");
+const setSelectedTab = (tab: "CampForm" | "CampBookingDetails") => {
   selectedTab.value = tab;
 };
 
-// form data
-const campBooking = ref([]);
-const bookingRef = ref(null);
-const paymentRef = ref(null);
-const childList = ref([]);
-const enteredParentName = ref("");
-const enteredEmail = ref("");
-const enteredMainContact = ref("");
-const acceptedTerms = ref(false);
-const parentAdded = ref(null);
-const savedParent = ref({});
+// ---------- Shared booking state ----------
+const campBooking = ref<CampBookingItem[]>([]);
+const bookingRef = ref<string | null>(null);
+const paymentRef = ref<string | null>(null);
+const childList = ref<string[]>([]);
 
-// parent details
-const handleSaveParent = (name, contact, email, terms) => {
+const enteredParentName = ref<string>("");
+const enteredEmail = ref<string>("");
+const enteredMainContact = ref<string>("");
+const acceptedTerms = ref<boolean>(false);
+const parentAdded = ref<number>(0);
+
+const savedParent = ref<Record<string, unknown>>({});
+
+// ---------- Parent details ----------
+const handleSaveParent = (
+  name: string,
+  contact: string,
+  email: string,
+  terms: boolean
+) => {
   createPaymentRef();
   enteredParentName.value = name;
   enteredMainContact.value = contact;
@@ -77,177 +104,149 @@ const handleSaveParent = (name, contact, email, terms) => {
     mainPhone: enteredMainContact.value,
     email: enteredEmail.value,
     paymentRef: paymentRef.value,
-    numChildren: numChildren,
-    childrenNames: childrenNames,
-    amountDue: totalCost,
+    numChildren: numChildren.value,
+    childrenNames: childrenNames.value,
+    amountDue: totalCost.value,
     status: "awaiting payment",
-    paymentRef: paymentRef.value,
   };
 };
 
-watch(savedParent, () => {
-  parentAdded.value = Object.keys(savedParent.value).length;
-});
-const childName = ref("");
-const childSurname = ref("");
-const childAge = ref("select");
-const pupilPrem = ref(false);
-const hafID = ref("");
-const confirmedPhoto = ref(true);
-const campLoc = ref("select");
-const campName = ref("select");
-const campDays = ref(["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"]);
-const numCampDays = ref(null);
+watch(
+  savedParent,
+  () => {
+    // parentAdded being truthy is enough for the form logic
+    parentAdded.value = Object.keys(savedParent.value).length;
+  },
+  { deep: true }
+);
 
-const campBookingItem = ref({});
-const pricePerDay = ref(null);
-
-// TODO
-// const recaptcha = ref({ val: "..." });
-
-// camp booking
+// ---------- Child + camp booking from child form ----------
 const handleAddCampBookingItem = (
-  name,
-  surname,
-  age,
-  pp,
-  haf,
-  photo,
-  loc,
-  camp,
-  days,
-  num
+  name: string,
+  surname: string,
+  age: number,
+  pp: boolean,
+  haf: string,
+  photo: boolean,
+  loc: string,
+  camp: string,
+  days: string[],
+  num: number
 ) => {
   createBookingRef();
-  childName.value = name;
-  childSurname.value = surname;
-  childAge.value = age;
-  pupilPrem.value = pp;
-  confirmedPhoto.value = photo;
-  hafID.value = haf;
-  campLoc.value = loc;
-  campName.value = camp;
-  campDays.value = days;
-  numCampDays.value = num;
 
   if (!childList.value.includes(name)) {
     childList.value.push(name);
   }
 
-  const findCamp = computed(() => {
-    return campOptions.value.find((camp) => camp.locRef === campLoc.value);
-  });
+  // Find the selected camp to get price per day
+  const foundCamp = campOptions.value.find(
+    (c) => c.campRef === camp && c.locRef === loc
+  );
 
-  watchEffect(() => {
-    console.log("find camp***", findCamp.value.pricePerDay);
-    console.log("total cost***", totalCost.value);
-  });
+  const pricePerDay = foundCamp?.pricePerDay ?? 0;
+  const price = pp ? 0 : num * pricePerDay;
 
-  const calculatedPrice = computed(() => {
-    let ppd = findCamp.value.pricePerDay;
-    return (pricePerDay.value = pupilPrem.value ? 0 : numCampDays.value * ppd);
-  });
-  campBookingItem.value = {
-    childName: childName.value,
-    childSurname: childSurname.value,
+  const bookingItem: CampBookingItem = {
+    childName: name,
+    childSurname: surname,
     parentName: enteredParentName.value,
-    childAge: childAge.value,
-    photos: confirmedPhoto.value,
-    location: campLoc.value,
-    campName: campName.value,
-    daysBooked: campDays.value,
-    totalDays: numCampDays.value,
-    bookingRef: bookingRef.value,
-    pupilPrem: pupilPrem.value,
-    hafID: hafID.value,
-    price: calculatedPrice.value,
-    paymentRef: paymentRef.value,
-    status: calculatedPrice.value > 0 ? "reserved" : "pupil premium",
+    childAge: age,
+    photos: photo,
+    location: loc,
+    campName: camp,
+    daysBooked: days,
+    totalDays: num,
+    bookingRef: bookingRef.value ?? "",
+    pupilPrem: pp,
+    hafID: haf,
+    price,
+    paymentRef: paymentRef.value ?? "",
+    status: price > 0 ? "reserved" : "pupil premium",
   };
 
-  campBooking.value.push(campBookingItem.value);
+  campBooking.value.push(bookingItem);
 };
 
-const childrenNames = computed(() => {
+// ---------- Aggregates ----------
+const childrenNames = computed<string>(() => {
   return JSON.stringify(childList.value);
 });
 
-const numChildren = computed(() => {
+const numChildren = computed<number>(() => {
   return childList.value.length;
 });
 
-const totalCost = computed(() => {
-  return campBooking.value.reduce(
-    (total, curr) => (total = total + curr.price),
-    0
-  );
+const totalCost = computed<number>(() => {
+  return campBooking.value.reduce((total, curr) => total + curr.price, 0);
 });
 
-const removeItem = (item) => {
+// ---------- Mutations ----------
+const removeItem = (bookingRefToRemove: string) => {
   campBooking.value = campBooking.value.filter(
-    (booking) => booking.bookingRef !== item
+    (booking) => booking.bookingRef !== bookingRefToRemove
   );
 };
 
 const createBookingRef = () => {
   bookingRef.value = Date.now().toString(24);
 };
+
 const createPaymentRef = () => {
   paymentRef.value = Date.now().toString(36);
 };
+
 const bookingDate = new Date().toLocaleString("en-GB");
+
 const cancelBooking = () => {
   savedParent.value = {};
   campBooking.value = [];
   childList.value = [];
 };
 
+// ---------- Confirm booking ----------
 async function confirmBooking() {
   const success = ref(false);
-  const payId = ref(null);
-  const bookId = ref(null);
+  const payId = ref<string | null>(null);
+  const bookId = ref<string | null>(null);
 
+  // Parent payment record
   const resPay = await guardedFetch("/api/camps/campPayment", {
     method: "post",
     body: savedParent.value,
   });
 
   if (!resPay) {
-    // 429 or 503: guardedFetch has already redirected to /booking-paused
-    // Do not access properties on resPay or continue with booking flow
+    // 429 or 503 – guardedFetch will already have redirected
     return;
   }
 
-  payId.value = resPay.id;
-  // console.log("resPay*****", resPay.id);
-  // console.log("payId*****", payId.value);
+  payId.value = (resPay as { id: string }).id;
 
-  const summary = ref([]);
-  for (let campItem of campBooking.value) {
+  const summary: unknown[] = [];
+  for (const campItem of campBooking.value) {
     const resBook = await guardedFetch("/api/camps/campBooking", {
       method: "post",
       body: campItem,
     });
 
     if (!resBook) {
-      // 429 or 503: guardedFetch has already redirected to /booking-paused
-      // Do not access properties on resBook or continue with booking flow
+      // 429 or 503
       return;
     }
 
-    bookId.value = resBook.id;
-    // console.log("resBook*****", resBook);
-    // console.log("bookId*****", bookId.value);
-    summary.value.push(resBook);
+    bookId.value = (resBook as { id: string }).id;
+    summary.push(resBook);
   }
-  // console.log("booking summary*****", summary.value);
 
-  if (payId && bookId) {
+  if (payId.value && bookId.value) {
     success.value = true;
   } else {
     alert("We are sorry, there was a problem with your booking");
+    return;
   }
-  if (success) {
+
+  if (success.value) {
     const router = useRouter();
     const date = new Date().toLocaleString("en-GB");
     router.replace({
@@ -257,10 +256,11 @@ async function confirmBooking() {
         phone: enteredMainContact.value,
         email: enteredEmail.value,
         children: childList.value,
-        paymentRef: paymentRef.value,
-        amountDue: totalCost.value,
+        paymentRef: paymentRef.value ?? "",
+        amountDue: totalCost.value.toString(),
         bookingDate: date,
-        status: totalCost.value > 0 ? "awaiting payment" : "pupil premium",
+        status:
+          totalCost.value > 0 ? "awaiting payment" : ("pupil premium" as const),
       },
     });
   }
@@ -270,63 +270,47 @@ async function confirmBooking() {
 <template>
   <div class="md:container p-2">
     <BaseCard>
-      <!-- <div class="button-container">
-        <div class="btn-group">
-          <button
-            class="btn-accent"
-            v-show="selectedTab === 'CampForm'"
-            @click="selectedTab = 'CampBookingDetails'"
-          >
-            Review Booking Process <span>&nbsp;⟼</span>
-          </button>
-          <button
-            class="btn-accent"
-            v-show="selectedTab === 'CampBookingDetails'"
-            @click="selectedTab = 'CampForm'"
-          >
-            <span>⟻&nbsp;</span> Back To Booking Form
-          </button>
-        </div>
-      </div> -->
       <KeepAlive>
         <CampBookingForm
           v-if="selectedTab === 'CampForm'"
-          @parent-submitted="handleSaveParent"
-          @show-steps="selectedTab = 'CampBookingDetails'"
-          @camp-booking-added="handleAddCampBookingItem"
-          :error="error"
-          :camps-list="currentCamps"
           :parent-added="parentAdded"
-        ></CampBookingForm>
+          :camps-list="currentCamps"
+          :error="null"
+          @parent-submitted="handleSaveParent"
+          @camp-booking-added="handleAddCampBookingItem"
+          @show-steps="selectedTab = 'CampBookingDetails'"
+        />
       </KeepAlive>
+
       <KeepAlive>
         <CampBookingDetails
           v-if="selectedTab === 'CampBookingDetails'"
-          :parentAdded="parentAdded"
-          :parentName="enteredParentName"
-          :mainContact="enteredMainContact"
+          :parent-added="parentAdded"
+          :parent-name="enteredParentName"
+          :main-contact="enteredMainContact"
           :email="enteredEmail"
-          :paymentRef="paymentRef"
-          :bookingDate="bookingDate"
-          :campBooking="campBooking"
-          @handleRemoveBookingItem="removeItem"
-          @handleCancelBooking="cancelBooking"
-          @handleConfirmBooking="confirmBooking"
-        ></CampBookingDetails>
+          :payment-ref="paymentRef ?? ''"
+          :booking-date="bookingDate"
+          :camp-booking="campBooking"
+          @handle-remove-booking-item="removeItem"
+          @handle-cancel-booking="cancelBooking"
+          @handle-confirm-booking="confirmBooking"
+        />
       </KeepAlive>
+
       <div class="button-container">
         <div class="btn-group">
           <button
             class="btn-accent"
             v-show="selectedTab === 'CampForm'"
-            @click="selectedTab = 'CampBookingDetails'"
+            @click="setSelectedTab('CampBookingDetails')"
           >
             Review Booking Details <span>&nbsp;⟼</span>
           </button>
           <button
             class="btn-accent"
             v-show="selectedTab === 'CampBookingDetails'"
-            @click="selectedTab = 'CampForm'"
+            @click="setSelectedTab('CampForm')"
           >
             <span>⟻&nbsp;</span> Back To Booking Form
           </button>

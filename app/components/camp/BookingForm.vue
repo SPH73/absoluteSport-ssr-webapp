@@ -1,11 +1,57 @@
-<script setup>
+<script setup lang="ts">
 const { guardedFetch } = useBookingApi();
 
-// retrieve data for haf pop up
-const cms = await guardedFetch("/api/cms");
+// ---------- Types ----------
+interface CmsRecord {
+  element: string;
+  content: string;
+  display: boolean;
+  lastUpdated: string;
+}
 
-const content = ref(
-  (cms || []).map((record, i) => ({
+interface CmsContent {
+  index: number;
+  name: string;
+  content: string;
+  display: boolean;
+  modified: string;
+}
+type CampLocRecord = {
+  id: string;
+  fields: {
+    locationName: string;
+    locRef: string;
+    pricePerDay: number;
+  };
+};
+
+interface CampLocation {
+  id: string;
+  locationName: string;
+  locRef: string;
+  pricePerDay: number;
+}
+
+interface CampOption {
+  id: string;
+  campName: string;
+  campRef: string;
+  locRef: string;
+  campDate: string;
+  weekStarting: string;
+  pricePerDay: number;
+  spaceAvailable: number;
+  status: string | null;
+  haf: boolean;
+  daysAvailable: string[] | null;
+  hafDays: string[] | null;
+}
+
+// ---------- CMS for HAF popup ----------
+const cms = (await guardedFetch("/api/cms")) as CmsRecord[] | null;
+
+const content = ref<CmsContent[]>(
+  (cms ?? []).map((record, i) => ({
     index: i + 1,
     name: record.element,
     content: record.content,
@@ -14,68 +60,119 @@ const content = ref(
   }))
 );
 
-// pop up when haf is selected
-const hafContent = computed(() => {
-  return content.value.find((item) => item.name === "haf");
-});
+const hafContent = computed<CmsContent | undefined>(() =>
+  content.value.find((item) => item.name === "haf")
+);
 
-// fetched data / props ****
-const campLocList = await guardedFetch("/api/camps/campLocList");
-const props = defineProps(["parentAdded", "campsList"]);
+// ---------- Camp locations ----------
+const campLocList: CampLocRecord[] = await guardedFetch("/api/camps/campLocList");
 
-// events ****
-const emit = defineEmits([
-  "parent-submitted",
-  "camp-booking-added",
-  "show-steps",
-]);
+const locationOptions = ref(
+  (campLocList || []).map((record, i) => ({
+    index: i + 1,
+    id: record.id,
+    locationName: record.fields.locationName,
+    locRef: record.fields.locRef,
+    locPrice: record.fields.pricePerDay,
+  }))
+);
+
+// ---------- Props ----------
+const props = defineProps<{
+  parentAdded: number | null;
+  campsList: CampOption[];
+  error?: string | null;
+}>();
+
+// ---------- Emits ----------
+const emit = defineEmits<{
+  (
+    e: "parent-submitted",
+    name: string,
+    contact: string,
+    email: string,
+    terms: boolean
+  ): void;
+  (
+    e: "camp-booking-added",
+    name: string,
+    surname: string,
+    age: number,
+    pp: boolean,
+    haf: string,
+    photo: boolean,
+    loc: string,
+    camp: string,
+    days: string[],
+    num: number
+  ): void;
+  (e: "show-steps"): void;
+}>();
+
 function showSteps() {
   emit("show-steps");
 }
 
-// parent form data ****
-const enteredParentName = ref({ val: "", isValid: true });
-const enteredMainContact = ref({ val: "", isValid: true });
-const enteredEmail = ref({ val: "", isValid: true });
-const acceptedTerms = ref({ val: false, isValid: true });
+// ---------- Parent form state ----------
+const enteredParentName = ref<{ val: string; isValid: boolean }>({
+  val: "",
+  isValid: true,
+});
+const enteredMainContact = ref<{ val: string; isValid: boolean }>({
+  val: "",
+  isValid: true,
+});
+const enteredEmail = ref<{ val: string; isValid: boolean }>({
+  val: "",
+  isValid: true,
+});
+const acceptedTerms = ref<{ val: boolean; isValid: boolean }>({
+  val: false,
+  isValid: true,
+});
 const parentFormIsValid = ref(true);
 const parentSubmitAttempted = ref(false);
 
-// parent form validation
+// ---------- Parent form validation ----------
 const validateParentForm = () => {
   parentFormIsValid.value = true;
 
-  // reset flags before validation
+  const nameVal = enteredParentName.value.val.trim();
+  const emailVal = enteredEmail.value.val.trim();
+  const phoneVal = enteredMainContact.value.val.trim();
+  const termsVal = acceptedTerms.value.val;
+
   enteredParentName.value.isValid = true;
   enteredEmail.value.isValid = true;
   enteredMainContact.value.isValid = true;
   acceptedTerms.value.isValid = true;
 
-  if (enteredParentName.value.val === "") {
+  if (!nameVal) {
     enteredParentName.value.isValid = false;
     parentFormIsValid.value = false;
   }
-  if (enteredEmail.value.val === "" || !enteredEmail.value.val.includes("@")) {
+
+  if (!emailVal || !emailVal.includes("@")) {
     enteredEmail.value.isValid = false;
     parentFormIsValid.value = false;
   }
-  if (enteredMainContact.value.val === "") {
+
+  if (!phoneVal) {
     enteredMainContact.value.isValid = false;
     parentFormIsValid.value = false;
   }
-  if (acceptedTerms.value.val === false) {
+
+  if (!termsVal) {
     acceptedTerms.value.isValid = false;
     parentFormIsValid.value = false;
   }
 };
 
-// parent form submission
 function onSubmitParent() {
   parentSubmitAttempted.value = true;
   validateParentForm();
-  if (!parentFormIsValid.value) {
-    return;
-  }
+  if (!parentFormIsValid.value) return;
+
   emit(
     "parent-submitted",
     enteredParentName.value.val,
@@ -85,12 +182,21 @@ function onSubmitParent() {
   );
 }
 
-// child form data
+// ---------- Child + camp state ----------
 const campFormIsValid = ref(true);
-const childName = ref({ val: "", isValid: true });
-const childSurname = ref({ val: "", isValid: true });
+const childName = ref<{ val: string; isValid: boolean }>({
+  val: "",
+  isValid: true,
+});
+const childSurname = ref<{ val: string; isValid: boolean }>({
+  val: "",
+  isValid: true,
+});
 const ageRange = [5, 6, 7, 8, 9, 10, 11, 12, 13, 14];
-const childAge = ref({ val: "select", isValid: true });
+const childAge = ref<{ val: number | "select"; isValid: boolean }>({
+  val: "select",
+  isValid: true,
+});
 
 const pupilPrem = ref(false);
 const ppIsChecked = ref(false);
@@ -99,68 +205,75 @@ const title = "Pupil Premium Booking";
 watch(pupilPrem, () => {
   ppIsChecked.value = !!pupilPrem.value;
 });
+
 const confirmPP = () => {
   ppIsChecked.value = false;
 };
-const hafID = ref({ val: "", isValid: true });
+
+const hafID = ref<{ val: string; isValid: boolean }>({
+  val: "",
+  isValid: true,
+});
 const confirmedPhoto = ref(true);
 
-// camp details
+// ---------- Camp selection ----------
 const campSubmitAttempted = ref(false);
-const locationOptions = ref(
-  (campLocList || []).map((record, i) => ({
-    index: i + 1,
-    id: record.id,
-    locationName: record.locationName,
-    locRef: record.locRef,
-    locPrice: record.pricePerDay,
-  }))
-);
 
-const campLoc = ref({ val: "select" });
+const campLoc = ref<{ val: string; isValid?: boolean }>({
+  val: "select",
+});
 
-// pure computeds for lists
-const hasLocation = computed(() => campLoc.value.val !== "select");
+const hasLocation = computed<boolean>(() => campLoc.value.val !== "select");
 
-const filteredCamps = computed(() => {
+const filteredCamps = computed<CampOption[]>(() => {
   const list = Array.isArray(props.campsList) ? props.campsList : [];
   return hasLocation.value
     ? list.filter((c) => c.locRef === campLoc.value.val)
     : [];
 });
 
-const hafFilteredCamps = computed(() =>
+const hafFilteredCamps = computed<CampOption[]>(() =>
   filteredCamps.value.filter((c) => c.haf === true)
 );
 
-const noCampsMessage = computed(() => {
+const noCampsMessage = computed<string>(() => {
   return hasLocation.value && filteredCamps.value.length === 0
     ? "Sorry, no camps available for your selection"
     : "Select a camp location to show available camp weeks.";
 });
 
-const campName = ref({ val: "select", isValid: true });
-const campWeekSelected = computed(() => campName.value.val !== "select");
+const campName = ref<{ val: string; isValid: boolean }>({
+  val: "select",
+  isValid: true,
+});
 
-// single source of truth for selected camp details
-const campDetails = computed(() => {
+const campWeekSelected = computed<boolean>(
+  () => campName.value.val !== "select"
+);
+
+const campDetails = computed<CampOption | undefined>(() => {
   const list = Array.isArray(props.campsList) ? props.campsList : [];
   return list.find((c) => c.campRef === campName.value.val);
 });
 
-// when the camp changes, clear any previously chosen days
-watch(campName, () => {
-  campDaysSelected.value.val = [];
+const campDaysSelected = ref<{ val: string[]; isValid: boolean }>({
+  val: [],
+  isValid: true,
 });
 
-const campDaysSelected = ref({ val: [], isValid: true });
-const numCampDays = computed(() => campDaysSelected.value.val.length);
+const numCampDays = computed<number>(() => campDaysSelected.value.val.length);
 
-// camp form validation
+watch(
+  () => campName.value.val,
+  () => {
+    campDaysSelected.value.val = [];
+  }
+);
+
+// ---------- Camp form validation ----------
 const validateCampForm = () => {
   campFormIsValid.value = true;
 
-  // reset flags before validation
   childName.value.isValid = true;
   childSurname.value.isValid = true;
   childAge.value.isValid = true;
@@ -168,11 +281,11 @@ const validateCampForm = () => {
   campName.value.isValid = true;
   campDaysSelected.value.isValid = true;
 
-  if (childName.value.val === "") {
+  if (!childName.value.val) {
     childName.value.isValid = false;
     campFormIsValid.value = false;
   }
-  if (childSurname.value.val === "") {
+  if (!childSurname.value.val) {
     childSurname.value.isValid = false;
     campFormIsValid.value = false;
   }
@@ -180,11 +293,9 @@ const validateCampForm = () => {
     childAge.value.isValid = false;
     campFormIsValid.value = false;
   }
-  if (pupilPrem.value) {
-    if (hafID.value.val === "") {
-      hafID.value.isValid = false;
-      campFormIsValid.value = false;
-    }
+  if (pupilPrem.value && !hafID.value.val) {
+    hafID.value.isValid = false;
+    campFormIsValid.value = false;
   }
   if (campName.value.val === "select") {
     campName.value.isValid = false;
@@ -196,7 +307,7 @@ const validateCampForm = () => {
   }
 };
 
-// submission
+// ---------- Submit single booking item ----------
 const onAddBookingItem = () => {
   campSubmitAttempted.value = true;
   validateCampForm();
@@ -206,7 +317,7 @@ const onAddBookingItem = () => {
     "camp-booking-added",
     childName.value.val,
     childSurname.value.val,
-    childAge.value.val,
+    Number(childAge.value.val),
     pupilPrem.value,
     hafID.value.val,
     confirmedPhoto.value,
@@ -215,7 +326,7 @@ const onAddBookingItem = () => {
     campDaysSelected.value.val,
     numCampDays.value
   );
-  // reset after each booking is added
+
   childName.value.val = "";
   childSurname.value.val = "";
   childAge.value.val = "select";
@@ -225,6 +336,19 @@ const onAddBookingItem = () => {
   campDaysSelected.value.val = [];
   campSubmitAttempted.value = false;
 };
+const { campsList } = toRefs(props);
+
+if (import.meta.client) {
+  (window as any).bookingDebug = {
+    locationOptions,
+    campsList,
+    campLoc,
+    hasLocation,
+    filteredCamps,
+    hafFilteredCamps,
+    campDetails,
+  };
+}
 </script>
 
 <template>
@@ -234,11 +358,9 @@ const onAddBookingItem = () => {
         {{ hafContent.content }}
       </p>
       <p class="text-dark">
-        <span class="font-play"
-          ><em>
-            For weeks that include HAF places provided by the council:</em
-          ></span
-        >
+        <span class="font-play">
+          <em>For weeks that include HAF places provided by the council:</em>
+        </span>
         your child's HAF ID is required so that the council can confirm the
         booking. If there are any issues we will contact you directly.
       </p>
@@ -247,7 +369,8 @@ const onAddBookingItem = () => {
       <button @click="confirmPP" class="btn-primary">Got It!</button>
     </template>
   </BaseDialog>
-  <div id="text">
+
+ <div id="text">
     <h1 class="text-accent font-play capitalize">camp bookings</h1>
     <p class="text-light">
       We run Holiday Activity Camps at Sidlesham Primary School and Portfield

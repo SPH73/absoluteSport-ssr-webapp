@@ -6,9 +6,7 @@ const props = defineProps<{
 </script>
 
 <template>
-  <div
-    class="bg-secondary w-full text-light font-mulish uppercase p-1 print:hidden"
-  >
+  <div class="bg-secondary w-full text-light font-mulish uppercase p-1 print:hidden">
     <NuxtLink
       v-if="props.to"
       :to="props.to"

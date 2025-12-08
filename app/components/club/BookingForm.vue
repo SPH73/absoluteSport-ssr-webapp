@@ -1,204 +1,349 @@
-<script setup>
+<script setup lang="ts">
+import { useRouter } from "#imports";
+
+import type {
+  ClubRecord,
+  ClubOption,
+  SchoolRecord,
+  SchoolOption,
+  ClubPaymentRecord,
+  ClubBookingRecord,
+} from "../../../types/booking";
+
+import { useBookingApi } from "~/composables/useBookingApi";
+import { useSelectionCost } from "~/composables/useSelectionCost";
+
 const { guardedFetch } = useBookingApi();
+const router = useRouter();
 
-const clubList = await guardedFetch("/api/clubs/clubsList");
-const clubError = ref(null);
-const schoolList = await guardedFetch("/api/clubs/schoolList");
-const schoolError = ref(null);
+/**
+ * Remote data: clubs & schools
+ */
+const clubError = ref<string | null>(null);
+const schoolError = ref<string | null>(null);
 
-const clubOptions = ref([]);
+const clubOptions = ref<ClubOption[]>([]);
+const schoolOptions = ref<SchoolOption[]>([]);
 
-// Guard against undefined result from 429/503 redirect
-if (!clubList || !Array.isArray(clubList)) {
-  // guardedFetch already handled the redirect to /booking-paused
-  // Safe to render with empty clubOptions
+const clubList =
+  (await guardedFetch<ClubRecord[]>("/api/clubs/clubsList")) ?? null;
+const schoolList =
+  (await guardedFetch<SchoolRecord[]>("/api/clubs/schoolList")) ?? null;
+
+if (Array.isArray(clubList)) {
+  clubOptions.value = clubList.map((record, index) => ({
+    index: index + 1,
+    id: record.id,
+    clubName: record.clubName,
+    yearRange: record.yearRange ?? [],
+    clubRef: record.clubRef,
+    schoolName: record.schoolName,
+    schoolRef: record.schoolRef,
+    startDate: record.startDate,
+    endDate: record.endDate,
+    sessions: record.sessions,
+    pricePerSession: record.pricePerSession,
+    termCost: record.termCost,
+    spaceAvailable: record.spaceAvailable,
+    status: record.status ?? null,
+  }));
 } else {
-  let club = {};
-  clubList.forEach((record, index) => {
-    club = {
-      index: index + 1,
-      id: record.id,
-      clubName: record.clubName,
-      yearRange: record.yearRange,
-      clubRef: record.clubRef,
-      schoolName: record.schoolName,
-      schoolRef: record.schoolRef,
-      startDate: record.startDate,
-      endDate: record.endDate,
-      sessions: record.sessions,
-      pricePerSession: record.pricePerSession,
-      termCost: record.termCost,
-      spaceAvailable: record.spaceAvailable,
-      status: record.status,
-    };
-    clubOptions.value.push(club);
-  });
+  clubError.value = "Unable to load clubs at this time.";
 }
-console.log("ClubList", clubOptions.value);
 
-const schoolOptions = ref([]);
-
-// Guard against undefined result from 429/503 redirect
-if (!schoolList || !Array.isArray(schoolList)) {
-  // guardedFetch already handled the redirect to /booking-paused
-  // Safe to render with empty schoolOptions
+if (Array.isArray(schoolList)) {
+  schoolOptions.value = schoolList.map((record, index) => ({
+    index: index + 1,
+    id: record.id,
+    schoolName: record.schoolName,
+    schoolRef: record.schoolRef,
+    status: record.status ?? null,
+  }));
 } else {
-  let school = {};
-  schoolList.forEach((record, index) => {
-    school = {
-      index: index + 1,
-      id: record.id,
-      schoolName: record.schoolName,
-      schoolRef: record.schoolRef,
-      status: record.status,
-    };
-    schoolOptions.value.push(school);
-  });
+  schoolError.value = "Unable to load schools at this time.";
 }
-console.log("SchoolList", schoolOptions.value);
 
-const enteredParentName = ref({ val: "", isValid: true });
-const enteredEmail = ref({ val: "", isValid: true });
-const enteredPhone = ref({ val: "", isValid: true });
-const enteredAltParentName = ref("");
-const enteredAltContact = ref("");
-const enteredChildFirstName = ref({ val: "", isValid: true });
-const enteredSurname = ref({ val: "", isValid: true });
-const enteredMedical = ref({ val: "", isValid: true });
-const enteredYearGroup = ref({ val: "select", isValid: true });
-const selectedSchool = ref({ val: "select", isValid: true });
-const filteredClubs = ref([]);
-const checkedClubs = ref({ val: [], isValid: true });
-const cost = ref(0);
-const acceptedTerms = ref({ val: false, isValid: true });
-const bookingRef = ref("");
-const paymentRef = ref("");
-const clubBooking = ref({});
-const clubPayment = ref({});
-const formIsValid = ref(true);
-const clubDetails = ref([]);
-const bookingSummary = ref([]);
-const paymentSummary = ref({});
-const years = ["R", "1", "2", "3", "4", "5", "6"];
-const submitDisabled = ref(false);
+/**
+ * Form state
+ */
+const enteredParentName = ref<{ val: string; isValid: boolean }>({
+  val: "",
+  isValid: true,
+});
+const enteredEmail = ref<{ val: string; isValid: boolean }>({
+  val: "",
+  isValid: true,
+});
+const enteredPhone = ref<{ val: string; isValid: boolean }>({
+  val: "",
+  isValid: true,
+});
+const enteredAltParentName = ref<string>("");
+const enteredAltContact = ref<string>("");
 
-// calculate cost of all clubs
-const calculateCost = computed(() => {
-  for (club of checkedClubs.value.val) {
-    clubDetails.value = filteredClubs.value.find(
-      (item) => item.clubRef === club
-    );
-    cost.value += clubDetails.value.termCost;
-  }
-  return cost.value;
+const enteredChildFirstName = ref<{ val: string; isValid: boolean }>({
+  val: "",
+  isValid: true,
+});
+const enteredSurname = ref<{ val: string; isValid: boolean }>({
+  val: "",
+  isValid: true,
+});
+const enteredMedical = ref<{ val: string; isValid: boolean }>({
+  val: "",
+  isValid: true,
+});
+const enteredYearGroup = ref<{ val: string; isValid: boolean }>({
+  val: "select",
+  isValid: true,
+});
+const selectedSchool = ref<{ val: string; isValid: boolean }>({
+  val: "select",
+  isValid: true,
 });
 
-const clearCost = () => {
-  checkedClubs.value.val = [];
-  cost.value = 0;
-};
-
-// recalc each time a club is checked
-watch(checkedClubs, () => {
-  cost.value = 0;
-  for (club of checkedClubs.value.val) {
-    clubDetails.value = filteredClubs.value.find(
-      (item) => item.clubRef === club
-    );
-    cost.value += clubDetails.value.termCost;
-  }
-  return cost.value;
+const filteredClubs = ref<ClubOption[]>([]);
+const checkedClubs = ref<{ val: string[]; isValid: boolean }>({
+  val: [],
+  isValid: true,
 });
 
-watch(calculateCost, () => {
-  cost.value = 0;
-  calculateCost.value;
-  return cost.value;
+const acceptedTerms = ref<{ val: boolean; isValid: boolean }>({
+  val: false,
+  isValid: true,
 });
 
-// build checkbox list from year & school selection
-const filteredSchoolClubs = computed(() => {
-  let group = enteredYearGroup.value.val;
-  let schoolRef = selectedSchool.value.val;
-  filteredClubs.value = clubOptions.value.filter((el) => {
-    return el.yearRange.includes(group) && el.schoolName === schoolRef;
-  });
-});
+const bookingRef = ref<string>("");
+const paymentRef = ref<string>("");
+const clubBooking = ref<Partial<ClubBookingRecord>>({});
+const clubPayment = ref<Partial<ClubPaymentRecord>>({});
+const formIsValid = ref<boolean>(true);
 
-watchEffect(() => {
-  enteredYearGroup.value.val;
-  console.log("enteredYearGroup", enteredYearGroup.value.val);
-  selectedSchool.value.val;
-  console.log("selectedSchool", selectedSchool.value.val);
-  filteredSchoolClubs.value;
-  filteredClubs.value;
-  console.log("filteredClubs", filteredClubs.value);
-  checkedClubs.value;
-  console.log("checkedClubs", checkedClubs.value);
-  clubDetails.value;
-  console.log("clubDetails", clubDetails.value);
-  cost.value;
-  console.log("cost", cost.value);
-});
+const clubDetails = ref<ClubOption | null>(null);
+const bookingSummary = ref<ClubBookingRecord[]>([]);
+const paymentSummary = ref<ClubPaymentRecord | null>(null);
+const submitDisabled = ref<boolean>(false);
 
-const validateForm = () => {
-  if (enteredParentName.value.val === "") {
-    enteredParentName.value.isValid = false;
-    formIsValid.value = false;
-  }
-  if (enteredEmail.value.val === "") {
-    enteredEmail.value.isValid = false;
-    formIsValid.value = false;
-  }
-  if (enteredPhone.value.val === "") {
-    enteredPhone.value.isValid = false;
-    formIsValid.value = false;
-  }
-  if (enteredChildFirstName.value.val === "") {
-    enteredChildFirstName.value.isValid = false;
-    formIsValid.value = false;
-  }
-  if (enteredSurname.value.val === "") {
-    enteredSurname.value.isValid = false;
-    formIsValid.value = false;
-  }
-  if (enteredMedical.value.val === "") {
-    enteredMedical.value.isValid = false;
-    formIsValid.value = false;
-  }
-  if (enteredYearGroup.value.val === "select") {
-    enteredYearGroup.value.isValid = false;
-    formIsValid.value = false;
-  }
-  if (selectedSchool.value.val === "select") {
-    selectedSchool.value.isValid = false;
-    formIsValid.value = false;
-  }
-  if (checkedClubs.value.val.length === 0) {
-    checkedClubs.value.isValid = false;
-    formIsValid.value = false;
-  }
-  if (acceptedTerms.value.val === false) {
-    acceptedTerms.value.isValid = false;
-    formIsValid.value = false;
-  }
-};
-
+/**
+ * Helpers
+ */
 const createPaymentRef = () => {
   paymentRef.value = Date.now().toString(36);
 };
-const createBookingRef = (club) => {
-  bookingRef.value = `${paymentRef.value}-${club}`;
+
+const createBookingRef = (clubRef: string) => {
+  bookingRef.value = `${paymentRef.value}-${clubRef}`;
 };
 
-// Form submission
-async function handleSubmitClubBooking() {
+const getClubDetails = (clubRef: string): ClubOption | null => {
+  const details = filteredClubs.value.find(
+    (item: ClubOption) => item.clubRef === clubRef
+  );
+  return details ?? null;
+};
+
+/**
+ * Year options derived from Airtable club data (not hard-coded)
+ */
+const yearOptions = computed<string[]>(() => {
+  const schoolRef = selectedSchool.value.val;
+  const years = new Set<string>();
+
+  for (const club of clubOptions.value) {
+  if (schoolRef !== "select" && club.schoolRef !== schoolRef) continue;
+
+  for (const token of club.yearRange) {
+    const trimmed = token.trim();
+    if (!trimmed) continue;
+    years.add(trimmed);
+  }
+}
+
+  const ordered = Array.from(years);
+  const order = ["R", "1", "2", "3", "4", "5", "6"];
+
+  ordered.sort((a, b) => {
+    const ia = order.indexOf(a);
+    const ib = order.indexOf(b);
+
+    if (ia === -1 && ib === -1) return a.localeCompare(b);
+    if (ia === -1) return 1;
+    if (ib === -1) return -1;
+    return ia - ib;
+  });
+
+  return ordered;
+});
+
+/**
+ * Filter clubs based on school + year group + status
+ */
+const updateFilteredClubs = () => {
+  const schoolRef = selectedSchool.value.val;
+  const year = enteredYearGroup.value.val;
+
+  filteredClubs.value = clubOptions.value.filter((club) => {
+    const isUpcoming =
+      typeof club.status === "string" && club.status.includes("upcoming");
+
+    if (!isUpcoming) return false;
+
+    // Require both filters before showing any clubs
+    if (schoolRef === "select" || year === "select") {
+      return false;
+    }
+
+    const matchesYear = club.yearRange.includes(year);
+
+    return club.schoolRef === schoolRef && matchesYear;
+  });
+};
+
+watch(
+  [() => selectedSchool.value.val, () => enteredYearGroup.value.val],
+  () => updateFilteredClubs(),
+  { immediate: true }
+);
+
+/**
+ * Keep clubDetails in sync with selection (single-club focus)
+ */
+watch(
+  () => checkedClubs.value.val,
+  (refs) => {
+    if (refs.length === 1) {
+      clubDetails.value = getClubDetails(refs[0]!);
+    } else {
+      clubDetails.value = null;
+    }
+  },
+  { deep: true, immediate: true }
+);
+
+/**
+ * Cost calculation via shared composable
+ *
+ * One child can select multiple clubs; cost is sum of termCost for all selected.
+ */
+const selectedClubRefs = computed(() => checkedClubs.value.val);
+
+const { cost, recalculate } = useSelectionCost<ClubOption>(
+  selectedClubRefs,
+  filteredClubs,
+  (option, refVal) => option.clubRef === refVal
+);
+/**
+ * Clear all selected clubs and reset cost
+ */
+const clearSelection = () => {
+  // Uncheck all checkboxes
+  checkedClubs.value = { val: [], isValid: true };
+
+  // Clear focused club details (if any)
+  clubDetails.value = null;
+
+  // Recalculate cost (selectedClubRefs is now empty)
+  recalculate();
+};
+/**
+ * Validation
+ */
+const validateForm = () => {
+  formIsValid.value = true;
+
+  if (!enteredParentName.value.val.trim()) {
+    enteredParentName.value.isValid = false;
+    formIsValid.value = false;
+  } else {
+    enteredParentName.value.isValid = true;
+  }
+
+  if (
+    !enteredEmail.value.val.trim() ||
+    !enteredEmail.value.val.includes("@")
+  ) {
+    enteredEmail.value.isValid = false;
+    formIsValid.value = false;
+  } else {
+    enteredEmail.value.isValid = true;
+  }
+
+  if (!enteredPhone.value.val.trim()) {
+    enteredPhone.value.isValid = false;
+    formIsValid.value = false;
+  } else {
+    enteredPhone.value.isValid = true;
+  }
+
+  if (!enteredChildFirstName.value.val.trim()) {
+    enteredChildFirstName.value.isValid = false;
+    formIsValid.value = false;
+  } else {
+    enteredChildFirstName.value.isValid = true;
+  }
+
+  if (!enteredSurname.value.val.trim()) {
+    enteredSurname.value.isValid = false;
+    formIsValid.value = false;
+  } else {
+    enteredSurname.value.isValid = true;
+  }
+
+  if (enteredYearGroup.value.val === "select") {
+    enteredYearGroup.value.isValid = false;
+    formIsValid.value = false;
+  } else {
+    enteredYearGroup.value.isValid = true;
+  }
+
+  if (selectedSchool.value.val === "select") {
+    selectedSchool.value.isValid = false;
+    formIsValid.value = false;
+  } else {
+    selectedSchool.value.isValid = true;
+  }
+
+  if (!enteredMedical.value.val.trim()) {
+    enteredMedical.value.isValid = false;
+    formIsValid.value = false;
+  } else {
+    enteredMedical.value.isValid = true;
+  }
+
+  if (!checkedClubs.value.val.length) {
+    checkedClubs.value.isValid = false;
+    formIsValid.value = false;
+  } else {
+    checkedClubs.value.isValid = true;
+  }
+
+  if (!acceptedTerms.value.val) {
+    acceptedTerms.value.isValid = false;
+    formIsValid.value = false;
+  } else {
+    acceptedTerms.value.isValid = true;
+  }
+};
+
+/**
+ * Submit: payment then bookings
+ */
+const handleSubmitClubBooking = async () => {
   validateForm();
   if (!formIsValid.value) {
     return;
   }
+
   submitDisabled.value = true;
   createPaymentRef();
+
+  const clubsBookedNames: string[] = [];
+  checkedClubs.value.val.forEach((clubRef) => {
+    const details = getClubDetails(clubRef);
+    if (details) {
+      clubsBookedNames.push(details.clubName);
+    }
+  });
 
   clubPayment.value = {
     paymentRef: paymentRef.value,
@@ -216,78 +361,88 @@ async function handleSubmitClubBooking() {
     medicalConds: enteredMedical.value.val,
   };
 
-  console.log("club payment", clubPayment.value);
-  const createdPayment = await guardedFetch("/api/clubs/clubPayment", {
-    method: "post",
-    body: clubPayment.value,
-  });
+  const createdPayment = await guardedFetch<ClubPaymentRecord>(
+    "/api/clubs/clubPayment",
+    {
+      method: "post",
+      body: clubPayment.value,
+    }
+  );
 
-  paymentSummary.value = createdPayment.fields;
-  console.log("payment res****", createdPayment.fields);
+  if (!createdPayment || !createdPayment.id) {
+    submitDisabled.value = false;
+    alert("Oops, something has gone wrong, please try again later.");
+    return;
+  }
 
-  if (createdPayment.id) {
-    for (let club of checkedClubs.value.val) {
-      createBookingRef(club);
-      clubDetails.value = filteredClubs.value.find(
-        (item) => item.clubRef === club
-      );
+  paymentSummary.value = createdPayment;
 
-      clubBooking.value = {
-        club: clubDetails.value.clubName,
-        paymentRef: paymentRef.value,
-        bookingRef: bookingRef.value,
-        surname: enteredSurname.value.val,
-        childName: enteredChildFirstName.value.val,
-        parentName: enteredParentName.value.val,
-        contactNumber: enteredPhone.value.val,
-        email: enteredEmail.value.val,
-        altParentName: enteredAltParentName.value.val,
-        altParentContact: enteredAltContact.value.val,
-        medicalConds: enteredMedical.value.val,
-        yearGroup: enteredYearGroup.value.val,
-        school: selectedSchool.value.val,
-        startDate: clubDetails.value.startDate,
-        endDate: clubDetails.value.endDate,
-        sessionCost: clubDetails.value.pricePerSession,
-        sessionsPerTerm: clubDetails.value.sessions,
-        termCost: clubDetails.value.termCost,
-        status: "reserved awaiting payment",
-      };
+  for (const clubRef of checkedClubs.value.val) {
+    createBookingRef(clubRef);
 
-      const createdBooking = await guardedFetch("/api/clubs/clubBooking", {
+    const details = getClubDetails(clubRef);
+    if (!details) continue;
+
+    clubBooking.value = {
+      club: details.clubName,
+      paymentRef: paymentRef.value,
+      bookingRef: bookingRef.value,
+      surname: enteredSurname.value.val,
+      childName: enteredChildFirstName.value.val,
+      parentName: enteredParentName.value.val,
+      contactNumber: enteredPhone.value.val,
+      email: enteredEmail.value.val,
+      altParentName: enteredAltParentName.value,
+      altParentContact: enteredAltContact.value,
+      medicalConds: enteredMedical.value.val,
+      yearGroup: enteredYearGroup.value.val,
+      school: selectedSchool.value.val,
+      startDate: details.startDate,
+      endDate: details.endDate,
+      sessionCost: details.pricePerSession,
+      sessionsPerTerm: details.sessions,
+      termCost: details.termCost,
+      status: "reserved awaiting payment",
+      clubRef: details.clubRef,
+      sessions: details.sessions,
+    };
+
+    const createdBooking = await guardedFetch<ClubBookingRecord>(
+      "/api/clubs/clubBooking",
+      {
         method: "post",
         body: clubBooking.value,
-      });
-
-      bookingSummary.value.push(createdBooking.fields);
-
-      if (bookingSummary.value.length === checkedClubs.value.val.length) {
-        const date = new Date().toLocaleString("en-GB");
-        const router = useRouter();
-        router.replace({
-          path: "/clubs/success",
-          query: {
-            name: enteredParentName.value.val,
-            childName: enteredChildFirstName.value.val,
-            surname: enteredSurname.value.val,
-            phone: enteredPhone.value.val,
-            email: enteredEmail.value.val,
-            paymentRef: paymentRef.value,
-            school: selectedSchool.value.val,
-            yearGroup: enteredYearGroup.value.val,
-            medicalConds: enteredMedical.value.val,
-            clubsBooked: JSON.stringify(checkedClubs.value.val),
-            clubsQty: checkedClubs.value.val.length,
-            amountDue: cost.value,
-            bookingDate: date,
-          },
-        });
       }
+    );
+
+    if (createdBooking && createdBooking.id) {
+      bookingSummary.value.push(createdBooking);
     }
-  } else {
-    alert("Oops, something has gone wrong, please try again later.");
   }
-}
+
+  const date = new Date().toLocaleString("en-GB");
+
+  await router.replace({
+    path: "/clubs/success",
+    query: {
+      name: enteredParentName.value.val,
+      childName: enteredChildFirstName.value.val,
+      surname: enteredSurname.value.val,
+      phone: enteredPhone.value.val,
+      email: enteredEmail.value.val,
+      paymentRef: paymentRef.value,
+      school: selectedSchool.value.val,
+      yearGroup: enteredYearGroup.value.val,
+      medicalConds: enteredMedical.value.val,
+      clubsBooked: JSON.stringify(checkedClubs.value.val),
+      clubsQty: checkedClubs.value.val.length,
+      amountDue: cost.value,
+      bookingDate: date,
+    },
+  });
+
+  submitDisabled.value = false;
+};
 </script>
 
 <template>
@@ -340,10 +495,11 @@ async function handleSubmitClubBooking() {
             class="md:text-end"
             :class="{ invalid: !enteredParentName.isValid }"
           >
-            <label>Parent / Guardian Name *</label>
+            <label for="club-booking-parentName">Parent / Guardian Name *</label>
           </div>
           <div :class="{ invalid: !enteredParentName.isValid }">
             <input
+            id="club-booking-parentName"
               type="text"
               v-model.trim.lazy="enteredParentName.val"
               class="w-full p-2 rounded"
@@ -351,10 +507,11 @@ async function handleSubmitClubBooking() {
             />
           </div>
           <div class="md:text-end" :class="{ invalid: !enteredPhone.isValid }">
-            <label for="mainContact">Mobile Number *</label>
+            <label for="club-booking-mainContact">Mobile Number *</label>
           </div>
           <div :class="{ invalid: !enteredPhone.isValid }">
             <input
+            id="club-booking-mainContact"
               type="tel"
               v-model.trim.lazy="enteredPhone.val"
               class="w-full p-2 rounded"
@@ -362,10 +519,11 @@ async function handleSubmitClubBooking() {
             />
           </div>
           <div class="md:text-end" :class="{ invalid: !enteredEmail.isValid }">
-            <label for="email">Email Address *</label>
+            <label for="club-booking-email">Email Address *</label>
           </div>
           <div :class="{ invalid: !enteredEmail.isValid }">
             <input
+            id="club-booking-email"
               type="email"
               v-model.trim.lazy="enteredEmail.val"
               class="w-full p-2 rounded"
@@ -373,22 +531,23 @@ async function handleSubmitClubBooking() {
             />
           </div>
           <div class="md:text-end">
-            <label>Alternate Parent Name</label>
+            <label for="club-booking-altParentName">Alternate Parent Name</label>
           </div>
           <div>
             <input
+            id="club-booking-altParentName"
               type="text"
               class="w-full p-2 rounded"
               v-model.trim.lazy="enteredAltParentName"
             />
           </div>
           <div class="md:text-end">
-            <label>Alternate Contact Number</label>
+            <label for="club-booking-altParentContact">Alternate Contact Number</label>
           </div>
           <div>
             <input
               name="altContact"
-              id="altContact"
+              id="club-booking-altParentContact"
               type="tel"
               class="w-full p-2 rounded"
               v-model.trim.lazy="enteredAltContact"
@@ -398,26 +557,26 @@ async function handleSubmitClubBooking() {
             class="md:text-end"
             :class="{ invalid: !enteredChildFirstName.isValid }"
           >
-            <label for="childFName">Pupil First Name *</label>
+            <label for="club-booking-childFName">Pupil First Name *</label>
           </div>
           <div :class="{ invalid: !enteredChildFirstName.isValid }">
             <input
               name="childFName"
-              id="childFName"
+              id="club-booking-childFName"
               type="text"
               v-model.trim.lazy="enteredChildFirstName.val"
               class="w-full p-2 rounded"
-              autocomplete="child-name"
             />
           </div>
           <div
             class="md:text-end"
             :class="{ invalid: !enteredSurname.isValid }"
           >
-            <label for="surname">Surname *</label>
+            <label for="club-booking-childSurname">Surname *</label>
           </div>
           <div :class="{ invalid: !enteredSurname.isValid }">
             <input
+            id="club-booking-childSurname"
               type="text"
               v-model.trim.lazy="enteredSurname.val"
               class="w-full p-2 rounded"
@@ -428,10 +587,11 @@ async function handleSubmitClubBooking() {
             class="md:text-end"
             :class="{ invalid: !enteredMedical.isValid }"
           >
-            <label for="medical">Medical Conditions *</label>
+            <label for="club-booking-medical">Medical Conditions *</label>
           </div>
           <div :class="{ invalid: !enteredMedical.isValid }">
             <textarea
+            id="club-booking-medical"
               rows="4"
               v-model="enteredMedical.val"
               class="w-full p-2 rounded"
@@ -442,13 +602,19 @@ async function handleSubmitClubBooking() {
             class="md:text-end"
             :class="{ invalid: !enteredYearGroup.isValid }"
           >
-            <label>Year Group *</label>
+            <label for="club-booking-yearGroup">Year Group *</label>
           </div>
           <div :class="{ invalid: !enteredYearGroup.isValid }">
-            <select v-model="enteredYearGroup.val" class="w-full p-2 rounded">
+            <select v-model="enteredYearGroup.val" class="w-full p-2 rounded" id="club-booking-yearGroup">
               <option disabled value="select">Select year...</option>
 
-              <option v-for="year in years">{{ year }}</option>
+              <option
+                v-for="year in yearOptions"
+                :key="year"
+                :value="year"
+              >
+                {{ year }}
+              </option>
             </select>
           </div>
           <div v-if="schoolError">
@@ -458,18 +624,18 @@ async function handleSubmitClubBooking() {
             class="md:text-end"
             :class="{ invalid: !selectedSchool.isValid }"
           >
-            <label for="school">School *</label>
+            <label for="club-booking-schoolName">School *</label>
           </div>
           <div
-            v-if="schoolList.length"
+            v-if="schoolOptions.length"
             :class="{ invalid: !selectedSchool.isValid }"
           >
-            <select v-model="selectedSchool.val" class="w-full p-2 rounded">
+            <select v-model="selectedSchool.val" class="w-full p-2 rounded" id="club-booking-schoolName">
               <option disabled value="select">Select School...</option>
               <option
                 v-for="school in schoolOptions"
                 :key="school.id"
-                :value="school.schoolName"
+                :value="school.schoolRef"
               >
                 {{ school.schoolName }}
               </option>
@@ -491,12 +657,13 @@ async function handleSubmitClubBooking() {
               invalid: !checkedClubs.isValid,
             }"
           >
-            <label
-              >{{ club.clubName }} ({{ club.clubRef }} Years
+            <label for="club-booking-clubOptions"
+              >{{ club.clubName }}: ({{ club.clubRef }} : Years
               <span v-for="year in club.yearRange"> {{ year }}</span
               >)</label
             >
             <input
+              id="club-booking-clubOptions"
               type="checkbox"
               :value="club.clubRef"
               v-model="checkedClubs.val"
@@ -547,7 +714,7 @@ async function handleSubmitClubBooking() {
           </div>
           <button
             v-if="checkedClubs.val.length"
-            @click="clearCost"
+            @click="clearSelection"
             class="btn-accent self-end"
           >
             Clear
@@ -559,11 +726,12 @@ async function handleSubmitClubBooking() {
             invalid: !acceptedTerms.isValid,
           }"
         >
-          <label class="select-none">Accept T's &amp; C's</label>
+          <label for="club-booking-termsAccepted" class="select-none">Accept T's &amp; C's</label>
           <input
             type="checkbox"
             v-model="acceptedTerms.val"
             class="absolute opacity-0 h-8 w-8"
+            id="club-booking-termsAccepted"
           />
 
           <div

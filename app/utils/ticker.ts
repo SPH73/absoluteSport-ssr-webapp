@@ -18,7 +18,7 @@ interface FetchTickerOptions {
 }
 
 export async function fetchTickerMessage(
-  opts: FetchTickerOptions = {}
+  opts: FetchTickerOptions = {},
 ): Promise<TickerViewModel> {
   const {
     fallbackMessage = DEFAULT_FALLBACK_MESSAGE,
@@ -30,15 +30,21 @@ export async function fetchTickerMessage(
   try {
     const result = (await guardedFetch("/api/cms")) as any[] | undefined;
 
-    // 429/503 → guardedFetch returns undefined and redirects;
-    // we show the hard-coded fallback banner instead of crashing.
+    // Handle 429/503 errors from Airtable (dynamic throttling/outage):
+    // - Client-side: guardedFetch redirects and returns undefined
+    // - SSR: guardedFetch throws error, caught by catch block below
+    // Either way, we show the hard-coded fallback banner instead of crashing.
     if (!result || !Array.isArray(result)) {
-      return { showTicker: true, tickerText: fallbackMessage, targetRoute: BOOKING_PAUSED_ROUTE };
+      return {
+        showTicker: true,
+        tickerText: fallbackMessage,
+        targetRoute: BOOKING_PAUSED_ROUTE,
+      };
     }
 
     const tickerRow = result.find(
-      (item) =>
-        item?.fields?.element === "ticker" && item?.fields?.display === true
+      item =>
+        item?.fields?.element === "ticker" && item?.fields?.display === true,
     );
 
     if (tickerRow?.fields?.content) {
@@ -54,8 +60,15 @@ export async function fetchTickerMessage(
       tickerText: fallbackMessage,
       targetRoute: showFallbackOnMissing ? BOOKING_PAUSED_ROUTE : undefined,
     };
-  } catch {
-    // Any unexpected error → fallback, but keep the banner visible
-    return { showTicker: true, tickerText: fallbackMessage, targetRoute: BOOKING_PAUSED_ROUTE };
+  } catch (error: any) {
+    // Catch 429/503 errors from guardedFetch during SSR (or any other errors)
+    // When Airtable is throttled/outage (429/503), guardedFetch throws during SSR
+    // This allows us to show the fallback message instead of crashing the page
+    // Note: This works even when AIRTABLE_DISABLED=false - it handles dynamic Airtable errors
+    return {
+      showTicker: true,
+      tickerText: fallbackMessage,
+      targetRoute: BOOKING_PAUSED_ROUTE,
+    };
   }
 }

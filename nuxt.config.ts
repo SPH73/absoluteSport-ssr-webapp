@@ -67,6 +67,7 @@ export default defineNuxtConfig({
       atBaseId: process.env.AT_BASE_ID,
       mcAudId: process.env.MC_AUDIENCE_ID,
       mcServer: process.env.MC_SERVER_PREFIX,
+      bookingPaused: process.env.NUXT_PUBLIC_BOOKING_PAUSED === "true",
     },
   },
 });
