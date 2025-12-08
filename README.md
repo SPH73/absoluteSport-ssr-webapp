@@ -85,8 +85,10 @@ server/
     mailchimp.ts
     reviews.get.ts
   middleware/
-    (bot protection)
-    (route allow-list)
+    10.route-allowlist.ts
+    bot-protect.global.ts
+    cors.ts
+    legacy-gone.global.ts
 
 test/
   nuxt/
@@ -204,7 +206,7 @@ These provide:
 | Response / Error Type       | Behaviour                                                                                                                               |
 | --------------------------- | --------------------------------------------------------------------------------------------------------------------------------------- |
 | `2xx`                       | Return data normally                                                                                                                    |
-| `429` / `503` from Airtable | **Client-side:** Redirect to `/booking-paused?context=booking`<br>**SSR:** Throw error (allows callers like ticker to catch and handle) |
+| `429` / `503` from Airtable | **Client-side:** Redirect to `/booking-paused?context=booking` \| **SSR:** Throw error (allows callers like ticker to catch and handle) |
 | Network / fetch error       | Redirect to `/booking-paused`                                                                                                           |
 | Unknown errors              | Rethrow (handled by error page / layout)                                                                                                |
 
@@ -249,31 +251,102 @@ This means the system automatically adapts to Airtable throttling/outages withou
 
 ---
 
-## 7. Route Allow-List (Bot Hardening)
+## 7. Phase 1 Bot Hardening (Middleware Stack)
 
-Implemented in:
+Phase 1 bot hardening implements a multi-layered defense to reduce Airtable API calls and block malicious bot traffic before it reaches expensive SSR processing.
 
-```txt
-server/middleware/10.route-allowlist.ts
-```
+### Middleware Execution Order
 
-Purpose:
+Middleware executes in alphabetical order by filename. The current stack:
 
-- Maintain a manifest of **allowed** public routes.
-- Reject obviously invalid or legacy probe paths (WP endpoints, etc.) early.
-- Short-circuit before:
-  - Layout initialisation
-  - Airtable calls
-  - Full SSR execution
+1. **`10.route-allowlist.ts`** (prefixed with `10.` to run first)
+2. **`bot-protect.global.ts`** (global middleware)
+3. **`cors.ts`** (CORS handling)
+4. **`legacy-gone.global.ts`** (global middleware)
 
-Typical behaviour:
+### 7.1 Route Allow-List (`10.route-allowlist.ts`)
 
-- Allowed HTML routes → normal SSR.
-- Known bad legacy URLs → `410 Gone`.
-- Unknown HTML routes → lightweight `404 Not Found`.
-- Static assets, internal routes, and APIs are selectively bypassed as needed.
+**Purpose:** Pre-routing protection that maintains a manifest of allowed public routes and rejects invalid paths early.
 
-This substantially reduces Airtable/API calls under bot or crawler pressure.
+**Implementation:**
+
+- Maintains a whitelist of valid public HTML routes
+- Blocks known probe patterns (WordPress, .env files, PHP info, config files, security probes)
+- Returns `410 Gone` for known legacy URLs
+- Returns `404 Not Found` for unknown routes
+- Bypasses static assets (`/_nuxt/`, `/img/`, `/fonts/`, etc.) and API routes
+
+**Benefits:**
+
+- Short-circuits before layout initialization
+- Prevents Airtable calls for invalid routes
+- Reduces SSR execution for bot probes
+- Substantially reduces Airtable/API calls under bot or crawler pressure
+
+**Route Handling:**
+
+- Allowed HTML routes → normal SSR
+- Known bad legacy URLs → `410 Gone`
+- Unknown HTML routes → lightweight `404 Not Found`
+- Static assets and internal routes → bypassed
+
+### 7.2 Bot Protection (`bot-protect.global.ts`)
+
+**Purpose:** Global middleware that blocks malicious bot traffic based on URL patterns and User-Agent headers.
+
+**Features:**
+
+- **Pattern Blocking:** Blocks common attack/probe patterns:
+
+  - PHP file requests (`.php` extensions)
+  - WordPress probes (`/wp-admin`, `/wp-login.php`, `/wp-content/plugins`, `xmlrpc.php`)
+  - `.env` file probes (50+ variations: `.env.bak`, `.env.example`, `.env.local`, etc.)
+  - PHP info probes (`phpinfo.php`, `info.php`, `php-info.php`, etc.)
+  - Config file probes (JSON config files, AWS credentials, database configs)
+  - Security probes (`/debug`, `/admin`, `/phpmyadmin`)
+
+- **User-Agent Filtering:**
+  - Allows legitimate crawlers (Googlebot, Bingbot, DuckDuckBot, Slurp)
+  - Blocks requests with suspicious or empty User-Agents
+  - Returns `403 Forbidden` for blocked patterns
+
+**Response:** Returns `403 Forbidden` for blocked requests.
+
+### 7.3 Legacy URL Handler (`legacy-gone.global.ts`)
+
+**Purpose:** Returns `410 Gone` for known legacy URLs from previous site versions.
+
+**Implementation:**
+
+- Maintains a list of legacy paths that should return `410 Gone`
+- Currently handles:
+  - `/contact-us` (old Wix URL)
+  - `/store` (old Wix URL)
+  - `/faq's` (malformed apostrophe URL)
+  - `/about-us` (from Airtable LEGACY-URLS table)
+
+**Benefits:**
+
+- Happens before any Airtable calls
+- Clear signal to search engines that URLs are permanently gone
+- Reduces unnecessary processing for known legacy paths
+
+**Response:** Returns `410 Gone` for known legacy URLs.
+
+### Phase 1 Combined Effect
+
+The three middleware files work together to:
+
+1. **Reduce Airtable API calls:** Invalid routes and bot probes are blocked before Airtable queries
+2. **Improve performance:** Less SSR processing for malicious traffic
+3. **Enhance security:** Block common attack patterns and probes
+4. **Better SEO:** Proper HTTP status codes (410 Gone) for legacy URLs
+
+**Monitoring:**
+
+- Blocked requests are logged with timestamps
+- Legacy URL patterns can be expanded from Airtable LEGACY-URLS table
+- Unknown routes are logged for analysis and potential addition to allowlist or legacy list
 
 ---
 
